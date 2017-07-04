@@ -1,6 +1,249 @@
 package ds.tree;
 
+import java.util.Stack;
+
 public class BinarySearchTree extends Tree {
+
+	public static void main(String[] args) {
+		BinarySearchTree tree1 = new BinarySearchTree();
+		// tree1.root = new TNode<Integer>(6);
+		// tree1.root.left = new TNode<Integer>(10);
+		// tree1.root.right = new TNode<Integer>(2);
+		// tree1.root.left.left = new TNode<Integer>(1);
+		// tree1.root.left.right = new TNode<Integer>(3);
+		// tree1.root.right.left = new TNode<Integer>(7);
+		// tree1.root.right.right = new TNode<Integer>(12);
+		tree1.root = new TNode<Integer>(10);
+		tree1.root.left = new TNode<Integer>(8);
+		tree1.root.right = new TNode<Integer>(20);
+		tree1.root.left.left = new TNode<Integer>(5);
+		tree1.root.left.right = new TNode<Integer>(7);
+		tree1.root.left.left.left = new TNode<Integer>(3);
+		tree1.root.right.left = new TNode<Integer>(15);
+		tree1.root.right.right = new TNode<Integer>(25);
+		tree1.levelorder(tree1.root);
+		tree1.correctBSTUtil(tree1.root);
+		System.out.println("After correction");
+		tree1.levelorder(tree1.root);
+	}
+
+	// TNode<Integer> test = new TNode<Integer>(5);
+	// tree1.test2(test);
+	// System.out.println(test);
+	public void test(TNode<Integer> test) {
+		test.data = 10;
+	}
+
+	public void test2(TNode<Integer> test2) {
+		test2 = new TNode<Integer>(10);
+	}
+
+	public void correctBSTUtil(TNode<Integer> root) {
+		// we can also use a static variable "first";
+		TNode<Integer> first = new TNode<Integer>(0);
+		TNode<Integer> middle = new TNode<Integer>(0);
+		TNode<Integer> last = new TNode<Integer>(0);
+		TNode<Integer> prev = new TNode<Integer>(0);
+		correctBST(prev, root, first, middle, last);
+		System.out.println("first:" + first.left);
+		System.out.println("middle:" + middle.left);
+		System.out.println("last:" + last.left);
+		if (last.left == null) {
+			int temp = first.left.data;
+			first.left.data = middle.left.data;
+			middle.left.data = temp;
+		} else {
+			int temp = first.left.data;
+			first.left.data = last.left.data;
+			last.left.data = temp;
+		}
+	}
+
+	public void correctBST(TNode<Integer> prev, TNode<Integer> root, TNode<Integer> first, TNode<Integer> middle,
+			TNode<Integer> last) {
+		if (root == null) {
+			return;
+		}
+		correctBST(prev, root.left, first, middle, last);
+
+		if (prev.left != null && root.data < prev.left.data) {
+			if (first.left == null) {
+				first.left = prev.left;
+				middle.left = root;
+			} else {
+				last.left = root;
+			}
+		}
+		// System.out.println("prev:" + (prev.left == null ? "null" : prev.left)
+		// + " root:"
+		// + (root == null ? "null" : root) + " first:" + (first.left == null ?
+		// "null" : first.left) + " middle:"
+		// + (middle.left == null ? "null" : middle.left) + " last:" + (last.left == null ? "null" : last.left));
+		prev.left = root;
+		correctBST(prev, root.right, first, middle, last);
+	}
+
+	// m+n|h1+h2
+	public void merge(TNode<Integer> tree1, TNode<Integer> tree2) {
+		if (tree1 == null && tree2 == null) {
+			return;
+		}
+		if (tree1 == null) {
+			inOrderTraversal(tree2);
+			return;
+		}
+		if (tree2 == null) {
+			inOrderTraversal(tree1);
+		}
+		Stack<TNode<Integer>> stack1 = new Stack<>();
+		Stack<TNode<Integer>> stack2 = new Stack<>();
+		TNode<Integer> curr1 = tree1;
+		TNode<Integer> curr2 = tree2;
+		// System.out.println("here");
+		for (; curr1 != null || curr2 != null || !stack1.isEmpty() || !stack2.isEmpty();) {
+			for (; curr1 != null; curr1 = curr1.left) {
+				stack1.push(curr1);
+			}
+			for (; curr2 != null; curr2 = curr2.left) {
+				stack2.push(curr2);
+			}
+			// System.out.println(stack1);
+			// System.out.println(stack2);
+			// System.out.println("--");
+			if (stack1.isEmpty()) {
+				for (; !stack2.isEmpty();) {
+					curr2 = stack2.pop();
+					curr2.left = null;
+					inOrderTraversal(curr2);
+				}
+				return;
+			}
+			if (stack2.isEmpty()) {
+
+				for (; !stack1.isEmpty();) {
+					curr1 = stack1.pop();
+					curr1.left = null;
+					inOrderTraversal(curr1);
+				}
+				return;
+			}
+			curr1 = stack1.pop();
+			curr2 = stack2.pop();
+			if (curr1.data < curr2.data) {
+				System.out.println(curr1.data);
+				curr1 = curr1.right;
+				stack2.push(curr2);
+				curr2 = null;
+
+			} else {
+				System.out.println(curr2.data);
+				curr2 = curr2.right;
+				stack1.push(curr1);
+				curr1 = null;
+			}
+		}
+	}
+
+	// m+n
+	public TNode<Integer> sortedArrayToBST(Integer arr[], int start, int end) {
+		// when left is null this is reached.
+		if (start > end) {
+			return null;
+		}
+		if (start == end) {
+			return new TNode<Integer>(arr[start]);
+		}
+		int mid = (start + end) / 2;
+		TNode<Integer> root = new TNode<>(arr[mid]);
+		root.left = sortedArrayToBST(arr, start, mid - 1);
+		root.right = sortedArrayToBST(arr, mid + 1, end);
+		return root;
+
+	}
+
+	// h
+	public void kOrderStatistics(AugmentedTNode root, int order) {
+		if (root == null) {
+			return;
+		}
+		AugmentedTNode curr = root;
+		for (; curr != null;) {
+			if (curr.lcount + 1 == order) {
+				System.out.println(order + "th Order statistics is " + curr.data);
+				return;
+			} else if (order <= curr.lcount) {
+				curr = curr.left;
+			} else {
+				order = order - curr.lcount - 1;
+				curr = curr.right;
+			}
+
+		}
+	}
+
+	public AugmentedTNode insertRAugmented(AugmentedTNode root, int data) {
+		if (root == null) {
+			return new AugmentedTNode(data);
+		}
+		if (root.data > data) {
+			root.lcount++;
+			root.left = insertRAugmented(root.left, data);
+		} else {
+			root.right = insertRAugmented(root.right, data);
+		}
+		return root;
+	}
+
+	public class AugmentedTree {
+		AugmentedTNode root;
+
+		public int height(AugmentedTNode root) {
+			if (root == null) {
+				return 0;
+			}
+			int lheight = height(root.left);
+			int rheight = height(root.right);
+			if (lheight > rheight) {
+				return lheight + 1;
+			} else {
+				return rheight + 1;
+			}
+		}
+
+		public void printLevel(AugmentedTNode root, int level) {
+			// System.out.println("Level:" + level + "Data:" + root.data);
+			if (root == null) {
+				return;
+			}
+			if (level == 1) {
+				System.out.print(root + " ");
+			} else {
+				printLevel(root.left, level - 1);
+				printLevel(root.right, level - 1);
+			}
+		}
+
+		public void levelorder(AugmentedTNode root) {
+			int h = height(root);
+			for (int i = 1; i <= h; i++) {
+				printLevel(root, i);
+				System.out.println();
+			}
+		}
+	}
+
+	public void lowestCommonAncestor(TNode<Integer> root, int n1, int n2) {
+		if (root == null) {
+			return;
+		}
+		if (n1 < root.data && n2 < root.data) {
+			lowestCommonAncestor(root.left, n1, n2);
+		} else if (n1 > root.data && n2 > root.data) {
+			lowestCommonAncestor(root.right, n1, n2);
+		} else {
+			System.out.println("CommonAncestor:" + root.data);
+		}
+	}
 
 	public boolean isBST(TNode<Integer> root, int min, int max) {
 		if (root == null) {
@@ -9,10 +252,10 @@ public class BinarySearchTree extends Tree {
 		if (root.data < min || root.data > max) {
 			return false;
 		}
-		return isBST(root.left, min, root.data - 1)
-				&& isBST(root.right, root.data + 1, max);
+		return isBST(root.left, min, root.data - 1) && isBST(root.right, root.data + 1, max);
 	}
 
+	// using in order traversal
 	public boolean isBST(TNode<Integer> root, TNode<Integer> prev) {
 		boolean left = true, right = true;
 		if (root == null) {
