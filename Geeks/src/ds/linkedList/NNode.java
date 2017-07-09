@@ -20,10 +20,6 @@ public class NNode<T> {
 
 	@Override
 	public String toString() {
-		String result = "";
-		for (NNode<T> temp = this; temp != null; temp = temp.next) {
-			result += temp.data + "->";
-		}
-		return result;
+		return data + "";
 	}
 }

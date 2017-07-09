@@ -146,23 +146,24 @@ public class Tree {
 		}
 	}
 
-	public void printLevel(TNode<Integer> root, int level) {
+	public void printLevel(TNode<Integer> prev, TNode<Integer> root, int level) {
 		// System.out.println("Level:" + level + "Data:" + root.data);
 		if (root == null) {
 			return;
 		}
 		if (level == 1) {
-			System.out.print(root.data + " ");
+			String prevS = (prev == null) ? "null" : prev.data + "";
+			System.out.print(root.data + "<"+prevS+"> ");
 		} else {
-			printLevel(root.left, level - 1);
-			printLevel(root.right, level - 1);
+			printLevel(root, root.left, level - 1);
+			printLevel(root, root.right, level - 1);
 		}
 	}
 
 	public void levelorder(TNode<Integer> root) {
 		int h = height(root);
 		for (int i = 1; i <= h; i++) {
-			printLevel(root, i);
+			printLevel(null, root, i);
 			System.out.println();
 		}
 	}

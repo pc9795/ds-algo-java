@@ -2,7 +2,11 @@ package ds.tree;
 
 import java.util.Stack;
 
+import ds.linkedList.DLinkedList;
+import ds.linkedList.NNode;
+
 public class BinarySearchTree extends Tree {
+	public static NNode<Integer> head;
 
 	public static void main(String[] args) {
 		BinarySearchTree tree1 = new BinarySearchTree();
@@ -13,18 +17,53 @@ public class BinarySearchTree extends Tree {
 		// tree1.root.left.right = new TNode<Integer>(3);
 		// tree1.root.right.left = new TNode<Integer>(7);
 		// tree1.root.right.right = new TNode<Integer>(12);
-		tree1.root = new TNode<Integer>(10);
-		tree1.root.left = new TNode<Integer>(8);
-		tree1.root.right = new TNode<Integer>(20);
-		tree1.root.left.left = new TNode<Integer>(5);
-		tree1.root.left.right = new TNode<Integer>(7);
-		tree1.root.left.left.left = new TNode<Integer>(3);
-		tree1.root.right.left = new TNode<Integer>(15);
-		tree1.root.right.right = new TNode<Integer>(25);
-		tree1.levelorder(tree1.root);
-		tree1.correctBSTUtil(tree1.root);
-		System.out.println("After correction");
-		tree1.levelorder(tree1.root);
+		// tree1.root = new TNode<Integer>(10);
+		// tree1.root.left = new TNode<Integer>(8);
+		// tree1.root.right = new TNode<Integer>(20);
+		// tree1.root.left.left = new TNode<Integer>(5);
+		// tree1.root.left.right = new TNode<Integer>(7);
+		// tree1.root.left.left.left = new TNode<Integer>(3);
+		// tree1.root.right.left = new TNode<Integer>(15);
+		// tree1.root.right.right = new TNode<Integer>(25);
+		// tree1.levelorder(tree1.root);
+		// tree1.correctBSTUtil(tree1.root);
+		// System.out.println("After correction");
+		// tree1.levelorder(tree1.root);
+		DLinkedList dl = new DLinkedList();
+		dl.addToEnd(1);
+		dl.addToEnd(2);
+		dl.addToEnd(3);
+		dl.addToEnd(4);
+		dl.addToEnd(5);
+		dl.addToEnd(6);
+		dl.addToEnd(7);
+		System.out.println(dl);
+		head = dl.head;
+		System.out.println("head:" + head);
+		int length = dl.length();
+		NNode<Integer> root = tree1.sortedDLLtoBST(length);
+		System.out.println(root);
+		System.out.println(root.prev);
+		System.out.println(root.next);
+		System.out.println(root.prev.prev);
+		System.out.println(root.prev.next);
+		System.out.println(root.next.prev);
+		System.out.println(root.next.next);
+
+	}
+
+	public NNode<Integer> sortedDLLtoBST(int length) {
+		if (length <= 0) {
+			return null;
+		}
+		NNode<Integer> left = sortedDLLtoBST(length / 2);
+		NNode<Integer> root = head;
+		head = head.next;
+		root.prev = left;
+		// BUG: I used (length/2)-1
+		root.next = sortedDLLtoBST(length - (length / 2) - 1);
+		return root;
+
 	}
 
 	// TNode<Integer> test = new TNode<Integer>(5);
@@ -78,7 +117,8 @@ public class BinarySearchTree extends Tree {
 		// + " root:"
 		// + (root == null ? "null" : root) + " first:" + (first.left == null ?
 		// "null" : first.left) + " middle:"
-		// + (middle.left == null ? "null" : middle.left) + " last:" + (last.left == null ? "null" : last.left));
+		// + (middle.left == null ? "null" : middle.left) + " last:" +
+		// (last.left == null ? "null" : last.left));
 		prev.left = root;
 		correctBST(prev, root.right, first, middle, last);
 	}
