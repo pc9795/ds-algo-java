@@ -14,8 +14,8 @@ class UndirectedGraph extends Graph {
         if (src >= values.length || dest >= values.length) {
             throw new RuntimeException("Vertex is out of bound");
         }
-        values[src][dest] = true;
-        values[dest][src] = true;
+        values[src][dest] = 1;
+        values[dest][src] = 1;
         return this;
     }
 }

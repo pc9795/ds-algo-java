@@ -42,7 +42,7 @@ package geeks_for_geeks.ds.graph;
  * A bipartite graph is possible if the graph coloring is possible using two colors such
  * that vertices in a set are colored with the same color.
  *
- *
+ * We can maintain DAG structure of a graph by using Topological sort.
  *
  *
  *
