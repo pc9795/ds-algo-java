@@ -62,6 +62,18 @@ package geeks_for_geeks.ds.heap;
  * 3.Not stable
  * 4.O(N log n)
  *
+ * Tournament Tree
+ * ---------------
+ * Complete binary tree
+ * Every external node represents a player and internal node represents winner.
+ *
+ * Ques -> select smallest one million elements from one billion unsorted elements.
+ *
+ * Approach 1-> sort the billion numbers and select first one million.
+ * Approach 2-> sorting 1000 lists of one million each + tree construction + tournaments
+ * each list will be at the leaf and from each list one element participate in the
+ * tournament and winner is removed from the list.
+ *
  *
  *
  *

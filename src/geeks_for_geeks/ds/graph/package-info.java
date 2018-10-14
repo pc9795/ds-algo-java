@@ -30,6 +30,39 @@ package geeks_for_geeks.ds.graph;
  * 2.Depth/levels of the built tree can be limited
  * 3.We can find nodes within a given distance k from a node
  *
+ * To detect cycle in undirected graph.
+ * For every visited vertex ‘v’, if there is an adjacent ‘u’ such that u is already visited and u is not parent of v,
+ * then there is a cycle in graph.
+ *
+ * Bipartite Graph
+ * ---------------
+ * A graph whose vertices can be divided into two independent sets, U and V such that every
+ * edge (u,v) either connects a vertex from U to V or a vertex from V to U.
+ *
+ * A bipartite graph is possible if the graph coloring is possible using two colors such
+ * that vertices in a set are colored with the same color.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  *
  *
  *

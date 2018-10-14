@@ -2,6 +2,7 @@ package geeks_for_geeks.ds.graph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created By: Prashant Chaubey
@@ -32,11 +33,10 @@ public class GraphUsingAdjacencyList {
         }
     }
 
-
     public ArrayList<GraphNode>[] values;
 
-    public GraphUsingAdjacencyList(int vertcies) {
-        values = new ArrayList[vertcies];
+    public GraphUsingAdjacencyList(int vertices) {
+        values = new ArrayList[vertices];
         for (int i = 0; i < values.length; i++) {
             values[i] = new ArrayList<>();
         }
@@ -66,7 +66,9 @@ public class GraphUsingAdjacencyList {
         return values.length;
     }
 
-    //    O(V+E)
+    /**
+     * T=O(V+E)
+     */
     public void bfs() {
         boolean visited[] = new boolean[vertices()];
         for (int i = 0; i < vertices(); i++) {
@@ -145,35 +147,142 @@ public class GraphUsingAdjacencyList {
             if (!visited[neighbour]) {
                 visited[neighbour] = true;
                 recStack[neighbour] = true;
-                return isCyclicUtil(neighbour, visited, recStack);
+                if (isCyclicUtil(neighbour, visited, recStack)) {
+                    return true;
+                }
             }
         }
         recStack[vertex] = false;
         return false;
     }
 
-    public static void main(String[] args) {
-        GraphUsingAdjacencyList graph = new GraphUsingAdjacencyList(4);
-        graph.addEdge(0, 2).addEdge(2, 0).addEdge(0, 1).addEdge(1, 2)
-                .addEdge(2, 0).addEdge(3, 3);
-//        graph.addEdge(1, 2).addEdge(0, 2);
-        System.out.println(graph.isCyclic());
-    }
-
-}
-
-class UndirectedGraphUsingAdjacencyList extends GraphUsingAdjacencyList {
-    public UndirectedGraphUsingAdjacencyList(int vertices) {
-        super(vertices);
-    }
-
-    @Override
-    public UndirectedGraphUsingAdjacencyList addEdge(int src, int dest) {
-        if (src >= values.length || dest >= values.length) {
-            throw new RuntimeException("Vertex is out of bound");
+    /**
+     * To make it work for undirected graphs the undirected edge must be read as one entry else it will result it as
+     * true.
+     *
+     * @return
+     */
+    public boolean isCyclicUsingUnionFind() {
+        boolean visited[] = new boolean[vertices()];
+        UnionFind uf = new UnionFind(vertices());
+        for (int i = 0; i < vertices(); i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                if (isCyclicUsingUnionFindUtil(i, visited, uf)) {
+                    return true;
+                }
+            }
         }
-        values[src].add(new GraphNode(dest));
-        values[dest].add(new GraphNode(src));
-        return this;
+        return false;
+    }
+
+    private boolean isCyclicUsingUnionFindUtil(int vertex, boolean[] visited, UnionFind uf) {
+        for (int i = 0; i < values[vertex].size(); i++) {
+            int neighbour = values[vertex].get(i).vertex;
+            if (uf.find(vertex) == uf.find(neighbour)) {
+                return true;
+            } else {
+                uf.union(i, neighbour);
+            }
+            if (!visited[neighbour]) {
+                visited[neighbour] = true;
+                if (isCyclicUsingUnionFindUtil(neighbour, visited, uf)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Only possible for a DAG.
+     * first node have in degree 0;
+     */
+    public ArrayDeque<Integer> topologicalSort() {
+        if (this.vertices() == 0) {
+            System.out.println("Empty graph");
+        }
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        boolean[] visited = new boolean[this.vertices()];
+        for (int i = 0; i < this.vertices(); i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                topologicalSortUtil(visited, i, stack);
+            }
+        }
+        return stack;
+    }
+
+    public void topologicalSortUtil(boolean[] visited, int vertex, ArrayDeque<Integer> stack) {
+        for (int i = 0; i < this.values[vertex].size(); i++) {
+            GraphNode neighbour = this.values[vertex].get(i);
+            if (!visited[neighbour.vertex]) {
+                visited[neighbour.vertex] = true;
+                topologicalSortUtil(visited, neighbour.vertex, stack);
+            }
+        }
+        stack.push(vertex);
+    }
+
+    public int longestPath(int source) {
+        int[] dist = new int[this.vertices()];
+        Arrays.fill(dist, Integer.MIN_VALUE);
+        dist[source] = 0;
+        ArrayDeque<Integer> stack = this.topologicalSort();
+        for (; !stack.isEmpty(); ) {
+            int vertex = stack.peek();
+//           It will make sure that we start from the source vertex and pick those who are updated
+//           ; Only those will be updated which are linked from source vertex.
+            if (dist[vertex] != Integer.MIN_VALUE) {
+                for (int i = 0; i < this.values[vertex].size(); i++) {
+                    GraphNode neighbour = this.values[vertex].get(i);
+                    dist[neighbour.vertex] = dist[neighbour.vertex] > dist[vertex] + neighbour.weight ?
+                            dist[neighbour.vertex] : dist[vertex] + neighbour.weight;
+                }
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < dist.length; i++) {
+            if (dist[i] > max) {
+                max = dist[i];
+            }
+        }
+        return max;
+    }
+
+    public boolean checkBipartite() {
+        int[] colour = new int[vertices()];
+        Arrays.fill(colour, -1);
+        for (int i = 0; i < vertices(); i++) {
+            if (colour[i] == -1) {
+                colour[i] = 1;
+                if (!colorGraph(colour, i, 0)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean colorGraph(int[] colour, int vertex, int c) {
+        for (int i = 0; i < this.values[vertex].size(); i++) {
+            GraphNode neighbour = this.values[vertex].get(i);
+            if (colour[neighbour.vertex] == -1) {
+                colour[neighbour.vertex] = c;
+                if (!colorGraph(colour, neighbour.vertex, 1 - c)) {
+                    return false;
+                }
+            } else if (colour[neighbour.vertex] != c) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        GraphUsingAdjacencyList graph = new GraphUsingAdjacencyList(6);
+        graph.addEdge(5, 2).addEdge(2, 3).addEdge(3, 1).addEdge(4, 1)
+                .addEdge(4, 0).addEdge(5, 0);
+        System.out.println(graph.topologicalSort());
     }
 }

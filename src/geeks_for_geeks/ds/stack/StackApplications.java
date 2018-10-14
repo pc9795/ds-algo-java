@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
  * Created On: 01-10-2018 02:54
  **/
 public class StackApplications {
-    public int getPrecedence(Character ch) {
+    private int getPrecedence(Character ch) {
         switch (ch) {
             case '(':
                 return 0;
@@ -51,7 +51,7 @@ public class StackApplications {
         System.out.println(postfix);
     }
 
-    public double evaluateExpression(double first, double second, Character operation) {
+    private double evaluateExpression(double first, double second, Character operation) {
         switch (operation) {
 
             case '+':
@@ -137,7 +137,23 @@ public class StackApplications {
     }
 
     public void reverseStack(ArrayDeque<Integer> stack) {
-        
+        if (!stack.isEmpty()) {
+            int val = stack.peek();
+            stack.pop();
+            reverseStack(stack);
+            insertAtBottom(stack, val);
+        }
+    }
+
+    private void insertAtBottom(ArrayDeque<Integer> stack, int val) {
+        if (stack.isEmpty()) {
+            stack.push(val);
+        } else {
+            int temp = stack.peek();
+            stack.pop();
+            insertAtBottom(stack, val);
+            stack.push(temp);
+        }
     }
 
     public static void main(String[] args) {
@@ -147,5 +163,13 @@ public class StackApplications {
 //        app.reverseString("GeeksForGeeks");
 //        System.out.println(app.checkBalancedParenthesis("[()]{}{[()()]()}"));
 //        System.out.println(app.checkBalancedParenthesis("[(])"));
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        System.out.println("before:" + stack);
+        app.reverseStack(stack);
+        System.out.println("after:" + stack);
     }
 }

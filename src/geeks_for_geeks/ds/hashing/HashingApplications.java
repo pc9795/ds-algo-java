@@ -105,6 +105,20 @@ public class HashingApplications {
         System.out.println("No pair found!");
     }
 
+    public static boolean isDuplicateElementWithinKDistance(int arr[], int k) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (set.contains(arr[i])) {
+                return true;
+            }
+            set.add(arr[i]);
+            if (i >= k) {
+                set.remove(arr[i - k]);
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree(1);
         tree.root.left = new BTNode(2);
@@ -130,7 +144,9 @@ public class HashingApplications {
         list2.add(6);
         list2.add(2);
 //        System.out.println(unionOrIntersection(list1, list2, false));
-        findPairWithGivenSum(new int[]{1, 2, 3, 4, 5}, 4);
+//        findPairWithGivenSum(new int[]{1, 2, 3, 4, 5}, 4);
+        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 4, 1, 2, 3, 4}, 3));
+        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 1, 4, 5}, 3));
     }
 
 }

@@ -34,18 +34,3 @@ public class Graph {
 
 }
 
-class UndirectedGraph extends Graph {
-    public UndirectedGraph(int vertices) {
-        super(vertices);
-    }
-
-    @Override
-    public UndirectedGraph addEdge(int src, int dest) {
-        if (src >= values.length || dest >= values.length) {
-            throw new RuntimeException("Vertex is out of bound");
-        }
-        values[src][dest] = true;
-        values[dest][src] = true;
-        return this;
-    }
-}

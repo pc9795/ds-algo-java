@@ -10,6 +10,7 @@ package geeks_for_geeks.ds.binary_tree;
  * 2 children -> binary tree
  *
  * Properties of binary tree
+ * --------------------------
  * 1. The maximum number of nodes at level 'l' of a binary tree is 2^(l-1);
  * 2. Maximum number of nodes in a binary tree of height 'h' is (2^h)-1; -> 1+2+2^2+...2^(h-1)
  * 3. In a binary tree with N nodes, minimum possible height is ceil(log2(N+1)) -> from 2
@@ -36,7 +37,7 @@ package geeks_for_geeks.ds.binary_tree;
  * L+(I-1)*(k+1)+k=2*(L+I-1)
  * L=(k-1)*I+1 proved
  *
- *2. In a binary tree number of leaf nodes is always one more than nodes with two children.
+ * 2. In a binary tree number of leaf nodes is always one more than nodes with two children.
  *
  * L=T+1 -> L(Number of leaf node), T( Number of internal nodes with two children)
  *
@@ -55,6 +56,7 @@ package geeks_for_geeks.ds.binary_tree;
  * t=L-1 proved
  *
  * Types of Binary Trees
+ * ----------------------
  * 1. Full Binary Tree - every node has 0 or 2 children
  * 2. Complete Binary Tree - all levels are completely filled except possibly the last level and the last level
  * has all keys as left as possible.
@@ -63,11 +65,13 @@ package geeks_for_geeks.ds.binary_tree;
  * 5. Degenerate/Pathological Tree - every internal node has one child.
  *
  * Unlabeled Trees
+ * ---------------
  *    o
  *   / \
  *  o   o
  *
  * Labelled Trees
+ * ---------------
  *    A
  *   / \
  *  B   C
@@ -91,11 +95,46 @@ package geeks_for_geeks.ds.binary_tree;
  * for labelled trees
  * T(n)labelled = T(n)*n!
  *
- * 
+ * Time complexity of Tree traversals
+ * ----------------------------------
+ * T(n)=T(k)+T(n-k-1)+c -> k is the number of nodes on one side.
  *
+ * Worst case [skewed tree]
+ * T(n)=T(0)+T(n-1) +c
+ * T(n)=2T(0)+T(n-2) +2c
+ * T(n)=nT(0)+nc
+ * theta(n)
  *
+ * Best case [both right and left subtrees have equal nodes]
+ * T(n)=2T(n/2) + C
+ * theta(n) <- by master algo.
  *
+ * BFS vs DFS
+ * -----------
+ * In Trees BFS is Level order traversal
+ * In Trees DFS is Pre order, Post order and In order traversals
  *
+ * Time complexity of all traversals is O(n) <- each node is visited exactly once.
+ *
+ * Level order traversal can also be done by queues.
+ *
+ * Space Complexity
+ * -----------------
+ * BFS = O(width) max for balanced tree -> ceil(n/2) ->O(n)
+ * DFS = O(height) max for skewed tree -> O(n)
+ *
+ * Construct a Binary tree with two traversal sequences
+ * -----------------------------------------------------
+ * We can construct only if one of them is inorder.
+ * inorder and preorder
+ * inorder and postorder
+ * inorder and level order
+ *
+ *      A      A
+ *    /          \
+ *  B             B
+ *  preorder, postorder and levelorder traversals are same for these two trees.
+ *  I think we can't identify which is left child and which is right child.
  *
  *
  */

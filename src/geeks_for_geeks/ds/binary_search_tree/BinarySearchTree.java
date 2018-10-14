@@ -55,7 +55,7 @@ public class BinarySearchTree extends BinaryTree {
         return this;
     }
 
-    public static BTNode inOrderSuccessor(BTNode node) {
+    public static BTNode inOrderSuccessorFromTheNode(BTNode node) {
         if (node == null) {
             throw new RuntimeException("Wrong input(null)");
         }
@@ -68,7 +68,7 @@ public class BinarySearchTree extends BinaryTree {
 
     }
 
-    public static BTNode inOrderPredecessor(BTNode node) {
+    public static BTNode inOrderPredecessorFromTheNode(BTNode node) {
         if (node == null) {
             throw new RuntimeException("Wrong input(null)");
         }
@@ -128,7 +128,7 @@ public class BinarySearchTree extends BinaryTree {
             }
         } else {
             System.out.println("Internal node with two children");
-            BTNode inOrderSucc = BinarySearchTree.inOrderSuccessor(curr);
+            BTNode inOrderSucc = BinarySearchTree.inOrderSuccessorFromTheNode(curr);
             System.out.println("InOrderSuccessor:" + inOrderSucc);
             delete(inOrderSucc.data);
 //            swapping inside data will be expensive for bigger object.
@@ -149,15 +149,20 @@ public class BinarySearchTree extends BinaryTree {
         return temp.data;
     }
 
+    /**
+     * T=O(height)
+     *
+     * @param key
+     */
     public void findPreSuc(int key) {
         BTNode pred = null, succ = null, curr = this.root;
         for (; curr != null; ) {
             if (curr.data == key) {
                 if (curr.left != null) {
-                    pred = inOrderPredecessor(curr);
+                    pred = inOrderPredecessorFromTheNode(curr);
                 }
                 if (curr.right != null) {
-                    succ = inOrderSuccessor(curr);
+                    succ = inOrderSuccessorFromTheNode(curr);
                 }
                 break;
             }
