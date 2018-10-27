@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.linked_list;
+package geeks_for_geeks.ds.nodes;
 
 /**
  * Created By: Prashant Chaubey
@@ -15,7 +15,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "ItemNode{" +
                 "data=" + data +
                 '}';
     }

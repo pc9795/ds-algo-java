@@ -1,13 +1,13 @@
-package geeks_for_geeks.ds.graph;
+package geeks_for_geeks.ds.nodes;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 14-10-2018 22:26
  **/
 public class Edge {
-    int src;
-    int weight;
-    int dest;
+    public int src;
+    public int weight;
+    public int dest;
 
     public Edge(int src, int dest, int weight) {
         this.src = src;

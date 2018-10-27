@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.binary_tree;
+package geeks_for_geeks.ds.nodes;
 
 /**
  * Created By: Prashant Chaubey

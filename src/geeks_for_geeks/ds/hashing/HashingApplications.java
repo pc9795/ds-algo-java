@@ -1,7 +1,7 @@
 package geeks_for_geeks.ds.hashing;
 
-import geeks_for_geeks.ds.binary_tree.BTNode;
 import geeks_for_geeks.ds.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.nodes.BTNode;
 
 import javax.sound.sampled.Line;
 import java.util.*;
@@ -119,6 +119,52 @@ public class HashingApplications {
         return false;
     }
 
+    public static void findItineraryFromGivenListOfTickets(Map<String, String> fromTo) {
+        Map<String, String> toFrom = new HashMap<>();
+        for (String key : fromTo.keySet()) {
+            toFrom.put(fromTo.get(key), key);
+        }
+        String src = "";
+        for (String key : fromTo.keySet()) {
+            if (!toFrom.containsKey(key)) {
+                src = key;
+                break;
+            }
+        }
+        for (; fromTo.get(src) != null; src = fromTo.get(src)) {
+            System.out.println("From:" + src + ",To:" + fromTo.get(src));
+        }
+    }
+
+    public static void numberOfEmployeesUnderAEmployee(char[][] employeeManagerPair) {
+        Map<Character, List<Character>> managerToEmployee = new HashMap<>();
+        for (int i = 0; i < employeeManagerPair.length; i++) {
+            if (!managerToEmployee.containsKey(employeeManagerPair[i][1])) {
+                managerToEmployee.put(employeeManagerPair[i][1], new ArrayList<>());
+            }
+            managerToEmployee.get(employeeManagerPair[i][1]).add(employeeManagerPair[i][0]);
+        }
+        System.out.println(managerToEmployee);
+        for (int i = 0; i < employeeManagerPair.length; i++) {
+            int count = 0;
+            char employee = employeeManagerPair[i][0];
+            System.out.println("Count of reportees to " + employee + ":" + countOfReportees(managerToEmployee, employee));
+        }
+    }
+
+    private static int countOfReportees(Map<Character, List<Character>> managerToEmployee, Character employee) {
+        int count = 0;
+        if (managerToEmployee.get(employee) == null) {
+            return count;
+        }
+        for (Character c : managerToEmployee.get(employee)) {
+            if (c != employee) {
+                count += 1 + countOfReportees(managerToEmployee, c);
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree(1);
         tree.root.left = new BTNode(2);
@@ -145,8 +191,19 @@ public class HashingApplications {
         list2.add(2);
 //        System.out.println(unionOrIntersection(list1, list2, false));
 //        findPairWithGivenSum(new int[]{1, 2, 3, 4, 5}, 4);
-        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 4, 1, 2, 3, 4}, 3));
-        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 1, 4, 5}, 3));
+//        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 4, 1, 2, 3, 4}, 3));
+//        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 1, 4, 5}, 3));
+        Map<String, String> map = new HashMap<>();
+        map.put("Chennai", "Banglore");
+        map.put("Bombay", "Delhi");
+        map.put("Goa", "Chennai");
+        map.put("Delhi", "Goa");
+//        findItineraryFromGivenListOfTickets(map);
+        numberOfEmployeesUnderAEmployee(new char[][]{
+                new char[]{'a', 'c'}, new char[]{'b', 'c'}, new char[]{'c', 'f'}, new char[]{'d', 'e'}, new char[]
+                {'e', 'f'}, new char[]{'f', 'f'}
+        });
     }
+
 
 }

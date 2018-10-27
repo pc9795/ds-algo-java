@@ -1,7 +1,6 @@
 package geeks_for_geeks.ds.binary_tree;
 
-import geeks_for_geeks.ds.array.Array;
-import geeks_for_geeks.ds.binary_search_tree.BinarySearchTree;
+import geeks_for_geeks.ds.nodes.BTNode;
 
 import java.util.ArrayDeque;
 

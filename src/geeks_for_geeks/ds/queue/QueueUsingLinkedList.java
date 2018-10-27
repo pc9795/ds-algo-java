@@ -1,6 +1,6 @@
 package geeks_for_geeks.ds.queue;
 
-import geeks_for_geeks.ds.linked_list.Node;
+import geeks_for_geeks.ds.nodes.Node;
 
 /**
  * Created By: Prashant Chaubey

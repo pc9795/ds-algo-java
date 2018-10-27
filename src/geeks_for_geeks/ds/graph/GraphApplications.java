@@ -1,5 +1,7 @@
 package geeks_for_geeks.ds.graph;
 
+import geeks_for_geeks.ds.nodes.Edge;
+
 import java.util.*;
 
 /**

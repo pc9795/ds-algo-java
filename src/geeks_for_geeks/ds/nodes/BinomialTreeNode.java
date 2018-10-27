@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.heap;
+package geeks_for_geeks.ds.nodes;
 
 import java.util.ArrayList;
 import java.util.List;

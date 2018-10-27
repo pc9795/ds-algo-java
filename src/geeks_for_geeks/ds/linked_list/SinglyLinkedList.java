@@ -1,5 +1,7 @@
 package geeks_for_geeks.ds.linked_list;
 
+import geeks_for_geeks.ds.nodes.Node;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 14-09-2018 18:35

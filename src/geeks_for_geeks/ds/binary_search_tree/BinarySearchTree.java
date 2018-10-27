@@ -1,7 +1,7 @@
 package geeks_for_geeks.ds.binary_search_tree;
 
-import geeks_for_geeks.ds.binary_tree.BTNode;
 import geeks_for_geeks.ds.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.nodes.BTNode;
 
 /**
  * Created By: Prashant Chaubey
@@ -9,7 +9,12 @@ import geeks_for_geeks.ds.binary_tree.BinaryTree;
  **/
 public class BinarySearchTree extends BinaryTree {
 
-    //   T=O(h)
+    /**
+     * T=O(h)
+     *
+     * @param key
+     * @return
+     */
     public boolean search(int key) {
         BTNode curr = root;
         for (; curr != null; ) {
@@ -80,8 +85,11 @@ public class BinarySearchTree extends BinaryTree {
         return inOrderPred;
     }
 
-
-    //  T=O(h)
+    /**
+     * T=O(h)
+     *
+     * @param key
+     */
     public void delete(int key) {
         if (isEmpty()) {
             throw new RuntimeException("Empty tree");
@@ -139,7 +147,11 @@ public class BinarySearchTree extends BinaryTree {
 
     }
 
-    //    T=O(n) for skewed trees
+    /**
+     * T=O(n) for skewed trees
+     *
+     * @return
+     */
     public int getMin() {
         if (isEmpty()) {
             throw new RuntimeException("Empty Tree");
@@ -180,7 +192,13 @@ public class BinarySearchTree extends BinaryTree {
 
     }
 
-    //    T=O(height)
+    /**
+     * T=O(height)
+     *
+     * @param n1
+     * @param n2
+     * @return
+     */
     public int lowestCommonAncestor(int n1, int n2) {
         if (!search(n1) || !search(n2)) {
             return -1;
@@ -204,6 +222,21 @@ public class BinarySearchTree extends BinaryTree {
         return -1;
     }
 
+    public int ceil(int number) {
+        return -1;
+    }
+
+    private int ceilUtil(BTNode root, int number, int ceil) {
+        if (root == null) {
+            return number;
+        }
+        if (root.data == number) {
+            return number;
+        }
+        ceilUtil(root.left, number, ceil);
+        ceilUtil(root.right, number, ceil);
+        return ceil;
+    }
 
     /*
      *           50
