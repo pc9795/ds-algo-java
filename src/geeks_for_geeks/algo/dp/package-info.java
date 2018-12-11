@@ -1,6 +1,8 @@
 package geeks_for_geeks.algo.dp;
 
 /*
+ * Metrics with subset then need dp else greedy will work.
+ *
  * Overlapping sub-problems
  * -----------------------
  * Solutions of same sub-problems are needed again and again.
@@ -26,6 +28,15 @@ package geeks_for_geeks.algo.dp;
  * L(X[0..m-1],Y[0..n-1])=1+L(X[0..m-2],Y[0..n-2])
  * else
  * L(X[0..m-1,Y[0..n-1])=MAX(L(X[0..m-2],Y[0..n-1),L(X[0..m-1],Y[0..n-2]))
+ *
+ * Boyer Moore
+ * ------------
+ * Combination of two approaches
+ * 1. Bad Character Heuristic
+ * 2. Good Suffix Heuristic.
+ *
+ * If we shift all edge weights in such a way that their are no negative weights then we can use Dijkstra instead of
+ * Bellman ford (lower complexity).
  *
  *
  *

@@ -48,6 +48,23 @@ public class BinaryTree {
         }
     }
 
+    public static void levelOrderTraversalUsingQueue(BinaryTree bt) {
+        assert bt.root != null;
+        ArrayDeque<BTNode> queue = new ArrayDeque<>();
+        queue.add(bt.root);
+        while (!queue.isEmpty()) {
+            BTNode node = queue.peek();
+            System.out.print(node.data + " ");
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+        }
+        System.out.println();
+    }
+
     public static void printLevel(BTNode root, int level) {
         if (root == null) {
             return;

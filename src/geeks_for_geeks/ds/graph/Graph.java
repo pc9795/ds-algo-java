@@ -7,10 +7,19 @@ import java.util.ArrayDeque;
  * Created On: 15-09-2018 17:08
  **/
 public class Graph {
-    int values[][];
+    public int values[][];
 
     public Graph(int vertices) {
         values = new int[vertices][vertices];
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (i == j) {
+                    values[i][j] = 0;
+                } else {
+                    values[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
     }
 
     public Graph addEdge(int src, int dest, int weight) {

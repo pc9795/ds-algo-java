@@ -47,6 +47,7 @@ package geeks_for_geeks.ds.heap;
  * representation of n.
  *
  * Fibonacci Heap
+ * --------------
  * 1.have pointer to minimum value
  * 2.do things lazy way - merge operation simply link two heaps, insert operation simply adds a new tree with
  * single node

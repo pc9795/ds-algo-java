@@ -1,5 +1,8 @@
 package geeks_for_geeks.ds.graph;
 
+import geeks_for_geeks.ds.nodes.GraphNode;
+import geeks_for_geeks.ds.union_find.UnionFind;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,28 +13,6 @@ import java.util.Arrays;
  **/
 public class GraphUsingAdjacencyList {
 
-    public static class GraphNode {
-        int vertex;
-        int weight;
-
-        public GraphNode(int vertex) {
-            this.vertex = vertex;
-            this.weight = 0;
-        }
-
-        public GraphNode(int vertex, int weight) {
-            this.vertex = vertex;
-            this.weight = weight;
-        }
-
-        @Override
-        public String toString() {
-            return "GraphNode{" +
-                    "vertex=" + vertex +
-                    ", weight=" + weight +
-                    '}';
-        }
-    }
 
     public ArrayList<GraphNode>[] values;
 
@@ -49,6 +30,15 @@ public class GraphUsingAdjacencyList {
         values[src].add(new GraphNode(dest));
         return this;
     }
+
+    public GraphUsingAdjacencyList addEdge(int src, int dest, int weight) {
+        if (src >= values.length || dest >= values.length) {
+            throw new RuntimeException("Vertex is out of bound");
+        }
+        values[src].add(new GraphNode(dest, weight));
+        return this;
+    }
+
 
     public boolean isEdge(int src, int dest) {
         if (src >= values.length || dest >= values.length) {
@@ -138,7 +128,7 @@ public class GraphUsingAdjacencyList {
         return false;
     }
 
-    public boolean isCyclicUtil(int vertex, boolean[] visited, boolean[] recStack) {
+    private boolean isCyclicUtil(int vertex, boolean[] visited, boolean[] recStack) {
         for (int i = 0; i < values[vertex].size(); i++) {
             int neighbour = values[vertex].get(i).vertex;
             if (recStack[neighbour]) {
@@ -213,7 +203,7 @@ public class GraphUsingAdjacencyList {
         return stack;
     }
 
-    public void topologicalSortUtil(boolean[] visited, int vertex, ArrayDeque<Integer> stack) {
+    private void topologicalSortUtil(boolean[] visited, int vertex, ArrayDeque<Integer> stack) {
         for (int i = 0; i < this.values[vertex].size(); i++) {
             GraphNode neighbour = this.values[vertex].get(i);
             if (!visited[neighbour.vertex]) {
@@ -277,6 +267,19 @@ public class GraphUsingAdjacencyList {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GraphUsingAdjacencyList{").append(System.lineSeparator());
+        for (int i = 0; i < vertices(); i++) {
+            sb.append(i).append("=>").append(values[i]);
+            sb.append(System.lineSeparator());
+        }
+        sb.append('}');
+
+        return sb.toString();
     }
 
     public static void main(String[] args) {

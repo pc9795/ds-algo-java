@@ -8,10 +8,10 @@ import java.util.Arrays;
  **/
 public class SegmentTree {
     int val[];
-    int orginal[];
+    int original[];
 
     /**
-     * n leaves and n-1 internal nodes
+     * n leaves and n-1 internal nodes = 2*n-1
      * The total no of nodes will be 2* 2^(ceil(log n))-1 ; we convert n to nearest power of 2 so that a full binary
      * tree can be constructed.
      *
@@ -20,7 +20,7 @@ public class SegmentTree {
     SegmentTree(int arr[]) {
         int size = (int) (2 * Math.pow(2, Math.ceil(Math.log(arr.length) / Math.log(2))) - 1);
         val = new int[size];
-        orginal = Arrays.copyOf(arr, arr.length);
+        original = Arrays.copyOf(arr, arr.length);
         constructSegmentTree(0, 0, arr.length - 1);
     }
 
@@ -32,7 +32,7 @@ public class SegmentTree {
      * @return
      */
     public int query(int ql, int qr) {
-        return queryUtil(ql, qr, 0, this.orginal.length - 1, 0);
+        return queryUtil(ql, qr, 0, this.original.length - 1, 0);
     }
 
     public int queryUtil(int ql, int qr, int sl, int sr, int currIndex) {
@@ -53,9 +53,9 @@ public class SegmentTree {
      * @param newVal
      */
     public void update(int index, int newVal) {
-        int diff = newVal - this.orginal[index];
-        this.orginal[index] = newVal;
-        updateUtil(0, this.orginal.length - 1, index, 0, diff);
+        int diff = newVal - this.original[index];
+        this.original[index] = newVal;
+        updateUtil(0, this.original.length - 1, index, 0, diff);
     }
 
 
@@ -96,7 +96,7 @@ public class SegmentTree {
      */
     private int constructSegmentTree(int currIndex, int left, int right) {
         if (left == right) {
-            return this.val[currIndex] = this.orginal[left];
+            return this.val[currIndex] = this.original[left];
         }
         int mid = (left + right) / 2;
         return this.val[currIndex] = constructSegmentTree(left(currIndex), left, mid) +

@@ -4,17 +4,17 @@ package geeks_for_geeks.algo.pattern_searching;
 /*
  * Naive pattern searching
  * ------------------------
- * T=O(n) -> pattern is not in the string [best case]
- *   O(m*(n-m+1) -> all characters of pattern and string are same or only last character is different. [worst case]
+ * T=O(n) -> pattern is not in the string_algorithms [best case]
+ *   O(m*(n-m+1) -> all characters of pattern and string_algorithms are same or only last character is different. [worst case]
  *
- * If all of the characters in the input string are different. When a mismatch occurs after
+ * If all of the characters in the input string_algorithms are different. When a mismatch occurs after
  * j matches, we know that the first character of pattern will not match the j matched
  * characters because all characters of pattern are different. So we can always slide the
  * pattern by j without missing any valid shifts.
  *
  * KMP
  * ---
- * lps -> longest proper prefix which is also suffix. A proper prefix doesn't consider the whole string.
+ * lps -> longest proper prefix which is also suffix. A proper prefix doesn't consider the whole string_algorithms.
  *
  *                       j             i
  * a c a c a b a c a c a b a c a c  a  c
@@ -52,6 +52,13 @@ package geeks_for_geeks.algo.pattern_searching;
  * d is again multiply to make second highest to highest and add a degree to all.
  * =(256^2*A+256*B+C -256^2*A)*256+D
  * =256^2*B+256*C+D
+ *
+ * Finite Automata
+ * ----------------
+ * Number of states in FA will be M+1 where M is the length of the pattern.
+ * Given a character x and a state k, we can get the next state by considering the string
+ * "pat[0..k-1]x" and get the length of lps.
+ *
  *
  *
  *

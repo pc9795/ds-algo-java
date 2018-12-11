@@ -7,6 +7,9 @@ import java.util.Arrays;
  * Created On: 14-09-2018 23:03
  **/
 public class Queue {
+    /**
+     * If we use another variable size then checking overflow becomes easy.
+     */
     public int values[];
     public int front;
     public int rear;

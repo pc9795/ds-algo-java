@@ -100,7 +100,13 @@ public class MinHeap {
     }
 
 
-    //    T=O(log n)
+    /**
+     * T=O(log n)
+     * we believe that the newVal is less than previous value therefore we are moving in up direction.
+     *
+     * @param i
+     * @param newVal
+     */
     public void decreaseKey(int i, int newVal) {
         if (values[i] >= newVal) {
             throw new RuntimeException("newVal must be less than current value");

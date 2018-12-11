@@ -51,6 +51,31 @@ package geeks_for_geeks.algo.randomized_algorithms;
  * E[R]=1/[1-(1-p)]
  * E[R]=1/p
  *
+ * Conditional Probability
+ * ------------------------
+ * P(A/B)=P(A intersection B)/P(B)
+ * probability of event 'A' happening given that the event B happened.
+ * since B has already happened the sample space reduces to B.
+ *
+ * P(A/B)=P(B/A)P(A)/P(B) <-bayes formula.
+ *
+ * Randomized Algorithms
+ * ----------------------
+ * An algorithm that uses random numbers to decide what to do next anywhere in tis logic.
+ *
+ * Monte Carlo Algorithms
+ * -----------------------
+ * Randomized algorithms with deterministic time complexity
+ *
+ * Las Vegas Algorithms
+ * ---------------------
+ * Randomized algorithms whose time complexity is dependent on value of random variable.
+ * To compute expected time taken in worst case, all possible values of the used random
+ * variable needs to be considered in worst case and time taken by every possible value
+ * needs to be evaluated. Average of all evaluated times is the expected worst case time
+ * complexity.
+ *
+ *
  *
  *
  *

@@ -133,8 +133,17 @@ package geeks_for_geeks.algo.searching_and_sorting;
  *
  * Quick sort and heap sort can be made stable by extra space O(n).
  *
- * 
+ * Lower bound on comparison based sorting algorithms
+ * --------------------------------------------------
+ * Sorting algos can be viewed as decison trees.
  *
+ * 1.Each of the n! permutations on n elements must appear as one of the leaves of the decision
+ * tree for the sorting algorithm to sort properly
+ * 2. Let x be the maximum number of comparisons in a sorting algorithm. The maximum height
+ * of the decison tree would be x. A tree with maximum height x has at most 2^x leaves.
  *
+ * n!<=2^x
+ * log2(n!)<=x
+ * x=sigma(nlog2(n)) <- log2(n!) = theta(nlogn)
  *
  * */

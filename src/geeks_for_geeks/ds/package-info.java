@@ -9,5 +9,7 @@ package geeks_for_geeks.ds;
  * Weak topics
  * Queue implementation using circular array;
  *
+ * TreeSet -> is red black tree with add, remove, search in O(logn); iteration is in sorted order(in order).
+ *
  *
  * */
