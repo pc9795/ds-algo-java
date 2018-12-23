@@ -29,4 +29,16 @@ public class Edge {
                 ", dest=" + dest +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Edge) {
+            Edge other = (Edge) obj;
+            return this.src == other.src && this.dest == other.dest && this.weight == other.weight;
+        }
+        return false;
+    }
 }

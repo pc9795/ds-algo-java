@@ -39,7 +39,8 @@ public class DijkstraShortestPath {
             nodes[i].parent = -1;
             heap.add(nodes[i]);
         }
-//        TODO: check whether this triggers movement in heap automatically.
+//       because first node is at the top that's why we are getting it as first. This changing of key will have no
+//        effect.
         nodes[0].key = 0;
         while (!heap.isEmpty()) {
             PrimNode node = heap.poll();

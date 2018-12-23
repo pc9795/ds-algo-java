@@ -1,5 +1,7 @@
 package geeks_for_geeks.ds.nodes;
 
+import geeks_for_geeks.ds.graph.Graph;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 31-10-2018 01:18
@@ -24,5 +26,17 @@ public class GraphNode {
                 "vertex=" + vertex +
                 ", weight=" + weight +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof GraphNode) {
+            GraphNode other = (GraphNode) obj;
+            return this.vertex == other.vertex && this.weight == other.weight;
+        }
+        return false;
     }
 }

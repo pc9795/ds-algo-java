@@ -11,9 +11,7 @@ class UndirectedGraph extends Graph {
 
     @Override
     public UndirectedGraph addEdge(int src, int dest) {
-        if (src >= values.length || dest >= values.length) {
-            throw new RuntimeException("Vertex is out of bound");
-        }
+        assert (src >= values.length || dest >= values.length);
         values[src][dest] = 1;
         values[dest][src] = 1;
         return this;
