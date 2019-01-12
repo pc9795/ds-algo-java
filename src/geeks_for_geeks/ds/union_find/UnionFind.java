@@ -27,9 +27,12 @@ public class UnionFind {
     public void union(int val1, int val2) {
         int parent1 = find(val1);
         int parent2 = find(val2);
+        if (parent1 == parent2) {
+            return;
+        }
         if (rank[parent1] < rank[parent2]) {
             parent[parent1] = parent2;
-        } else if (rank[parent1] < rank[parent2]) {
+        } else if (rank[parent2] < rank[parent1]) {
             parent[parent2] = parent1;
         } else {
             parent[parent1] = parent2;

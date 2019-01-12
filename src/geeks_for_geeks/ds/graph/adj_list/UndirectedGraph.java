@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.graph;
+package geeks_for_geeks.ds.graph.adj_list;
 
 import geeks_for_geeks.ds.nodes.GraphNode;
 
@@ -6,38 +6,45 @@ import geeks_for_geeks.ds.nodes.GraphNode;
  * Created By: Prashant Chaubey
  * Created On: 09-10-2018 01:16
  **/
-public class UndirectedGraphUsingAdjacencyList extends GraphUsingAdjacencyList {
+public class UndirectedGraph extends GraphBase {
 
-    public UndirectedGraphUsingAdjacencyList(int vertices) {
+    public UndirectedGraph(int vertices) {
         super(vertices);
     }
 
     @Override
-    public UndirectedGraphUsingAdjacencyList addEdge(int src, int dest) {
+    public UndirectedGraph addEdge(int src, int dest) {
         assert !(src >= values.length || dest >= values.length);
+
         values[src].add(new GraphNode(dest));
         values[dest].add(new GraphNode(src));
+
         return this;
     }
 
     @Override
-    public UndirectedGraphUsingAdjacencyList removeEdge(int src, int dest) {
+    public UndirectedGraph removeEdge(int src, int dest) {
         assert !(src >= values.length || dest >= values.length);
+
         values[src].remove(new GraphNode(dest));
         values[dest].remove(new GraphNode(src));
+
         return this;
     }
 
     @Override
-    public UndirectedGraphUsingAdjacencyList addEdge(int src, int dest, int weight) {
+    public UndirectedGraph addEdge(int src, int dest, int weight) {
         assert !(src >= values.length || dest >= values.length);
+
         values[src].add(new GraphNode(dest, weight));
         values[dest].add(new GraphNode(src, weight));
+
         return this;
     }
 
     public int degree(int vertex) {
         assert (vertex > 0 && vertex <= values.length);
+
         return this.values[vertex].size();
     }
 
@@ -49,7 +56,7 @@ public class UndirectedGraphUsingAdjacencyList extends GraphUsingAdjacencyList {
      */
     @Override
     public boolean isEulerian() {
-        if (!this.isConnected()) {
+        if (!this.isStronglyConnected()) {
             return false;
         }
         int vertices = this.vertices();
@@ -68,7 +75,7 @@ public class UndirectedGraphUsingAdjacencyList extends GraphUsingAdjacencyList {
      * @return
      */
     @Override
-    public boolean isConnected() {
+    public boolean isStronglyConnected() {
         int vertices = this.vertices();
         int i = 0;
         for (; i < vertices; i++) {

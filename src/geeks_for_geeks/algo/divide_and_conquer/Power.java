@@ -6,7 +6,8 @@ package geeks_for_geeks.algo.divide_and_conquer;
  **/
 public class Power {
     /**
-     * T=O(logn)
+     * T =O(logn)
+     * Works for negative powers also.
      *
      * @param num
      * @param power
@@ -27,9 +28,5 @@ public class Power {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(pow(2, -3));
     }
 }

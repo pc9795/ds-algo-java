@@ -45,6 +45,26 @@ package geeks_for_geeks.ds.graph;
  * We can maintain DAG structure of a graph by using Topological sort.
  *
  *
+ * Directed Graph
+ * ==============
+ *
+ * Transitive closure
+ * ------------------
+ * 1.Transitive closure is the reachability matrix which shows whether a vertex is reachable from other or not. We can use
+ *   Floyd warshall algorithm and instead of storing distance we can store boolean values. O(V^3)
+ * 2.Launch dfs for all vertices O(V^2)
+ *
+ * Undirected Graph
+ * =================
+ * Connected components of a Undirected graph can be obtained using DFS and printing them.
+ *
+ * General
+ * ========
+ * If edge weight is one then BFS will give shortest path.
+ *
+ * A path is a sequence v1, v2...vk of distinct vertices such that each adjacent pair vi vi+1 is an edge. If a vertex is
+ * visited more than one in such a sequence, it is called a walk, not a path.
+ *
  *
  *
  *

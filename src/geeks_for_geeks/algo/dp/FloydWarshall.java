@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.dp;
 
-import geeks_for_geeks.ds.graph.Graph;
+import geeks_for_geeks.ds.graph.adj_matrix.Graph;
 
 import java.util.Arrays;
 

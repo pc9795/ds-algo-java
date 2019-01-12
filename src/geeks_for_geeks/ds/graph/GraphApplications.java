@@ -1,5 +1,6 @@
 package geeks_for_geeks.ds.graph;
 
+import geeks_for_geeks.ds.graph.adj_matrix.Graph;
 import geeks_for_geeks.ds.nodes.Edge;
 
 import java.util.*;
@@ -126,7 +127,7 @@ public class GraphApplications {
     }
 
 
-    public static void findDirectionsForEdgesSoAfterAddingGraphRemainsDAG(Edge[] edges, GraphUsingAdjacencyList graph) {
+    public static void findDirectionsForEdgesSoAfterAddingGraphRemainsDAG(Edge[] edges, geeks_for_geeks.ds.graph.adj_list.Graph graph) {
         ArrayDeque<Integer> stack = graph.topologicalSort();
         for (Edge edge : edges) {
             Iterator<Integer> it = stack.iterator();
@@ -172,7 +173,7 @@ public class GraphApplications {
                 {'Q', 'S', 'E'}
         };
 //        boggle(matrix, dict);
-        GraphUsingAdjacencyList graph2 = new GraphUsingAdjacencyList(6);
+        geeks_for_geeks.ds.graph.adj_list.Graph graph2 = new geeks_for_geeks.ds.graph.adj_list.Graph(6);
         graph2.addEdge(0, 5).addEdge(0, 1).addEdge(5, 1).addEdge(5, 2).
                 addEdge(1, 2)
                 .addEdge(1, 3).addEdge(1, 4).addEdge(2, 3).

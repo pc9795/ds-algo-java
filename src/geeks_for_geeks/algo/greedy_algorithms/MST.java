@@ -1,8 +1,7 @@
 package geeks_for_geeks.algo.greedy_algorithms;
 
-import geeks_for_geeks.ds.graph.GraphUsingAdjacencyList;
-import geeks_for_geeks.ds.graph.GraphUsingEdges;
-import geeks_for_geeks.ds.graph.UndirectedGraphUsingAdjacencyList;
+import geeks_for_geeks.ds.graph.edge_repr.Graph;
+import geeks_for_geeks.ds.graph.adj_list.UndirectedGraph;
 import geeks_for_geeks.ds.union_find.UnionFind;
 import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.nodes.GraphNode;
@@ -28,8 +27,8 @@ public class MST {
      * @param graph
      * @return
      */
-    public static GraphUsingEdges kruskalMinimumSpanningTree(GraphUsingEdges graph) {
-        GraphUsingEdges mst = new GraphUsingEdges();
+    public static Graph kruskalMinimumSpanningTree(Graph graph) {
+        Graph mst = new Graph();
         graph.edges.sort(new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
@@ -55,16 +54,16 @@ public class MST {
     /**
      * T=O(V^2) for adjacency matrix
      * =O(ElogV) for adjacency list
-     * (E+V) * logV = traversing * remove
+     * =(E+V) * logV = traversing * remove
+     * we get MST for a connected graph only, so in a connected graph V=O(E) therefore O(E+V) -> O(E)
+     * In case of densely connected graph E->V^2.
      *
      * @param graph
      * @return
      */
-    public static GraphUsingAdjacencyList primMinimumSpanningTree(GraphUsingAdjacencyList graph) {
-        if (graph == null) {
-            throw new NullPointerException();
-        }
-        GraphUsingAdjacencyList mst = new GraphUsingAdjacencyList(graph.vertices());
+    public static geeks_for_geeks.ds.graph.adj_list.Graph primMinimumSpanningTree(geeks_for_geeks.ds.graph.adj_list.Graph graph) {
+        assert graph != null;
+        geeks_for_geeks.ds.graph.adj_list.Graph mst = new geeks_for_geeks.ds.graph.adj_list.Graph(graph.vertices());
         PriorityQueue<PrimNode> heap = new PriorityQueue<>(new Comparator<PrimNode>() {
             @Override
             public int compare(PrimNode o1, PrimNode o2) {
@@ -108,14 +107,14 @@ public class MST {
     }
 
     public static void main(String[] args) {
-        GraphUsingEdges graph = new GraphUsingEdges();
+        Graph graph = new Graph();
         graph.addEdge(7, 6, 1).addEdge(8, 2, 2).addEdge(6, 5, 2)
                 .addEdge(1, 2, 8).addEdge(3, 4, 9).addEdge(5, 4, 10)
                 .addEdge(2, 3, 7).addEdge(7, 8, 7).addEdge(0, 7, 8)
                 .addEdge(0, 1, 4).addEdge(2, 5, 4).addEdge(8, 6, 6)
                 .addEdge(1, 7, 11).addEdge(3, 5, 14);
 //        System.out.println(kruskalMinimumSpanningTree(graph));
-        GraphUsingAdjacencyList graph2 = new UndirectedGraphUsingAdjacencyList(9);
+        geeks_for_geeks.ds.graph.adj_list.Graph graph2 = new UndirectedGraph(9);
         graph2.addEdge(0, 1, 4);
         graph2.addEdge(0, 7, 8);
         graph2.addEdge(1, 2, 8);

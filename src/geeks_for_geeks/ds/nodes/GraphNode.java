@@ -1,7 +1,5 @@
 package geeks_for_geeks.ds.nodes;
 
-import geeks_for_geeks.ds.graph.Graph;
-
 /**
  * Created By: Prashant Chaubey
  * Created On: 31-10-2018 01:18

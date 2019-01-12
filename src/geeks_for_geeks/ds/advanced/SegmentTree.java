@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class SegmentTree {
     int val[];
     int original[];
+    int lazy[];
 
     /**
      * n leaves and n-1 internal nodes = 2*n-1
@@ -21,7 +22,8 @@ public class SegmentTree {
         int size = (int) (2 * Math.pow(2, Math.ceil(Math.log(arr.length) / Math.log(2))) - 1);
         val = new int[size];
         original = Arrays.copyOf(arr, arr.length);
-        constructSegmentTree(0, 0, arr.length - 1);
+        lazy = new int[size];
+        build(0, 0, arr.length - 1);
     }
 
     /**
@@ -31,11 +33,14 @@ public class SegmentTree {
      * @param qr
      * @return
      */
-    public int query(int ql, int qr) {
-        return queryUtil(ql, qr, 0, this.original.length - 1, 0);
+    public int query(int ql, int qr, boolean lazy) {
+        return queryUtil(ql, qr, 0, this.original.length - 1, 0, lazy);
     }
 
-    public int queryUtil(int ql, int qr, int sl, int sr, int currIndex) {
+    private int queryUtil(int ql, int qr, int sl, int sr, int currIndex, boolean lazy) {
+        if (lazy) {
+            makePendingUpdates(currIndex, sl, sr);
+        }
         if (ql <= sl && qr >= sr) {
             return this.val[currIndex];
         }
@@ -43,7 +48,8 @@ public class SegmentTree {
             return 0;
         }
         int mid = (sl + sr) / 2;
-        return queryUtil(ql, qr, sl, mid, left(currIndex)) + queryUtil(ql, qr, mid + 1, sr, right(currIndex));
+        return queryUtil(ql, qr, sl, mid, left(currIndex), lazy) +
+                queryUtil(ql, qr, mid + 1, sr, right(currIndex), lazy);
     }
 
     /**
@@ -58,23 +64,55 @@ public class SegmentTree {
         updateUtil(0, this.original.length - 1, index, 0, diff);
     }
 
+    public void updateRange(int left, int right, int diff) {
+        updateRangeUtil(0, this.original.length - 1, left, right, 0, diff);
+    }
 
-    private void updateUtil(int left, int right, int index, int currIndex, int diff) {
-        if (index < left || index > right) {
+    private void makePendingUpdates(int segmentTreeNode, int left, int right) {
+        if (lazy[segmentTreeNode] != 0) {
+            val[segmentTreeNode] += (right - left + 1) * lazy[segmentTreeNode];
+//            Not a leaf node.
+            if (left != right) {
+                lazy[left(segmentTreeNode)] += lazy[segmentTreeNode];
+                lazy[right(segmentTreeNode)] += lazy[segmentTreeNode];
+            }
+            lazy[segmentTreeNode] = 0;
+        }
+    }
+
+    private void updateRangeUtil(int sl, int sr, int ql, int qr, int ci, int diff) {
+        makePendingUpdates(ci, sl, sr);
+        if (qr < sl || ql > sr) {
+            return;
+        }
+//        inside the range.
+        if (sl >= ql && sr <= qr) {
+            val[ci] += (sr - sl + 1) * diff;
+//            Not a leaf node
+            if (sl != sr) {
+                lazy[left(ci)] += diff;
+                lazy[right(ci)] += diff;
+            }
+            return;
+        }
+        int mid = sl + sr >> 1;
+        updateRangeUtil(sl, mid, ql, qr, left(ci), diff);
+        updateRangeUtil(mid + 1, sr, ql, qr, right(ci), diff);
+        val[ci] = val[left(ci)] + val[right(ci)];
+    }
+
+    private void updateUtil(int sl, int sr, int index, int currIndex, int diff) {
+        if (index < sl || index > sr) {
             return;
         }
         this.val[currIndex] += diff;
-        if (left != right) {
-            int mid = (left + right) / 2;
-            updateUtil(left, mid, index, left(currIndex), diff);
-            updateUtil(mid + 1, right, index, right(currIndex), diff);
+        if (sl != sr) {
+            int mid = (sl + sr) / 2;
+            updateUtil(sl, mid, index, left(currIndex), diff);
+            updateUtil(mid + 1, sr, index, right(currIndex), diff);
         }
-
     }
 
-    private int parent(int i) {
-        return (i - 1) / 2;
-    }
 
     private int left(int i) {
         return 2 * i + 1;
@@ -86,7 +124,7 @@ public class SegmentTree {
 
     /**
      * T=O(n)
-     *
+     * <p>
      * original nodes were 2n-1 => O(n)
      *
      * @param currIndex
@@ -94,22 +132,24 @@ public class SegmentTree {
      * @param right
      * @return
      */
-    private int constructSegmentTree(int currIndex, int left, int right) {
+    private int build(int currIndex, int left, int right) {
         if (left == right) {
             return this.val[currIndex] = this.original[left];
         }
         int mid = (left + right) / 2;
-        return this.val[currIndex] = constructSegmentTree(left(currIndex), left, mid) +
-                constructSegmentTree(right(currIndex), mid + 1, right);
+        return this.val[currIndex] = build(left(currIndex), left, mid) +
+                build(right(currIndex), mid + 1, right);
+    }
+
+    public static void test1() {
+        int arr[] = {1, 3, 5, 7, 9, 11};
+        SegmentTree st = new SegmentTree(arr);
+        System.out.println(st.query(1, 3, true));
+        st.updateRange(1, 3, 10);
+        System.out.println(st.query(1, 3, true));
     }
 
     public static void main(String[] args) {
-        int arr[] = {1, 3, 5, 7, 9, 11};
-        SegmentTree st = new SegmentTree(arr);
-        System.out.println(Arrays.toString(st.val));
-        System.out.println("query:" + st.query(1, 3));
-        st.update(1, 10);
-        System.out.println(Arrays.toString(st.val));
-        System.out.println("query after update:" + st.query(1, 3));
+        test1();
     }
 }

@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.dp;
 
-import geeks_for_geeks.ds.graph.GraphUsingEdges;
+import geeks_for_geeks.ds.graph.edge_repr.Graph;
 import geeks_for_geeks.ds.nodes.Edge;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class BellmanFord {
      * @param graph
      * @param src
      */
-    public static void shortestPath(GraphUsingEdges graph, int src) {
+    public static void shortestPath(Graph graph, int src) {
         assert graph != null;
         int v = graph.vertices();
         assert src < v;
@@ -49,7 +49,7 @@ public class BellmanFord {
     }
 
     public static void main(String[] args) {
-        GraphUsingEdges graph = new GraphUsingEdges();
+        Graph graph = new Graph();
         graph.addEdge(0, 1, -1).addEdge(0, 2, 4).
                 addEdge(1, 2, 3).addEdge(1, 4, 2).
                 addEdge(4, 3, -3).addEdge(3, 2, 5).

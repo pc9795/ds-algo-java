@@ -1,5 +1,7 @@
 package geeks_for_geeks.util;
 
+import javafx.util.Pair;
+
 import java.util.Arrays;
 
 /**
@@ -7,6 +9,17 @@ import java.util.Arrays;
  * Created On: 19-10-2018 22:48
  **/
 public class Util {
+
+    public static double eucledianDistance(Pair<Double, Double> a, Pair<Double, Double> b) {
+        return Math.sqrt(((b.getKey() - a.getKey()) * (b.getKey() - a.getKey())) + ((b.getValue() - a.getValue()) *
+                (b.getValue() - a.getValue())));
+    }
+
+    /**
+     * T=O(N^2)
+     *
+     * @param mat
+     */
     public static void prettyPrint2DMatrix(int[][] mat) {
         for (int i = 0; i < mat.length; i++) {
             System.out.print("{");

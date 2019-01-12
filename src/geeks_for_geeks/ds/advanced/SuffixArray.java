@@ -10,7 +10,7 @@ import java.util.Comparator;
 public class SuffixArray {
 
     /**
-     * T=n^2*logn ; sort*string comparison during sort(O(n))
+     * T=(n^2)*logn ; sort*string comparison during sort(O(n))
      *
      * @param input
      * @return

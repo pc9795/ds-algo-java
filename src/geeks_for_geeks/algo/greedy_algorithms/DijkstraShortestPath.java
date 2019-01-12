@@ -1,7 +1,8 @@
 package geeks_for_geeks.algo.greedy_algorithms;
 
-import geeks_for_geeks.ds.graph.GraphUsingAdjacencyList;
-import geeks_for_geeks.ds.graph.UndirectedGraphUsingAdjacencyList;
+import geeks_for_geeks.ds.graph.adj_list.Graph;
+import geeks_for_geeks.ds.graph.adj_list.GraphBase;
+import geeks_for_geeks.ds.graph.adj_list.UndirectedGraph;
 import geeks_for_geeks.ds.nodes.GraphNode;
 import geeks_for_geeks.ds.nodes.PrimNode;
 
@@ -22,7 +23,7 @@ public class DijkstraShortestPath {
      * @param graph
      * @return
      */
-    public static int[] dijkstraShortestPath(GraphUsingAdjacencyList graph) {
+    public static int[] dijkstraShortestPath(GraphBase graph) {
         assert graph != null;
         int dist[] = new int[graph.vertices()];
         PriorityQueue<PrimNode> heap = new PriorityQueue<>(new Comparator<PrimNode>() {
@@ -62,7 +63,7 @@ public class DijkstraShortestPath {
     }
 
     public static void main(String[] args) {
-        GraphUsingAdjacencyList graph = new UndirectedGraphUsingAdjacencyList(9);
+        GraphBase graph = new UndirectedGraph(9);
         graph.addEdge(0, 1, 4);
         graph.addEdge(0, 7, 8);
         graph.addEdge(1, 2, 8);

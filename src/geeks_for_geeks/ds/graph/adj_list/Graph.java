@@ -1,118 +1,49 @@
-package geeks_for_geeks.ds.graph;
+package geeks_for_geeks.ds.graph.adj_list;
 
 import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.nodes.GraphNode;
 import geeks_for_geeks.ds.union_find.UnionFind;
 import geeks_for_geeks.util.DoublePointer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 17:09
  **/
-public class GraphUsingAdjacencyList {
+public class Graph extends GraphBase {
 
 
-    public ArrayList<GraphNode>[] values;
     public int[] inDegree;
 
-    public GraphUsingAdjacencyList(int vertices) {
-        values = new ArrayList[vertices];
+    public Graph(int vertices) {
+        super(vertices);
         inDegree = new int[vertices];
-        for (int i = 0; i < values.length; i++) {
-            values[i] = new ArrayList<>();
-        }
     }
 
-    public GraphUsingAdjacencyList addEdge(int src, int dest) {
+    @Override
+    public Graph addEdge(int src, int dest) {
         assert (src >= values.length || dest >= values.length);
         values[src].add(new GraphNode(dest));
         inDegree[dest]++;
         return this;
     }
 
-    public GraphUsingAdjacencyList removeEdge(int src, int dest) {
+    @Override
+    public Graph removeEdge(int src, int dest) {
         assert (src >= values.length || dest >= values.length);
         inDegree[dest]--;
         values[src].remove(new GraphNode(dest));
         return this;
     }
 
-    public GraphUsingAdjacencyList addEdge(int src, int dest, int weight) {
+    @Override
+    public Graph addEdge(int src, int dest, int weight) {
         assert (src >= values.length || dest >= values.length);
         inDegree[dest]++;
         values[src].add(new GraphNode(dest, weight));
         return this;
-    }
-
-
-    public boolean isEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
-        for (int i = 0; i < values[src].size(); i++) {
-            if (values[src].get(i).vertex == dest) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int vertices() {
-        return values.length;
-    }
-
-    /**
-     * T=O(V+E)
-     */
-    public void bfs() {
-        boolean visited[] = new boolean[vertices()];
-        for (int i = 0; i < vertices(); i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                bfsUtil(i, visited);
-            }
-        }
-    }
-
-    private void bfsUtil(int vertex, boolean[] visited) {
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
-        queue.add(vertex);
-        for (; !queue.isEmpty(); ) {
-            int curr = queue.poll();
-            System.out.println("visited:" + curr);
-            for (int i = 0; i < values[curr].size(); i++) {
-                int neighbour = values[curr].get(i).vertex;
-                if (!visited[neighbour]) {
-                    visited[neighbour] = true;
-                    queue.add(neighbour);
-                }
-            }
-        }
-    }
-
-    /**
-     * T=O(V+E)
-     */
-    public void dfs() {
-        boolean visited[] = new boolean[vertices()];
-        for (int i = 0; i < vertices(); i++) {
-            if (!visited[i]) {
-                dfsUtil(i, visited);
-            }
-        }
-    }
-
-    protected void dfsUtil(int source, boolean[] visited) {
-        visited[source] = true;
-        ArrayList<GraphNode> neighbours = values[source];
-        for (GraphNode neighbour : neighbours) {
-            if (!visited[neighbour.vertex]) {
-                dfsUtil(neighbour.vertex, visited);
-            }
-        }
     }
 
     /**
@@ -194,6 +125,7 @@ public class GraphUsingAdjacencyList {
     /**
      * Only possible for a DAG.
      * first node have in degree 0;
+     * We can look it as decreasing order of finish time.
      */
     public ArrayDeque<Integer> topologicalSort() {
         ArrayDeque<Integer> stack = new ArrayDeque<>();
@@ -276,10 +208,11 @@ public class GraphUsingAdjacencyList {
     /**
      * T=O(V+E)
      * Same as DFS.
+     * Will not work in the case of multiple edges.
      *
      * @param graph
      */
-    public static List<Edge> getBridges(GraphUsingAdjacencyList graph) {
+    public static List<Edge> getBridges(Graph graph) {
         assert graph != null;
         int vertices = graph.vertices();
         int[] parent = new int[vertices];
@@ -301,11 +234,11 @@ public class GraphUsingAdjacencyList {
     }
 
     private static List<Edge> getBridgesUtil(int[] parent, int[] low, boolean[] visited, int[] discoveryTime,
-                                             DoublePointer<Integer> currentTime, int source, GraphUsingAdjacencyList graph) {
+                                             DoublePointer<Integer> currentTime, int source, Graph graph) {
         visited[source] = true;
         low[source] = discoveryTime[source] = currentTime.data++;
         List<Edge> bridges = new ArrayList<>();
-        ArrayList<GraphNode> neighbours = graph.values[source];
+        List<GraphNode> neighbours = graph.values[source];
         for (GraphNode neighbour : neighbours) {
             if (!visited[neighbour.vertex]) {
                 parent[neighbour.vertex] = source;
@@ -326,19 +259,66 @@ public class GraphUsingAdjacencyList {
     }
 
     /**
-     * T=O(V+E)
+     * O(N+M)
+     * DFS
+     *
+     * @param graph
      * @return
      */
-    public GraphUsingAdjacencyList transpose() {
-        int vertices = this.vertices();
-        GraphUsingAdjacencyList graph = new GraphUsingAdjacencyList(vertices);
+    public static Set<Integer> getArticulationPoints(Graph graph) {
+        assert graph != null;
+        int vertices = graph.vertices();
+        int[] parent = new int[vertices];
+        Arrays.fill(parent, -1);
+//        The ancestor with lowest discovery time which is found by the vertex or it's descendants during dfs of the
+//        subtree rooted from here.
+        int[] low = new int[vertices];
+        boolean[] visited = new boolean[vertices];
+        boolean[] ap = new boolean[vertices];
+        int[] discoveryTime = new int[vertices];
+        DoublePointer<Integer> currentTime = new DoublePointer<>();
+        currentTime.data = 0;
         for (int i = 0; i < vertices; i++) {
-            ArrayList<GraphNode> neighbours = this.values[i];
-            for (GraphNode neighbour : neighbours) {
-                graph.addEdge(neighbour.vertex, i);
+            if (!visited[i]) {
+                getArticulationPointsUtil(parent, low, visited, discoveryTime, currentTime, ap, i, graph);
             }
         }
-        return graph;
+        Set<Integer> articulationPoints = new HashSet<>();
+        for (int i = 0; i < ap.length; i++) {
+            if (ap[i]) {
+                articulationPoints.add(i);
+            }
+        }
+        return articulationPoints;
+    }
+
+    private static void getArticulationPointsUtil(
+            int[] parent, int[] low, boolean[] visited, int[] discoveryTime,
+            DoublePointer<Integer> currentTime, boolean[] ap, int source, Graph graph) {
+        visited[source] = true;
+        low[source] = discoveryTime[source] = currentTime.data++;
+        int children = 0;
+        List<GraphNode> neighbours = graph.values[source];
+        for (GraphNode neighbour : neighbours) {
+            if (!visited[neighbour.vertex]) {
+                children++;
+                parent[neighbour.vertex] = source;
+                if (!visited[neighbour.vertex]) {
+                    getArticulationPointsUtil(parent, low, visited, discoveryTime, currentTime, ap, neighbour.vertex,
+                            graph);
+//                    Updating root with it's descendants.
+                    low[source] = Math.min(low[source], low[neighbour.vertex]);
+//                    Only child which have no edge to neighbour subtree are counted.
+                    if (parent[source] == -1 && children > 1)
+                        ap[source] = true;
+//                  Any child vertex which has no back edge above source.
+                    if (parent[source] != -1 && low[neighbour.vertex] >= discoveryTime[source])
+                        ap[source] = true;
+                }
+            } else if (parent[source] != neighbour.vertex) {
+                low[source] = Math.min(low[source], discoveryTime[neighbour.vertex]);
+            }
+        }
     }
 
 
@@ -351,7 +331,8 @@ public class GraphUsingAdjacencyList {
      *
      * @return
      */
-    public boolean isConnected() {
+    @Override
+    public boolean isStronglyConnected() {
         int vertices = this.vertices();
         boolean[] visited = new boolean[vertices];
         dfsUtil(0, visited);
@@ -361,7 +342,7 @@ public class GraphUsingAdjacencyList {
             }
         }
         Arrays.fill(visited, false);
-        GraphUsingAdjacencyList transposedGraph = this.transpose();
+        Graph transposedGraph = this.transpose();
         transposedGraph.dfsUtil(0, visited);
         for (boolean i : visited) {
             if (!i) {
@@ -371,9 +352,9 @@ public class GraphUsingAdjacencyList {
         return true;
     }
 
+    @Override
     public boolean isEulerian() {
-        assert false;
-        return false;
+        throw new NotImplementedException();
     }
 
     /**
@@ -382,7 +363,7 @@ public class GraphUsingAdjacencyList {
      *
      * @param graph
      */
-    public static void printEulerPath(GraphUsingAdjacencyList graph) {
+    public static void printEulerPath(Graph graph) {
         assert graph == null;
         if (!graph.isEulerian()) {
             System.out.println("Graph is not eulerain");
@@ -403,6 +384,7 @@ public class GraphUsingAdjacencyList {
 
     /**
      * T=O(V+E)
+     *
      * @param source
      * @param visited
      * @return
@@ -410,7 +392,7 @@ public class GraphUsingAdjacencyList {
     private int dfsCountUtil(int source, boolean[] visited) {
         visited[source] = true;
         int count = 1;
-        ArrayList<GraphNode> neighbours = this.values[source];
+        List<GraphNode> neighbours = this.values[source];
         for (GraphNode neighbour : neighbours) {
             if (!visited[neighbour.vertex]) {
                 count += dfsCountUtil(neighbour.vertex, visited);
@@ -419,8 +401,8 @@ public class GraphUsingAdjacencyList {
         return count;
     }
 
-    private static void printEulerPathUtil(GraphUsingAdjacencyList graph, int source) {
-        ArrayList<GraphNode> neighbours = graph.values[source];
+    private static void printEulerPathUtil(Graph graph, int source) {
+        List<GraphNode> neighbours = graph.values[source];
         for (int i = 0; i < neighbours.size(); i++) {
             GraphNode neighbour = neighbours.get(i);
             if (isValidEdgeForEulerianPath(graph, source, neighbour.vertex)) {
@@ -431,7 +413,7 @@ public class GraphUsingAdjacencyList {
         }
     }
 
-    private static boolean isValidEdgeForEulerianPath(GraphUsingAdjacencyList graph, int source, int dest) {
+    private static boolean isValidEdgeForEulerianPath(Graph graph, int source, int dest) {
         if (graph.values[source].size() == 1) {
             return true;
         }
@@ -444,19 +426,5 @@ public class GraphUsingAdjacencyList {
         return count1 == count2;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GraphUsingAdjacencyList{").append(System.lineSeparator());
-        for (int i = 0; i < vertices(); i++) {
-            sb.append(i).append("=>").append(values[i]);
-            sb.append(System.lineSeparator());
-        }
-        sb.append('}');
 
-        return sb.toString();
-    }
-
-    public static void main(String[] args) {
-    }
 }
