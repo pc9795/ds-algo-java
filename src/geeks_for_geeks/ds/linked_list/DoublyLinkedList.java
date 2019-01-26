@@ -7,7 +7,7 @@ import geeks_for_geeks.ds.nodes.DNode;
  * Created On: 13-10-2018 17:48
  **/
 public class DoublyLinkedList implements LinkedList {
-    DNode head;
+    public DNode head;
 
     @Override
     public String toString() {
@@ -106,6 +106,9 @@ public class DoublyLinkedList implements LinkedList {
             System.out.println("List is empty!");
             return this;
         }
+        if (size() == 1) {
+            return this;
+        }
         DNode prev = null;
         DNode curr = this.head;
         for (; curr != null; ) {
@@ -118,13 +121,43 @@ public class DoublyLinkedList implements LinkedList {
         return this;
     }
 
-    public static void main(String[] args) {
-        DoublyLinkedList dll = new DoublyLinkedList();
-        dll.insertAtEnd(1).insertAtEnd(2).insertAtEnd(3);
-        dll.insertAtFront(4).insertAtFront(5).insertAtFront(6);
-        dll.insertAtPosition(1, 10);
-        System.out.println(dll);
-        System.out.println(dll.reverse());
+    public static void quickSort(DoublyLinkedList dll) {
+        if (dll == null || dll.size() == 1) {
+            return;
+        }
+        DNode last = dll.head;
+        while (last.next != null) {
+            last = last.next;
+        }
+        quickSortUtil(dll.head, last);
     }
 
+    private static void quickSortUtil(DNode first, DNode last) {
+        if (first == null || last == null || first == last) {
+            return;
+        }
+        DNode pivot = partition(first, last);
+        quickSortUtil(first, pivot.prev);
+        quickSortUtil(pivot.next, last);
+    }
+
+    private static DNode partition(DNode first, DNode last) {
+//        We are swapping data not links.
+        DNode i = null;
+        DNode curr = first;
+        while (curr != last) {
+            if (curr.data < last.data) {
+                i = (i == null) ? first : i.next;
+                int temp = curr.data;
+                curr.data = i.data;
+                i.data = temp;
+            }
+            curr = curr.next;
+        }
+        i = (i == null) ? first : i.next;
+        int temp = last.data;
+        last.data = i.data;
+        i.data = temp;
+        return i;
+    }
 }

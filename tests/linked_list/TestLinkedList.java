@@ -1,5 +1,6 @@
 package linked_list;
 
+import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.linked_list.LinkedListApplications;
 import geeks_for_geeks.ds.linked_list.SinglyLinkedList;
 import org.junit.jupiter.api.Test;
@@ -32,5 +33,13 @@ public class TestLinkedList {
         List<Integer> list2 = new ArrayList<>();
         list2.add(1);
         System.out.println(LinkedListApplications.addTwoNumbersRepresentedByLists(list1, list2));
+    }
+
+    @Test
+    void testQuickSortInDLL() {
+        DoublyLinkedList dll = new DoublyLinkedList();
+        dll.insertAtEnd(25).insertAtEnd(12).insertAtEnd(30).insertAtEnd(10).insertAtEnd(16);
+        DoublyLinkedList.quickSort(dll);
+        System.out.println(dll);
     }
 }

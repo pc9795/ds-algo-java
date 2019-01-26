@@ -51,18 +51,4 @@ public class BinarySearchTreeApplications {
     }
 
 
-    public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
-        bst.root = new BTNode(6);
-        bst.root.left = new BTNode(10);
-        bst.root.right = new BTNode(2);
-        bst.root.left.left = new BTNode(1);
-        bst.root.left.right = new BTNode(3);
-        bst.root.right.left = new BTNode(7);
-        bst.root.right.right = new BTNode(12);
-        BinaryTree.inOrderTraversal(bst);
-        correctBstIfTwoNodesAreSwapped(bst);
-        System.out.print("After correction:");
-        BinaryTree.inOrderTraversal(bst);
-    }
 }

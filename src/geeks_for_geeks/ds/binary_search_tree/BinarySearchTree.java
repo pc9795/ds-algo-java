@@ -9,6 +9,10 @@ import geeks_for_geeks.ds.nodes.BTNode;
  **/
 public class BinarySearchTree extends BinaryTree {
 
+    public BinarySearchTree(int data) {
+        super(data);
+    }
+
     /**
      * T=O(h)
      *
@@ -238,35 +242,5 @@ public class BinarySearchTree extends BinaryTree {
         return ceil;
     }
 
-    /*
-     *           50
-     *         /    \
-     *       30     70
-     *      /  \   /  \
-     *    20   40 60  80
-     *        /      /
-     *       38     72
-     *
-     *          20
-     *         /  \
-     *       8     22
-     *     /  \
-     *   4     12
-     *        /  \
-     *      10   14
-     *
-     *
-     *
-     *
-     * */
-    public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
-//        bst.insert(50).insert(30).insert(20).insert(40).insert(70).insert(60).insert(80).insert(72).insert(38);
-        bst.insert(20).insert(8).insert(22).insert(4).insert(12).insert(10).insert(14);
-        BinarySearchTree.levelOrderTraversal(bst);
-        System.out.println(bst.lowestCommonAncestor(10, 14));
-        System.out.println(bst.lowestCommonAncestor(14, 8));
-        System.out.println(bst.lowestCommonAncestor(10, 22));
-    }
 }
 

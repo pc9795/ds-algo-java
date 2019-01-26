@@ -1,6 +1,8 @@
 package geeks_for_geeks.ds.binary_tree;
 
+import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.ds.nodes.DNode;
 
 import java.util.ArrayDeque;
 
@@ -10,10 +12,6 @@ import java.util.ArrayDeque;
  **/
 public class BinaryTree {
     public BTNode root;
-
-    public BinaryTree() {
-
-    }
 
     public BinaryTree(int data) {
         root = new BTNode(data);
@@ -188,14 +186,46 @@ public class BinaryTree {
         }
     }
 
-    public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
-        tree.root = new BTNode(1);
-        tree.root.left = new BTNode(2);
-        tree.root.right = new BTNode(3);
-        tree.root.left.left = new BTNode(4);
-        tree.root.left.right = new BTNode(5);
-        inOrderTraversal(tree);
-        morisTraversal(tree);
+    public DoublyLinkedList toList() {
+        BTNode head = toListUtil(this.root);
+        DoublyLinkedList dll = new DoublyLinkedList();
+        BTNode curr = head;
+//        We have to do this because nodes used in Binary Tree and Doubly Linked list are different.
+        do {
+            dll.insertAtEnd(curr.data);
+            curr = curr.right;
+        } while (curr != head);
+
+//        We are getting a circular doubly list but we are returning only doubly as circular one is not implemented yet.+
+        return dll;
+    }
+
+    private BTNode toListUtil(BTNode root) {
+        if (root == null) {
+            return null;
+        }
+        BTNode left = toListUtil(root.left);
+        BTNode right = toListUtil(root.right);
+
+//        Making root a doubly circular list;
+        root.left = root.right = root;
+        return concatenate(concatenate(left, root), right);
+    }
+
+    private static BTNode concatenate(BTNode circularList1Head, BTNode circularList2Head) {
+        if (circularList1Head == null) {
+            return circularList2Head;
+        }
+        if (circularList2Head == null) {
+            return circularList1Head;
+        }
+        BTNode circularList1Last = circularList1Head.left;
+        BTNode circularList2Last = circularList2Head.left;
+
+        circularList1Last.right = circularList2Head;
+        circularList2Head.left = circularList1Last;
+        circularList1Head.left = circularList2Last;
+        circularList2Last.right = circularList1Head;
+        return circularList1Head;
     }
 }

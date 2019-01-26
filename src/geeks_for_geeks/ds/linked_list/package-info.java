@@ -12,11 +12,14 @@ package geeks_for_geeks.ds.linked_list;
  * 2. Extra memory space for pointers.
  * 3. Not cache friendly
  *
+ * ---
  * Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.
  *
+ * ---
  * Circular linked list can be used in place of queue. We can maintain a pointer to the last
  * inserted node and front can always be obtained as next of last.
  *
+ * ---
  * [outside loop] [inside loop]
  * 50 --> 20 --> 15 --> 4
  *               ^      |
@@ -46,6 +49,11 @@ package geeks_for_geeks.ds.linked_list;
  * m + k is a multiple of Loop length
  * m + k = K*L
  * so after traveling (K-1)*L from m, we will have outside loop + inside loop condition as in the above figure.
+ *
+ * ---
+ * Quick sort can be implemented for Linked List only when we can pick a fixed point as pivot. Random Quick sort cannot
+ * be efficiently implemented for Linked lists by piking random pivot.
+ *
  *
  *
  * */
