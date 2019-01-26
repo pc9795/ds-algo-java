@@ -5,8 +5,8 @@ package geeks_for_geeks.ds.union_find;
  * Created On: 09-10-2018 01:07
  **/
 public class UnionFind {
-    int parent[];
-    int rank[];
+    private int parent[];
+    private int rank[];
 
     public UnionFind(int size) {
         parent = new int[size];

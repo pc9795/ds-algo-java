@@ -1,5 +1,6 @@
 package geeks_for_geeks.algo.greedy_algorithms;
 
+import geeks_for_geeks.ds.graph.adj_list.GraphBase;
 import geeks_for_geeks.ds.graph.edge_repr.Graph;
 import geeks_for_geeks.ds.graph.adj_list.UndirectedGraph;
 import geeks_for_geeks.ds.union_find.UnionFind;
@@ -61,9 +62,9 @@ public class MST {
      * @param graph
      * @return
      */
-    public static geeks_for_geeks.ds.graph.adj_list.Graph primMinimumSpanningTree(geeks_for_geeks.ds.graph.adj_list.Graph graph) {
+    public static GraphBase primMinimumSpanningTree(GraphBase graph) {
         assert graph != null;
-        geeks_for_geeks.ds.graph.adj_list.Graph mst = new geeks_for_geeks.ds.graph.adj_list.Graph(graph.vertices());
+        GraphBase mst = new geeks_for_geeks.ds.graph.adj_list.Graph(graph.vertices());
         PriorityQueue<PrimNode> heap = new PriorityQueue<>(new Comparator<PrimNode>() {
             @Override
             public int compare(PrimNode o1, PrimNode o2) {
@@ -114,7 +115,7 @@ public class MST {
                 .addEdge(0, 1, 4).addEdge(2, 5, 4).addEdge(8, 6, 6)
                 .addEdge(1, 7, 11).addEdge(3, 5, 14);
 //        System.out.println(kruskalMinimumSpanningTree(graph));
-        geeks_for_geeks.ds.graph.adj_list.Graph graph2 = new UndirectedGraph(9);
+        GraphBase graph2 = new UndirectedGraph(9);
         graph2.addEdge(0, 1, 4);
         graph2.addEdge(0, 7, 8);
         graph2.addEdge(1, 2, 8);

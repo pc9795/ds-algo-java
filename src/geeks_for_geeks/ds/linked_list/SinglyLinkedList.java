@@ -2,12 +2,15 @@ package geeks_for_geeks.ds.linked_list;
 
 import geeks_for_geeks.ds.nodes.Node;
 
+import java.util.Objects;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 14-09-2018 18:35
  **/
 public class SinglyLinkedList implements LinkedList {
     public Node head;
+    private int size;
 
     @Override
     public String toString() {
@@ -27,8 +30,6 @@ public class SinglyLinkedList implements LinkedList {
 
     @Override
     public int size() {
-        int size = 0;
-        for (Node temp = this.head; temp != null; temp = temp.next, size++) ;
         return size;
     }
 
@@ -37,25 +38,31 @@ public class SinglyLinkedList implements LinkedList {
         Node node = new Node(data);
         node.next = this.head;
         this.head = node;
+        size++;
         return this;
     }
 
     @Override
     public SinglyLinkedList insertAtPosition(int pos, int data) {
+        assert pos >= 0 && pos <= size;
         if (pos == 0) {
             insertAtFront(data);
             return this;
         }
-        int size = size();
-        if (pos > size) {
+
+        if (pos == size) {
             insertAtEnd(data);
             return this;
         }
+
         Node temp = this.head;
-        for (int i = 0; i < pos - 1; i++, temp = temp.next) ;
+        for (int i = 0; i < pos - 1; i++) {
+            temp = temp.next;
+        }
         Node node = new Node(data);
         node.next = temp.next;
         temp.next = node;
+        size++;
         return this;
     }
 
@@ -66,8 +73,11 @@ public class SinglyLinkedList implements LinkedList {
             return this;
         }
         Node temp;
-        for (temp = this.head; temp.next != null; temp = temp.next) ;
+        for (temp = this.head; temp.next != null; ) {
+            temp = temp.next;
+        }
         temp.next = new Node(data);
+        size++;
         return this;
     }
 
@@ -82,8 +92,9 @@ public class SinglyLinkedList implements LinkedList {
         if (temp == null) {
             throw new RuntimeException("Element not found");
         }
+        size--;
         if (prev == null) {
-            System.out.println("Head node is going to be deleted");
+//            Head node is going to be deleted
             head = head.next;
         } else {
             prev.next = temp.next;
@@ -92,18 +103,23 @@ public class SinglyLinkedList implements LinkedList {
     }
 
     public void deleteAtPosition(int pos) {
+        assert pos >= 0 && pos < size;
+
         int i = 0;
         Node curr = head;
         Node prev = null;
-        for (; i != pos; i++, prev = curr, curr = curr.next) {
+        for (; i != pos; i++) {
+            prev = curr;
+            curr = curr.next;
         }
+        size--;
         if (prev == null) {
-            System.out.println("Head is going to be deleted");
+            //Head is going to be deleted
             head = head.next;
             return;
         }
         if (curr.next == null) {
-            System.out.println("Last node is going to be deletd");
+            //"Last node is going to be deleted
             prev.next = null;
             return;
         }
@@ -259,11 +275,29 @@ public class SinglyLinkedList implements LinkedList {
         return sortedMergeUtil(first, second);
     }
 
-    public static void main(String[] args) {
-        SinglyLinkedList ll = new SinglyLinkedList();
-        ll.insertAtEnd(15).insertAtEnd(10).insertAtEnd(5).insertAtEnd(20).insertAtEnd(3).insertAtEnd(2);
-        System.out.println(ll);
-        mergeSort(ll);
-        System.out.println("After sorting:" + ll);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SinglyLinkedList that = (SinglyLinkedList) o;
+        if (that.size != this.size) {
+            return false;
+        }
+        boolean equal = true;
+        Node currThis = this.head;
+        Node currThat = that.head;
+        for (int i = 0; i < size; i++) {
+            if (currThat.data != currThis.data) {
+                equal = false;
+                break;
+            }
+        }
+        return equal;
+    }
+
+    @Override
+    public int hashCode() {
+//        todo not a good implementation
+        return Objects.hash(head);
     }
 }

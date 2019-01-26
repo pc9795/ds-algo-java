@@ -17,7 +17,35 @@ package geeks_for_geeks.ds.linked_list;
  * Circular linked list can be used in place of queue. We can maintain a pointer to the last
  * inserted node and front can always be obtained as next of last.
  *
+ * [outside loop] [inside loop]
+ * 50 --> 20 --> 15 --> 4
+ *               ^      |
+ *               |      V [outside loop]
+ *               | <-- 10
  *
+ * outside loop+inside loop = loop distance. So one pointer at the head and other pointer with loop distance away from
+ * the head meet at the loop starting point.
+ *
+ * Proof of removing loop using floyd cycle detection algo:
+ * --------------------------------------------------------
+ * Distance travelled by hare = 2* Distance travelled by tortoise
+ *
+ * Distance from head + (no of times hare travelled the loop)*cycleLength + distance from start of the loop to the point
+ * where they first met = 2*(Distance from head + (no of times tortoise travelled the loop)*cycleLength + distance from start
+ * of the loop to the point where they first met.)
+ *
+ * m = distance from head
+ * x = no of times hare travelled the loop
+ * y = no of times tortoise travelled the loop
+ * L = cycle Length
+ * k= distance from start of the loop to the point where they first met.
+ *
+ * m + x*L +k = 2*(m +y*L +k)
+ * m + k = (x-2y)L
+ *
+ * m + k is a multiple of Loop length
+ * m + k = K*L
+ * so after traveling (K-1)*L from m, we will have outside loop + inside loop condition as in the above figure.
  *
  *
  * */

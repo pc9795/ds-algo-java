@@ -107,17 +107,17 @@ public class LCA {
      * @return
      */
     private static int lcaUtil(int a, int b, int parent[], int level[], int[][] dp) {
-        //if p is situated on a higher level than q then we swap them
+        //if p is situated on a higher level than q then we swap them; higher level means lower value.
         if (level[a] < level[b]) {
             int temp = a;
             a = b;
             b = temp;
         }
-        int log = (int) (Math.log10(level[a]) / Math.log10(level[b]));
+        int log = (int) (Math.log10(level[a]) / Math.log10(2));
 
 
-        //we find the ancestor of node p situated on the same level
-        //with q using the values in P
+        //we find the ancestor of node a situated on the same level
+        //with a using the values in dp
 //        O(log H)
         for (int i = log; i >= 0; i--) {
             if (level[a] - (1 << i) >= level[b]) {
@@ -129,7 +129,7 @@ public class LCA {
             return a;
 
 //        O(log H)
-        //we compute LCA(p, q) using the values in P
+        //we compute LCA(a, b) using the values in dp
         for (int i = log; i >= 0; i--) {
             if (dp[a][i] != -1 && dp[a][i] != dp[b][i]) {
                 a = dp[a][i];
@@ -141,9 +141,7 @@ public class LCA {
 
     public static int lca(int a, int b, int parent[], int level[]) {
         int[][] dp = getLCADPMatrix(parent);
-        Util.prettyPrint2DMatrix(dp);
-        System.out.println();
-        return -1;
+        return lcaUtil(a, b, parent, level, dp);
     }
 
 //Tests
@@ -173,7 +171,7 @@ public class LCA {
     public static void test2() {
         int parent[] = {-1, 0, 0, 0, 2, 2, 2, 5, 5, 6, 6, 9, 9};
         int level[] = {1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5};
-        System.out.println(lca(9, 12, parent, level));
+        System.out.println(lca(8, 11, parent, level));
 
     }
 

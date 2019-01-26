@@ -2,6 +2,9 @@ package geeks_for_geeks.ds.graph.adj_list;
 
 import geeks_for_geeks.ds.nodes.GraphNode;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 09-10-2018 01:16
@@ -67,6 +70,55 @@ public class UndirectedGraph extends GraphBase {
             }
         }
         return (odd == 0) || (odd == 2);
+    }
+
+    /**
+     * Fluery's Algorithm
+     * T=O(V+E)
+     */
+    public void printEulerPath() {
+        if (!isEulerian()) {
+            System.out.println("Graph is not eulerain");
+            return;
+        }
+//        We can't directly use getBridges because one's the graph's one edge is removed we have to again recalculate the
+//        bridges.
+        int source = 0;
+        int vertices = vertices();
+        for (int i = 0; i < vertices; i++) {
+            if (values[i].size() % 2 == 1) {
+                source = i;
+                break;
+            }
+        }
+        printEulerPathUtil(source);
+    }
+
+    private void printEulerPathUtil(int source) {
+        List<GraphNode> neighbours = values[source];
+        for (int i = 0; i < neighbours.size(); i++) {
+            GraphNode neighbour = neighbours.get(i);
+            if (isValidEdgeForEulerianPath(source, neighbour.vertex)) {
+                System.out.print(source + " " + neighbour.vertex + "=>");
+                removeEdge(source, neighbour.vertex);
+                printEulerPathUtil(neighbour.vertex);
+            }
+        }
+    }
+
+
+    private boolean isValidEdgeForEulerianPath(int source, int dest) {
+        if (values[source].size() == 1) {
+            return true;
+        }
+        boolean[] visited = new boolean[vertices()];
+        int count1 = dfsCountUtil(source, visited);
+        removeEdge(source, dest);
+        Arrays.fill(visited, false);
+        int count2 = dfsCountUtil(source, visited);
+        addEdge(source, dest);
+//        If count2 is decreased then it this edge is a bridge.
+        return count1 == count2;
     }
 
     /**

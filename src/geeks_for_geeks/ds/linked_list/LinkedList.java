@@ -3,7 +3,7 @@ package geeks_for_geeks.ds.linked_list;
 public interface LinkedList {
     public int size();
 
-    LinkedList insertAtFront(int data);
+    public LinkedList insertAtFront(int data);
 
     public LinkedList insertAtPosition(int pos, int data);
 
