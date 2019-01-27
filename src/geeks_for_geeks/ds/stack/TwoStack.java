@@ -5,9 +5,9 @@ package geeks_for_geeks.ds.stack;
  * Created On: 01-10-2018 02:54
  **/
 public class TwoStack {
-    int[] values;
-    int top1;
-    int top2;
+    private int[] values;
+    private int top1;
+    private int top2;
 
     public TwoStack() {
         values = new int[10];
@@ -26,7 +26,7 @@ public class TwoStack {
     }
 
     public boolean isFull() {
-        return top1 + 1 == top2 || top1 == values.length - 1 || top2 == 0;
+        return top1 + 1 == top2;
     }
 
     public TwoStack push1(int value) {
