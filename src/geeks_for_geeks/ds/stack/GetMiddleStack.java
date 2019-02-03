@@ -1,6 +1,7 @@
 package geeks_for_geeks.ds.stack;
 
 import geeks_for_geeks.ds.nodes.DNode;
+import geeks_for_geeks.ds.stack.adt.Stack;
 import geeks_for_geeks.exceptions.DSException;
 
 /**

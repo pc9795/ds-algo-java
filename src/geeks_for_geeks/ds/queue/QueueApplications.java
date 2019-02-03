@@ -26,6 +26,12 @@ public class QueueApplications {
         }
     }
 
+    /**
+     * t=O(n); enqueue is done at-most two times.
+     *
+     * @param arr
+     * @return
+     */
     public static int printTour(PetrolPump[] arr) {
         if (arr.length == 0) {
             throw new RuntimeException("Input is emtpy!");
@@ -36,6 +42,7 @@ public class QueueApplications {
         int currentPetrol = arr[start].petrol - arr[start].nextPetrolPumpDistance;
         queue.add(new PetrolPump(arr[start].petrol, arr[start].nextPetrolPumpDistance));
         for (; start != end || currentPetrol < 0; end = (end + 1) % arr.length) {
+//            If petrol is less than zero move the starting point.
             for (; start != end && currentPetrol < 0; ) {
                 currentPetrol -= queue.peek().petrol - queue.peek().nextPetrolPumpDistance;
                 start = (start + 1) % arr.length;
@@ -51,9 +58,35 @@ public class QueueApplications {
         return start;
     }
 
-    public static void main(String[] args) {
-        PetrolPump[] arr = {new PetrolPump(4, 6), new PetrolPump(6, 5),
-                new PetrolPump(7, 3), new PetrolPump(4, 5)};
-        System.out.println("position:" + (printTour(arr) + 1));
+    /**
+     * t=O(n); enqueue at most two times.
+     *
+     * @param arr
+     * @param windowSize
+     */
+    public static void slidingWindowMaximum(int[] arr, int windowSize) {
+        assert arr != null;
+        assert arr.length >= windowSize;
+        //Q's front will always have the biggest element of the current window.
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < windowSize; i++) {
+            while (!queue.isEmpty() && arr[queue.peekLast()] < arr[i]) {
+                queue.pollLast();
+            }
+            queue.add(i);
+        }
+        for (int i = windowSize; i < arr.length; i++) {
+            System.out.print(arr[queue.peek()]+" ");
+//            removing elements which are out of window. For this step we are saving the indexes. With the indexes it is
+//            easy
+            while (!queue.isEmpty() && queue.peek() <= i - windowSize) {
+                queue.poll();
+            }
+            while (!queue.isEmpty() && arr[queue.peekLast()] < arr[i]) {
+                queue.pollLast();
+            }
+            queue.add(i);
+        }
+        System.out.print(arr[queue.peek()]);
     }
 }

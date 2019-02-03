@@ -1,10 +1,12 @@
 package geeks_for_geeks.ds.queue;
 
+import geeks_for_geeks.ds.queue.adt.Queue;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 01-10-2018 05:20
  **/
-public class DQueue extends Queue {
+public class DQueue extends QueueUsingArray implements Queue {
 
     public DQueue() {
         super();
@@ -16,7 +18,7 @@ public class DQueue extends Queue {
 
     public DQueue insertFront(int value) {
         if (isFull()) {
-            throw new RuntimeException("Queue is Full!");
+            throw new RuntimeException("QueueUsingArray is Full!");
         }
         if (front == -1) {
             front = values.length - 1;
@@ -29,7 +31,7 @@ public class DQueue extends Queue {
 
     public int deleteLast() {
         if (isEmpty()) {
-            throw new RuntimeException("Queue is Empty!");
+            throw new RuntimeException("QueueUsingArray is Empty!");
         }
         rear--;
         if (rear == -1) {
@@ -41,15 +43,5 @@ public class DQueue extends Queue {
             rear = 0;
         }
         return value;
-    }
-
-    public static void main(String[] args) {
-        DQueue queue = new DQueue(5);
-        queue.insertFront(1).insertFront(2).insertFront(3).insertFront(4)
-                .insertFront(5);
-        System.out.println(queue);
-        for (int i = 0; i < 5; i++) {
-            System.out.println(queue.dequeue());
-        }
     }
 }

@@ -1,5 +1,7 @@
 package geeks_for_geeks.ds.stack;
 
+import geeks_for_geeks.ds.stack.adt.Stack;
+
 import java.util.ArrayDeque;
 
 /**

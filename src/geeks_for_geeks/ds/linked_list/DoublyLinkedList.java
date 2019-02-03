@@ -1,5 +1,6 @@
 package geeks_for_geeks.ds.linked_list;
 
+import geeks_for_geeks.ds.linked_list.adt.LinkedList;
 import geeks_for_geeks.ds.nodes.DNode;
 
 /**

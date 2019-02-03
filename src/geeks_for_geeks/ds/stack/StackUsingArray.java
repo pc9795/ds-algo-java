@@ -1,8 +1,6 @@
 package geeks_for_geeks.ds.stack;
 
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Set;
+import geeks_for_geeks.ds.stack.adt.Stack;
 
 /**
  * Created By: Prashant Chaubey

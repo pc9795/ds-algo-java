@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.stack;
+package geeks_for_geeks.ds.stack.adt;
 
 /**
  * Created By: Prashant Chaubey

@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.linked_list;
+package geeks_for_geeks.ds.linked_list.adt;
 
 public interface LinkedList {
     public int size();
