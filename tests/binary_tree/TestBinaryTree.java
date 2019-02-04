@@ -1,6 +1,6 @@
 package binary_tree;
 
-import geeks_for_geeks.ds.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.nodes.BTNode;
 import org.junit.jupiter.api.Test;
 

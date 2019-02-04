@@ -1,10 +1,12 @@
-package geeks_for_geeks.ds.binary_tree;
+package geeks_for_geeks.ds.tree.binary_tree;
 
 import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
-import geeks_for_geeks.ds.nodes.DNode;
+import geeks_for_geeks.util.DoublePointer;
 
+import java.security.PublicKey;
 import java.util.ArrayDeque;
+import java.util.Hashtable;
 
 /**
  * Created By: Prashant Chaubey
@@ -32,20 +34,33 @@ public class BinaryTree {
         if (root == null) {
             return height;
         }
-        return Math.max(height + 1, Math.max(getHeightUtil(root.left, height + 1), getHeightUtil(root.right, height + 1)));
+        return Math.max(height + 1, Math.max(getHeightUtil(root.left, height + 1), getHeightUtil(root.right,
+                height + 1)));
     }
 
+    /**
+     * t=O(n^2) ; for skewed tree.
+     *
+     * @param bt
+     */
     public static void levelOrderTraversal(BinaryTree bt) {
         if (bt.root == null) {
             throw new RuntimeException("Tree is empty");
         }
         int height = getHeight(bt);
         for (int i = 1; i <= height; i++) {
+            //O(n)
             printLevel(bt.root, i);
             System.out.println();
         }
     }
 
+
+    /**
+     * t=O(n)
+     *
+     * @param bt
+     */
     public static void levelOrderTraversalUsingQueue(BinaryTree bt) {
         assert bt.root != null;
         ArrayDeque<BTNode> queue = new ArrayDeque<>();
@@ -227,5 +242,23 @@ public class BinaryTree {
         circularList1Head.left = circularList2Last;
         circularList2Last.right = circularList1Head;
         return circularList1Head;
+    }
+
+    public static int diameter(BinaryTree tree) {
+        assert tree != null && tree.root != null;
+        DoublePointer<Integer> diam = new DoublePointer<>();
+        diam.data = Integer.MIN_VALUE;
+        diameterUtil(tree.root, diam);
+        return diam.data;
+    }
+
+    private static int diameterUtil(BTNode root, DoublePointer<Integer> diam) {
+        if (root == null) {
+            return 0;
+        }
+        int left = diameterUtil(root.left, diam);
+        int right = diameterUtil(root.right, diam);
+        diam.data = Math.min(diam.data, left + right + 1);
+        return Math.max(left, right) + 1;
     }
 }

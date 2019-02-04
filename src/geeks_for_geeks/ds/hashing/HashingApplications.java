@@ -1,9 +1,8 @@
 package geeks_for_geeks.ds.hashing;
 
-import geeks_for_geeks.ds.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.nodes.BTNode;
 
-import javax.sound.sampled.Line;
 import java.util.*;
 
 /**

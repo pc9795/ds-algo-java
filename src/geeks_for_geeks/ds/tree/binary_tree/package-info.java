@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.binary_tree;
+package geeks_for_geeks.ds.tree.binary_tree;
 
 /*
  *          f  <--root and parent of a
@@ -53,7 +53,7 @@ package geeks_for_geeks.ds.binary_tree;
  *
  * case 3. Root has one child
  * T*3+(S-1)*2+L+1=(S+T+L-1)*2
- * t=L-1 proved
+ * T=L-1 proved
  *
  * Types of Binary Trees
  * ----------------------
@@ -122,6 +122,9 @@ package geeks_for_geeks.ds.binary_tree;
  * -----------------
  * BFS = O(width) max for balanced tree -> ceil(n/2) ->O(n)
  * DFS = O(height) max for skewed tree -> O(n)
+ *
+ * Extra space required for level order traversal is likely to be more when tree is more balanced and extra space for
+ * depth first traversal is likely to be more when tree is less balanced.
  *
  * Construct a Binary tree with two traversal sequences
  * -----------------------------------------------------
