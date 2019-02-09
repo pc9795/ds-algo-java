@@ -6,7 +6,9 @@ import geeks_for_geeks.util.DoublePointer;
 
 import java.security.PublicKey;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.stream.Collectors;
 
 /**
  * Created By: Prashant Chaubey
@@ -30,7 +32,7 @@ public class BinaryTree {
         return getHeightUtil(bt.root, 0);
     }
 
-    public static int getHeightUtil(BTNode root, int height) {
+    private static int getHeightUtil(BTNode root, int height) {
         if (root == null) {
             return height;
         }
@@ -78,7 +80,7 @@ public class BinaryTree {
         System.out.println();
     }
 
-    public static void printLevel(BTNode root, int level) {
+    private static void printLevel(BTNode root, int level) {
         if (root == null) {
             return;
         }
@@ -90,7 +92,8 @@ public class BinaryTree {
         printLevel(root.right, level - 1);
     }
 
-    public static int getWidthFromLevel(BTNode root, int level) {
+
+    private static int getWidthFromLevel(BTNode root, int level) {
         if (root == null) {
             return 0;
         }
@@ -152,21 +155,31 @@ public class BinaryTree {
         inOrderTraversalUtil(root.right);
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param tree
+     */
     public static void inOrderTraversalWoRecursion(BinaryTree tree) {
         ArrayDeque<BTNode> stack = new ArrayDeque<>();
         BTNode root = tree.root;
+
         for (; root != null; root = root.left) {
             stack.push(root);
         }
+
         for (; !stack.isEmpty(); ) {
+
             BTNode curr = stack.pop();
             System.out.print("data:" + curr.data + "->");
+
             if (curr.right != null) {
                 for (BTNode temp = curr.right; temp != null; temp = temp.left) {
                     stack.push(temp);
                 }
             }
         }
+
         System.out.println();
     }
 
@@ -176,19 +189,25 @@ public class BinaryTree {
      * @param tree
      */
     public static void morisTraversal(BinaryTree tree) {
+
         if (tree == null || tree.root == null) {
             System.out.println("Tree is empty!");
             return;
         }
-        BTNode curr = tree.root;
-        for (; curr != null; ) {
+
+        for (BTNode curr = tree.root; curr != null; ) {
+
             if (curr.left == null) {
                 System.out.print(curr.data + "->");
                 curr = curr.right;
             } else {
+
                 BTNode pre = curr.left;
-                for (; pre.right != null && pre.right != curr; pre = pre.right) {
+
+                while (pre.right != null && pre.right != curr) {
+                    pre = pre.right;
                 }
+
                 if (pre.right == null) {
                     pre.right = curr;
                     curr = curr.left;
@@ -199,6 +218,8 @@ public class BinaryTree {
                 }
             }
         }
+
+        System.out.println();
     }
 
     public DoublyLinkedList toList() {
@@ -260,5 +281,50 @@ public class BinaryTree {
         int right = diameterUtil(root.right, diam);
         diam.data = Math.min(diam.data, left + right + 1);
         return Math.max(left, right) + 1;
+    }
+
+    private static void getInOrder(BTNode root, ArrayList<Integer> inOrder) {
+        if (root == null) {
+//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
+            inOrder.add(-1);
+            return;
+        }
+        getInOrder(root.left, inOrder);
+        inOrder.add(root.data);
+        getInOrder(root.right, inOrder);
+    }
+
+    private static void getPreOrder(BTNode root, ArrayList<Integer> preOrder) {
+        if (root == null) {
+//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
+            preOrder.add(-1);
+            return;
+        }
+        preOrder.add(root.data);
+        getPreOrder(root.left, preOrder);
+        getPreOrder(root.right, preOrder);
+
+    }
+
+    public boolean isSubTree(BinaryTree bt) {
+        assert bt != null;
+        ArrayList<Integer> traversalOrder = new ArrayList<>();
+
+        getInOrder(this.root, traversalOrder);
+        String inOrder = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+
+        traversalOrder = new ArrayList<>();
+        getInOrder(bt.root, traversalOrder);
+        String inOrderSuper = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+
+        traversalOrder = new ArrayList<>();
+        getPreOrder(this.root, traversalOrder);
+        String preOrder = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+
+        traversalOrder = new ArrayList<>();
+        getPreOrder(bt.root, traversalOrder);
+        String preOrderSuper = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+
+        return inOrderSuper.contains(inOrder) && preOrderSuper.contains(preOrder);
     }
 }
