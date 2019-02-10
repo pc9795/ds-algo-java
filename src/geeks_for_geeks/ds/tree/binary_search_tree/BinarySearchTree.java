@@ -1,7 +1,10 @@
-package geeks_for_geeks.ds.binary_search_tree;
+package geeks_for_geeks.ds.tree.binary_search_tree;
 
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.util.DoublePointer;
+
+import java.util.ArrayDeque;
 
 /**
  * Created By: Prashant Chaubey
@@ -13,24 +16,32 @@ public class BinarySearchTree extends BinaryTree {
         super(data);
     }
 
+    public BinarySearchTree(BTNode root) {
+        super(root);
+    }
+
     /**
-     * T=O(h)
+     * t=O(n) ;if tree is skewed.
      *
      * @param key
      * @return
      */
     public boolean search(int key) {
         BTNode curr = root;
+
         for (; curr != null; ) {
+
             if (curr.data == key) {
                 return true;
             }
+
             if (key < curr.data) {
                 curr = curr.left;
             } else {
                 curr = curr.right;
             }
         }
+
         return false;
     }
 
@@ -38,17 +49,28 @@ public class BinarySearchTree extends BinaryTree {
         return root == null;
     }
 
+    /**
+     * t=O(n); if tree is skewed.
+     *
+     * @param data
+     * @return
+     */
     public BinarySearchTree insert(int data) {
+
         if (isEmpty()) {
             root = new BTNode(data);
             return this;
         }
+
         BTNode curr = root;
         BTNode prev = null;
+
         for (; curr != null; ) {
+
             if (curr.data == data) {
                 throw new RuntimeException("Duplicate data");
             }
+
             prev = curr;
             if (data < curr.data) {
                 curr = curr.left;
@@ -56,54 +78,52 @@ public class BinarySearchTree extends BinaryTree {
                 curr = curr.right;
             }
         }
+
         if (data < prev.data) {
             prev.left = new BTNode(data);
         } else {
             prev.right = new BTNode(data);
         }
+
         return this;
     }
 
-    public static BTNode inOrderSuccessorFromTheNode(BTNode node) {
-        if (node == null) {
-            throw new RuntimeException("Wrong input(null)");
-        }
-        if (node.right == null) {
-            throw new RuntimeException("No right child");
-        }
+    public static BTNode inOrderSucc(BTNode node) {
+        assert node != null && node.right != null;
+
         BTNode inOrderSucc = node.right;
         for (; inOrderSucc.left != null; inOrderSucc = inOrderSucc.left) ;
         return inOrderSucc;
 
     }
 
-    public static BTNode inOrderPredecessorFromTheNode(BTNode node) {
-        if (node == null) {
-            throw new RuntimeException("Wrong input(null)");
-        }
-        if (node.left == null) {
-            throw new RuntimeException("No left child");
-        }
+    public static BTNode inOrderPred(BTNode node) {
+        assert node != null && node.left != null;
+
         BTNode inOrderPred = node.left;
         for (; inOrderPred.right != null; inOrderPred = inOrderPred.right) ;
         return inOrderPred;
     }
 
     /**
-     * T=O(h)
+     * t=O(n) ; if tree is skewed.
      *
      * @param key
      */
     public void delete(int key) {
+
         if (isEmpty()) {
             throw new RuntimeException("Empty tree");
         }
+
         BTNode curr = root;
         BTNode prev = null;
+
         for (; curr != null; ) {
             if (curr.data == key) {
                 break;
             }
+
             prev = curr;
             if (key < curr.data) {
                 curr = curr.left;
@@ -111,39 +131,46 @@ public class BinarySearchTree extends BinaryTree {
                 curr = curr.right;
             }
         }
+
         if (curr == null) {
             throw new RuntimeException("Element not found");
         }
-        if (prev == null) {
-            this.root = null;
-        }
 
         if (curr.left == null) {
-            if (curr.right == null) {
-                System.out.println("Leaf node");
+//    Will cover both leaf and single child node.
+            if (prev == null) {
+//                if node is root.
+                root = curr.right;
             } else {
-                System.out.println("Internal node with single child");
+                if (prev.right == curr) {
+                    prev.right = curr.right;
+                } else {
+                    prev.left = curr.right;
+                }
             }
-            if (prev.right == curr) {
-//                curr.right can be null so leaf case covered.
-                prev.right = curr.right;
-            } else {
-                prev.left = curr.right;
-            }
+
         } else if (curr.right == null) {
-            System.out.println("Internal node with single child");
-            if (prev.right == curr) {
-//                curr left can be null so leaf case covered.
-                prev.right = curr.left;
+//Cover the single child node.
+            if (prev == null) {
+//                if node is root.
+                root = curr.left;
             } else {
-                prev.left = curr.left;
+                if (prev.right == curr) {
+                    prev.right = curr.left;
+                } else {
+                    prev.left = curr.left;
+                }
             }
+
         } else {
-            System.out.println("Internal node with two children");
-            BTNode inOrderSucc = BinarySearchTree.inOrderSuccessorFromTheNode(curr);
-            System.out.println("InOrderSuccessor:" + inOrderSucc);
+//            Node with two children.
+//            Finding in-order successor for the node.
+            BTNode inOrderSucc = BinarySearchTree.inOrderSucc(curr);
+
             delete(inOrderSucc.data);
+
 //            swapping inside data will be expensive for bigger object.
+//            We can use recursive delete code which will use the links.
             int temp = curr.data;
             curr.data = inOrderSucc.data;
             inOrderSucc.data = temp;
@@ -152,7 +179,7 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     /**
-     * T=O(n) for skewed trees
+     * t=O(n) for skewed trees
      *
      * @return
      */
@@ -160,28 +187,32 @@ public class BinarySearchTree extends BinaryTree {
         if (isEmpty()) {
             throw new RuntimeException("Empty Tree");
         }
+
         BTNode temp = root;
         for (; temp.left != null; temp = temp.left) ;
         return temp.data;
     }
 
     /**
-     * T=O(height)
+     * t=O(n) ; for skewed tree.
      *
      * @param key
      */
     public void findPreSuc(int key) {
         BTNode pred = null, succ = null, curr = this.root;
+
         for (; curr != null; ) {
+
             if (curr.data == key) {
                 if (curr.left != null) {
-                    pred = inOrderPredecessorFromTheNode(curr);
+                    pred = inOrderPred(curr);
                 }
                 if (curr.right != null) {
-                    succ = inOrderSuccessorFromTheNode(curr);
+                    succ = inOrderSucc(curr);
                 }
                 break;
             }
+
             if (key < curr.data) {
                 succ = curr;
                 curr = curr.left;
@@ -190,6 +221,7 @@ public class BinarySearchTree extends BinaryTree {
                 curr = curr.right;
             }
         }
+
         System.out.println("curr:" + curr);
         System.out.println("predecessor:" + pred);
         System.out.println("successor:" + succ);
@@ -197,21 +229,23 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     /**
-     * T=O(height)
+     * t=O(n) ; for skewed tree.
      *
      * @param n1
      * @param n2
      * @return
      */
-    public int lowestCommonAncestor(int n1, int n2) {
+    public int lca(int n1, int n2) {
         if (!search(n1) || !search(n2)) {
             return -1;
         }
+
         if (n1 > n2) {
             int temp = n2;
             n2 = n1;
             n1 = temp;
         }
+
         BTNode curr = root;
         for (; curr != null; ) {
             if (curr.data >= n1 && curr.data <= n2) {
@@ -227,20 +261,75 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     public int ceil(int number) {
-        return -1;
-    }
+        BTNode curr = this.root;
+        int ceil = -1;
 
-    private int ceilUtil(BTNode root, int number, int ceil) {
-        if (root == null) {
-            return number;
+        while (curr != null) {
+            if (curr.data == number) {
+                return curr.data;
+            }
+            if (number < curr.data) {
+                ceil = curr.data;
+                curr = curr.left;
+            } else {
+                curr = curr.right;
+            }
         }
-        if (root.data == number) {
-            return number;
-        }
-        ceilUtil(root.left, number, ceil);
-        ceilUtil(root.right, number, ceil);
+
         return ceil;
     }
 
+
+    public static boolean isBST(BinaryTree bt) {
+        assert bt != null;
+
+        return isBSTUtil(bt.root, new DoublePointer<>());
+    }
+
+    private static boolean isBSTUtil(BTNode root, DoublePointer<BTNode> prev) {
+        if (root == null) {
+            return true;
+        }
+        if (!isBSTUtil(root.left, prev)) {
+            return false;
+        }
+        if (prev.data != null && prev.data.data > root.data) {
+            return false;
+        }
+        prev.data = root;
+
+        return isBSTUtil(root.right, prev);
+    }
+
+    /**
+     * t=O(n)
+     *
+     * @param tree
+     */
+    public static int kthSmallest(BinarySearchTree tree, int k) {
+        ArrayDeque<BTNode> stack = new ArrayDeque<>();
+        BTNode root = tree.root;
+
+        for (; root != null; root = root.left) {
+            stack.push(root);
+        }
+
+        for (; !stack.isEmpty(); ) {
+
+            k--;
+            BTNode curr = stack.pop();
+
+            if (k == 0) {
+                return curr.data;
+            }
+
+            if (curr.right != null) {
+                for (BTNode temp = curr.right; temp != null; temp = temp.left) {
+                    stack.push(temp);
+                }
+            }
+        }
+        return -1;
+    }
 }
 

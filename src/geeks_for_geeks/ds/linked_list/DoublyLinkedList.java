@@ -1,7 +1,10 @@
 package geeks_for_geeks.ds.linked_list;
 
 import geeks_for_geeks.ds.linked_list.adt.LinkedList;
+import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.ds.nodes.DNode;
+import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
+import geeks_for_geeks.util.DoublePointer;
 
 /**
  * Created By: Prashant Chaubey
@@ -161,4 +164,43 @@ public class DoublyLinkedList implements LinkedList {
         i.data = temp;
         return i;
     }
+
+    /**
+     * If list is not sorted then it will give unexpected results.
+     *
+     * @param dll
+     * @return
+     */
+    public static BinarySearchTree toBST(DoublyLinkedList dll) {
+        assert dll != null && dll.head != null;
+
+        int n = dll.size();
+        return new BinarySearchTree(toBSTUtil(new DoublePointer<>(dll.head), n));
+    }
+
+    /**
+     * t=O(n)
+     * create BST from leaves.
+     *
+     * @param headPtr
+     * @param n
+     * @return
+     */
+    private static BTNode toBSTUtil(DoublePointer<DNode> headPtr, int n) {
+        if (n == 0) {
+            return null;
+        }
+        BTNode left = toBSTUtil(headPtr, n / 2);
+
+        BTNode root = new BTNode(headPtr.data);
+        headPtr.data = headPtr.data.next;
+
+        BTNode right = toBSTUtil(headPtr, n - n / 2 - 1);
+
+        root.left = left;
+        root.right = right;
+
+        return root;
+    }
+
 }

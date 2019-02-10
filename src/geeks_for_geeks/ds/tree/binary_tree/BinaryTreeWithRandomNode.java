@@ -19,6 +19,10 @@ public class BinaryTreeWithRandomNode {
         this.root = new BTNodeWithRandom(data);
     }
 
+    public BinaryTreeWithRandomNode(BTNodeWithRandom root) {
+        this.root = root;
+    }
+
     public BinaryTreeWithRandomNode cloneUsingHashMap() {
         HashMap<BTNodeWithRandom, BTNodeWithRandom> map = new HashMap<>();
         ArrayDeque<BTNodeWithRandom> queue = new ArrayDeque<>();
@@ -55,10 +59,7 @@ public class BinaryTreeWithRandomNode {
                 map.get(node).random = map.get(node.random);
             }
         }
-        BinaryTreeWithRandomNode clone = new BinaryTreeWithRandomNode(-1);
-        clone.root = map.get(this.root);
-
-        return clone;
+        return new BinaryTreeWithRandomNode(map.get(this.root));
     }
 
 
@@ -68,10 +69,7 @@ public class BinaryTreeWithRandomNode {
         fixRandomLinks(this.root, cloneRoot);
         restoreTree(this.root, cloneRoot);
 
-        BinaryTreeWithRandomNode bt = new BinaryTreeWithRandomNode(-1);
-        bt.root = cloneRoot;
-
-        return bt;
+        return new BinaryTreeWithRandomNode(cloneRoot);
     }
 
     private BTNodeWithRandom buildCloneNodes(BTNodeWithRandom root) {

@@ -16,6 +16,10 @@ public class BTNode {
         this.data = data;
     }
 
+    public BTNode(DNode node) {
+        this.data = node.data;
+    }
+
     @Override
     public String toString() {
         return "BTNode{" +

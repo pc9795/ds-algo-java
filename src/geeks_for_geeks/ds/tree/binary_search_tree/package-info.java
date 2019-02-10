@@ -1,4 +1,4 @@
-package geeks_for_geeks.ds.binary_search_tree;
+package geeks_for_geeks.ds.tree.binary_search_tree;
 
 /*
  * Properties
@@ -23,6 +23,11 @@ package geeks_for_geeks.ds.binary_search_tree;
  * Distance from n1 to n2 can be computed as the distance from the root to n1, plus the
  * distance from the root to n2, minus twice the distance from the root to their lowest
  * common ancestor.
+ *
+ * F(n) = floor((golden_ratio^n)/sqrt(5)+(1/2)) ,where golden_ratio=(sqrt(5)+1)/2
+ * We can calculate nth power in logn time so we can calculate nth fibonacci number in logn time.
+ *
+ *
  *
  *
  * */

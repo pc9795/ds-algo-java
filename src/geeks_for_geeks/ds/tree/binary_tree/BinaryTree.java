@@ -4,10 +4,10 @@ import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.util.DoublePointer;
 
-import java.security.PublicKey;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +19,10 @@ public class BinaryTree {
 
     public BinaryTree(int data) {
         root = new BTNode(data);
+    }
+
+    public BinaryTree(BTNode root) {
+        this.root = root;
     }
 
     @Override
@@ -151,7 +155,7 @@ public class BinaryTree {
             return;
         }
         inOrderTraversalUtil(root.left);
-        System.out.print("data: " + root.data + "->");
+        System.out.print(root.data + "->");
         inOrderTraversalUtil(root.right);
     }
 
@@ -283,48 +287,80 @@ public class BinaryTree {
         return Math.max(left, right) + 1;
     }
 
-    private static void getInOrder(BTNode root, ArrayList<Integer> inOrder) {
-        if (root == null) {
-//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
-            inOrder.add(-1);
-            return;
-        }
-        getInOrder(root.left, inOrder);
-        inOrder.add(root.data);
-        getInOrder(root.right, inOrder);
+    public List<Integer> getInOrder(boolean showNulls, int nullValue) {
+        List<Integer> traversal = new LinkedList<>();
+
+        getInOrder(this.root, traversal, showNulls, nullValue);
+
+        return traversal;
     }
 
-    private static void getPreOrder(BTNode root, ArrayList<Integer> preOrder) {
+    private static void getInOrder(BTNode root, List<Integer> inOrder, final boolean showNull, final int nullValue) {
         if (root == null) {
 //            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
-            preOrder.add(-1);
+            if (showNull) {
+                inOrder.add(nullValue);
+            }
+            return;
+        }
+        getInOrder(root.left, inOrder, showNull, nullValue);
+        inOrder.add(root.data);
+        getInOrder(root.right, inOrder, showNull, nullValue);
+    }
+
+    public ArrayList<Integer> getPreOrder(boolean showNull, int nullValue) {
+        ArrayList<Integer> traversal = new ArrayList<>();
+
+        getPreOrder(this.root, traversal, showNull, nullValue);
+
+        return traversal;
+    }
+
+    private static void getPreOrder(BTNode root, ArrayList<Integer> preOrder, final boolean showNull, final int nullValue) {
+        if (root == null) {
+//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
+            if (showNull) {
+                preOrder.add(nullValue);
+            }
             return;
         }
         preOrder.add(root.data);
-        getPreOrder(root.left, preOrder);
-        getPreOrder(root.right, preOrder);
+        getPreOrder(root.left, preOrder, showNull, nullValue);
+        getPreOrder(root.right, preOrder, showNull, nullValue);
 
     }
 
     public boolean isSubTree(BinaryTree bt) {
         assert bt != null;
-        ArrayList<Integer> traversalOrder = new ArrayList<>();
 
-        getInOrder(this.root, traversalOrder);
-        String inOrder = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+        String inOrder = this.getInOrder(true, -1).stream().
+                map(Object::toString).collect(Collectors.joining(","));
 
-        traversalOrder = new ArrayList<>();
-        getInOrder(bt.root, traversalOrder);
-        String inOrderSuper = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+        String inOrderSuper = bt.getInOrder(true, -1).stream().
+                map(Object::toString).collect(Collectors.joining(","));
 
-        traversalOrder = new ArrayList<>();
-        getPreOrder(this.root, traversalOrder);
-        String preOrder = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+        String preOrder = this.getPreOrder(true, -1).stream()
+                .map(Object::toString).collect(Collectors.joining(","));
 
-        traversalOrder = new ArrayList<>();
-        getPreOrder(bt.root, traversalOrder);
-        String preOrderSuper = traversalOrder.stream().map(Object::toString).collect(Collectors.joining(","));
+        String preOrderSuper = bt.getPreOrder(true, -1).
+                stream().map(Object::toString).collect(Collectors.joining(","));
 
         return inOrderSuper.contains(inOrder) && preOrderSuper.contains(preOrder);
     }
+
+    public int size() {
+        return sizeUtil(this.root);
+    }
+
+    private int sizeUtil(BTNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = sizeUtil(root.left);
+        int right = sizeUtil(root.right);
+
+        return left + right + 1;
+
+    }
+
 }
