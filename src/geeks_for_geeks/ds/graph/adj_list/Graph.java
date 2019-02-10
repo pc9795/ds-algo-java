@@ -24,7 +24,8 @@ public class Graph extends GraphBase {
 
     @Override
     public Graph addEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         values[src].add(new GraphNode(dest));
         inDegree[dest]++;
         return this;
@@ -32,7 +33,8 @@ public class Graph extends GraphBase {
 
     @Override
     public Graph removeEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         inDegree[dest]--;
         values[src].remove(new GraphNode(dest));
         return this;
@@ -40,14 +42,15 @@ public class Graph extends GraphBase {
 
     @Override
     public Graph addEdge(int src, int dest, int weight) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         inDegree[dest]++;
         values[src].add(new GraphNode(dest, weight));
         return this;
     }
 
     /**
-     * T=O(V+E)
+     * t=O(V+E)
      * We can't just check visited array because then it will result 1->2 and 0->2 also cyclic, so we just have to check
      * for back edge which is done using recursion stack.
      *
@@ -56,7 +59,9 @@ public class Graph extends GraphBase {
     public boolean isCyclic() {
         boolean visited[] = new boolean[vertices()];
         boolean recStack[] = new boolean[vertices()];
+
         for (int i = 0; i < vertices(); i++) {
+
             if (!visited[i]) {
                 if (isCyclicUtil(i, visited, recStack)) {
                     return true;
@@ -69,67 +74,38 @@ public class Graph extends GraphBase {
     private boolean isCyclicUtil(int vertex, boolean[] visited, boolean[] recStack) {
         visited[vertex] = true;
         recStack[vertex] = true;
+
         for (int i = 0; i < values[vertex].size(); i++) {
+
             int neighbour = values[vertex].get(i).vertex;
             if (recStack[neighbour]) {
                 return true;
             }
+
             if (!visited[neighbour]) {
                 if (isCyclicUtil(neighbour, visited, recStack)) {
                     return true;
                 }
             }
         }
+
         recStack[vertex] = false;
         return false;
     }
 
-    /**
-     * To make it work for undirected graphs the undirected edge must be read as one entry else it will result it as
-     * true.
-     *
-     * @return
-     */
-    public boolean isCyclicUsingUnionFind() {
-        boolean visited[] = new boolean[vertices()];
-        UnionFind uf = new UnionFind(vertices());
-        for (int i = 0; i < vertices(); i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                if (isCyclicUsingUnionFindUtil(i, visited, uf)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean isCyclicUsingUnionFindUtil(int vertex, boolean[] visited, UnionFind uf) {
-        for (int i = 0; i < values[vertex].size(); i++) {
-            int neighbour = values[vertex].get(i).vertex;
-            if (uf.find(vertex) == uf.find(neighbour)) {
-                return true;
-            } else {
-                uf.union(i, neighbour);
-            }
-            if (!visited[neighbour]) {
-                visited[neighbour] = true;
-                if (isCyclicUsingUnionFindUtil(neighbour, visited, uf)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
+     * t=O(V+E)
      * Only possible for a DAG.
      * first node have in degree 0;
      * We can look it as decreasing order of finish time.
      */
     public ArrayDeque<Integer> topologicalSort() {
+        assert !this.isCyclic();
+
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         boolean[] visited = new boolean[this.vertices()];
+
         for (int i = 0; i < this.vertices(); i++) {
             if (!visited[i]) {
                 visited[i] = true;
@@ -140,8 +116,8 @@ public class Graph extends GraphBase {
     }
 
     private void topologicalSortUtil(boolean[] visited, int vertex, ArrayDeque<Integer> stack) {
-        for (int i = 0; i < this.values[vertex].size(); i++) {
-            GraphNode neighbour = this.values[vertex].get(i);
+        for (GraphNode neighbour : this.values[vertex]) {
+
             if (!visited[neighbour.vertex]) {
                 visited[neighbour.vertex] = true;
                 topologicalSortUtil(visited, neighbour.vertex, stack);
@@ -150,35 +126,47 @@ public class Graph extends GraphBase {
         stack.push(vertex);
     }
 
+    /**
+     * t=O(V+E)
+     *
+     * @param source
+     * @return
+     */
     public int longestPath(int source) {
+        assert !this.isCyclic();
+
         int[] dist = new int[this.vertices()];
         Arrays.fill(dist, Integer.MIN_VALUE);
+
         dist[source] = 0;
+
         ArrayDeque<Integer> stack = this.topologicalSort();
+
         for (; !stack.isEmpty(); ) {
             int vertex = stack.peek();
 //           It will make sure that we start from the source vertex and pick those who are updated
 //           ; Only those will be updated which are linked from source vertex.
             if (dist[vertex] != Integer.MIN_VALUE) {
-                for (int i = 0; i < this.values[vertex].size(); i++) {
-                    GraphNode neighbour = this.values[vertex].get(i);
+
+                for (GraphNode neighbour : this.values[vertex]) {
                     dist[neighbour.vertex] = dist[neighbour.vertex] > dist[vertex] + neighbour.weight ?
                             dist[neighbour.vertex] : dist[vertex] + neighbour.weight;
                 }
             }
         }
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < dist.length; i++) {
-            if (dist[i] > max) {
-                max = dist[i];
-            }
-        }
-        return max;
+
+        return Arrays.stream(dist).reduce(Integer.MIN_VALUE, Math::max);
     }
 
+    /**
+     * t=O(V+E)
+     *
+     * @return
+     */
     public boolean checkBipartite() {
         int[] colour = new int[vertices()];
         Arrays.fill(colour, -1);
+
         for (int i = 0; i < vertices(); i++) {
             if (colour[i] == -1) {
                 colour[i] = 1;
@@ -190,14 +178,16 @@ public class Graph extends GraphBase {
         return true;
     }
 
-    public boolean colorGraph(int[] colour, int vertex, int c) {
-        for (int i = 0; i < this.values[vertex].size(); i++) {
-            GraphNode neighbour = this.values[vertex].get(i);
+    private boolean colorGraph(int[] colour, int vertex, int c) {
+        for (GraphNode neighbour : this.values[vertex]) {
+
             if (colour[neighbour.vertex] == -1) {
                 colour[neighbour.vertex] = c;
+
                 if (!colorGraph(colour, neighbour.vertex, 1 - c)) {
                     return false;
                 }
+
             } else if (colour[neighbour.vertex] != c) {
                 return false;
             }

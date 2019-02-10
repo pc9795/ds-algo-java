@@ -16,6 +16,7 @@ public abstract class GraphBase {
 
     GraphBase(int vertices) {
         values = new ArrayList[vertices];
+
         for (int i = 0; i < values.length; i++) {
             values[i] = new ArrayList<>();
         }
@@ -38,10 +39,11 @@ public abstract class GraphBase {
     public abstract void printEulerPath();
 
     /**
-     * T=O(V+E)
+     * t=O(V+E)
      */
     public void dfs() {
         boolean visited[] = new boolean[vertices()];
+
         for (int i = 0; i < vertices(); i++) {
             if (!visited[i]) {
                 dfsUtil(i, visited);
@@ -51,7 +53,9 @@ public abstract class GraphBase {
 
     void dfsUtil(int source, boolean[] visited) {
         visited[source] = true;
+
         List<GraphNode> neighbours = values[source];
+
         for (GraphNode neighbour : neighbours) {
             if (!visited[neighbour.vertex]) {
                 dfsUtil(neighbour.vertex, visited);
@@ -80,6 +84,7 @@ public abstract class GraphBase {
 
     public boolean isEdge(int src, int dest) {
         assert (src >= values.length || dest >= values.length);
+
         for (int i = 0; i < values[src].size(); i++) {
             if (values[src].get(i).vertex == dest) {
                 return true;
@@ -89,7 +94,7 @@ public abstract class GraphBase {
     }
 
     /**
-     * T=O(V+E)
+     * t=O(V+E)
      */
     public void bfs() {
         boolean visited[] = new boolean[vertices()];
@@ -103,10 +108,14 @@ public abstract class GraphBase {
 
     private void bfsUtil(int vertex, boolean[] visited) {
         ArrayDeque<Integer> queue = new ArrayDeque<>();
+
         queue.add(vertex);
+
         for (; !queue.isEmpty(); ) {
+
             int curr = queue.poll();
             System.out.println("visited:" + curr);
+
             for (int i = 0; i < values[curr].size(); i++) {
                 int neighbour = values[curr].get(i).vertex;
                 if (!visited[neighbour]) {

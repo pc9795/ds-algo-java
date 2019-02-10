@@ -12,22 +12,18 @@ public class Graph extends GraphBase {
 
     @Override
     public Graph addEdge(int src, int dest, int weight) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         values[src][dest] = weight;
         return this;
     }
 
     @Override
     public Graph addEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         values[src][dest] = 1;
         return this;
-    }
-
-    @Override
-    public boolean isEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
-        return values[src][dest] == 1;
     }
 
     @Override

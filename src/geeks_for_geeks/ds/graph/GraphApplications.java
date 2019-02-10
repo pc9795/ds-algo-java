@@ -1,9 +1,10 @@
 package geeks_for_geeks.ds.graph;
 
 import geeks_for_geeks.ds.graph.adj_matrix.Graph;
-import geeks_for_geeks.ds.nodes.Edge;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created By: Prashant Chaubey
@@ -15,7 +16,7 @@ public class GraphApplications {
         int moves;
         int pos;
 
-        public BoardEntry(int moves, int pos) {
+        BoardEntry(int moves, int pos) {
             this.moves = moves;
             this.pos = pos;
         }
@@ -29,21 +30,29 @@ public class GraphApplications {
         }
     }
 
+    /**
+     * t=O(n) ;number of cells
+     * Each cell is removed and added one time only.
+     *
+     * @param n
+     * @param move
+     * @return
+     */
     public static int snakeAndLadderProblem(int n, int[] move) {
         ArrayDeque<BoardEntry> queue = new ArrayDeque<>();
-        queue.add(new BoardEntry(0, 0));
         boolean[] visited = new boolean[n];
+
+        queue.add(new BoardEntry(0, 0));
         visited[0] = true;
+
         for (; !queue.isEmpty(); ) {
             BoardEntry entry = queue.poll();
             if (entry.pos == n - 1) {
                 return entry.moves;
             }
             for (int i = entry.pos + 1; i <= entry.pos + 6 && i < n; i++) {
-                if (!visited[i]) {
-                    if (i == n - 1) {
 
-                    }
+                if (!visited[i]) {
                     if (move[i] != -1) {
                         queue.add(new BoardEntry(entry.moves + 1, move[i]));
                     } else {
@@ -56,130 +65,106 @@ public class GraphApplications {
         return -1;
     }
 
+    /**
+     * t=O(v^2)
+     * Greedy
+     *
+     * @param graph
+     */
     public static void minimizeCashFlow(Graph graph) {
+
         int n = graph.vertices();
         int amount[] = new int[n];
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                graph.values[j][i] = graph.values[j][i] == Integer.MAX_VALUE ? 0 : graph.values[j][i];
+                graph.values[i][j] = graph.values[i][j] == Integer.MAX_VALUE ? 0 : graph.values[i][j];
+
                 amount[i] += graph.values[j][i] - graph.values[i][j];
             }
         }
+
         minimizeCashFlowUtil(amount);
     }
 
     private static void minimizeCashFlowUtil(int[] amount) {
-        int min = Integer.MAX_VALUE;
-        int minIndex = -1;
+        int minIndex = 0;
+        int maxIndex = 0;
+
         for (int i = 0; i < amount.length; i++) {
-            if (amount[i] < min) {
-                min = amount[i];
+            if (amount[i] < amount[minIndex]) {
                 minIndex = i;
             }
-        }
-        int max = Integer.MIN_VALUE;
-        int maxIndex = -1;
-        for (int i = 0; i < amount.length; i++) {
-            if (amount[i] > max) {
-                max = amount[i];
+
+            if (amount[i] > amount[maxIndex]) {
                 maxIndex = i;
             }
         }
-        if (min == 0 && max == 0) {
+
+        if (amount[minIndex] == 0 && amount[maxIndex] == 0) {
             return;
         }
+
         int minCash = Math.min(-amount[minIndex], amount[maxIndex]);
         System.out.println("Person(" + minIndex + ") gives Person(" + maxIndex + ") " + minCash + " rupees!");
+
         amount[minIndex] += minCash;
         amount[maxIndex] -= minCash;
+
         minimizeCashFlowUtil(amount);
     }
 
+    /**
+     * Backtracking
+     *
+     * @param matrix
+     * @param dict
+     */
     public static void boggle(char matrix[][], Set<String> dict) {
+
         StringBuilder word = new StringBuilder();
-        Set<String> hash = new HashSet<>();
+//        To prevent from printing multiple words.
+        Set<String> memo = new HashSet<>();
         boolean visited[][] = new boolean[matrix.length][matrix[0].length];
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                boggleUtil(i, j, word.append(matrix[i][j]), hash, dict, matrix, visited);
+
+//                This appended value will be deleted in the helper function so every time this word will start with
+//                a single character
+                boggleUtil(i, j, word.append(matrix[i][j]), memo, dict, matrix, visited);
             }
         }
     }
 
-    private static void boggleUtil(int row, int col, StringBuilder word, Set<String> hash, Set<String> dict,
+    private static void boggleUtil(int row, int col, StringBuilder word, Set<String> memo, Set<String> dict,
                                    char[][] matrix, boolean[][] visited) {
+
         visited[row][col] = true;
-        if (hash.contains(word.toString())) {
+
+        if (memo.contains(word.toString())) {
             return;
         }
+
         if (dict.contains(word.toString())) {
             System.out.println("Found:" + word);
-            hash.add(word.toString());
+            memo.add(word.toString());
         }
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = col - 1; j <= col + 1; j++) {
+
+//                Traverse all neighbours.
                 if (i >= 0 && j >= 0 && i < matrix.length && j < matrix[0].length && !visited[i][j]) {
-                    boggleUtil(i, j, word.append(matrix[i][j]), hash, dict, matrix, visited);
+
+                    boggleUtil(i, j, word.append(matrix[i][j]), memo, dict, matrix, visited);
                 }
             }
         }
+
+//        back tracking step.
         word.deleteCharAt(word.length() - 1);
         visited[row][col] = false;
     }
 
-
-    public static void findDirectionsForEdgesSoAfterAddingGraphRemainsDAG(Edge[] edges, geeks_for_geeks.ds.graph.adj_list.Graph graph) {
-        ArrayDeque<Integer> stack = graph.topologicalSort();
-        for (Edge edge : edges) {
-            Iterator<Integer> it = stack.iterator();
-            for (; it.hasNext(); ) {
-                int val = it.next();
-                if (val == edge.src) {
-                    System.out.println("Edge to be added from " + edge.src + " to " + edge.dest);
-                    break;
-                } else if (val == edge.dest) {
-                    System.out.println("Edge to be added from " + edge.dest + " to " + edge.src);
-                    break;
-                }
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        int n = 30;
-        int moves[] = new int[n];
-        Arrays.fill(moves, -1);
-//        ladders
-        moves[2] = 21;
-        moves[4] = 7;
-        moves[10] = 25;
-        moves[19] = 28;
-//         Snakes
-        moves[26] = 0;
-        moves[20] = 8;
-        moves[16] = 3;
-        moves[18] = 6;
-//        System.out.println(snakeAndLadderProblem(n, moves));
-        Graph graph = new Graph(3);
-        graph.addEdge(0, 1, 1000).addEdge(0, 2, 2000).addEdge(1, 2, 5000);
-//        minimizeCashFlow(graph);
-        Set<String> dict = new HashSet<>();
-        dict.add("GEEKS");
-        dict.add("FOR");
-        dict.add("QUIZ");
-        dict.add("GO");
-        char[][] matrix = new char[][]{
-                {'G', 'I', 'Z'},
-                {'U', 'E', 'K'},
-                {'Q', 'S', 'E'}
-        };
-//        boggle(matrix, dict);
-        geeks_for_geeks.ds.graph.adj_list.Graph graph2 = new geeks_for_geeks.ds.graph.adj_list.Graph(6);
-        graph2.addEdge(0, 5).addEdge(0, 1).addEdge(5, 1).addEdge(5, 2).
-                addEdge(1, 2)
-                .addEdge(1, 3).addEdge(1, 4).addEdge(2, 3).
-                addEdge(2, 4).addEdge(3, 4);
-        findDirectionsForEdgesSoAfterAddingGraphRemainsDAG(new Edge[]{
-                new Edge(3, 0), new Edge(4, 5), new Edge(0, 2)
-        }, graph2);
-    }
 }

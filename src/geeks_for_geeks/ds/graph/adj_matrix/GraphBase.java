@@ -10,6 +10,7 @@ public abstract class GraphBase {
 
     public GraphBase(int vertices) {
         values = new int[vertices][vertices];
+
         for (int i = 0; i < vertices; i++) {
             for (int j = 0; j < vertices; j++) {
                 if (i == j) {
@@ -25,7 +26,11 @@ public abstract class GraphBase {
 
     public abstract GraphBase addEdge(int src, int dest);
 
-    public abstract boolean isEdge(int src, int dest);
+    public boolean isEdge(int src, int dest) {
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
+        return values[src][dest] != Integer.MAX_VALUE;
+    }
 
     public abstract int vertices();
 }

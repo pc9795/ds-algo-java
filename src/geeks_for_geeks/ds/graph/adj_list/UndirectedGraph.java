@@ -148,4 +148,40 @@ public class UndirectedGraph extends GraphBase {
         }
         return true;
     }
+
+    /**
+     * t=O(V+E)
+     *
+     * @return
+     */
+    public boolean isCyclic() {
+        boolean visited[] = new boolean[vertices()];
+        for (int i = 0; i < vertices(); i++) {
+
+            if (!visited[i]) {
+                if (isCyclicUtil(i, visited, -1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isCyclicUtil(int vertex, boolean[] visited, int parent) {
+        visited[vertex] = true;
+
+        for (int i = 0; i < values[vertex].size(); i++) {
+
+            int neighbour = values[vertex].get(i).vertex;
+            if (!visited[neighbour]) {
+                if (isCyclicUtil(neighbour, visited, vertex)) {
+                    return true;
+                }
+            } else if (neighbour != parent) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

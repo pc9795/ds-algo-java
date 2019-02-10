@@ -14,25 +14,25 @@ public class UndirectedGraph extends GraphBase {
 
     @Override
     public GraphBase addEdge(int src, int dest, int weight) {
-        throw new NotImplementedException();
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
+        values[src][dest] = weight;
+        values[dest][src] = weight;
+        return this;
     }
 
     @Override
     public UndirectedGraph addEdge(int src, int dest) {
-        assert (src >= values.length || dest >= values.length);
+        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
+
         values[src][dest] = 1;
         values[dest][src] = 1;
         return this;
     }
 
     @Override
-    public boolean isEdge(int src, int dest) {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public int vertices() {
-        throw new NotImplementedException();
+        return values.length;
     }
 
 

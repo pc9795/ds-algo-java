@@ -19,7 +19,7 @@ public class BellmanFord {
      */
     public static void shortestPath(Graph graph, int src) {
         assert graph != null;
-        int v = graph.vertices();
+        int v = graph.vertices;
         assert src < v;
         int[] sp = new int[v];
         Arrays.fill(sp, Integer.MAX_VALUE);
@@ -46,15 +46,5 @@ public class BellmanFord {
             }
         }
         System.out.println("Shortest path array:" + Arrays.toString(sp));
-    }
-
-    public static void main(String[] args) {
-        Graph graph = new Graph();
-        graph.addEdge(0, 1, -1).addEdge(0, 2, 4).
-                addEdge(1, 2, 3).addEdge(1, 4, 2).
-                addEdge(4, 3, -3).addEdge(3, 2, 5).
-                addEdge(3, 1, 1).addEdge(1, 3, 2);
-        System.out.println(graph.vertices());
-        shortestPath(graph, 0);
     }
 }

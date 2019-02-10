@@ -2,11 +2,10 @@ package geeks_for_geeks.algo.greedy_algorithms;
 
 import geeks_for_geeks.ds.graph.adj_list.GraphBase;
 import geeks_for_geeks.ds.graph.edge_repr.Graph;
-import geeks_for_geeks.ds.graph.adj_list.UndirectedGraph;
-import geeks_for_geeks.ds.union_find.UnionFind;
 import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.nodes.GraphNode;
 import geeks_for_geeks.ds.nodes.PrimNode;
+import geeks_for_geeks.ds.union_find.UnionFind;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -29,15 +28,19 @@ public class MST {
      * @return
      */
     public static Graph kruskalMinimumSpanningTree(Graph graph) {
-        Graph mst = new Graph();
+        assert graph != null;
+
+        Graph mst = new Graph(graph.vertices);
         graph.edges.sort(new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
                 return o1.weight - o2.weight;
             }
         });
-        int vertices = graph.vertices();
+
+        int vertices = graph.vertices;
         UnionFind uf = new UnionFind(vertices);
+
         for (int i = 0, j = 0; i < vertices - 1 && j < graph.edges.size(); j++) {
             Edge edge = graph.edges.get(j);
             if (uf.find(edge.src) != uf.find(edge.dest)) {
@@ -105,31 +108,5 @@ public class MST {
             }
         }
         return mst;
-    }
-
-    public static void main(String[] args) {
-        Graph graph = new Graph();
-        graph.addEdge(7, 6, 1).addEdge(8, 2, 2).addEdge(6, 5, 2)
-                .addEdge(1, 2, 8).addEdge(3, 4, 9).addEdge(5, 4, 10)
-                .addEdge(2, 3, 7).addEdge(7, 8, 7).addEdge(0, 7, 8)
-                .addEdge(0, 1, 4).addEdge(2, 5, 4).addEdge(8, 6, 6)
-                .addEdge(1, 7, 11).addEdge(3, 5, 14);
-//        System.out.println(kruskalMinimumSpanningTree(graph));
-        GraphBase graph2 = new UndirectedGraph(9);
-        graph2.addEdge(0, 1, 4);
-        graph2.addEdge(0, 7, 8);
-        graph2.addEdge(1, 2, 8);
-        graph2.addEdge(1, 7, 11);
-        graph2.addEdge(2, 3, 7);
-        graph2.addEdge(2, 8, 2);
-        graph2.addEdge(2, 5, 4);
-        graph2.addEdge(3, 4, 9);
-        graph2.addEdge(3, 5, 14);
-        graph2.addEdge(4, 5, 10);
-        graph2.addEdge(5, 6, 2);
-        graph2.addEdge(6, 7, 1);
-        graph2.addEdge(6, 8, 6);
-        graph2.addEdge(7, 8, 7);
-        System.out.println(primMinimumSpanningTree(graph2));
     }
 }

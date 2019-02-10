@@ -3,6 +3,8 @@ package geeks_for_geeks.ds.graph;
 /*
  * Adjacency Matrix
  * ----------------
+ * symmetric for undirected graph.
+ *
  * Pros
  * ----
  * 1. Removing an edge O(1)
@@ -30,9 +32,8 @@ package geeks_for_geeks.ds.graph;
  * 2.Depth/levels of the built tree can be limited
  * 3.We can find nodes within a given distance k from a node
  *
- * To detect cycle in undirected graph.
- * For every visited vertex ‘v’, if there is an adjacent ‘u’ such that u is already visited and u is not parent of v,
- * then there is a cycle in graph.
+ * To detect cycle in undirected graph. -> For every visited vertex ‘v’, if there is an adjacent ‘u’ such that u is
+ * already visited and u is not parent of v, then there is a cycle in graph.
  *
  * Bipartite Graph
  * ---------------
