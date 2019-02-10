@@ -11,106 +11,163 @@ import java.util.*;
  **/
 public class HashingApplications {
 
+    /**
+     * t=O(n)
+     *
+     * @param tree
+     */
     public static void printTreeInVerticalOrder(BinaryTree tree) {
-        if (tree.root == null) {
-            throw new RuntimeException("empty tree!");
-        }
-        Map<Integer, List<Integer>> ht = new TreeMap<>();
-        printTreeInVerticalOrderUtil(tree.root, 0, ht);
-        for (Integer key : ht.keySet()) {
-            System.out.println("for axis:" + key + "=>" + ht.get(key));
+        assert tree != null;
+
+//        Tree map so that we will have values sorted according to axises.
+        Map<Integer, List<Integer>> map = new TreeMap<>();
+
+        printTreeInVerticalOrderUtil(tree.root, 0, map);
+
+        for (Integer key : map.keySet()) {
+            System.out.println("for axis:" + key + "=>" + map.get(key));
         }
     }
 
-    private static void printTreeInVerticalOrderUtil(BTNode node, int axis, Map<Integer, List<Integer>> ht) {
+    private static void printTreeInVerticalOrderUtil(BTNode node, int axis, Map<Integer, List<Integer>> map) {
         if (node == null) {
             return;
         }
-        if (!ht.containsKey(axis)) {
-            ht.put(axis, new ArrayList<>());
+
+        if (!map.containsKey(axis)) {
+            map.put(axis, new ArrayList<>());
         }
-        ht.get(axis).add(node.data);
-        printTreeInVerticalOrderUtil(node.left, axis - 1, ht);
-        printTreeInVerticalOrderUtil(node.right, axis + 1, ht);
+
+        map.get(axis).add(node.data);
+
+        printTreeInVerticalOrderUtil(node.left, axis - 1, map);
+        printTreeInVerticalOrderUtil(node.right, axis + 1, map);
 
     }
 
+    /**
+     * t=O(bigger array length)
+     *
+     * @param check
+     * @param arr
+     * @return
+     */
     public static boolean isArraySubsetOfAnother(int[] check, int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < arr.length; i++) {
-            if (!map.containsKey(arr[i])) {
-                map.put(arr[i], 0);
+        for (int elem : arr) {
+            if (!map.containsKey(elem)) {
+                map.put(elem, 0);
             }
-            map.put(arr[i], map.get(arr[i]) + 1);
+            map.put(elem, map.get(elem) + 1);
         }
-        for (int i = 0; i < check.length; i++) {
-            if (!map.containsKey(check[i])) {
+        for (int elem : check) {
+            if (!map.containsKey(elem)) {
                 return false;
-            } else if (map.get(check[i]) < 1) {
+            } else if (map.get(elem) < 1) {
                 return false;
             }
-            map.put(check[i], map.get(check[i]) - 1);
+            map.put(elem, map.get(elem) - 1);
         }
         return true;
     }
 
-    public static LinkedList<Integer> unionOrIntersection(LinkedList<Integer> list1, LinkedList<Integer> list2, boolean union) {
+
+    /**
+     * Handle duplicates also.
+     *
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public static LinkedList<Integer> union(LinkedList<Integer> list1, LinkedList<Integer> list2) {
         LinkedList<Integer> result = new LinkedList<>();
         HashMap<Integer, Integer> map = new HashMap<>();
-        if (union) {
-            for (Integer value : list1) {
-                if (!map.containsKey(value)) {
-                    map.put(value, 0);
-                }
-                map.put(value, map.get(value) + 1);
+
+        for (Integer value : list1) {
+            if (!map.containsKey(value)) {
+                map.put(value, 0);
             }
-            for (Integer value : list2) {
-                if (!map.containsKey(value)) {
-                    map.put(value, 0);
-                }
-                map.put(value, map.get(value) + 1);
+            map.put(value, map.get(value) + 1);
+        }
+
+        for (Integer value : list2) {
+            if (!map.containsKey(value)) {
+                map.put(value, 0);
             }
-            for (Integer key : map.keySet()) {
-                for (int i = 0; i < map.get(key); i++) {
-                    result.add(key);
-                }
+            map.put(value, map.get(value) + 1);
+        }
+
+        for (Integer key : map.keySet()) {
+            for (int i = 0; i < map.get(key); i++) {
+                result.add(key);
             }
-        } else {
-            for (Integer value : list1) {
-                if (!map.containsKey(value)) {
-                    map.put(value, 0);
-                }
-                map.put(value, map.get(value) + 1);
+        }
+
+        return result;
+    }
+
+    /**
+     * Handle duplicates also.
+     *
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public static LinkedList<Integer> intersection(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+        LinkedList<Integer> result = new LinkedList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (Integer value : list1) {
+            if (!map.containsKey(value)) {
+                map.put(value, 0);
             }
-            for (Integer value : list2) {
-                if (map.containsKey(value) && map.get(value) >= 1) {
-                    result.add(value);
-                    map.put(value, map.get(value) - 1);
-                }
+            map.put(value, map.get(value) + 1);
+        }
+        for (Integer value : list2) {
+            if (map.containsKey(value) && map.get(value) >= 1) {
+                result.add(value);
+                map.put(value, map.get(value) - 1);
             }
         }
         return result;
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param arr
+     * @param sum
+     */
     public static void findPairWithGivenSum(int arr[], int sum) {
         HashSet<Integer> set = new HashSet<>();
-        for (int i = 0; i < arr.length; i++) {
-            if (set.contains(sum - arr[i])) {
-                System.out.println("Pair found:" + arr[i] + "," + (sum - arr[i]));
-                return;
+        boolean pairFound = false;
+
+        for (int elem : arr) {
+            int diff = sum - elem;
+
+//            we can use diff>0 if we there are no negative numbers.
+            if (set.contains(diff)) {
+                System.out.println("Pair found:" + elem + "," + diff);
+                pairFound = true;
             }
-            set.add(arr[i]);
+            set.add(elem);
         }
-        System.out.println("No pair found!");
+        if (!pairFound) {
+            System.out.println("No pair found!");
+        }
     }
+
 
     public static boolean isDuplicateElementWithinKDistance(int arr[], int k) {
         HashSet<Integer> set = new HashSet<>();
+
         for (int i = 0; i < arr.length; i++) {
+
             if (set.contains(arr[i])) {
                 return true;
             }
+
             set.add(arr[i]);
+
             if (i >= k) {
                 set.remove(arr[i - k]);
             }
@@ -118,90 +175,82 @@ public class HashingApplications {
         return false;
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param fromTo
+     */
     public static void findItineraryFromGivenListOfTickets(Map<String, String> fromTo) {
         Map<String, String> toFrom = new HashMap<>();
+
         for (String key : fromTo.keySet()) {
             toFrom.put(fromTo.get(key), key);
         }
+
         String src = "";
+
         for (String key : fromTo.keySet()) {
             if (!toFrom.containsKey(key)) {
                 src = key;
                 break;
             }
         }
+
+        assert !src.equals("");
+
         for (; fromTo.get(src) != null; src = fromTo.get(src)) {
             System.out.println("From:" + src + ",To:" + fromTo.get(src));
         }
+
     }
 
     public static void numberOfEmployeesUnderAEmployee(char[][] employeeManagerPair) {
         Map<Character, List<Character>> managerToEmployee = new HashMap<>();
+
         for (int i = 0; i < employeeManagerPair.length; i++) {
+
             if (!managerToEmployee.containsKey(employeeManagerPair[i][1])) {
                 managerToEmployee.put(employeeManagerPair[i][1], new ArrayList<>());
             }
+
             managerToEmployee.get(employeeManagerPair[i][1]).add(employeeManagerPair[i][0]);
         }
-        System.out.println(managerToEmployee);
+        Map<Character, Integer> memo = new HashMap<>();
+
         for (int i = 0; i < employeeManagerPair.length; i++) {
-            int count = 0;
+
             char employee = employeeManagerPair[i][0];
-            System.out.println("Count of reportees to " + employee + ":" + countOfReportees(managerToEmployee, employee));
+            System.out.println("Count of reportees to " + employee + ":" +
+                    countOfReportees(managerToEmployee, employee, memo));
         }
     }
 
-    private static int countOfReportees(Map<Character, List<Character>> managerToEmployee, Character employee) {
-        int count = 0;
-        if (managerToEmployee.get(employee) == null) {
-            return count;
+    /**
+     * @param managerToEmployee
+     * @param employee
+     * @return
+     */
+    private static int countOfReportees(Map<Character, List<Character>> managerToEmployee, Character employee,
+                                        Map<Character, Integer> memo) {
+
+        if (memo.containsKey(employee)) {
+            return memo.get(employee);
         }
+
+        if (managerToEmployee.get(employee) == null) {
+
+            memo.put(employee, 0);
+            return 0;
+        }
+        int count = 0;
         for (Character c : managerToEmployee.get(employee)) {
+
             if (c != employee) {
-                count += 1 + countOfReportees(managerToEmployee, c);
+                count += 1 + countOfReportees(managerToEmployee, c, memo);
             }
         }
+        memo.put(employee, count);
         return count;
-    }
-
-    public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree(1);
-        tree.root.left = new BTNode(2);
-        tree.root.right = new BTNode(3);
-        tree.root.left.left = new BTNode(4);
-        tree.root.left.right = new BTNode(5);
-        tree.root.right.left = new BTNode(6);
-        tree.root.right.right = new BTNode(7);
-        tree.root.right.right.left = new BTNode(8);
-        tree.root.right.right.right = new BTNode(9);
-//        BinaryTree.levelOrderTraversal(tree);
-//        printTreeInVerticalOrder(tree);
-//        System.out.println(isArraySubsetOfAnother(new int[]{1, 4, 2}, new int[]{1, 4, 2, 3}));
-        LinkedList<Integer> list1 = new LinkedList<>();
-        LinkedList<Integer> list2 = new LinkedList<>();
-        list1.add(1);
-        list1.add(2);
-        list1.add(2);
-        list1.add(3);
-        list2.add(4);
-        list2.add(5);
-        list2.add(2);
-        list2.add(6);
-        list2.add(2);
-//        System.out.println(unionOrIntersection(list1, list2, false));
-//        findPairWithGivenSum(new int[]{1, 2, 3, 4, 5}, 4);
-//        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 4, 1, 2, 3, 4}, 3));
-//        System.out.println(isDuplicateElementWithinKDistance(new int[]{1, 2, 3, 1, 4, 5}, 3));
-        Map<String, String> map = new HashMap<>();
-        map.put("Chennai", "Banglore");
-        map.put("Bombay", "Delhi");
-        map.put("Goa", "Chennai");
-        map.put("Delhi", "Goa");
-//        findItineraryFromGivenListOfTickets(map);
-        numberOfEmployeesUnderAEmployee(new char[][]{
-                new char[]{'a', 'c'}, new char[]{'b', 'c'}, new char[]{'c', 'f'}, new char[]{'d', 'e'}, new char[]
-                {'e', 'f'}, new char[]{'f', 'f'}
-        });
     }
 
 
