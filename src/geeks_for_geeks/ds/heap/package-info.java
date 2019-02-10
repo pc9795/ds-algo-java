@@ -34,7 +34,7 @@ package geeks_for_geeks.ds.heap;
  * -----------
  * 1. It has exactly 2^k nodes
  * 2. It has depth as k
- * 3. There are exactlry kCi nodes at depth i for i-0,1....k
+ * 3. There are exactly kCi nodes at depth i for i-0,1....k
  * 4. The root has degree k and children of root are themselves Binomial trees with order k-1, k-2,..0 from
  * left to right
  *
@@ -71,6 +71,9 @@ package geeks_for_geeks.ds.heap;
  * Ques -> select smallest one million elements from one billion unsorted elements.
  *
  * Approach 1-> sort the billion numbers and select first one million.
+ *
+ * NOTE: if n leaf nodes then total nodes are n + n - 1 = 2n-1 for complete binary tree.
+ *
  * Approach 2-> sorting 1000 lists of one million each + tree construction + tournaments
  * each list will be at the leaf and from each list one element participate in the
  * tournament and winner is removed from the list.

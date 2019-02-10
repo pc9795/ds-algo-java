@@ -8,18 +8,22 @@ import java.util.PriorityQueue;
  * Created By: Prashant Chaubey
  * Created On: 01-10-2018 18:39
  **/
-public class HeapOperations {
+public class HeapAppllications {
 
-    //    T=O(k+(n-k)log k)
+    /**
+     * T=O(k+(n-k)log k)
+     *
+     * @param arr
+     * @param k
+     * @return
+     */
     public static Integer[] kLargestElements(int arr[], int k) {
-        if (arr.length == 0) {
-            throw new RuntimeException("Array is empty!");
-        }
-        if (k > arr.length) {
-            throw new RuntimeException("Invalid input: k can't be greater than array's length");
-        }
+        assert arr.length != 0 && k <= arr.length;
+
+//        Min heap.
         PriorityQueue<Integer> heap = new PriorityQueue<>();
-//       k
+
+        //       k
         for (int i = 0; i < k; i++) {
             heap.add(arr[i]);
         }
@@ -34,28 +38,35 @@ public class HeapOperations {
         return heap.toArray(new Integer[k]);
     }
 
+    /**
+     * t=O(k+(n-k)*logk)
+     *
+     * @param arr
+     * @param k
+     * @return
+     */
     public static int[] sortNearlySortedArray(int arr[], int k) {
+        assert k >= 1 && k < arr.length;
+
         PriorityQueue<Integer> heap = new PriorityQueue<>();
-        if (k > arr.length || k <= 0 || arr.length == 0) {
-            return arr;
-        }
+
+//        k
         for (int i = 0; i <= k; i++) {
             heap.add(arr[i]);
         }
+
+//        (n-k)*logk
         for (int i = k + 1; i < arr.length; i++) {
+//            if k is 0 then it will fail here.
             arr[i - k - 1] = heap.poll();
             heap.add(arr[i]);
         }
+
+//        k*logk
         for (int i = arr.length - 1 - k - 1 + 1; i < arr.length; i++) {
             arr[i] = heap.poll();
         }
+
         return arr;
-
-    }
-
-    public static void main(String[] args) {
-//        System.out.println(Arrays.toString(kLargestElements(new int[]{1, 23, 12, 9, 30, 2, 50}, 3)));
-        System.out.println(Arrays.toString(sortNearlySortedArray(new int[]{6, 5, 3, 2, 8, 10, 9}, 3)));
-        System.out.println(Arrays.toString(sortNearlySortedArray(new int[]{10, 9, 8, 7, 4, 70, 60, 50}, 4)));
     }
 }

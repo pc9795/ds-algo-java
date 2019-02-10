@@ -28,6 +28,11 @@ public class Array {
         values = new int[size];
     }
 
+    public Array(int[] values) {
+        this.values = values;
+        this.size = values.length;
+    }
+
     public boolean search(int data) {
         for (int i = 0; i < size; i++) {
             if (values[i] == data) {

@@ -1,12 +1,15 @@
 package geeks_for_geeks.ds.heap;
 
+import geeks_for_geeks.ds.array.Array;
+import geeks_for_geeks.ds.heap.adt.Heap;
+
 import java.util.Arrays;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 15:03
  **/
-public class MinHeap {
+public class MinHeap implements Heap {
     public int[] values;
     public int size;
 
@@ -43,12 +46,22 @@ public class MinHeap {
         return (2 * index) + 2;
     }
 
-    //    T=O(1)
+    /**
+     * t=O(1)
+     *
+     * @return
+     */
+    @Override
     public int getMin() {
         return values[0];
     }
 
-    //    T=O(log n)
+    /**
+     * t=O(logn)
+     *
+     * @return
+     */
+    @Override
     public int extractMin() {
         if (isEmpty()) {
             throw new RuntimeException("Heap is empty");
@@ -63,35 +76,35 @@ public class MinHeap {
         return returnedValue;
     }
 
-    public static void precolateDown(int index, int values[], int size) {
+    private static void precolateDown(int index, int values[], int size) {
         int left = left(index);
         int right = right(index);
-        int min = index;
-        if (left < size && values[left] < values[min]) {
-            min = left;
+        int minIndex = index;
+        if (left < size && values[left] < values[minIndex]) {
+            minIndex = left;
         }
-        if (right < size && values[right] < values[min]) {
-            min = right;
+        if (right < size && values[right] < values[minIndex]) {
+            minIndex = right;
         }
 
-        if (min != index) {
-            int temp = values[min];
-            values[min] = values[index];
+        if (minIndex != index) {
+            int temp = values[minIndex];
+            values[minIndex] = values[index];
             values[index] = temp;
-            precolateDown(min, values, size);
+            precolateDown(minIndex, values, size);
         }
     }
 
-    public static void precolateUp(int index, int[] values, int size) {
-        int parent = parent(index);
-        if (parent < 0) {
+    private static void precolateUp(int index, int[] values, int size) {
+        int parentIndex = parent(index);
+        if (parentIndex < 0) {
             return;
         }
-        if (values[parent] < values[index]) {
+        if (values[parentIndex] < values[index]) {
             int temp = values[index];
-            values[index] = values[parent];
-            values[parent] = temp;
-            precolateUp(parent, values, size);
+            values[index] = values[parentIndex];
+            values[parentIndex] = temp;
+            precolateUp(parentIndex, values, size);
         }
     }
 
@@ -100,48 +113,80 @@ public class MinHeap {
      * T=O(log n)
      * we believe that the newVal is less than previous value therefore we are moving in up direction.
      *
-     * @param i
+     * @param index
      * @param newVal
      */
-    public void decreaseKey(int i, int newVal) {
-        if (values[i] >= newVal) {
+    @Override
+    public void decreaseKey(int index, int newVal) {
+        if (values[index] >= newVal) {
             throw new RuntimeException("newVal must be less than current value");
         }
-        values[i] = newVal;
-        precolateUp(i, values, size);
+        values[index] = newVal;
+        precolateUp(index, values, size);
     }
 
-    //    T=O(log n)
-    public void insert(int data) {
+    /**
+     * t=O(logn)
+     *
+     * @param data
+     */
+    @Override
+    public Heap insert(int data) {
         if (isFull()) {
             throw new RuntimeException("Heap is full");
         }
         values[size++] = data;
         precolateUp(size - 1, values, size);
+        return this;
     }
 
-    //    T=O(log n)
+    /**
+     * t=O(logn)
+     *
+     * @param i
+     */
+    @Override
     public void delete(int i) {
         decreaseKey(i, Integer.MIN_VALUE);
         extractMin();
     }
 
-    //    T=O(n)
-    public static MinHeap heapify(int arr[], int size) {
+    /**
+     * t=O(n)
+     *
+     * @param arr
+     * @param size
+     * @return
+     */
+    private static MinHeap heapify(int arr[], int size) {
         if (arr.length == 0) {
             throw new RuntimeException("Array is empty!");
         }
         for (int i = arr.length / 2; i >= 0; i--) {
+//            If we use precloateUp then in the case of bigger parent we have to move it downward, and after this it
+//           again have to be moved down so we have to move up and then move down again.
+//           But if we precolateDown, we are sure that bigger element are moving down continuously.
             precolateDown(i, arr, size);
         }
         return new MinHeap(arr, size);
     }
 
+    /**
+     * t=O(nlogn)
+     * not stable.
+     *
+     * @param arr
+     */
     public static void heapSort(int arr[]) {
+//        It should be implemented using max-heap in which min element is replaced with last element continuously.
+//        todo implement using max-heap to remove extra space.
         MinHeap heap = heapify(arr, arr.length);
-        for (; heap.size != 0; ) {
-            System.out.print(heap.extractMin() + "=>");
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            arr[i] = heap.extractMin();
         }
+        arr = new Array(arr).reverse().values;
+
     }
 
     public String toString() {
@@ -154,8 +199,4 @@ public class MinHeap {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        int arr[] = {12, 11, 13, 5, 6, 7};
-        heapSort(arr);
-    }
 }
