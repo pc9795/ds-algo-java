@@ -1,0 +1,2 @@
+To check a number K is prime, for all numbers i from 2 to sqrt(K), check if K is divisible by i. Let us say a number ab.
+Note that atleast one of a and b<=sqrt(K) otherwise product of them would exceed K.

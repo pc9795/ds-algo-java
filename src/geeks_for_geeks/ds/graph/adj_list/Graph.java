@@ -1,12 +1,10 @@
 package geeks_for_geeks.ds.graph.adj_list;
 
-import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.nodes.GraphNode;
-import geeks_for_geeks.ds.union_find.UnionFind;
-import geeks_for_geeks.util.DoublePointer;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Arrays;
 
 /**
  * Created By: Prashant Chaubey
@@ -234,6 +232,56 @@ public class Graph extends GraphBase {
     @Override
     public void printEulerPath() {
         throw new NotImplementedException();
+    }
+
+    public boolean isEulerianCircuitExists() {
+        for (int i = 0; i < values.length; i++) {
+            if (inDegree[i] != values[i].size()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isAllVerticesReachableFrom(int source) {
+        int vertices = this.values.length;
+        boolean[] visited = new boolean[vertices];
+        dfsUtil(source, visited);
+        for (int i = 0; i < visited.length; i++) {
+            if ((inDegree[i] > 0 || this.values[i].size() > 0) && !visited[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isEulerianPathExists() {
+        boolean isOutGreaterFound = false;
+        int source = -1;
+        boolean isInGreaterFound = false;
+        for (int i = 0; i < this.values.length; i++) {
+            int outDegree = this.values[i].size();
+            if (outDegree > inDegree[i]) {
+                if (outDegree - inDegree[i] == 1 && !isOutGreaterFound) {
+                    isOutGreaterFound = true;
+                    source = i;
+                } else {
+                    return false;
+                }
+            } else if (inDegree[i] > outDegree) {
+                if (inDegree[i] - outDegree == 1 && !isInGreaterFound) {
+                    isInGreaterFound = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        if (isOutGreaterFound && isInGreaterFound) {
+            return isAllVerticesReachableFrom(source);
+        } else {
+            assert false;
+            return false;
+        }
     }
 
 

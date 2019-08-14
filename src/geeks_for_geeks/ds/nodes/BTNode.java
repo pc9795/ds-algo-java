@@ -16,6 +16,12 @@ public class BTNode {
         this.data = data;
     }
 
+    public BTNode(int data, BTNode left, BTNode right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+
     public BTNode(DNode node) {
         this.data = node.data;
     }

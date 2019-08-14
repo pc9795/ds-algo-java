@@ -7,9 +7,9 @@ import java.util.Arrays;
  * Created On: 09-10-2018 02:27
  **/
 public class SegmentTree {
-    int val[];
-    int original[];
-    int lazy[];
+    private int val[];
+    private int original[];
+    private int lazy[];
 
     /**
      * n leaves and n-1 internal nodes = 2*n-1
@@ -18,10 +18,15 @@ public class SegmentTree {
      *
      * @param arr
      */
-    SegmentTree(int arr[]) {
+    public SegmentTree(int arr[], boolean copyOriginal) {
         int size = (int) (2 * Math.pow(2, Math.ceil(Math.log(arr.length) / Math.log(2))) - 1);
         val = new int[size];
-        original = Arrays.copyOf(arr, arr.length);
+        if (copyOriginal) {
+            original = Arrays.copyOf(arr, arr.length);
+        } else {
+//            Save reference
+            original = arr;
+        }
         lazy = new int[size];
         build(0, 0, arr.length - 1);
     }
@@ -48,8 +53,8 @@ public class SegmentTree {
             return 0;
         }
         int mid = (sl + sr) / 2;
-        return queryUtil(ql, qr, sl, mid, left(currIndex), lazy) +
-                queryUtil(ql, qr, mid + 1, sr, right(currIndex), lazy);
+        return operation(queryUtil(ql, qr, sl, mid, left(currIndex), lazy),
+                queryUtil(ql, qr, mid + 1, sr, right(currIndex), lazy));
     }
 
     /**
@@ -68,24 +73,13 @@ public class SegmentTree {
         updateRangeUtil(0, this.original.length - 1, left, right, 0, diff);
     }
 
-    private void makePendingUpdates(int segmentTreeNode, int left, int right) {
-        if (lazy[segmentTreeNode] != 0) {
-            val[segmentTreeNode] += (right - left + 1) * lazy[segmentTreeNode];
-//            Not a leaf node.
-            if (left != right) {
-                lazy[left(segmentTreeNode)] += lazy[segmentTreeNode];
-                lazy[right(segmentTreeNode)] += lazy[segmentTreeNode];
-            }
-            lazy[segmentTreeNode] = 0;
-        }
-    }
-
     private void updateRangeUtil(int sl, int sr, int ql, int qr, int ci, int diff) {
         makePendingUpdates(ci, sl, sr);
         if (qr < sl || ql > sr) {
             return;
         }
 //        inside the range.
+//        todo: This block is currently for sum operations, we have to abstract it.
         if (sl >= ql && sr <= qr) {
             val[ci] += (sr - sl + 1) * diff;
 //            Not a leaf node
@@ -98,14 +92,14 @@ public class SegmentTree {
         int mid = sl + sr >> 1;
         updateRangeUtil(sl, mid, ql, qr, left(ci), diff);
         updateRangeUtil(mid + 1, sr, ql, qr, right(ci), diff);
-        val[ci] = val[left(ci)] + val[right(ci)];
+        val[ci] = operation(val[left(ci)], val[right(ci)]);
     }
 
     private void updateUtil(int sl, int sr, int index, int currIndex, int diff) {
         if (index < sl || index > sr) {
             return;
         }
-        this.val[currIndex] += diff;
+        this.val[currIndex] = operation(this.val[currIndex], diff);
         if (sl != sr) {
             int mid = (sl + sr) / 2;
             updateUtil(sl, mid, index, left(currIndex), diff);
@@ -122,9 +116,12 @@ public class SegmentTree {
         return 2 * i + 2;
     }
 
+    private int operation(int first, int second) {
+        return first + second;
+    }
+
     /**
      * T=O(n)
-     * <p>
      * original nodes were 2n-1 => O(n)
      *
      * @param currIndex
@@ -137,19 +134,21 @@ public class SegmentTree {
             return this.val[currIndex] = this.original[left];
         }
         int mid = (left + right) / 2;
-        return this.val[currIndex] = build(left(currIndex), left, mid) +
-                build(right(currIndex), mid + 1, right);
+        return this.val[currIndex] = operation(build(left(currIndex), left, mid),
+                build(right(currIndex), mid + 1, right));
     }
 
-    public static void test1() {
-        int arr[] = {1, 3, 5, 7, 9, 11};
-        SegmentTree st = new SegmentTree(arr);
-        System.out.println(st.query(1, 3, true));
-        st.updateRange(1, 3, 10);
-        System.out.println(st.query(1, 3, true));
+    //todo:    This method is currently for sum operations, we have to abstract it.
+    private void makePendingUpdates(int segmentTreeNode, int left, int right) {
+        if (lazy[segmentTreeNode] != 0) {
+            val[segmentTreeNode] += (right - left + 1) * lazy[segmentTreeNode];
+//            Not a leaf node.
+            if (left != right) {
+                lazy[left(segmentTreeNode)] += lazy[segmentTreeNode];
+                lazy[right(segmentTreeNode)] += lazy[segmentTreeNode];
+            }
+            lazy[segmentTreeNode] = 0;
+        }
     }
 
-    public static void main(String[] args) {
-        test1();
-    }
 }

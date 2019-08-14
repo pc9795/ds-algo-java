@@ -1,0 +1,1 @@
+**Union by rank** -> always attach smaller depth tree under the root of the deeper tree.
