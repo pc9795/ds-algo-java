@@ -28,7 +28,7 @@ L=(k-1)*I+1 -> L(Number of leaf node), I(Number of internal nodes)
 case 1.Root is leaf.
 L=1, I=0 proved
 
-case 2. Tree is undirected acyclic graph
+case 2. Tree is undirected acyclic geeks_for_geeks.graph
 |E|=L+I-1 -> edges=nodes-1
 
 Sum of all degrees = 2* sum of edges
@@ -65,7 +65,7 @@ Types of Binary Trees
 2. Complete Binary Tree - all levels are completely filled except possibly the last level and the last level has all 
 keys as left as possible.
 3. Perfect Binary Tree - all internal nodes have two children and all leaves are at the same level.
-4. Balanced Binary Tree - height of the tree is O(log n)
+4. Balanced Binary Tree - height of the tree is O(log n). ex- Red-black and AVL trees.
 5. Degenerate/Pathological Tree - every internal node has one child.
 
 **Unlabeled Trees**

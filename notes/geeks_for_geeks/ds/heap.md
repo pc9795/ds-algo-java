@@ -2,16 +2,16 @@
 1. It's a complete tree(All levels are completely filled except possibly the last level and the last level has all keys 
 as left as possible.
 2. The key at root must be minimum among all keys present in Binary Heap. The same property must be recursively true for
-all nodes in Binary tree. (Min heap)
+all nodes in Binary tree. (Min geeks_for_geeks.heap)
 
 
 * (i-1)/2 parent
 * (2*i)+1 left
 * (2*i)+2 right
 
-**Binary heap is preferred for priority queue**
+**Binary geeks_for_geeks.heap is preferred for priority geeks_for_geeks.queue**
 1. Implemented using arrays - cache friendly and no extra space for pointers.
-2. We can build a Binary heap in O(n) time. Self Balancing BSTs require O(n logn) time to construct.
+2. We can build a Binary geeks_for_geeks.heap in O(n) time. Self Balancing BSTs require O(n logn) time to construct.
 3. Fibonacci Heap can support insert and decrease key in O(1) time
 
 **Disadvantages**
@@ -28,10 +28,10 @@ one as leftmost child or other.
 3. There are exactly kCi nodes at depth i for i-0,1....k
 4. The root has degree k and children of root are themselves Binomial trees with order k-1, k-2,..0 from left to right
 
-**Binomial Heap** -> Set of binomial trees where each binomial tree follows min heap property. And there can be at most 
+**Binomial Heap** -> Set of binomial trees where each binomial tree follows min geeks_for_geeks.heap property. And there can be at most 
 one binomial tree of any degree.
 
-A binomial heap with n nodes has the number of Binomial trees equal to the number of set bits in the binary representation 
+A binomial geeks_for_geeks.heap with n nodes has the number of Binomial trees equal to the number of set bits in the binary representation 
 of n.
 
 **Fibonacci Heap**

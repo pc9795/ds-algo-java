@@ -9,7 +9,7 @@
 
 Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.
 
-Circular linked list can be used in place of queue. We can maintain a pointer to the last inserted node and front can 
+Circular linked list can be used in place of geeks_for_geeks.queue. We can maintain a pointer to the last inserted node and front can 
 always be obtained as next of last.
 
 ```cmd

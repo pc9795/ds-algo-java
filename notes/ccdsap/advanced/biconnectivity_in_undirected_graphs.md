@@ -1,4 +1,4 @@
-Critical intersections are vertices that disconnect the graph if they are deleted. These are called "articulation points"
+Critical intersections are vertices that disconnect the geeks_for_geeks.graph if they are deleted. These are called "articulation points"
 or "cut vertices".
 
 1. The root of the DFS tree is an articulation if it has two or more children.

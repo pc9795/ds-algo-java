@@ -120,7 +120,7 @@ is the key, stability is not an issue. Stability is also not an issue if all key
 Quick sort - during replacement of an element which is less than pivot it can happen the value can go back in the
 array.
 
-Quick sort and heap sort can be made stable by extra space O(n).
+Quick sort and geeks_for_geeks.heap sort can be made stable by extra space O(n).
 
 **Lower bound on comparison based sorting algorithms**
 

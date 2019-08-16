@@ -17,7 +17,7 @@ We append a 0 to to the binary representation fo i to obtain the index of the le
 the right child.
 
 **Structure Property**
-1. A binary heap is a complete binary tree
+1. A binary geeks_for_geeks.heap is a complete binary tree
     * Each level(except possibly the bottom most level) is completely filled.
     * The bottom most level may be partially filled(from left to right)
 2. Height of a complete binary tree with N elements is floor(log2N)
@@ -62,9 +62,9 @@ Bi==B(i-1) + B(i-1)
 
 **Structure Property** -> A forest of binomial trees as dictated by the binary representation of n.
 
-**Heap-Order Property** -> Each binomial tree is a min-heap or a max-heap.
+**Heap-Order Property** -> Each binomial tree is a min-geeks_for_geeks.heap or a max-geeks_for_geeks.heap.
 
 We add at the last index and replace the root with last index (during extractMin) to maintain the compact array, i.e,
 a complete binary tree.
 
-For update operation with log n we need NodeToHeap and HeapToNode array to find the node in the heap.
+For update operation with log n we need NodeToHeap and HeapToNode array to find the node in the geeks_for_geeks.heap.
