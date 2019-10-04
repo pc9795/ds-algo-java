@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.arrays_and_strings;
+package cracking_the_coding_interview.ch9_1_arrays_and_strings;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -147,6 +147,20 @@ class SolutionTest {
                 {13, 0, 15, 0}
         };
         assert Arrays.deepEquals(Solution.zeroMatrix(mat), expected);
+    }
+
+    static Stream<Arguments> testStringRotation() {
+        return Stream.of(
+                Arguments.of("waterbottle", "erbottlewat", true),
+                Arguments.of("abcd", "bcdd", false),
+                Arguments.of("abc", "abcd", false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testStringRotation(String str1, String str2, boolean expected) {
+        assert Solution.stringRotation(str1, str2) == expected;
     }
 }
 

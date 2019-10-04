@@ -4,28 +4,13 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+import static util.Utils.getPrecedence;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 01-10-2018 02:54
  **/
 public class StackApplications {
-    private static int getPrecedence(Character ch) {
-        switch (ch) {
-            case '(':
-                return 0;
-            case '+':
-            case '-':
-                return 1;
-            case '*':
-            case '/':
-                return 2;
-            case '^':
-                return 3;
-            default:
-                throw new RuntimeException("Invalid Operator:" + ch);
-        }
-    }
-
     /**
      * In infix expression the compiler have to rescan because of precedence rules.
      *

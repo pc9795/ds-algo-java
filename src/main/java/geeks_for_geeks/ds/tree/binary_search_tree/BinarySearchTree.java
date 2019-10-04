@@ -45,9 +45,6 @@ public class BinarySearchTree extends BinaryTree {
         return false;
     }
 
-    public boolean isEmpty() {
-        return root == null;
-    }
 
     /**
      * t=O(n); if tree is skewed.

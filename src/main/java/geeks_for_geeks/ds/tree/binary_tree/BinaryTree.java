@@ -36,7 +36,7 @@ public class BinaryTree {
         return getHeightUtil(bt.root, 0);
     }
 
-    private static int getHeightUtil(BTNode root, int height) {
+    public static int getHeightUtil(BTNode root, int height) {
         if (root == null) {
             return height;
         }
@@ -61,6 +61,17 @@ public class BinaryTree {
         }
     }
 
+    private static void printLevel(BTNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (level == 1) {
+            System.out.print(root.data + "(" + root.left + "," + root.right + ")    ");
+            return;
+        }
+        printLevel(root.left, level - 1);
+        printLevel(root.right, level - 1);
+    }
 
     /**
      * t=O(n)
@@ -82,18 +93,6 @@ public class BinaryTree {
             }
         }
         System.out.println();
-    }
-
-    private static void printLevel(BTNode root, int level) {
-        if (root == null) {
-            return;
-        }
-        if (level == 1) {
-            System.out.print(root.data + "(" + root.left + "," + root.right + ")    ");
-            return;
-        }
-        printLevel(root.left, level - 1);
-        printLevel(root.right, level - 1);
     }
 
 
@@ -159,11 +158,7 @@ public class BinaryTree {
         inOrderTraversalUtil(root.right);
     }
 
-    /**
-     * t=O(n)
-     *
-     * @param tree
-     */
+    //T=O(n)
     public static void inOrderTraversalWoRecursion(BinaryTree tree) {
         ArrayDeque<BTNode> stack = new ArrayDeque<>();
         BTNode root = tree.root;
@@ -187,11 +182,7 @@ public class BinaryTree {
         System.out.println();
     }
 
-    /**
-     * T=O(n) each node in worst case could be visited two times only.
-     *
-     * @param tree
-     */
+    //T=O(n) each node in worst case could be visited two times only.
     public static void morisTraversal(BinaryTree tree) {
 
         if (tree == null || tree.root == null) {
@@ -330,6 +321,7 @@ public class BinaryTree {
 
     }
 
+    //T=O(n+m), S=O(n+m)
     public boolean isSubTree(BinaryTree bt) {
         assert bt != null;
 
@@ -339,9 +331,13 @@ public class BinaryTree {
         String inOrderSuper = bt.getInOrder(true, -1).stream().
                 map(Object::toString).collect(Collectors.joining(","));
 
+        //We can only use pre-order traversal as soon as we are storing null values as special characters. Because it
+        //be unique.
+        //T=O(n), S=O(n)
         String preOrder = this.getPreOrder(true, -1).stream()
                 .map(Object::toString).collect(Collectors.joining(","));
 
+        //T=O(m), S=O(m)
         String preOrderSuper = bt.getPreOrder(true, -1).
                 stream().map(Object::toString).collect(Collectors.joining(","));
 
@@ -352,7 +348,7 @@ public class BinaryTree {
         return sizeUtil(this.root);
     }
 
-    private int sizeUtil(BTNode root) {
+    public int sizeUtil(BTNode root) {
         if (root == null) {
             return 0;
         }
@@ -361,6 +357,10 @@ public class BinaryTree {
 
         return left + right + 1;
 
+    }
+
+    public boolean isEmpty() {
+        return root == null;
     }
 
 }

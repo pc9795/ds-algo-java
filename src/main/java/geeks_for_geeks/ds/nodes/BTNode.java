@@ -11,6 +11,7 @@ public class BTNode {
     public int data;
     public BTNode left;
     public BTNode right;
+    public BTNode parent;
 
     public BTNode(int data) {
         this.data = data;
@@ -20,6 +21,13 @@ public class BTNode {
         this.data = data;
         this.left = left;
         this.right = right;
+    }
+
+    public BTNode(int data, BTNode left, BTNode right, BTNode parent) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+        this.parent = parent;
     }
 
     public BTNode(DNode node) {

@@ -9,10 +9,10 @@
 
 Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.
 
-Circular linked list can be used in place of geeks_for_geeks.queue. We can maintain a pointer to the last inserted node and front can 
-always be obtained as next of last.
+Circular linked list can be used in place of geeks_for_geeks.queue. We can maintain a pointer to the last inserted node 
+and front can always be obtained as next of last.
 
-```cmd
+```
 [outside loop] [inside loop]
  50 --> 20 --> 15 --> 4
                ^      |
@@ -23,7 +23,7 @@ the head meet at the loop starting point.
 ```
 
 **Proof of removing loop using floyd cycle detection algo**:
-```cmd
+```
 Distance travelled by hare = 2* Distance travelled by tortoise
 
 Distance from head + (no of times hare travelled the loop)*cycleLength + distance from start of the loop to the point

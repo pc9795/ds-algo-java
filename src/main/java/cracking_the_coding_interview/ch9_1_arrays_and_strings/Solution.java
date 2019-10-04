@@ -1,5 +1,6 @@
-package cracking_the_coding_interview.arrays_and_strings;
+package cracking_the_coding_interview.ch9_1_arrays_and_strings;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -31,12 +32,14 @@ public class Solution {
         if (str == null || str.isEmpty()) {
             return true;
         }
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = 0; j < str.length(); j++) {
+        char[] strArr = str.toCharArray();
+        Arrays.sort(strArr);
+        for (int i = 0; i < strArr.length; i++) {
+            for (int j = 0; j < strArr.length; j++) {
                 if (i == j) {
                     continue;
                 }
-                if (str.charAt(i) == str.charAt(j)) {
+                if (strArr[i] == strArr[j]) {
                     return false;
                 }
             }
@@ -47,10 +50,6 @@ public class Solution {
     //    We can also sort the string and then compare.
     //T=O(N)
     public static boolean checkPermutation(String str1, String str2) {
-        if (str1 == null && str2 == null) {
-            return true;
-        }
-
         if (str1 == null || str2 == null) {
             return false;
         }
@@ -248,4 +247,11 @@ public class Solution {
         return mat;
     }
 
+    //T=O(N)
+    public static boolean stringRotation(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+        return (str2 + str2).contains(str1);
+    }
 }

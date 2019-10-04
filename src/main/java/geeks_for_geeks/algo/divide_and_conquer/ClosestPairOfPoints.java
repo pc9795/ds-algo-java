@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.divide_and_conquer;
 
-import util.Util;
+import util.Utils;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -23,7 +23,7 @@ public class ClosestPairOfPoints {
         Double min = Double.MAX_VALUE;
         for (int i = l; i <= r; i++) {
             for (int j = i + 1; j <= r; j++) {
-                min = Math.min(min, Util.eucledianDistance(points[i], points[j]));
+                min = Math.min(min, Utils.eucledianDistance(points[i], points[j]));
             }
         }
         return min;
@@ -46,7 +46,7 @@ public class ClosestPairOfPoints {
         for (int i = 0; i < pointsInStrip.size(); i++) {
             for (int j = i + 1; j < pointsInStrip.size() && Math.abs(pointsInStrip.get(j).getValue() -
                     pointsInStrip.get(i).getValue()) < stripLength; j++) {
-                min = Math.min(min, Util.eucledianDistance(pointsInStrip.get(i), pointsInStrip.get(j)));
+                min = Math.min(min, Utils.eucledianDistance(pointsInStrip.get(i), pointsInStrip.get(j)));
             }
         }
         return min;

@@ -10,24 +10,25 @@ import java.util.Objects;
  * Created On: 14-09-2018 18:35
  **/
 public class SinglyLinkedList implements LinkedList {
-    public Node head;
+    private Node head;
     private int size;
 
-    @Override
-    public String toString() {
-        if (this.head == null) {
-            return "{}";
-        }
-        Node curr = this.head;
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        while (curr != null) {
-            sb.append(curr.data).append(",");
-            curr = curr.next;
-        }
-        sb.append("}");
-        return sb.toString();
+    public Node getHead() {
+        return head;
     }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
 
     @Override
     public int size() {
@@ -67,10 +68,15 @@ public class SinglyLinkedList implements LinkedList {
         return this;
     }
 
+    public SinglyLinkedList append(int data) {
+        return insertAtEnd(data);
+    }
+
     @Override
     public SinglyLinkedList insertAtEnd(int data) {
         if (this.head == null) {
             this.head = new Node(data);
+            size++;
             return this;
         }
         Node temp;
@@ -274,6 +280,22 @@ public class SinglyLinkedList implements LinkedList {
         first = mergeSortUtil(first);
         second = mergeSortUtil(second);
         return sortedMergeUtil(first, second);
+    }
+
+    @Override
+    public String toString() {
+        if (this.head == null) {
+            return "{}";
+        }
+        Node curr = this.head;
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        while (curr != null) {
+            sb.append(curr.data).append(",");
+            curr = curr.next;
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
     @Override

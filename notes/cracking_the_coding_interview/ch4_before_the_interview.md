@@ -31,7 +31,7 @@ project planning happen on the team?"
 3. "I noticed that you use technology X. How do you handle problem Y?"
 4. "Why did the product choose to use the X protocol over the Y protocol? I know it has benefits like A, B,
 C, but many companies choose not to use it because of issue o:'
-5. Tm very interested in scalability, and I'd love to learn more about it. What opportunities are there at this
+5. I'm very interested in scalability, and I'd love to learn more about it. What opportunities are there at this
 company to learn about this?"
 6. "I'm not familiar with technology X, but it sounds like a very interesting solution. Could you tell me a bit
 more about how it works?"

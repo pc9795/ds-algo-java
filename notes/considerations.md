@@ -42,3 +42,5 @@ line and all.[codeforces]
 **Degenerate triangle** -> A-----B-----C
 
 * Range of value <=1000 (max 9 bits) => max value of XOR = 1023
+* `Integer.toBinaryString(<byte_value> & 0xFF)` -> binary representation of byte value
+* Pairwise distinct -> all are unique.

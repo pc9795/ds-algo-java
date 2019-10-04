@@ -2,9 +2,6 @@ package util;
 
 import javafx.util.Pair;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +11,35 @@ import java.util.Map;
  * Created By: Prashant Chaubey
  * Created On: 19-10-2018 22:48
  **/
-public class Util {
+public class Utils {
+    static long combinations(long n, long r) {
+        r = Math.min(r, n - r);
+        long numerator = 1;
+        long denominator = 1;
+        for (int i = 0; i < r; i++) {
+            numerator *= (n--);
+            denominator *= (i + 1);
+        }
+        return numerator / denominator;
+    }
+
+    // T=O(logn)
+    //f(n) be the (n + 1)th fibonacci number. Here we are considering 1 as first fibonacci number
+    static long fibonacci(long n) {
+        if (n == -1) {
+            return 0;
+        }
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        long k = n / 2;
+        if (n % 2 == 0) { // n=2*k
+            return (fibonacci(k) * fibonacci(k) + fibonacci(k - 1) * fibonacci(k - 1)) % 10;
+        } else { // n=2*k+1
+            return (fibonacci(k) * fibonacci(k + 1) + fibonacci(k - 1) * fibonacci(k)) % 10;
+        }
+    }
+
     private static double eculedianDistSq(double x1, double y1, double x2, double y2) {
         return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
     }
@@ -83,7 +108,7 @@ public class Util {
         return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
     }
 
-    private static int gcd(int a, int b) {
+    public static int gcd(int a, int b) {
         if (a == 0) {
             return b;
         }
@@ -109,7 +134,7 @@ public class Util {
         return true;
     }
 
-    private static int getPrecedence(Character ch) {
+    public static int getPrecedence(Character ch) {
         switch (ch) {
             case '(':
                 return 0;

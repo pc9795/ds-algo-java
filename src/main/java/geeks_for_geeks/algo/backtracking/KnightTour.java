@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.backtracking;
 
-import util.Util;
+import util.Utils;
 
 import java.util.Arrays;
 
@@ -36,7 +36,7 @@ public class KnightTour {
             for (int i = 0; i < moves; i++) {
                 int nextX = x + row[i];
                 int nextY = y + col[i];
-                if (Util.isSafe(board, nextX, nextY) && board[nextX][nextY] == -1) {
+                if (Utils.isSafe(board, nextX, nextY) && board[nextX][nextY] == -1) {
                     board[nextX][nextY] = nextMove;
                     if (knightTourUtil(nextX, nextY, boardSize, board, nextMove + 1)) {
                         return true;

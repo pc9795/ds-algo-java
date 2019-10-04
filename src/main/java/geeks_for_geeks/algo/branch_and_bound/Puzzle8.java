@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.branch_and_bound;
 
-import util.Util;
+import util.Utils;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -49,12 +49,12 @@ public class Puzzle8 {
             }
         });
         if (check(initial, result)) {
-            Util.prettyPrint2DMatrix(initial);
+            Utils.prettyPrint2DMatrix(initial);
         }
         int row[] = {0, 1, -1, 0};
         int col[] = {-1, 0, 0, 1};
         PuzzleNode node = new PuzzleNode();
-        node.value = Util.deepCopy(initial);
+        node.value = Utils.deepCopy(initial);
         node.cost = calculateCost(node.value, result);
         node.parent = null;
         node.x = x;
@@ -63,9 +63,9 @@ public class Puzzle8 {
         for (; ; ) {
             PuzzleNode curr = heap.poll();
             for (int i = 0; i < row.length; i++) {
-                if (Util.isSafe(curr.value, curr.x + row[i], curr.y + col[i])) {
+                if (Utils.isSafe(curr.value, curr.x + row[i], curr.y + col[i])) {
                     PuzzleNode child = new PuzzleNode();
-                    child.value = Util.deepCopy(curr.value);
+                    child.value = Utils.deepCopy(curr.value);
                     child.x = curr.x + row[i];
                     child.y = curr.y + col[i];
                     int temp = child.value[child.x][child.y];
@@ -75,10 +75,10 @@ public class Puzzle8 {
                     if (check(child.value, result)) {
                         PuzzleNode iter;
                         for (iter = child; iter.parent != null; iter = iter.parent) {
-                            Util.prettyPrint2DMatrix(iter.value);
+                            Utils.prettyPrint2DMatrix(iter.value);
                             System.out.println("||");
                         }
-                        Util.prettyPrint2DMatrix(iter.value);
+                        Utils.prettyPrint2DMatrix(iter.value);
                         return;
                     }
                     child.cost = calculateCost(child.value, result);

@@ -29,14 +29,14 @@ public class FenwickTree {
      * t=O(log n)
      *
      * @param index 1 based index.
-     * @param value
+     * @param increment
      */
-    public void update(int index, int value) {
+    public void update(int index, int increment) {
         if (index == 0) {
             return;
         }
-        while (index <= this.values.length) {
-            this.values[index] += value;
+        while (index < this.values.length) {
+            this.values[index] += increment;
             index += index & (-index);
         }
     }
@@ -51,7 +51,7 @@ public class FenwickTree {
     public int rq(int index1, int index2) {
         assert index1 <= index2;
         if (index1 == index2) {
-            return query(index1 + 1);
+            return valueAt(index1 + 1);
         }
         return query(index2 + 1) - query(index1 + 1 - 1);
     }
@@ -129,23 +129,4 @@ public class FenwickTree {
         return index - 1;
     }
 
-//  Tests
-
-    public static void test1() {
-        int arr[] = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
-        FenwickTree bit = new FenwickTree(arr);
-        System.out.println(Arrays.toString(bit.values));
-        System.out.println(bit.rq(0, 5));
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(bit.valueAt(i + 1) + " ");
-        }
-        System.out.println();
-        System.out.println(bit.findIndexWithFreqSum(12));
-
-
-    }
-
-    public static void main(String[] args) {
-        test1();
-    }
 }

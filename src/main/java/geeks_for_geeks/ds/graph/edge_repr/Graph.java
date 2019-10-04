@@ -13,9 +13,9 @@ import java.util.List;
  * Created On: 15-10-2018 22:40
  **/
 public class Graph {
-    private List<Edge> edges;
+    public List<Edge> edges;
     private ArrayList<Integer>[] values;
-    private int vertices;
+    public int vertices;
 
     public Graph(int vertices) {
         this.vertices = vertices;

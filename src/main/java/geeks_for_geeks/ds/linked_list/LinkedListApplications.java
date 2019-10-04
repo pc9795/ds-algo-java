@@ -13,7 +13,7 @@ public class LinkedListApplications {
 
     public static SinglyLinkedList reverseInChunks(SinglyLinkedList list, int chunkSize) {
         SinglyLinkedList reversed = new SinglyLinkedList();
-        reversed.head = reverseInChunksUtil(list.head, chunkSize);
+        reversed.setHead(reverseInChunksUtil(list.getHead(), chunkSize));
         return reversed;
     }
 
