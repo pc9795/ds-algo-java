@@ -1,7 +1,5 @@
 package geeks_for_geeks.ds.advanced;
 
-import java.util.Arrays;
-
 /**
  * Created By: Prashant Chaubey
  * Created On: 05-12-2018 08:09
@@ -81,15 +79,14 @@ public class FenwickTree {
      * @return
      */
     public int valueAt(int index) {
-//         let index is a1b` where b` consists of all zeroes
-
+//      let index is a1b` where b` consists of all zeroes
         int sum = this.values[index];
         if (index > 0) {
-//            a0b`
+//          a0b`
             int z = index - (index & (-index));
 //          a0b where b consists of all ones
             index--;
-//            their is some point where all ones are removed and z is reached.
+//          their is some point where all ones are removed and z is reached.
             while (index != z) {
                 sum -= this.values[index];
                 index -= index & (-index);
@@ -105,7 +102,7 @@ public class FenwickTree {
     }
 
     public int findIndexWithFreqSum(int freqSum) {
-//        greatest bit of max index;
+//      greatest bit of max index;
         int bitmask = (int) Math.pow(2, (int) (Math.log10(values.length) / Math.log10(2)));
         int index = 0;
         while (bitmask != 0) {
@@ -115,7 +112,7 @@ public class FenwickTree {
                 continue;
             }
             if (freqSum == values[tempIndex]) {
-//                return 0 based index.
+//              return 0 based index.
                 return tempIndex - 1;
             } else if (freqSum > values[tempIndex]) {
                 index = tempIndex;
@@ -125,7 +122,7 @@ public class FenwickTree {
         if (freqSum != 0) {
             return -1;
         }
-//        return 0 based index.
+//      return 0 based index.
         return index - 1;
     }
 

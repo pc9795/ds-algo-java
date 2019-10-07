@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.ch9_6_object_oriented_programming.q2_call_center;
+package cracking_the_coding_interview.ch9_7_object_oriented_programming.q2_call_center;
 
 import java.util.ArrayDeque;
 

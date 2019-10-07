@@ -3,15 +3,11 @@ package util;
 /**
  * Created By: Prashant Chaubey
  * Created On: 18-08-2019 23:29
- * Purpose: TODO:
+ * Purpose: Class to hold a pair of values.
  **/
 public class Pair<K, V> {
     public K key;
     public V value;
-
-    public Pair() {
-
-    }
 
     public Pair(K key, V value) {
         this.key = key;

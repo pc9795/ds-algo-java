@@ -12,6 +12,28 @@ import java.util.Map;
  * Created On: 19-10-2018 22:48
  **/
 public class Utils {
+    // Returns value of Binomial Coefficient C(n, k)
+    // todo: There is one more optimized version have to check it.
+    static long binomialCoeff(int n, int k) {
+        long dp[][] = new long[n + 1][k + 1];
+        int i, j;
+
+        // Calculate  value of Binomial Coefficient in bottom up manner
+        for (i = 0; i <= n; i++) {
+            for (j = 0; j <= Math.min(i, k); j++) {
+                // Base Cases
+                if (j == 0 || j == i)
+                    dp[i][j] = 1;
+
+                    // Calculate value using previously stored values
+                else
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+            }
+        }
+
+        return dp[n][k];
+    }
+
     static long combinations(long n, long r) {
         r = Math.min(r, n - r);
         long numerator = 1;

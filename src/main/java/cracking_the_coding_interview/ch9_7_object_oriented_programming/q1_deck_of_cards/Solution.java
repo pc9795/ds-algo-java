@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.ch9_6_object_oriented_programming.q1_deck_of_cards;
+package cracking_the_coding_interview.ch9_7_object_oriented_programming.q1_deck_of_cards;
 
 import java.util.Random;
 

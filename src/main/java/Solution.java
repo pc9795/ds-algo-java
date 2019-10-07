@@ -1,14 +1,16 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 31-03-2019 01:36
- * Purpose: TODO:
+ * Purpose: Template for code chef's problems.
  **/
 class Solution {
+
     static class Pair<K, V> {
         public K key;
         public V value;
@@ -42,7 +44,7 @@ class Solution {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner in = null;
+        Scanner in;
         if (System.getenv("GOOGLE_USERNAME") != null) {
             in = new Scanner(new FileInputStream(
                     new File("D:\\3_Dev\\Projects\\ds_algo\\src\\main\\java\\input")));
@@ -53,28 +55,36 @@ class Solution {
         in.close();
     }
 
-    private static int[] fillArr(Scanner in, int[] arr, int n, int start) {
+    private static int[] fillIntArr(Scanner in, int n) {
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+        }
+        return arr;
+    }
+
+    private static Pair<Integer, Integer>[] fillPairArr(Scanner in, int n) {
+        Pair<Integer, Integer>[] arr = new Pair[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = new Pair<>(in.nextInt(), in.nextInt());
+        }
+        return arr;
+    }
+
+    private static int[] fillIntArr(Scanner in, int n, int start) {
+        int[] arr = new int[start + n];
         for (int i = start; i < start + n; i++) {
             arr[i] = in.nextInt();
         }
         return arr;
     }
 
-    private static Pair[] fillArr(Scanner in, Pair[] pairs, int n) {
-        for (int i = 0; i < n; i++) {
-            pairs[i] = new Pair<Integer, Integer>(in.nextInt(), in.nextInt());
-        }
-        return pairs;
-    }
-
-
-    static int MOD = 10_000_000;
+    private static int MOD = 10_000_000;
+    private static boolean SINGLE_TEST_CASE = false;
 
     private static void solve(Scanner in) {
-        int t = in.nextInt();
+        int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
         for (int _t = 0; _t < t; _t++) {
         }
     }
-
 }
-

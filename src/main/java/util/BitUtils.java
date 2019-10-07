@@ -46,4 +46,15 @@ public class BitUtils {
     public static boolean isPowerOf2(int num) {
         return ((num & (num - 1)) == 0);
     }
+
+    public static int msb(long n) {
+        int ans = -1;
+        for (int i = 0; n != 0; i++, n >>= 1) {
+            if ((n & 1) == 1) {
+                ans = i;
+            }
+        }
+        return ans;
+    }
 }
+

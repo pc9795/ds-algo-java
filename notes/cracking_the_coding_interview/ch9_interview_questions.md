@@ -86,3 +86,9 @@ Object-Oriented Design
 * Investigate actions
 
 Singleton pattern is often called as an anti pattern because it interfere with unit testing.
+
+Recursion and Dynamic Programming
+--
+* Bottom up -> from base to original
+* Top down -> from original to base
+* Half and half

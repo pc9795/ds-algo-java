@@ -1,4 +1,4 @@
-package cracking_the_coding_interview.ch9_6_object_oriented_programming.q3_juke_box;
+package cracking_the_coding_interview.ch9_7_object_oriented_programming.q3_juke_box;
 
 import java.util.HashMap;
 import java.util.Map;
