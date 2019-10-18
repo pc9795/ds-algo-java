@@ -1,14 +1,20 @@
 package geeks_for_geeks.linked_list;
 
-import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
-import geeks_for_geeks.ds.linked_list.LinkedListApplications;
-import geeks_for_geeks.ds.linked_list.SinglyLinkedList;
+import geeks_for_geeks.ds.linked_list.*;
+import geeks_for_geeks.ds.nodes.Node;
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created By: Prashant Chaubey
@@ -55,5 +61,65 @@ class TestLinkedList {
 
         System.out.println("Inorder of created BST:");
         BinaryTree.inOrderTraversal(bst);
+    }
+
+    @Test
+    void testHasLoop() {
+        SinglyLinkedList linkedList = new SinglyLinkedList();
+        linkedList.append(1).append(2).append(3).append(4).append(5);
+        Node head = linkedList.getHead();
+        head.next.next.next.next.next = head.next;
+        assert SinglyLinkedList.hasLoop(linkedList);
+    }
+
+    @Test
+    void testDetectAndRemoveLoop() {
+        SinglyLinkedList linkedList = new SinglyLinkedList();
+        linkedList.append(1).append(2).append(3).append(4).append(5);
+        Node head = linkedList.getHead();
+        head.next.next.next.next.next = head.next;
+        assert SinglyLinkedList.hasLoop(linkedList);
+        SinglyLinkedList.detectAndRemoveLoop(linkedList);
+        assert !SinglyLinkedList.hasLoop(linkedList);
+    }
+
+    @Test
+    void testRotateCounterClockWise() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        list.append(10, 20, 30, 40, 50, 60);
+        LinkedListApplications.rotateCounterClockWise(list, 4);
+        assert list.equals(new SinglyLinkedList().append(50, 60, 10, 20, 30, 40));
+    }
+
+    static Stream<Arguments> testSplitCircularLinkedList() {
+        return Stream.of(
+                Arguments.of(new CircularLinkedList().append(1), new Pair<>(new CircularLinkedList().append(1),
+                        new CircularLinkedList())),
+                Arguments.of(new CircularLinkedList().append(1, 2), new Pair<>(new CircularLinkedList().append(1),
+                        new CircularLinkedList().append(2))),
+                Arguments.of(new CircularLinkedList().append(1, 2, 3), new Pair<>(new CircularLinkedList().append(1, 2),
+                        new CircularLinkedList().append(3)))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testSplitCircularLinkedList(CircularLinkedList list, Pair<CircularLinkedList, CircularLinkedList> expected) {
+        boolean ans = LinkedListApplications.splitCircularLinkedList(list).equals(expected);
+        assert ans;
+    }
+
+    @Test
+    void testSortedCircularLinkedList() {
+        SortedCircularLinkedList list = new SortedCircularLinkedList();
+        list.insert(5, 6, 1, 4, 2, 3);
+        int[] expected = {1, 2, 3, 4, 5, 6};
+        Node curr = list.last.next;
+        int i = 0;
+        do {
+            assert curr.data == expected[i];
+            i++;
+            curr = curr.next;
+        } while (curr != list.last.next);
     }
 }

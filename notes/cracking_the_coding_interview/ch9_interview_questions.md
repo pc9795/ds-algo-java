@@ -92,3 +92,104 @@ Recursion and Dynamic Programming
 * Bottom up -> from base to original
 * Top down -> from original to base
 * Half and half
+
+System design and Scalability
+--
+**Handling the questions**
+
+* Communicate
+* Go broad first
+* Use the whiteboard
+* Acknowledge interviewer concerns
+* Be careful about assumptions
+* State your assumptions explicitly
+* Estimate when necessary
+* Drive
+
+**Design**
+
+* Scope the problem -> Major features/use cases
+* Make reasonable assumptions
+* Draw the major components
+* Identify the key issues
+* Redesign for the key issues
+
+**Algorithms that scale**
+
+* Ask questions
+* Make believe
+* Get real 
+* Solve problems
+
+**Key concepts**
+
+* Horizontal vs vertical scaling
+* Load balancer -> redundant servers to cope up with the load.
+* Database de-normalization and NoSQL -> Keep redundant data to avoid joins.
+* Database partitioning(Sharding) -> Splitting the data across multiple machines while ensuring you have a way of
+figuring out which data is on which machine.
+    * Vertical partitioning -> partitioning by feature. If tables for a feature increase in size then again have to 
+    partition.
+    * Key-based(or Hash-based) partitioning -> allocate N servers and put the data on mod(key, n). One disadvantage is if
+    you want to add an additional server you have to relocate the whole data.
+    * Directory-based partitioning -> look table for the data. Easy to add additional servers. Disadvantages will be that
+    the look up table is a single point of failure and constantly accessing the table will affect the performance.
+* Cache
+* Asynchronous processing & queues.
+* Networking metrics
+    * Bandwidth -> This is the maximum amount of data that can be transferred in a unit of time. It is typically measured
+    in bits per second.
+    * Throughput -> Actual amount of data transferred.
+    * Latency -> How long it takes for data to go from one end to another.
+* MapReduce
+* Considerations
+    * Failures
+    * Availability and Reliability -> Availability is a function of the percentage of time the system is operational. 
+    Reliability is a function of the probability that the system is operational for a certain amount of time.
+    * Read-heavy vs. Write-heavy -> For write-heavy we can think of queuing up the writes. For read-heavy we can think 
+    of caching the data.
+    * Security
+
+1. If a given task is repetitive we can think of pre-processing.
+
+Testing
+--
+
+**Testing a real world object**
+
+* Who will use it? And Why?
+* What are the use cases?
+* What are the bounds of use?
+* What are the stress/failure conditions? -> When it's acceptable for the product to fail, and what failure should mean.
+* How you would perform the testing? -> Fact check(Check for the properties of the object), Intended use(Check for it
+working correctly on normal scenarios), Safety, Unintended uses.
+ 
+**Testing a piece of software**
+
+* Are we doing Black Box Testing or White Box Testing?
+* Who will use it? And why?
+* What are the use cases?
+* What are bounds of use?
+* What are the stress conditions/failure conditions?
+* What are the test cases? How would perform the testing?
+
+**Testing a function**
+
+* Define the testcases
+    * The normal cases
+    * The extremes
+    * Nulls and "illegal" input
+    * Strange input -> ex- already sorted array to sort function.
+* Define the expected result -> What is the output? Will input be mutated or not?
+* Write test code
+
+**Troubleshooting Questions**
+
+* Understand the scenario
+* Break down the problem
+* Create specific, manageable tests
+
+Java
+--
+* Overloading and overriding
+* Collection framework

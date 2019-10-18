@@ -1,8 +1,8 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.net.InetAddress;
+import java.util.*;
 
 /**
  * Created By: Prashant Chaubey
@@ -83,8 +83,26 @@ class Solution {
     private static boolean SINGLE_TEST_CASE = false;
 
     private static void solve(Scanner in) {
-        int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
-        for (int _t = 0; _t < t; _t++) {
-        }
+//        int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
+//        for (int _t = 0; _t < t; _t++) {
+//        }
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
