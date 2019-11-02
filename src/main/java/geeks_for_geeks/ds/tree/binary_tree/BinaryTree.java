@@ -363,4 +363,34 @@ public class BinaryTree {
         return root == null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BinaryTree that = (BinaryTree) o;
+
+        return equalsUtil(root, that.root);
+    }
+
+    private boolean equalsUtil(BTNode thisNode, BTNode thatNode) {
+        if (thisNode == null && thatNode == null) {
+            return true;
+        }
+        if (thisNode == null || thatNode == null) {
+            return false;
+        }
+        if (thisNode.data != thatNode.data) {
+            return false;
+        }
+        if (!equalsUtil(thisNode.left, thatNode.left)) {
+            return false;
+        }
+        return equalsUtil(thisNode.right, thatNode.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return root != null ? root.hashCode() : 0;
+    }
 }

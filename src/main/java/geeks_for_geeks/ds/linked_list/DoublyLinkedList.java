@@ -12,30 +12,20 @@ import util.DoublePointer;
  **/
 public class DoublyLinkedList implements LinkedList {
     public DNode head;
-
-    @Override
-    public String toString() {
-        if (this.head == null) {
-            return "{}";
-        }
-        DNode curr = this.head;
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        while (curr != null) {
-            sb.append(curr.data).append(",");
-            curr = curr.next;
-        }
-        sb.append("}");
-        return sb.toString();
-    }
+    public int size;
 
     @Override
     public int size() {
-        int size = 0;
-        for (DNode temp = this.head; temp != null; temp = temp.next, size++) ;
         return size;
     }
 
+
+    /**
+     * t=O(1)
+     *
+     * @param data
+     * @return
+     */
     @Override
     public DoublyLinkedList insertAtFront(int data) {
         DNode node = new DNode(data);
@@ -44,27 +34,37 @@ public class DoublyLinkedList implements LinkedList {
             this.head.prev = node;
         }
         this.head = node;
+        size++;
         return this;
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param pos
+     * @param data
+     * @return
+     */
     @Override
     public DoublyLinkedList insertAtPosition(int pos, int data) {
+        assert pos >= 0 && pos <= size;
         if (pos == 0) {
             insertAtFront(data);
             return this;
         }
-        int size = size();
-        if (pos > size) {
+        if (pos == size) {
             insertAtEnd(data);
             return this;
         }
         DNode temp = this.head;
+        // No need of prev-1 as we know have prev pointer.
         for (int i = 0; i < pos; i++, temp = temp.next) ;
         DNode node = new DNode(data);
         node.prev = temp.prev;
         temp.prev = node;
         node.next = temp;
         node.prev.next = node;
+        size++;
         return this;
     }
 
@@ -72,28 +72,28 @@ public class DoublyLinkedList implements LinkedList {
     public DoublyLinkedList insertAtEnd(int data) {
         if (this.head == null) {
             this.head = new DNode(data);
+            size++;
             return this;
         }
         DNode temp;
         for (temp = this.head; temp.next != null; temp = temp.next) ;
         temp.next = new DNode(data);
         temp.next.prev = temp;
+        size++;
         return this;
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param data
+     * @return
+     */
     public DoublyLinkedList delete(int data) {
-        if (this.head == null) {
-            System.out.println("List is empty!");
-            return this;
-        }
         DNode curr = this.head;
         for (; curr != null && curr.data != data; curr = curr.next) {
         }
-
-        if (curr == null) {
-            System.out.println("Data is not found in the list");
-            return this;
-        }
+        assert curr != null;
         if (curr.next != null) {
             curr.next.prev = curr.prev;
         }
@@ -102,19 +102,28 @@ public class DoublyLinkedList implements LinkedList {
         } else {
             this.head = curr.next;
         }
+        size--;
         return this;
     }
 
-    public DoublyLinkedList reverse() {
-        if (this.head == null) {
-            System.out.println("List is empty!");
-            return this;
+    public DoublyLinkedList append(int... data) {
+        for (Integer item : data) {
+            insertAtEnd(item);
         }
-        if (size() == 1) {
+        return this;
+    }
+
+    /**
+     * t=O(n)
+     *
+     * @return
+     */
+    public DoublyLinkedList reverse() {
+        if (head == null || size == 1) {
             return this;
         }
         DNode prev = null;
-        DNode curr = this.head;
+        DNode curr = head;
         for (; curr != null; ) {
             prev = curr.prev;
             curr.prev = curr.next;
@@ -126,7 +135,7 @@ public class DoublyLinkedList implements LinkedList {
     }
 
     public static void quickSort(DoublyLinkedList dll) {
-        if (dll == null || dll.size() == 1) {
+        if (dll == null || dll.size <= 1) {
             return;
         }
         DNode last = dll.head;
@@ -146,16 +155,18 @@ public class DoublyLinkedList implements LinkedList {
     }
 
     private static DNode partition(DNode first, DNode last) {
-//        We are swapping data not links.
+        // We are swapping data not links.
         DNode i = null;
         DNode curr = first;
         while (curr != last) {
-            if (curr.data < last.data) {
-                i = (i == null) ? first : i.next;
-                int temp = curr.data;
-                curr.data = i.data;
-                i.data = temp;
+            if (curr.data >= last.data) {
+                curr = curr.next;
+                continue;
             }
+            i = (i == null) ? first : i.next;
+            int temp = curr.data;
+            curr.data = i.data;
+            i.data = temp;
             curr = curr.next;
         }
         i = (i == null) ? first : i.next;
@@ -191,16 +202,59 @@ public class DoublyLinkedList implements LinkedList {
             return null;
         }
         BTNode left = toBSTUtil(headPtr, n / 2);
-
         BTNode root = new BTNode(headPtr.data);
+        // headPtr is progressing as tree is constructing.
         headPtr.data = headPtr.data.next;
-
         BTNode right = toBSTUtil(headPtr, n - n / 2 - 1);
 
         root.left = left;
         root.right = right;
-
         return root;
     }
 
+    @Override
+    public String toString() {
+        if (this.head == null) {
+            return "{}";
+        }
+        DNode curr = this.head;
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        while (curr != null) {
+            sb.append(curr.data).append(",");
+            curr = curr.next;
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DoublyLinkedList that = (DoublyLinkedList) o;
+
+        if (size != that.size) return false;
+        if (size == 0) {
+            return true;
+        }
+        DNode thisCurr = head;
+        DNode thatCurr = that.head;
+        while (thisCurr != null) {
+            if (thisCurr.data != thatCurr.data) {
+                return false;
+            }
+            thisCurr = thisCurr.next;
+            thatCurr = thatCurr.next;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = head != null ? head.hashCode() : 0;
+        result = 31 * result + size;
+        return result;
+    }
 }

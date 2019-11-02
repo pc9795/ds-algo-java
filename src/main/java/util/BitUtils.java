@@ -7,7 +7,7 @@ package util;
  **/
 public class BitUtils {
 
-    public static boolean getBit(int num, int i) {
+    public static boolean getBit(long num, int i) {
         return ((num & (1 << i)) != 0);
     }
 

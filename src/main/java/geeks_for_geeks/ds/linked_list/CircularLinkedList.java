@@ -43,12 +43,12 @@ public class CircularLinkedList implements LinkedList {
      */
     @Override
     public CircularLinkedList insertAtPosition(int pos, int data) {
-        assert pos >= 0 && pos <= size();
+        assert pos >= 0 && pos <= size;
 
         if (this.last == null) {
             return insertEmpty(data);
         }
-        if (pos == size()) {
+        if (pos == size) {
             return insertAtEnd(data);
         }
         if (pos == 0) {

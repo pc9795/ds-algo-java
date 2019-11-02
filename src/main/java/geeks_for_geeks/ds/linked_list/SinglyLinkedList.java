@@ -81,10 +81,6 @@ public class SinglyLinkedList implements LinkedList {
         return this;
     }
 
-    public SinglyLinkedList append(int data) {
-        return insertAtEnd(data);
-    }
-
     public SinglyLinkedList append(Integer... data) {
         for (int i = 0; i < data.length; i++) {
             insertAtEnd(data[i]);

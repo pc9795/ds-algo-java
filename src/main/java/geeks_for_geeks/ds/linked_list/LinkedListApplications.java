@@ -56,10 +56,9 @@ public class LinkedListApplications {
      * @param chunkSize
      * @return
      */
-    public static SinglyLinkedList reverseInChunks(SinglyLinkedList list, int chunkSize) {
-        SinglyLinkedList reversed = new SinglyLinkedList();
-        reversed.setHead(reverseInChunksUtil(list.getHead(), chunkSize));
-        return reversed;
+    public static void reverseInChunks(SinglyLinkedList list, int chunkSize) {
+        assert list != null;
+        list.setHead(reverseInChunksUtil(list.getHead(), chunkSize));
     }
 
     private static Node reverseInChunksUtil(Node node, int chunkSize) {
