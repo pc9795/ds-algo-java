@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -85,15 +87,6 @@ class Solution {
     private static void solve(Scanner in) {
         int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
         for (int _t = 0; _t < t; _t++) {
-            int n = in.nextInt();
-            int k = in.nextInt();
-            int[] batteries = fillIntArr(in, 2 * n * k, 0);
-            Arrays.sort(batteries);
-            int ans = Integer.MIN_VALUE;
-            for (int i = 0, j = 0; i < n; i++, j += 2) {
-                ans = Math.max(ans, batteries[j + 1] - batteries[j]);
-            }
-            System.out.println(ans);
         }
     }
 }

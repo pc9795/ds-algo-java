@@ -117,8 +117,11 @@ System design and Scalability
 **Algorithms that scale**
 
 * Ask questions
-* Make believe
-* Get real 
+* Make believe - Pretend that the data can all fill on one machine and there are no memory limitations. How would you 
+solve the problem? The answer to this question will provide the general outline for your solution.
+* Get real - Now go back to the original problem. How much data can you fit on one machine and what problems will occur 
+when you split up the data? Common problems include figuring out how to logically divide the data up, and how one machine
+would identify where to look up a different piece of data.
 * Solve problems
 
 **Key concepts**
@@ -193,3 +196,28 @@ Java
 --
 * Overloading and overriding
 * Collection framework
+
+Databases
+--
+```sql
+--Explicit join
+select coursename, teachername 
+from courses inner join teachers 
+on courses.teacher_id=teachers.teacher_id;
+
+--Implicit join
+select coursename, teachername
+from courses, teachers
+where courses.teacher_id=teachers.teacher_id;
+```
+Normalized databases are designed to minimize redundancy, while de-normalized databases are designed to optimize read time.
+
+**Small Database design**
+* Handle ambiguity - Ask questions
+* Define the core objects
+* Analyze relationships
+* Investigate Actions
+
+**Large Database design**
+
+We have to sometime de-normalize the data so that we can get away with expensive joins.
