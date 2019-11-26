@@ -12,6 +12,20 @@ import java.util.Map;
  * Created On: 19-10-2018 22:48
  **/
 public class Utils {
+
+    public static double areaOfPolygon(double x[], double y[]) {
+        assert x.length == y.length;
+        double area = 0.0;
+
+        // shoelace formula
+        int j = x.length - 1;
+        for (int i = 0; i < x.length; i++) {
+            area += (x[j] + x[i]) * (y[j] - y[i]);
+            j = i;
+        }
+        return Math.abs(area / 2.0);
+    }
+
     // Returns value of Binomial Coefficient C(n, k)
     // todo: There is one more optimized version have to check it.
     static long binomialCoeff(int n, int k) {

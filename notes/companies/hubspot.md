@@ -1,7 +1,7 @@
 Coding Questions
 --
 Q.) Write a function that, given a list of numbers and a target number N, returns a list of pairs of numbers that sum to 
-the target.
+the target.             
 
 Q.)  Write a function that, given two sorted lists of numbers and a target value V, returns a sorted merged list with at 
 most V elements.
@@ -68,10 +68,81 @@ corpus of text.
 Q.)How and why would you use indexing on a table?
 
 A database index is a data-structure that improves the speed of the data retrieval operations on a database table at the
-cost of additional writes and storage space to maintain the index data structure. ex- Btree.  
+cost of additional writes and storage space to maintain the index data structure. ex- Btree.
+* Postgres automatically creates indexes for primary key and unique constraints(B-tree)
+* Postgres don't create index on foreign key automatically. You have to do it manually to speed up join queries.
+* We can use `explian <query>` command to see how the query will be processed. If the output contains 'Seq Scan' then it
+ is not a good sign and we should create indexes.
+* B-tree = less-than/greater-than/equal to
+* hash = text search
+* indexes for pattern matching
+* generalised index trees - triagram search
+* generalised inverted index = full text search
 
 Q.)What is a foreign key?
 
 A Foreign key is a field(or collection of fields) in one table that refers to the PRIMARY KEY in other table. Foreign 
 key can be NULL. A FOREIGN KEY constraint does not have to be linked only to a PRIMARY KEY constraint in another table;
 it can also be defined to reference the columns of a UNIQUE constraint in another table.
+
+**Pagination**
+* Client side pagination - Transfer large data or whole data if it is small to client side and it will provide pagination.
+    * **Advantages**
+    * Reducing HTTP calls
+    * **Disadvantages**
+    * Slower initial page load
+    * Less accuracy when data is changing
+    * Slower operations on larger datasets
+    * No encapsulation of business logic
+    * Poor performance on resource-constrained clients
+* Limit-offset 
+    * **Disadvantages**
+    * Result inconsistency - Suppose a user moves from page n to n+1 while simultaneously a new element is inserted into
+    page n. This will cause both a duplication(the previously-final element of page n is pushed into page n+1) and an 
+    omission(the new element). Alternatively consider an element removed from page n just as the user moves to page n+1. 
+    The previously initial element of page n+1 will be shifted to page n and be omitted.
+    * Inefficiency - Large offsets are intrinsically expensive. Even in the presence of an index the database must scan 
+    through storage, counting rows. 
+    * **Advantages**
+    * Applications with restricted pagination depth and tolerant of result inconsistencies.
+* Cursors 
+    * **Disadvantages** 
+    * require the server to hold a dedicated database connection and transaction per http client.
+    * Not scalable
+    * **Advantages**
+    * pagination consistency
+    * a single-server intranet application which must paginate queries with varied and changeable ordering where result 
+    consistency matters.
+* Keyset pagination 
+    * **Disadvantages**
+    * lack of random access  and possible coupling between client and server
+    * Scalable applications serving data sequentially from column(s) indexed for comparisons. Support filtering.
+    * **Advantages**
+    * Fast and consistent
+
+```
+-- Cursors
+-- We must be in a transaction. There are also "WITH HOLD" cursors which can exist outside of a transaction, but they must
+-- materialize data.
+BEGIN;
+-- Open a cursor for a query
+DECLARE medley_cur CURSOR FOR SELECT * FROM medley;
+-- Retrieve ten rows
+FETCH 10 FROM medley_cur;
+-- Retrieve ten more from where we left off
+FETCH 10 FROM medley_cur;
+-- All done
+COMMIT;
+```
+
+```
+--Keyset
+CREATE INDEX n_idx ON medley USING btree (n);
+SELECT * FROM medley ORDER BY n ASC LIMIT 5;
+
+SELECT * 
+FROM medley
+WHERE n > 5
+ORDER BY n ASC
+LIMIT 5;
+```
