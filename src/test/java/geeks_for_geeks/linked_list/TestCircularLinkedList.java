@@ -29,7 +29,7 @@ class TestCircularLinkedList {
     @ParameterizedTest
     @MethodSource
     void testSplitCircularLinkedList(CircularLinkedList list, Pair<CircularLinkedList, CircularLinkedList> expected) {
-        boolean ans = Applications.splitCircularLinkedList(list).equals(expected);
+        boolean ans = Applications.split(list).equals(expected);
         assert ans;
     }
 }

@@ -5,7 +5,6 @@ import geeks_for_geeks.ds.nodes.Node;
 /**
  * Created By: Prashant Chaubey
  * Created On: 17-10-2019 21:38
- * Purpose: Test
  **/
 public class SortedCircularLinkedList extends CircularLinkedList {
     public SortedCircularLinkedList insert(int data) {
@@ -22,6 +21,7 @@ public class SortedCircularLinkedList extends CircularLinkedList {
             return this;
         }
 
+        //Finding a position to insert the node
         Node prev = last;
         Node curr = last.next;
         do {
@@ -51,7 +51,7 @@ public class SortedCircularLinkedList extends CircularLinkedList {
             super.insertEmpty(data);
             return this;
         }
-        assert data <= last.next.data;
+        assert data <= last.next.data : "The input should be less than or equal to the first node of the list";
         super.insertAtFront(data);
         return this;
     }
@@ -72,7 +72,7 @@ public class SortedCircularLinkedList extends CircularLinkedList {
             super.insertEmpty(data);
             return this;
         }
-        assert data >= last.data;
+        assert data >= last.data : "The input should be greater than or equal to the last node of the list";
         super.insertAtEnd(data);
         return this;
     }

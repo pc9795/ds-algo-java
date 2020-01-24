@@ -19,8 +19,8 @@ public class CircularLinkedList implements LinkedList {
     /**
      * t=O(1)
      *
-     * @param data
-     * @return
+     * @param data data to add
+     * @return calling instance
      */
     @Override
     public CircularLinkedList insertAtFront(int data) {
@@ -37,13 +37,13 @@ public class CircularLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param pos
-     * @param data
-     * @return
+     * @param pos  position where the input data is to be added
+     * @param data data to add
+     * @return calling instance
      */
     @Override
     public CircularLinkedList insertAtPosition(int pos, int data) {
-        assert pos >= 0 && pos <= size;
+        assert pos >= 0 && pos <= size : String.format("Position entered should be between %s and %s", 0, size);
 
         if (this.last == null) {
             return insertEmpty(data);
@@ -54,8 +54,8 @@ public class CircularLinkedList implements LinkedList {
         if (pos == 0) {
             return insertAtFront(data);
         }
-        Node curr = last.next;
 
+        Node curr = last.next;
         for (int i = 0; i < pos - 1; i++) {
             curr = curr.next;
         }
@@ -69,10 +69,10 @@ public class CircularLinkedList implements LinkedList {
     /**
      * t=O(1)
      *
-     * @param data
-     * @return
+     * @param data data to add
+     * @return calling instance
      */
-    protected CircularLinkedList insertEmpty(int data) {
+    CircularLinkedList insertEmpty(int data) {
         this.last = new Node(data);
         this.last.next = last;
         size++;
@@ -89,8 +89,8 @@ public class CircularLinkedList implements LinkedList {
     /**
      * t=O(1)
      *
-     * @param data
-     * @return
+     * @param data data to add
+     * @return calling instance
      */
     @Override
     public CircularLinkedList insertAtEnd(int data) {
@@ -100,8 +100,7 @@ public class CircularLinkedList implements LinkedList {
         Node node = new Node(data);
         node.next = last.next;
         last.next = node;
-        // This is one line in addition to the steps of insertAtFront
-        last = node;
+        last = node; // This is one line in addition to the steps of insertAtFront
         size++;
         return this;
     }
@@ -109,7 +108,7 @@ public class CircularLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @return
+     * @return string representation
      */
     @Override
     public String toString() {
@@ -133,7 +132,6 @@ public class CircularLinkedList implements LinkedList {
         if (o == null || getClass() != o.getClass()) return false;
 
         CircularLinkedList that = (CircularLinkedList) o;
-
         if (size != that.size) return false;
         // Considering empty lists as equal.
         if (size == 0) {

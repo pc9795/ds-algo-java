@@ -138,10 +138,17 @@ public class Applications {
     }
 
 
-    public static Pair<CircularLinkedList, CircularLinkedList> splitCircularLinkedList(CircularLinkedList list) {
-        assert list != null && list.last != null;
+    /**
+     * In case of odd no of elements the first list will contain the extra value
+     * NOTE: it is mutating the input list (NOT PURE)
+     *
+     * @param list list to be split
+     * @return pair of lists after split.
+     */
+    public static Pair<CircularLinkedList, CircularLinkedList> split(CircularLinkedList list) {
+        assert list != null && list.last != null : "Input list can't be empty or null";
         //For size 1;
-        if (list.last.next == list.last) {
+        if (list.size() == 1) {
             return new Pair<>(list, new CircularLinkedList());
         }
         Node slow = list.last.next;
@@ -155,12 +162,10 @@ public class Applications {
         } while (fast != list.last);
 
         Node temp = list.last.next;
-
-        CircularLinkedList rightHalf = new CircularLinkedList();
         list.last.next = slow.next;
+        CircularLinkedList rightHalf = new CircularLinkedList();
         rightHalf.last = list.last;
         rightHalf.size = list.size / 2;
-
         list.last = slow;
         slow.next = temp;
         list.size = list.size / 2 + (list.size % 2 != 0 ? 1 : 0);
