@@ -3,7 +3,7 @@ package util;
 /**
  * Created By: Prashant Chaubey
  * Created On: 16-08-2019 22:57
- * Purpose: TODO:
+ * Purpose: Methods to manipulate bits.
  **/
 public class BitUtils {
 
@@ -52,6 +52,17 @@ public class BitUtils {
         for (int i = 0; n != 0; i++, n >>= 1) {
             if ((n & 1) == 1) {
                 ans = i;
+            }
+        }
+        return ans;
+    }
+
+    public static int lsb(long n) {
+        int ans = -1;
+        for (int i = 0; n != 0; i++, n >>= 1) {
+            if ((n & 1) == 1) {
+                ans = i;
+                break;
             }
         }
         return ans;

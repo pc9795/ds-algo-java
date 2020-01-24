@@ -10,16 +10,16 @@ import java.util.List;
  * Created By: Prashant Chaubey
  * Created On: 13-10-2018 23:33
  **/
-public class LinkedListApplications {
+public class Applications {
 
     /**
      * t=O(n)
      * todo geeks of geeks article
      *
-     * @param list
-     * @param chunkSize
+     * @param list      input list
+     * @param chunkSize size in which to reverse the list.
      */
-    private static void reverseInChunksIter(SinglyLinkedList list, int chunkSize) {
+    public static void reverseInChunksIter(SinglyLinkedList list, int chunkSize) {
         assert list != null && list.getHead() != null;
 
         Node curr = list.getHead();
@@ -30,7 +30,6 @@ public class LinkedListApplications {
             start = curr;
             int j = 1;
             while (curr != null) {
-                //  we are doing this before instead of at the end.
                 Node next = curr.next;
                 curr.next = prev;
                 prev = curr;
@@ -52,9 +51,8 @@ public class LinkedListApplications {
     /**
      * t=O(n)
      *
-     * @param list
-     * @param chunkSize
-     * @return
+     * @param list      input list
+     * @param chunkSize size in which to reverse the list.
      */
     public static void reverseInChunks(SinglyLinkedList list, int chunkSize) {
         assert list != null;
@@ -69,7 +67,6 @@ public class LinkedListApplications {
         Node curr = node;
         int i = 1;
         while (curr != null) {
-            //  we are doing this before instead of at the end.
             Node next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -86,9 +83,9 @@ public class LinkedListApplications {
     /**
      * t=O(n1 + n2)
      *
-     * @param list1
-     * @param list2
-     * @return
+     * @param list1 first list
+     * @param list2 second list
+     * @return sum list
      */
     public static List addTwoNumbersRepresentedByLists(List<Integer> list1, List<Integer> list2) {
         List<Integer> result = new ArrayList<>();
@@ -102,9 +99,10 @@ public class LinkedListApplications {
             int b = i < n2 ? list2.get(i) : 0;
             int sum = a + b + carry;
             result.add(sum > 9 ? sum % 10 : sum);
-//            Because there are two numbers therefore carry can't be greater than 1.
+            // Because there are two numbers therefore carry can't be greater than 1.
             carry = sum > 9 ? 1 : 0;
         }
+        // A leftover carry
         if (carry == 1) {
             result.add(carry);
         }
@@ -114,23 +112,24 @@ public class LinkedListApplications {
     /**
      * t=O(n)
      *
-     * @param list
-     * @param k
+     * @param list input list
+     * @param k    times to rotate
      */
     public static void rotateCounterClockWise(SinglyLinkedList list, int k) {
         assert list != null && list.getHead() != null;
         assert k <= list.size();
+
         if (k == list.size()) {
             return;
         }
 
         Node curr = list.getHead();
-        for (int i = 0; i < k - 1; i++) {
+        for (int i = 0; i < k; i++) {
             curr = curr.next;
         }
 
         // Store breaking point.
-        Node temp = curr.next;
+        Node temp = curr;
         while (curr.next != null) {
             curr = curr.next;
         }

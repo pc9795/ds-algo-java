@@ -7,11 +7,24 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static util.BitUtils.lsb;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 19-10-2018 22:48
  **/
 public class Utils {
+
+    public static Pair<Integer, Integer> findXPS(int num) {
+        int lsb = lsb(num);
+        int xpsSmall = 1 << lsb;
+        int xpsBig = xpsSmall ^ num;
+        if (xpsBig < 1 || xpsSmall < 1 || xpsBig > num || xpsSmall > num) {
+            xpsBig = -1;
+            xpsSmall = -1;
+        }
+        return new Pair<>(xpsSmall, xpsBig);
+    }
 
     public static double areaOfPolygon(double x[], double y[]) {
         assert x.length == y.length;

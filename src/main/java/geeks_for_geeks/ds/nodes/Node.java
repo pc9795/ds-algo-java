@@ -4,7 +4,7 @@ package geeks_for_geeks.ds.nodes;
  * Created By: Prashant Chaubey
  * Created On: 14-09-2018 18:35
  **/
-//I could try to make generic using Object but it will cause problem in comparison.
+//NOTE: I could try to make it using generics but it will need extra code during comparison.
 public class Node {
     public Node next;
     public int data;
@@ -15,7 +15,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "ItemNode{" +
+        return "Node{" +
                 "data=" + data +
                 '}';
     }

@@ -82,61 +82,26 @@ class Solution {
     private static int MOD = 10_000_000;
     private static boolean SINGLE_TEST_CASE = false;
 
-
     private static void solve(Scanner in) {
         int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
+        in.nextLine();
         for (int _t = 0; _t < t; _t++) {
             int n = in.nextInt();
-            double[] a = new double[n];
-            double[] b = new double[n];
+            int m = in.nextInt();
+            int[][] dp = new int[n][m];
+            dp[0][0] = 1;
             for (int i = 0; i < n; i++) {
-                a[i] = in.nextInt();
-                b[i] = in.nextInt();
+                for (int j = 0; j < m; j++) {
+                    if (j + 1 <= m - 1) {
+                        dp[i][j + 1] += dp[i][j];
+                    }
+                    if (i + 1 <= n - 1) {
+                        dp[i + 1][j] += dp[i][j];
+                    }
+                }
             }
-            Arrays.sort(a);
-            Arrays.sort(b);
-            double temp = b[1];
-            b[1] = b[n - 1];
-            b[n - 1] = temp;
-            double x[] = new double[n + 2];
-            double y[] = new double[n + 2];
-            System.arraycopy(a, 0, x, 1, n);
-            System.arraycopy(b, 0, y, 1, n);
-            x[0] = x[1];
-            x[x.length - 1] = x[x.length - 2];
-            System.out.println((int) (2 * areaOfPolygon(x, y)));
+            System.out.println(dp[n - 1][m - 1]);
         }
-
-    }
-
-    public static double areaOfPolygon(double x[], double y[]) {
-        assert x.length == y.length;
-        double area = 0.0;
-
-        // shoelace formula
-        int j = x.length - 1;
-        for (int i = 0; i < x.length; i++) {
-            area += (x[j] + x[i]) * (y[j] - y[i]);
-            j = i;
-        }
-        return Math.abs(area / 2.0);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

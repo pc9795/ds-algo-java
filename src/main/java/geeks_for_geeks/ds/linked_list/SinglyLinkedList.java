@@ -29,7 +29,6 @@ public class SinglyLinkedList implements LinkedList {
         this.size = size;
     }
 
-
     @Override
     public int size() {
         return size;
@@ -38,8 +37,8 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(1)
      *
-     * @param data
-     * @return
+     * @param data data to add
+     * @return modified list
      */
     @Override
     public SinglyLinkedList insertAtFront(int data) {
@@ -53,13 +52,13 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param pos
-     * @param data
-     * @return
+     * @param pos  position to add to
+     * @param data data to add
+     * @return modified list
      */
     @Override
     public SinglyLinkedList insertAtPosition(int pos, int data) {
-        assert pos >= 0 && pos <= size;
+        assert pos >= 0 && pos <= size : String.format("Position should be between %s and %s", 0, size);
         if (pos == 0) {
             insertAtFront(data);
             return this;
@@ -81,9 +80,15 @@ public class SinglyLinkedList implements LinkedList {
         return this;
     }
 
+    /**
+     * Append values in bulk
+     *
+     * @param data data to add
+     * @return modified list
+     */
     public SinglyLinkedList append(Integer... data) {
-        for (int i = 0; i < data.length; i++) {
-            insertAtEnd(data[i]);
+        for (Integer aData : data) {
+            insertAtEnd(aData);
         }
         return this;
     }
@@ -91,8 +96,8 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param data
-     * @return
+     * @param data data to add
+     * @return modified list
      */
     @Override
     public SinglyLinkedList insertAtEnd(int data) {
@@ -113,7 +118,7 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param data
+     * @param data data to be deleted
      */
     public void delete(int data) {
         Node temp = head;
@@ -123,7 +128,7 @@ public class SinglyLinkedList implements LinkedList {
                 break;
             }
         }
-        assert temp != null;
+        assert temp != null : String.format("Value: %s not found in the list", data);
         size--;
         if (prev == null) {
             // Head node is going to be deleted
@@ -137,11 +142,11 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param pos
+     * @param pos position for which data is to be deleted
      */
     public void deleteAtPosition(int pos) {
         // If size was not available we have to use null check with the loop.
-        assert pos >= 0 && pos < size;
+        assert pos >= 0 && pos < size : String.format("Position should be between %s and %s", 0, size);
 
         int i = 0;
         Node curr = head;
@@ -167,8 +172,8 @@ public class SinglyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param data
-     * @return
+     * @param data item to search
+     * @return true if item is found in the list
      */
     public boolean search(int data) {
         Node curr = this.head;
@@ -182,10 +187,11 @@ public class SinglyLinkedList implements LinkedList {
 
     /**
      * t=O(n)
-     * Check for the cases when they are just next to each other.
+     * NOTE: It assumes that all data values are distinct as how it will know which data we are referring to. Even if
+     * a list with duplicate values is used this implementation will always operate on the first occurrence.
      *
-     * @param data1
-     * @param data2
+     * @param data1 first input
+     * @param data2 second input
      */
     public void swap(int data1, int data2) {
         Node curr = this.head;
@@ -195,9 +201,10 @@ public class SinglyLinkedList implements LinkedList {
         Node currY = null;
         Node prevY = null;
         if (data1 == data2) {
-            System.out.println("Data are same!");
+            System.out.println("Values are same!");
             return;
         }
+        //NOTE: We can optimize it by early breaking if both of them are found.
         for (; curr != null; curr = curr.next) {
             if (curr.data == data1) {
                 prevX = prev;
@@ -208,8 +215,9 @@ public class SinglyLinkedList implements LinkedList {
             }
             prev = curr;
         }
+        //NOTE: We can have more descriptive message for which of them is not found
         if (currX == null || currY == null) {
-            System.out.println("Data not found!");
+            System.out.println("One of the value not found!");
             return;
         }
         if (prevX != null) {
@@ -225,13 +233,12 @@ public class SinglyLinkedList implements LinkedList {
         Node temp = currX.next;
         currX.next = currY.next;
         currY.next = temp;
-
     }
 
     /**
      * t=O(n)
      *
-     * @return
+     * @return calling instance
      */
     public SinglyLinkedList reverse() {
         Node prev = null;
@@ -247,11 +254,34 @@ public class SinglyLinkedList implements LinkedList {
     }
 
     /**
-     * t=O(n1 + n2)
+     * t=O(n)
+     * NOTE: mutates the calling list
      *
-     * @param list1
-     * @param list2
-     * @return
+     * @return reversed list.
+     */
+    public SinglyLinkedList reverseRecursive() {
+        this.head = reverseRecursiveUtil(this.head, null);
+        return this;
+    }
+
+    private Node reverseRecursiveUtil(Node node, Node prev) {
+        if (node.next == null) {
+            node.next = prev;
+            return node;
+        }
+        Node next = node.next;
+        node.next = prev;
+        return reverseRecursiveUtil(next, node);
+    }
+
+
+    /**
+     * t=O(n1 + n2)
+     * Unexpected behavior if both are not sorted.
+     *
+     * @param list1 first sorted list
+     * @param list2 second sorted list
+     * @return merged list
      */
     public static SinglyLinkedList sortedMerge(SinglyLinkedList list1, SinglyLinkedList list2) {
         SinglyLinkedList list = new SinglyLinkedList();
@@ -262,10 +292,11 @@ public class SinglyLinkedList implements LinkedList {
             return list1;
         }
         list.head = sortedMergeUtil(list1.head, list2.head);
+        list.setSize(list1.getSize() + list2.getSize());
         return list;
     }
 
-    public static Node sortedMergeUtil(Node curr1, Node curr2) {
+    private static Node sortedMergeUtil(Node curr1, Node curr2) {
         if (curr1 == null) {
             return curr2;
         }
@@ -275,37 +306,33 @@ public class SinglyLinkedList implements LinkedList {
         Node merged = null;
         Node curr = null;
         for (; curr1 != null && curr2 != null; ) {
+            int data;
             if (curr1.data < curr2.data) {
-                if (merged == null) {
-                    merged = new Node(curr1.data);
-                    curr = merged;
-                } else {
-                    curr.next = new Node(curr1.data);
-                    curr = curr.next;
-                }
+                data = curr1.data;
                 curr1 = curr1.next;
             } else {
-                if (merged == null) {
-                    merged = new Node(curr2.data);
-                    curr = merged;
-                } else {
-                    curr.next = new Node(curr2.data);
-                    curr = curr.next;
-                }
+                data = curr2.data;
                 curr2 = curr2.next;
             }
+            if (merged == null) {
+                //Case for the first node in the list
+                merged = new Node(data);
+                curr = merged;
+            } else {
+                curr.next = new Node(data);
+                curr = curr.next;
+            }
         }
+        //This can't happen that both are not null. One of them must be exhausted in previous loop.
+        Node leftOver;
         if (curr2 != null) {
-            for (; curr2 != null; curr2 = curr2.next) {
-                curr.next = new Node(curr2.data);
-                curr = curr.next;
-            }
+            leftOver = curr2;
+        } else {
+            leftOver = curr1;
         }
-        if (curr1 != null) {
-            for (; curr1 != null; curr1 = curr1.next) {
-                curr.next = new Node(curr1.data);
-                curr = curr.next;
-            }
+        for (; leftOver != null; leftOver = leftOver.next) {
+            curr.next = new Node(leftOver.data);
+            curr = curr.next;
         }
         return merged;
     }
@@ -314,7 +341,7 @@ public class SinglyLinkedList implements LinkedList {
      * t=O(n * log(n))
      * s=O(n)
      *
-     * @param list
+     * @param list unsorted list
      */
     public static void mergeSort(SinglyLinkedList list) {
         if (list == null || list.head == null) {
@@ -323,10 +350,11 @@ public class SinglyLinkedList implements LinkedList {
         list.head = mergeSortUtil(list.head);
     }
 
-    public static Node mergeSortUtil(Node node) {
+    private static Node mergeSortUtil(Node node) {
         if (node == null || node.next == null) {
             return node;
         }
+        //Tortoise hair algorithm to partition the linked list into two halves
         Node tortoise = node;
         Node hare = node.next;
         for (; hare != null; ) {
@@ -382,23 +410,31 @@ public class SinglyLinkedList implements LinkedList {
         return null;
     }
 
-    // We can use hashing too.
+    /**
+     * NOTE: We can also use hashing
+     *
+     * @param list input list
+     */
     public static void detectAndRemoveLoop(SinglyLinkedList list) {
-        assert list != null && list.getHead() != null;
+        assert list != null && list.getHead() != null : "List is empty";
         Node loop = hasLoopUtil(list.getHead());
         removeLoop(list.getHead(), loop);
     }
 
+    /**
+     * NOTE: proof of this is in the notes.
+     *
+     * @param start start of the linked list
+     * @param loop  the point detected by floyd's cycle algorithm
+     */
     private static void removeLoop(Node start, Node loop) {
         assert start != null && loop != null;
         Node ptr1 = start;
         Node ptr2 = loop;
-
         while (ptr1.next != ptr2.next) {
             ptr1 = ptr1.next;
             ptr2 = ptr2.next;
         }
-
         // Break the loop;
         ptr2.next = null;
     }
@@ -425,7 +461,6 @@ public class SinglyLinkedList implements LinkedList {
 
     @Override
     public int hashCode() {
-        // todo not a good implementation
-        return Objects.hash(head);
+        return Objects.hash(head, size);
     }
 }
