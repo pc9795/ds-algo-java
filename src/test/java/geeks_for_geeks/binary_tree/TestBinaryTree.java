@@ -3,7 +3,7 @@ package geeks_for_geeks.binary_tree;
 import geeks_for_geeks.ds.nodes.BTNodeWithRandom;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.nodes.BTNode;
-import geeks_for_geeks.ds.tree.binary_tree.BinaryTreeApplications;
+import geeks_for_geeks.ds.tree.binary_tree.Applications;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTreeWithRandomNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,9 +14,9 @@ import java.io.PrintStream;
 /**
  * Created By: Prashant Chaubey
  * Created On: 26-01-2019 19:46
- * Purpose: TODO:
+ * Purpose: Test
  **/
-public class TestBinaryTree {
+class TestBinaryTree {
     private final ByteArrayOutputStream testOut = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -75,7 +75,7 @@ public class TestBinaryTree {
     void testCreateFromPreAndInOrder() {
         int[] preOrder = {1, 2, 4, 6, 7, 3, 4, 5};
         int[] inOrder = {4, 6, 2, 7, 1, 4, 3, 5};
-        BinaryTree.levelOrderTraversal(BinaryTreeApplications.createFromPreAndInorder(preOrder, inOrder));
+        BinaryTree.levelOrderTraversal(Applications.createFromPreAndInorder(preOrder, inOrder));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class TestBinaryTree {
         bt.root.left.left = new BTNode(4);
         bt.root.left.right = new BTNode(5);
 
-        BinaryTreeApplications.printAncestors(bt, bt.root.left.left);
+        Applications.printAncestors(bt, bt.root.left.left);
 
         Assertions.assertEquals(testOut.toString(), "2" + System.lineSeparator() + "1" + System.lineSeparator());
 

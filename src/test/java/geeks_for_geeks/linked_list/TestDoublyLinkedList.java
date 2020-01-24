@@ -32,7 +32,7 @@ class TestDoublyLinkedList {
     @Test
     void testToBST() {
         DoublyLinkedList list = new DoublyLinkedList().append(1, 2, 3, 4, 5, 6);
-        BinarySearchTree bst = DoublyLinkedList.toBST(list);
+        BinarySearchTree bst = DoublyLinkedList.convert(list);
         BinarySearchTree expected = new BinarySearchTree(4);
         expected.root.left = new BTNode(2);
         expected.root.left.left = new BTNode(1);

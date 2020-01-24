@@ -10,7 +10,7 @@ import java.util.HashSet;
  * Created On: 09-02-2019 17:37
  * Purpose: TODO:
  **/
-public class BinaryTreeApplications {
+public class Applications {
 
     public static BinaryTree createFromPreAndInorder(int[] preOrder, int[] inOrder) {
         assert preOrder.length == inOrder.length;

@@ -217,17 +217,22 @@ public class BinaryTree {
         System.out.println();
     }
 
+    /**
+     * t=O(n)
+     *
+     * @return list from tree.
+     */
     public DoublyLinkedList toList() {
         BTNode head = toListUtil(this.root);
         DoublyLinkedList dll = new DoublyLinkedList();
         BTNode curr = head;
-//        We have to do this because nodes used in Binary Tree and Doubly Linked list are different.
+        // We have to do this because nodes used in Binary Tree and Doubly Linked list are different.
         do {
             dll.insertAtEnd(curr.data);
             curr = curr.right;
         } while (curr != head);
 
-//        We are getting a circular doubly list but we are returning only doubly as circular one is not implemented yet.+
+        // We are getting a circular doubly list but we are returning only doubly as circular one is not implemented yet.
         return dll;
     }
 
@@ -238,26 +243,28 @@ public class BinaryTree {
         BTNode left = toListUtil(root.left);
         BTNode right = toListUtil(root.right);
 
-//        Making root a doubly circular list;
+        // Making root a doubly circular list;
+        // left and right are just prev and next so creating a circular linked list of size 1.
         root.left = root.right = root;
-        return concatenate(concatenate(left, root), right);
+        return concat(concat(left, root), right);
     }
 
-    private static BTNode concatenate(BTNode circularList1Head, BTNode circularList2Head) {
-        if (circularList1Head == null) {
-            return circularList2Head;
+    private BTNode concat(BTNode head1, BTNode head2) {
+        if (head1 == null) {
+            return head2;
         }
-        if (circularList2Head == null) {
-            return circularList1Head;
+        if (head2 == null) {
+            return head1;
         }
-        BTNode circularList1Last = circularList1Head.left;
-        BTNode circularList2Last = circularList2Head.left;
+        //left is prev and right is next.
+        BTNode last1 = head1.left;
+        BTNode last2 = head2.left;
 
-        circularList1Last.right = circularList2Head;
-        circularList2Head.left = circularList1Last;
-        circularList1Head.left = circularList2Last;
-        circularList2Last.right = circularList1Head;
-        return circularList1Head;
+        last1.right = head2;
+        head2.left = last1;
+        head1.left = last2;
+        last2.right = head1;
+        return head1;
     }
 
     public static int diameter(BinaryTree tree) {

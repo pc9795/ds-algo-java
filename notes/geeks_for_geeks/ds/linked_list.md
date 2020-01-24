@@ -16,8 +16,6 @@ takes to access them.
 Array memory is allocated from Data section(global array) or Stack section(local array). However memory for linked list
 is allocated from Heap section.
 
-Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.
-
 **Explanation of a method of removing floyd cycle detection algorithm**
 ```
 1. Detect Loop using Floyd’s Cycle detection algorithm and get the pointer to a loop node.
@@ -85,3 +83,16 @@ Circular Linked List
 **Advantages**
 * Any node can be starting point.
 * Useful in implementing queue. We don't need `front` and `rear` we only maintain `last`.
+
+Doubly Linked List
+--
+**Advantages**
+* Can be traversed in both forward and backward direction.
+* Delete operation is more efficient if pointer to the node to be deleted is given
+* Quick to insert a new node before a given node
+
+**Disadvantages**
+* Every node requires extra space for an previous pointer
+* All operations require and extra poiner previous to be maintained.
+
+Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.

@@ -2,7 +2,7 @@ package geeks_for_geeks.binary_search_tree;
 
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import geeks_for_geeks.ds.nodes.BTNode;
-import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTreeApplications;
+import geeks_for_geeks.ds.tree.binary_search_tree.Applications;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import javafx.util.Pair;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +31,7 @@ class TestBinarySearchTree {
         bt2.root.left = new BTNode(2);
         bt2.root.right = new BTNode(6);
 
-        BinarySearchTreeApplications.mergedInorder(bt1, bt2);
+        Applications.mergedInorder(bt1, bt2);
         Assertions.assertEquals(testOut.toString(), "1->2->3->4->5->6->" + System.lineSeparator());
 
         System.setOut(originalOut);
@@ -43,17 +43,17 @@ class TestBinarySearchTree {
         BinarySearchTree bst = new BinarySearchTree(15);
         bst.insert(10).insert(20).insert(8).insert(12).insert(16).insert(25);
 
-        Pair<BTNode, BTNode> result = BinarySearchTreeApplications.findPairWithGivenSum(bst, 33);
+        Pair<BTNode, BTNode> result = Applications.findPairWithGivenSum(bst, 33);
 
         Assertions.assertEquals(result.getKey().data, 8);
         Assertions.assertEquals(result.getValue().data, 25);
 
-        result = BinarySearchTreeApplications.findPairWithGivenSum(bst, 24);
+        result = Applications.findPairWithGivenSum(bst, 24);
 
         Assertions.assertEquals(result.getKey().data, 8);
         Assertions.assertEquals(result.getValue().data, 16);
 
-        result = BinarySearchTreeApplications.findPairWithGivenSum(bst, 100);
+        result = Applications.findPairWithGivenSum(bst, 100);
 
         Assertions.assertNull(result.getKey());
         Assertions.assertNull(result.getValue());
@@ -68,7 +68,7 @@ class TestBinarySearchTree {
         bt.root.left.left = new BTNode(8);
         bt.root.left.right = new BTNode(4);
 
-        BinarySearchTreeApplications.convertBinaryTreeToBST(bt);
+        Applications.convertBinaryTreeToBST(bt);
 
         Assertions.assertTrue(BinarySearchTree.isBST(bt));
     }

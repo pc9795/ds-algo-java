@@ -11,7 +11,7 @@ import java.util.*;
  * Created By: Prashant Chaubey
  * Created On: 14-10-2018 23:41
  **/
-public class BinarySearchTreeApplications {
+public class Applications {
 
     /**
      * t=O(n)

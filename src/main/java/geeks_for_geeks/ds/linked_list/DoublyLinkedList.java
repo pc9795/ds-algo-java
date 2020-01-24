@@ -23,8 +23,8 @@ public class DoublyLinkedList implements LinkedList {
     /**
      * t=O(1)
      *
-     * @param data
-     * @return
+     * @param data data to be added
+     * @return calling instance
      */
     @Override
     public DoublyLinkedList insertAtFront(int data) {
@@ -41,13 +41,13 @@ public class DoublyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param pos
-     * @param data
-     * @return
+     * @param pos  position to which to insert data
+     * @param data data to add
+     * @return calling instance
      */
     @Override
     public DoublyLinkedList insertAtPosition(int pos, int data) {
-        assert pos >= 0 && pos <= size;
+        assert pos >= 0 && pos <= size : String.format("Position should be between %s and %s", 0, size);
         if (pos == 0) {
             insertAtFront(data);
             return this;
@@ -57,7 +57,7 @@ public class DoublyLinkedList implements LinkedList {
             return this;
         }
         DNode temp = this.head;
-        // No need of prev-1 as we know have prev pointer.
+        // No need of prev as we know have prev pointer.
         for (int i = 0; i < pos; i++, temp = temp.next) ;
         DNode node = new DNode(data);
         node.prev = temp.prev;
@@ -68,6 +68,12 @@ public class DoublyLinkedList implements LinkedList {
         return this;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param data data to add
+     * @return calling instance
+     */
     @Override
     public DoublyLinkedList insertAtEnd(int data) {
         if (this.head == null) {
@@ -86,14 +92,14 @@ public class DoublyLinkedList implements LinkedList {
     /**
      * t=O(n)
      *
-     * @param data
-     * @return
+     * @param data data to delete
+     * @return calling instance
      */
     public DoublyLinkedList delete(int data) {
         DNode curr = this.head;
         for (; curr != null && curr.data != data; curr = curr.next) {
         }
-        assert curr != null;
+        assert curr != null : "Node with given data not found";
         if (curr.next != null) {
             curr.next.prev = curr.prev;
         }
@@ -115,8 +121,9 @@ public class DoublyLinkedList implements LinkedList {
 
     /**
      * t=O(n)
+     * NOTE: modified the list(NOT PURE)
      *
-     * @return
+     * @return calling instance
      */
     public DoublyLinkedList reverse() {
         if (head == null || size == 1) {
@@ -134,6 +141,12 @@ public class DoublyLinkedList implements LinkedList {
         return this;
     }
 
+    /**
+     * t = O(n * log n) in best and average case
+     * = O(n^2) in worst case (list is already sorted)
+     *
+     * @param dll list to sort
+     */
     public static void quickSort(DoublyLinkedList dll) {
         if (dll == null || dll.size <= 1) {
             return;
@@ -154,8 +167,14 @@ public class DoublyLinkedList implements LinkedList {
         quickSortUtil(pivot.next, last);
     }
 
+    /**
+     * We are swapping data not links.
+     *
+     * @param first first element in the list
+     * @param last  last element in the list
+     * @return the pivot element
+     */
     private static DNode partition(DNode first, DNode last) {
-        // We are swapping data not links.
         DNode i = null;
         DNode curr = first;
         while (curr != last) {
@@ -164,48 +183,50 @@ public class DoublyLinkedList implements LinkedList {
                 continue;
             }
             i = (i == null) ? first : i.next;
-            int temp = curr.data;
-            curr.data = i.data;
-            i.data = temp;
+            swapData(curr, i);
             curr = curr.next;
         }
         i = (i == null) ? first : i.next;
-        int temp = last.data;
-        last.data = i.data;
-        i.data = temp;
+        swapData(last, i);
         return i;
+    }
+
+    private static void swapData(DNode first, DNode second) {
+        int temp = first.data;
+        first.data = second.data;
+        second.data = temp;
     }
 
     /**
      * If list is not sorted then it will give unexpected results.
      *
-     * @param dll
-     * @return
+     * @param dll input list
+     * @return binary search tree obtained from the list
      */
-    public static BinarySearchTree toBST(DoublyLinkedList dll) {
+    public static BinarySearchTree convert(DoublyLinkedList dll) {
         assert dll != null && dll.head != null;
 
         int n = dll.size();
-        return new BinarySearchTree(toBSTUtil(new DoublePointer<>(dll.head), n));
+        return new BinarySearchTree(convertUtil(new DoublePointer<>(dll.head), n));
     }
 
     /**
      * t=O(n)
      * create BST from leaves.
      *
-     * @param headPtr
-     * @param n
-     * @return
+     * @param headPtr double pointer containing the head of the list for a recursion
+     * @param n       size of the list
+     * @return root of the binary search tree node
      */
-    private static BTNode toBSTUtil(DoublePointer<DNode> headPtr, int n) {
+    private static BTNode convertUtil(DoublePointer<DNode> headPtr, int n) {
         if (n == 0) {
             return null;
         }
-        BTNode left = toBSTUtil(headPtr, n / 2);
+        BTNode left = convertUtil(headPtr, n / 2);
         BTNode root = new BTNode(headPtr.data);
         // headPtr is progressing as tree is constructing.
         headPtr.data = headPtr.data.next;
-        BTNode right = toBSTUtil(headPtr, n - n / 2 - 1);
+        BTNode right = convertUtil(headPtr, n - n / 2 - 1);
 
         root.left = left;
         root.right = right;
