@@ -28,7 +28,7 @@ class TestSinglyLinkedList {
     }
 
     @Test
-    void testReverseInChunkIter(){
+    void testReverseInChunkIter() {
         SinglyLinkedList list = new SinglyLinkedList().append(1, 2, 3, 4, 5, 6, 7, 8);
         SinglyLinkedList expected = new SinglyLinkedList().append(3, 2, 1, 6, 5, 4, 8, 7);
         Applications.reverseInChunksIter(list, 3);
@@ -55,6 +55,7 @@ class TestSinglyLinkedList {
     void testHasLoop() {
         SinglyLinkedList linkedList = new SinglyLinkedList().append(1, 2, 3, 4, 5);
         Node head = linkedList.getHead();
+        //Creating a loop
         head.next.next.next.next.next = head.next;
         assert SinglyLinkedList.hasLoop(linkedList);
     }
@@ -63,6 +64,7 @@ class TestSinglyLinkedList {
     void testDetectAndRemoveLoop() {
         SinglyLinkedList linkedList = new SinglyLinkedList().append(1, 2, 3, 4, 5);
         Node head = linkedList.getHead();
+        //Creating a loop
         head.next.next.next.next.next = head.next;
         assert SinglyLinkedList.hasLoop(linkedList);
         SinglyLinkedList.detectAndRemoveLoop(linkedList);
@@ -98,7 +100,8 @@ class TestSinglyLinkedList {
     void testReverseRecursive() {
         SinglyLinkedList input = new SinglyLinkedList().append(1, 2, 3, 4, 5);
         SinglyLinkedList expected = new SinglyLinkedList().append(5, 4, 3, 2, 1);
-        assert input.reverseRecursive().equals(expected);
+        boolean ans = input.reverseRecursive().equals(expected);
+        assert ans;
     }
 
     static Stream<Arguments> testSortedMerge() {
@@ -115,6 +118,7 @@ class TestSinglyLinkedList {
     @ParameterizedTest
     @MethodSource
     void testSortedMerge(SinglyLinkedList list1, SinglyLinkedList list2, SinglyLinkedList expected) {
-        assert SinglyLinkedList.sortedMerge(list1, list2).equals(expected);
+        boolean ans = SinglyLinkedList.sortedMerge(list1, list2).equals(expected);
+        assert ans;
     }
 }

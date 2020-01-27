@@ -13,19 +13,17 @@ public class GetMinStack {
     /**
      * we have to push for equals to only for multiple entries of minimum element.
      *
-     * @param x
+     * @param data value to add
      */
-    public void push(int x) {
-        this.stack.push(x);
-        if (minStack.isEmpty() || minStack.peek() >= x) {
-            minStack.push(x);
+    public void push(int data) {
+        this.stack.push(data);
+        if (minStack.isEmpty() || minStack.peek() >= data) {
+            minStack.push(data);
         }
     }
 
     public int pop() {
-        if (isEmpty()) {
-            throw new RuntimeException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         if (stack.peek().equals(minStack.peek())) {
             minStack.pop();
         }
@@ -33,14 +31,11 @@ public class GetMinStack {
     }
 
     public int getMin() {
-        if (isEmpty()) {
-            throw new RuntimeException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         return minStack.peek();
     }
 
     public boolean isEmpty() {
         return stack.isEmpty();
     }
-
 }

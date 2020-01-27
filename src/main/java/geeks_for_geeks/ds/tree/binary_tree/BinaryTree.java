@@ -2,6 +2,7 @@ package geeks_for_geeks.ds.tree.binary_tree;
 
 import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import util.DoublePointer;
 
 import java.util.ArrayDeque;
@@ -30,6 +31,44 @@ public class BinaryTree {
         return "BinaryTree{" +
                 "root=" + root +
                 '}';
+    }
+
+    /**
+     * Position string is a binary string of '0s' and '1s'. 0 means left and 1 means right. So if input is '01' it means
+     * that data is inserted at `root.left.right`.
+     * NOTE: You can't add the data to root using this method. It is done at the time of tree initialization.
+     *
+     * @param pos  string representing the position where data is going to be inserted
+     * @param data data to insert
+     * @return calling instance
+     */
+    public BinaryTree insertAtPos(String pos, int data) {
+        assert !isEmpty() : "Tree is empty";
+        BTNode curr = this.root;
+        int len = pos.length();
+        //Stop at the parent of the intended location
+        for (int i = 0; i < len - 1; i++) {
+            char ch = pos.charAt(i);
+            if (ch == '0') {
+                curr = curr.left;
+            } else if (ch == '1') {
+                curr = curr.right;
+            } else {
+                throw new RuntimeException(String.format("Unexpected character:%s found at position:%s", ch, i + 1));
+            }
+            if (curr == null) {
+                throw new RuntimeException(String.format("Tree is evaluating null at position:%s", i + 1));
+            }
+        }
+        //We reached to the parent of the node.
+        if (pos.charAt(len - 1) == '0') {
+            curr.left = new BTNode(data);
+        } else if (pos.charAt(len - 1) == '1') {
+            curr.right = new BTNode(data);
+        } else {
+            throw new RuntimeException(String.format("Unexpected character:%s found at position:%s", pos.charAt(len - 1), len));
+        }
+        return this;
     }
 
     public static int getHeight(BinaryTree bt) {

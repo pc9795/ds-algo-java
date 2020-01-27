@@ -13,11 +13,8 @@ import org.junit.jupiter.api.Test;
 class TestDoublyLinkedList {
     @Test
     void testReverse() {
-        DoublyLinkedList list = new DoublyLinkedList();
-        list.append(1, 2, 3, 4, 5);
-        list.reverse();
-        DoublyLinkedList expected = new DoublyLinkedList();
-        expected.append(5, 4, 3, 2, 1);
+        DoublyLinkedList list = new DoublyLinkedList().append(1, 2, 3, 4, 5).reverse();
+        DoublyLinkedList expected = new DoublyLinkedList().append(5, 4, 3, 2, 1);
         assert list.equals(expected);
     }
 
@@ -34,11 +31,8 @@ class TestDoublyLinkedList {
         DoublyLinkedList list = new DoublyLinkedList().append(1, 2, 3, 4, 5, 6);
         BinarySearchTree bst = DoublyLinkedList.convert(list);
         BinarySearchTree expected = new BinarySearchTree(4);
-        expected.root.left = new BTNode(2);
-        expected.root.left.left = new BTNode(1);
-        expected.root.left.right = new BTNode(3);
-        expected.root.right = new BTNode(6);
-        expected.root.right.left = new BTNode(5);
+        expected.insertAtPos("0", 2).insertAtPos("00", 1).insertAtPos("01", 3)
+                .insertAtPos("1", 6).insertAtPos("10", 5);
         assert expected.equals(bst);
     }
 }

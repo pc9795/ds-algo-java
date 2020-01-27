@@ -203,13 +203,13 @@ public class Utils {
     /**
      * In infix expression the compiler have to rescan because of precedence rules.
      *
-     * @param exp
+     * @param infixExp infix expression
      */
-    private static String infixToPostFix(String exp) {
+    public static String infixToPostFix(String infixExp) {
         ArrayDeque<Character> stack = new ArrayDeque<>();
         StringBuilder postfix = new StringBuilder();
-        for (int i = 0; i < exp.length(); i++) {
-            char curr = exp.charAt(i);
+        for (int i = 0; i < infixExp.length(); i++) {
+            char curr = infixExp.charAt(i);
             if (Character.isLetterOrDigit(curr)) {
                 postfix.append(curr);
             } else if (curr == '(') {
@@ -218,13 +218,10 @@ public class Utils {
                 while (!stack.isEmpty() && stack.peek() != '(') {
                     postfix.append(stack.pop());
                 }
-                if (stack.isEmpty()) {
-                    throw new RuntimeException("Invalid expression!");
-                } else {
-                    stack.pop();
-                }
+                assert !stack.isEmpty() : "Invalid expression, unbalanced parenthesis  found";
+                stack.pop();
             } else {
-//                no need to check for '(' because it's precedence will be always low and any character would sit on it.
+                // no need to check for '(' because it's precedence will be always low and any character would sit on it.
                 for (; !stack.isEmpty() && getPrecedence(curr) < getPrecedence(stack.peek()); ) {
                     postfix.append(stack.pop());
                 }
@@ -232,6 +229,7 @@ public class Utils {
             }
         }
         for (; !stack.isEmpty(); ) {
+            assert !stack.peek().equals("(") : "Invalid expression, unbalanced parenthesis found";
             postfix.append(stack.pop());
         }
         return postfix.toString();
@@ -438,6 +436,4 @@ public class Utils {
     public static boolean isSafe(int x, int y, int rows, int cols) {
         return !(x < 0 || y < 0 || x >= rows || y >= cols);
     }
-
-
 }

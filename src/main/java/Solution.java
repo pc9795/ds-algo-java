@@ -79,29 +79,52 @@ class Solution {
         return arr;
     }
 
-    private static int MOD = 10_000_000;
+    private static int MOD = 1000_000_007;
     private static boolean SINGLE_TEST_CASE = false;
+
+    private static ArrayList<String> state;
+    private static HashMap<Integer, Integer> dp;
 
     private static void solve(Scanner in) {
         int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
         in.nextLine();
         for (int _t = 0; _t < t; _t++) {
             int n = in.nextInt();
-            int m = in.nextInt();
-            int[][] dp = new int[n][m];
-            dp[0][0] = 1;
+            int k = in.nextInt();
+            in.nextLine();
+            state = new ArrayList<>();
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (j + 1 <= m - 1) {
-                        dp[i][j + 1] += dp[i][j];
-                    }
-                    if (i + 1 <= n - 1) {
-                        dp[i + 1][j] += dp[i][j];
-                    }
-                }
+                state.add(in.nextLine());
             }
-            System.out.println(dp[n - 1][m - 1]);
+            HashSet<Integer> path = new HashSet<>();
+            dp = new HashMap<>();
+            int ans = solveUtil(path, 0, n, k);
+            System.out.println(ans);
         }
     }
 
+    private static int solveUtil(HashSet<Integer> path, int curr, int n, int k) {
+        if (dp.containsKey(curr) && (dp.get(curr) <= path.size() || dp.get(curr) == -1)) {
+            return dp.get(curr);
+        }
+        if (curr == n - 1) {
+            return path.size();
+        }
+        int min = Integer.MAX_VALUE;
+        path.add(curr);
+        for (int i = curr - k < 0 ? 0 : curr - k; i <= curr + k && i < n; i++) {
+            if (i < 0 || i == curr || state.get(curr).charAt(i) != '1' || path.contains(i)) {
+                continue;
+            }
+            int subPathAns = solveUtil(path, i, n, k);
+            if (subPathAns == -1) {
+                continue;
+            }
+            min = Math.min(min, subPathAns);
+        }
+        path.remove(curr);
+        min = min == Integer.MAX_VALUE ? -1 : min;
+        dp.put(curr, min);
+        return min;
+    }
 }

@@ -23,84 +23,47 @@ public class StackUsingArray implements Stack {
     /**
      * t=O(1)
      *
-     * @param data
+     * @param data data to add
      */
     @Override
     public void push(int data) {
-        if (isFull()) {
-            throw new RuntimeException("StackUsingArray is full");
-        }
+        assert isFull() : "Stack is full";
         values[++top] = data;
     }
 
     /**
      * t=O(1)
      *
-     * @return
+     * @return top of the stack
      */
     @Override
     public int pop() {
-        if (isEmpty()) {
-            throw new RuntimeException("StackUsingArray is empty");
-        }
+        assert !isEmpty() : "Stack is empty";
         return values[top--];
     }
 
     /**
      * t=O(1)
      *
-     * @return
+     * @return true if stack is empty
      */
     @Override
     public boolean isEmpty() {
         return top == -1;
     }
 
-    public boolean isFull() {
+    private boolean isFull() {
         return top == values.length - 1;
     }
 
     /**
-     * t=O(1)F
+     * t=O(1)
      *
-     * @return
+     * @return top of the stack
      */
     @Override
     public int peek() {
-        if (isEmpty()) {
-            throw new RuntimeException("StackUsingArray is empty");
-        }
+        assert !isEmpty() : "Stack is empty";
         return values[top];
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

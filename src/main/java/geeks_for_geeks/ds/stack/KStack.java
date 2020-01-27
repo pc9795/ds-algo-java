@@ -3,7 +3,6 @@ package geeks_for_geeks.ds.stack;
 /**
  * Created By: Prashant Chaubey
  * Created On: 27-01-2019 19:17
- * Purpose: TODO:
  **/
 public class KStack {
     private int[] arr, top, next;
@@ -20,11 +19,16 @@ public class KStack {
         next[size - 1] = -1;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param data  data to add
+     * @param stack no of stack
+     */
     public void push(int data, int stack) {
         assert stack >= 0 && stack < top.length;
-        if (isFull()) {
-            throw new RuntimeException("Stack Overflow");
-        }
+        assert isFull() : "Stack is full";
+
         int i = free;
         free = next[i];
 
@@ -34,11 +38,16 @@ public class KStack {
         arr[i] = data;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param stack no of stack
+     * @return popped value
+     */
     public int pop(int stack) {
         assert stack >= 0 && stack < top.length;
-        if (isEmpty(stack)) {
-            throw new RuntimeException("Stack Underflow");
-        }
+        assert !isEmpty(stack) : "Stack is empty";
+
         int i = top[stack];
         top[stack] = next[i];
 
@@ -48,14 +57,21 @@ public class KStack {
         return arr[i];
     }
 
+    /**
+     * @return true if no space to add data
+     */
     public boolean isFull() {
         return free == -1;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param stack no of stack
+     * @return true if stack is empty
+     */
     public boolean isEmpty(int stack) {
         assert stack >= 0 && stack < top.length;
         return top[stack] == -1;
     }
-
-
 }

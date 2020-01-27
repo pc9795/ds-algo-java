@@ -2,12 +2,13 @@ package geeks_for_geeks.ds.stack;
 
 import geeks_for_geeks.ds.nodes.DNode;
 import geeks_for_geeks.ds.stack.adt.Stack;
-import geeks_for_geeks.exceptions.DSException;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 27-01-2019 18:43
- * Purpose: TODO:
+ * <p>
+ * Deleting an element from middle is not O(1) for array. Also, we may need to move middle pointer up when we push an
+ * element and move down when we pop(). In singly linked list, moving middle pointer in both directions is not possible.
  **/
 public class GetMiddleStack implements Stack {
     private DNode top;
@@ -17,7 +18,7 @@ public class GetMiddleStack implements Stack {
     @Override
     public void push(int data) {
         DNode node = new DNode(data);
-//        new node is always added to the head of the geeks_for_geeks.stack.
+        // new node is always added to the head of the stack.
         node.prev = null;
         node.next = top;
         if (node.next != null) {
@@ -28,17 +29,14 @@ public class GetMiddleStack implements Stack {
         if (size == 1) {
             mid = top;
         } else if (size % 2 == 1) {
-//          If now total elements are odd then move up.
+            // If now total elements are odd then move up.
             mid = mid.prev;
         }
-
     }
 
     @Override
     public int pop() {
-        if (isEmpty()) {
-            throw new DSException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         int val = top.data;
         top = top.next;
         if (top != null) {
@@ -48,10 +46,9 @@ public class GetMiddleStack implements Stack {
         if (size == 0) {
             mid = top = null;
         } else if (size % 2 == 0) {
-//            If now total elements are even then move down.
+            // If now total elements are even then move down.
             mid = mid.next;
         }
-
         return val;
     }
 
@@ -62,23 +59,17 @@ public class GetMiddleStack implements Stack {
 
     @Override
     public int peek() {
-        if (isEmpty()) {
-            throw new DSException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         return top.data;
     }
 
     public int peekMiddle() {
-        if (isEmpty()) {
-            throw new DSException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         return mid.data;
     }
 
     public int popMiddle() {
-        if (isEmpty()) {
-            throw new DSException("Stack underflow");
-        }
+        assert !isEmpty() : "Stack is empty";
         int val = mid.data;
         DNode temp = null;
         if (size % 2 == 1) {
@@ -98,8 +89,6 @@ public class GetMiddleStack implements Stack {
         } else {
             mid = temp;
         }
-
         return val;
     }
-
 }

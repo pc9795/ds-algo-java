@@ -1,6 +1,5 @@
 package geeks_for_geeks.ds.stack;
 
-
 import geeks_for_geeks.ds.nodes.Node;
 import geeks_for_geeks.ds.stack.adt.Stack;
 
@@ -20,9 +19,7 @@ public class StackUsingLinkedList implements Stack {
 
     @Override
     public int pop() {
-        if (isEmpty()) {
-            throw new RuntimeException("StackUsingArray is empty");
-        }
+        assert !isEmpty() : "Stack is empty";
         int data = top.data;
         top = top.next;
         return data;
@@ -33,13 +30,9 @@ public class StackUsingLinkedList implements Stack {
         return top == null;
     }
 
-
     @Override
     public int peek() {
-        if (isEmpty()) {
-            throw new RuntimeException("StackUsingArray is empty");
-        }
+        assert !isEmpty() : "Stack is emtpy";
         return top.data;
     }
-
 }

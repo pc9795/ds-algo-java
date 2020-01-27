@@ -7,7 +7,6 @@ import java.util.ArrayDeque;
 /**
  * Created By: Prashant Chaubey
  * Created On: 27-01-2019 17:54
- * Purpose: TODO:
  **/
 public class StackUsingQueues implements Stack {
     private ArrayDeque<Integer> q1;
@@ -34,8 +33,7 @@ public class StackUsingQueues implements Stack {
         while (!q1.isEmpty()) {
             q2.add(q1.poll());
         }
-
-//        swapping references.
+        // swapping references.
         ArrayDeque<Integer> temp = q2;
         q2 = q1;
         q1 = temp;
@@ -44,7 +42,6 @@ public class StackUsingQueues implements Stack {
     private void pushEfficient(int data) {
         q1.add(data);
     }
-
 
     @Override
     public int pop() {
@@ -60,7 +57,7 @@ public class StackUsingQueues implements Stack {
             q2.add(q1.poll());
         }
         int val = q1.pop();
-        //        swapping references.
+        // swapping references.
         ArrayDeque<Integer> temp = q2;
         q2 = q1;
         q1 = temp;
@@ -68,9 +65,7 @@ public class StackUsingQueues implements Stack {
     }
 
     private int popEfficient() {
-        if (q1.isEmpty()) {
-            throw new RuntimeException("Stack Underflow");
-        }
+        assert !q1.isEmpty() : "Stack is empty";
         return q1.poll();
     }
 

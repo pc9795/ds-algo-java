@@ -29,33 +29,47 @@ public class TwoStack {
         return top1 + 1 == top2;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param value value to add
+     * @return calling instance
+     */
     public TwoStack push1(int value) {
-        if (isFull()) {
-            throw new RuntimeException("Stack is Full!");
-        }
+        assert isFull() : "Stack is full";
         values[++top1] = value;
         return this;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param value value to add
+     * @return calling instance
+     */
     public TwoStack push2(int value) {
-        if (isFull()) {
-            throw new RuntimeException("Stack is Full!");
-        }
+        assert isFull() : "Stack is full";
         values[--top2] = value;
         return this;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return top of the stack
+     */
     public int pop1() {
-        if (isEmpty()) {
-            throw new RuntimeException("Stack is Empty!");
-        }
+        assert !isEmpty() : "Stack is empty";
         return values[top1--];
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return top of the stack
+     */
     public int pop2() {
-        if (isEmpty()) {
-            throw new RuntimeException("Stack is Empty!");
-        }
+        assert !isEmpty() : "Stack is empty";
         return values[top2++];
     }
 }
