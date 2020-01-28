@@ -1,9 +1,12 @@
 package geeks_for_geeks.ds.queue;
 
-import geeks_for_geeks.ds.array.Array;
-
 import java.util.Arrays;
 
+/**
+ * This method requires some extra space. Space may not be an issue because queue items are typically large, for example,
+ * queues of employees, students, etc where every item is of hundreds of bytes. For usch large queues, the extra space
+ * used is comparatively very less as we use three integer arrays as extra space.
+ */
 public class KQueue {
     private int[] arr, front, rear, next;
     private int free;
@@ -21,62 +24,88 @@ public class KQueue {
         }
     }
 
-    public void enqueue(int stackNo, int data) {
-        if (isFull()) {
-            throw new RuntimeException("Queue overflow!");
-        }
+    /**
+     * t=O(1)
+     *
+     * @param queueNo index of the queue.
+     * @param data    data to add
+     */
+    public void enqueue(int queueNo, int data) {
+        assert !isFull() : "Queue is full";
         int toBeInsertedIndex = free;
         free = next[free];
 
-        if (front[stackNo] == -1) {
-            front[stackNo] = toBeInsertedIndex;
+        if (front[queueNo] == -1) {
+            front[queueNo] = toBeInsertedIndex;
         } else {
-            next[rear[stackNo]] = toBeInsertedIndex;
+            next[rear[queueNo]] = toBeInsertedIndex;
         }
         next[toBeInsertedIndex] = -1;
-        rear[stackNo] = toBeInsertedIndex;
+        rear[queueNo] = toBeInsertedIndex;
         arr[toBeInsertedIndex] = data;
     }
 
-    public int dequeue(int stackNo) {
-        if (isEmpty(stackNo)) {
-            throw new RuntimeException("Queue underflow!");
-        }
-        int toBeDeletedIndex = front[stackNo];
+    /**
+     * t=O(1)
+     *
+     * @param queueNo index of the queue
+     * @return front of the requested queue
+     */
+    public int dequeue(int queueNo) {
+        assert !isEmpty(queueNo) : "Queue is empty";
+        int toBeDeletedIndex = front[queueNo];
 
         next[toBeDeletedIndex] = free;
         free = toBeDeletedIndex;
 
-        front[stackNo] = next[toBeDeletedIndex];
+        front[queueNo] = next[toBeDeletedIndex];
 
-        if (front[stackNo] == -1) {
-            rear[stackNo] = -1;
+        if (front[queueNo] == -1) {
+            rear[queueNo] = -1;
         }
 
         return arr[toBeDeletedIndex];
     }
 
-    public int front(int stackNo) {
-        if (isEmpty(stackNo)) {
-            throw new RuntimeException("Queue underflow!");
-        }
-        return front[stackNo];
+    /**
+     * t=O(1)
+     *
+     * @param queueNo index of the queue
+     * @return front of the requested queue
+     */
+    public int front(int queueNo) {
+        assert !isEmpty(queueNo) : "Queue is empty";
+        return front[queueNo];
     }
 
-    public int rear(int stackNo) {
-        if (isEmpty(stackNo)) {
-            throw new RuntimeException("Queue underflow!");
-        }
-
-        return rear[stackNo];
+    /**
+     * t=O(1)
+     *
+     * @param queueNo index of the queue
+     * @return rear of the requested queue
+     */
+    public int rear(int queueNo) {
+        assert !isEmpty(queueNo) : "Queue is empty";
+        return rear[queueNo];
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return true if their is no space left to insert
+     */
     public boolean isFull() {
         return free == -1;
     }
 
-    public boolean isEmpty(int stackNo) {
-        return front[stackNo] == -1;
+    /**
+     * t=O(1)
+     *
+     * @param queueNo index of the queue
+     * @return true if particular queue is empty
+     */
+    public boolean isEmpty(int queueNo) {
+        return front[queueNo] == -1;
     }
 
 }

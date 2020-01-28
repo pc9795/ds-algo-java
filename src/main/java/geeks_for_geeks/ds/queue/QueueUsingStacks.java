@@ -9,9 +9,8 @@ import java.util.ArrayDeque;
  * Created On: 07-10-2018 23:22
  **/
 public class QueueUsingStacks implements Queue {
-    private ArrayDeque<Integer> insertionStack, queryStack;
-
-//    Costly dequeue is better than costly enqueue as we have to move elements only one time.
+    private final ArrayDeque<Integer> insertionStack, queryStack;
+    // Costly dequeue is better than costly enqueue as we have to move elements only one time.
     private final boolean costlyEnqueue;
 
     public QueueUsingStacks(boolean costlyEnqueue) {
@@ -20,6 +19,12 @@ public class QueueUsingStacks implements Queue {
         this.costlyEnqueue = costlyEnqueue;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @param data data to add
+     * @return calling instance
+     */
     @Override
     public Queue enqueue(int data) {
         if (costlyEnqueue) {
@@ -30,10 +35,13 @@ public class QueueUsingStacks implements Queue {
         return this;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return front of the queue
+     */
     public int dequeue() {
-        if (isEmpty()) {
-            throw new RuntimeException("QueueUsingArray is empty1");
-        }
+        assert !isEmpty() : "Queue is empty";
         if (costlyEnqueue) {
             return efficientDeqeue();
         } else {
@@ -41,12 +49,11 @@ public class QueueUsingStacks implements Queue {
         }
     }
 
-    private QueueUsingStacks efficientEnqueue(int data) {
+    private void efficientEnqueue(int data) {
         insertionStack.push(data);
-        return this;
     }
 
-    private QueueUsingStacks costlyEnqueue(int data) {
+    private void costlyEnqueue(int data) {
         while (!queryStack.isEmpty()) {
             insertionStack.push(queryStack.pop());
         }
@@ -54,11 +61,10 @@ public class QueueUsingStacks implements Queue {
         while (!insertionStack.isEmpty()) {
             queryStack.push(insertionStack.pop());
         }
-        return this;
     }
 
     private int costlyDequeue() {
-        if (queryStack.isEmpty()){
+        if (queryStack.isEmpty()) {
             while (!insertionStack.isEmpty()) {
                 queryStack.push(insertionStack.pop());
             }
@@ -70,15 +76,18 @@ public class QueueUsingStacks implements Queue {
         return queryStack.pop();
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return front of the queue
+     */
     @Override
     public int front() {
-        if (isEmpty()) {
-            throw new RuntimeException("QueueUsingArray is empty1");
-        }
-        if(costlyEnqueue){
+        assert !isEmpty() : "Queue is empty";
+        if (costlyEnqueue) {
             return queryStack.peek();
-        }else{
-            if (queryStack.isEmpty()){
+        } else {
+            if (queryStack.isEmpty()) {
                 while (!insertionStack.isEmpty()) {
                     queryStack.push(insertionStack.pop());
                 }
@@ -87,22 +96,25 @@ public class QueueUsingStacks implements Queue {
         }
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return rear of the queue
+     */
     @Override
     public int rear() {
-        if (isEmpty()) {
-            throw new RuntimeException("QueueUsingArray is empty1");
-        }
-        if(costlyEnqueue){
-            while(!queryStack.isEmpty()){
+        assert !isEmpty() : "Queue is empty";
+        if (costlyEnqueue) {
+            while (!queryStack.isEmpty()) {
                 insertionStack.push(queryStack.pop());
             }
-            int temp=insertionStack.peek();
-            while(!insertionStack.isEmpty()){
+            int temp = insertionStack.peek();
+            while (!insertionStack.isEmpty()) {
                 queryStack.push(insertionStack.pop());
             }
             return temp;
-        }else{
-            if(insertionStack.isEmpty()) {
+        } else {
+            if (insertionStack.isEmpty()) {
                 while (!queryStack.isEmpty()) {
                     insertionStack.push(queryStack.pop());
                 }
@@ -112,6 +124,11 @@ public class QueueUsingStacks implements Queue {
     }
 
 
+    /**
+     * t=O(1)
+     *
+     * @return true if queue is empty
+     */
     public boolean isEmpty() {
         return insertionStack.isEmpty() && queryStack.isEmpty();
     }

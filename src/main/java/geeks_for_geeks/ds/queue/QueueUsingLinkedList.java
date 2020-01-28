@@ -11,6 +11,12 @@ public class QueueUsingLinkedList implements Queue {
     private Node front;
     private Node rear;
 
+    /**
+     * t=O(1)
+     *
+     * @param data data to add
+     * @return calling instance
+     */
     @Override
     public Queue enqueue(int data) {
         Node node = new Node(data);
@@ -23,11 +29,15 @@ public class QueueUsingLinkedList implements Queue {
         return this;
     }
 
+    /**
+     * It will remove the data in the front
+     * t=O(1)
+     *
+     * @return data at the front of queue
+     */
     @Override
     public int dequeue() {
-        if (isEmpty()) {
-            throw new RuntimeException("Queue is empty");
-        }
+        assert !isEmpty() : "Queue is empty";
         int data = front.data;
         front = front.next;
         if (front == null) {
@@ -36,22 +46,33 @@ public class QueueUsingLinkedList implements Queue {
         return data;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return data at the front of the queue.
+     */
     @Override
-    public int front(){
-        if(isEmpty()){
-            throw new RuntimeException("Queue is empty");
-        }
+    public int front() {
+        assert !isEmpty() : "Queue is empty";
         return front.data;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return data at the rear of the queue
+     */
     @Override
-    public int rear(){
-        if(isEmpty()){
-            throw new RuntimeException("Queue is empty");
-        }
+    public int rear() {
+        assert !isEmpty() : "Queue is empty";
         return rear.data;
     }
 
+    /**
+     * t=O(1)
+     *
+     * @return true if empty
+     */
     public boolean isEmpty() {
         return front == null;
     }

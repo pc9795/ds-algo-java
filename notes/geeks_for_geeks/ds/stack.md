@@ -5,4 +5,3 @@
  
  * cons
     1. It is not dynamic. It dose't grow and shrink depending on needs at runtime.
-
