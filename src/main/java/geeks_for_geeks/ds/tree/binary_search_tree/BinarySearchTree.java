@@ -1,12 +1,11 @@
 package geeks_for_geeks.ds.tree.binary_search_tree;
 
-import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import util.DoublePointer;
 import util.Pair;
 
 import java.util.ArrayDeque;
-import java.util.Map;
 
 /**
  * Created By: Prashant Chaubey
@@ -23,10 +22,12 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     /**
-     * t=O(n) ;if tree is skewed.
+     * t=O(h)
+     * =O(n); skewed tree
+     * =O(log n); complete tree
      *
-     * @param key
-     * @return
+     * @param key value to search
+     * @return true if value found in the tree.
      */
     public boolean search(int key) {
         for (BTNode curr = root; curr != null; ) {
@@ -35,16 +36,17 @@ public class BinarySearchTree extends BinaryTree {
             }
             curr = key < curr.data ? curr.left : curr.right;
         }
-
         return false;
     }
 
 
     /**
-     * t=O(n); if tree is skewed.
+     * t=O(h)
+     * =O(n); skewed tree
+     * =O(log n); complete tree
      *
-     * @param data
-     * @return
+     * @param data data to insert
+     * @return calling instance
      */
     public BinarySearchTree insert(int data) {
         if (isEmpty()) {
@@ -58,52 +60,62 @@ public class BinarySearchTree extends BinaryTree {
             prev = curr;
             curr = data < curr.data ? curr.left : curr.right;
         }
+        assert prev != null;
         // Prev is empty only if tree is empty but we are checking that before hand.
         if (data < prev.data) {
             prev.left = new BTNode(data);
         } else {
             prev.right = new BTNode(data);
         }
-
         return this;
+    }
+
+    @Override
+    public BinarySearchTree insertAtPos(String pos, int data) {
+        throw new UnsupportedOperationException("We can't insert at position for Binary search tree");
     }
 
     /**
      * In order successor if subtree is present of a node.
      *
-     * @param node
-     * @return
+     * @param node node for which in-order successor has to be found
+     * @return in-order successor
      */
-    public static BTNode inOrderSucc(BTNode node) {
+    private static BTNode inOrderSucc(BTNode node) {
         assert node != null && node.right != null;
 
         BTNode inOrderSucc = node.right;
-        for (; inOrderSucc.left != null; inOrderSucc = inOrderSucc.left) ;
+        for (; inOrderSucc.left != null; ) {
+            inOrderSucc = inOrderSucc.left;
+        }
         return inOrderSucc;
-
     }
 
     /**
      * In order predecessor if subtree is present of a node.
      *
-     * @param node
-     * @return
+     * @param node node for which in-order predecessor has to be found
+     * @return in-order predecessor
      */
-    public static BTNode inOrderPred(BTNode node) {
+    private static BTNode inOrderPred(BTNode node) {
         assert node != null && node.left != null;
 
         BTNode inOrderPred = node.left;
-        for (; inOrderPred.right != null; inOrderPred = inOrderPred.right) ;
+        for (; inOrderPred.right != null; ) {
+            inOrderPred = inOrderPred.right;
+        }
         return inOrderPred;
     }
 
     /**
-     * t=O(n) ; if tree is skewed.
+     * t=O(h)
+     * =O(n); skewed tree
+     * =O(log n); complete tree
      *
-     * @param key
+     * @param key data to be deleted.
      */
     public void delete(int key) {
-        assert isEmpty() : "Empty tree";
+        assert !isEmpty() : "Empty tree";
 
         BTNode curr = root;
         BTNode prev = null;
@@ -115,8 +127,7 @@ public class BinarySearchTree extends BinaryTree {
             curr = key < curr.data ? curr.left : curr.right;
         }
 
-        assert curr == null : "Element not found";
-
+        assert curr != null : "Element not found";
         if (curr.left == null || curr.right == null) {
             // Will cover both leaf and single child node.
             if (prev == null) {
@@ -124,41 +135,50 @@ public class BinarySearchTree extends BinaryTree {
                 root = curr.left == null ? curr.right : curr.left;
                 return;
             }
+            // Right child
             if (prev.right == curr) {
-                prev.right = curr.right;
-            } else {
-                prev.left = curr.right;
+                prev.right = curr.left == null ? curr.right : curr.left;
+                return;
             }
-        } else {
-            // Node with two children.
-            // Finding in-order successor for the node.
-            BTNode inOrderSucc = BinarySearchTree.inOrderSucc(curr);
-            delete(inOrderSucc.data);
-            // Swapping inside data will be expensive for bigger object.
-            // We can use recursive delete code which will use the links.
-            int temp = curr.data;
-            curr.data = inOrderSucc.data;
-            inOrderSucc.data = temp;
+            // Left child
+            prev.left = curr.left == null ? curr.right : curr.left;
+            return;
         }
+        // Node with two children.
+        // Finding in-order successor for the node.
+        // NOTE: we can try to delete and find here only which can optimize this code somewhat.
+        BTNode inOrderSucc = BinarySearchTree.inOrderSucc(curr);
+        delete(inOrderSucc.data);
+        // Swapping inside data will be expensive for bigger object.
+        // We can use recursive delete code which will use the links.
+        int temp = curr.data;
+        curr.data = inOrderSucc.data;
+        inOrderSucc.data = temp;
     }
 
     /**
-     * t=O(n) for skewed trees
+     * t=O(h)
+     * =O(n); left skewed tree
+     * =O(log n); complete tree
      *
-     * @return
+     * @return minimum value
      */
     public int getMin() {
         assert isEmpty() : "Empty tree";
 
         BTNode temp = root;
-        for (; temp.left != null; temp = temp.left) ;
+        while (temp.left != null) {
+            temp = temp.left;
+        }
         return temp.data;
     }
 
     /**
-     * t=O(n) ; for skewed tree.
+     * t=O(h)
+     * =O(n); skewed tree
+     * =O(log n); complete tree
      *
-     * @param key
+     * @param key key for whose predecessor and successor whe have to find.
      */
     public Pair<BTNode, BTNode> findPreSuc(int key) {
         BTNode pred = null, succ = null, curr = this.root;
@@ -185,11 +205,13 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     /**
-     * t=O(n) ; for skewed tree.
+     * t=O(h)
+     * =O(n); skewed tree
+     * =O(log n); complete tree
      *
-     * @param n1
-     * @param n2
-     * @return
+     * @param n1 first value
+     * @param n2 second value
+     * @return lca
      */
     public int lca(int n1, int n2) {
         // If elements are not found
@@ -211,10 +233,15 @@ public class BinarySearchTree extends BinaryTree {
         return -1;
     }
 
+    /**
+     * t=O(h)
+     *
+     * @param number number whose ceil is to be found.
+     * @return ceil of the input number
+     */
     public int ceil(int number) {
         BTNode curr = this.root;
-        int ceil = -1;
-
+        int ceil = Integer.MIN_VALUE;
         while (curr != null) {
             if (curr.data == number) {
                 return curr.data;
@@ -230,11 +257,32 @@ public class BinarySearchTree extends BinaryTree {
     }
 
 
+    /**
+     * t=O(n)
+     * The approach for simply checking that left node is less than and right node is greater than will not work
+     * It will mark the following tree as BST which is not the case
+     * 4
+     * / \
+     * 2   5
+     * /\
+     * 1  3
+     *
+     * @param bt binary tree
+     * @return ture if given binary tree is a BST
+     */
     public static boolean isBST(BinaryTree bt) {
         assert bt != null;
+
         return isBSTUtil(bt.root, new DoublePointer<>());
     }
 
+    /**
+     * Using in-order to check whether it is BST or not.
+     *
+     * @param root curr node
+     * @param prev prev node in order;
+     * @return whether the curr node represent the root of a BST or not.
+     */
     private static boolean isBSTUtil(BTNode root, DoublePointer<BTNode> prev) {
         if (root == null) {
             return true;
@@ -246,14 +294,14 @@ public class BinarySearchTree extends BinaryTree {
             return false;
         }
         prev.data = root;
-
         return isBSTUtil(root.right, prev);
     }
 
     /**
      * t=O(n)
+     * In order traversal using Stack
      *
-     * @param tree
+     * @param tree input BST
      */
     public static int kthSmallest(BinarySearchTree tree, int k) {
         ArrayDeque<BTNode> stack = new ArrayDeque<>();
@@ -262,20 +310,14 @@ public class BinarySearchTree extends BinaryTree {
         for (; root != null; root = root.left) {
             stack.push(root);
         }
-
         for (; !stack.isEmpty(); ) {
-
             k--;
             BTNode curr = stack.pop();
-
             if (k == 0) {
                 return curr.data;
             }
-
-            if (curr.right != null) {
-                for (BTNode temp = curr.right; temp != null; temp = temp.left) {
-                    stack.push(temp);
-                }
+            for (BTNode temp = curr.right; temp != null; temp = temp.left) {
+                stack.push(temp);
             }
         }
         return -1;

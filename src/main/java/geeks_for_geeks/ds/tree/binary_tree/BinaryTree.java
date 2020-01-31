@@ -264,10 +264,8 @@ public class BinaryTree {
         for (; !stack.isEmpty(); ) {
             BTNode curr = stack.pop();
             traversal.add(curr.data);
-            if (curr.right != null) {
-                for (BTNode temp = curr.right; temp != null; temp = temp.left) {
-                    stack.push(temp);
-                }
+            for (BTNode temp = curr.right; temp != null; temp = temp.left) {
+                stack.push(temp);
             }
         }
         return traversal;

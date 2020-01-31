@@ -14,10 +14,18 @@ the pointer with insertion and deletion if required. With delete we can update b
 2. Print all elements in O(n)
 3. Floor and ceil can be found in O(log n) time
 
-To check if a tree is BST or not -> in order traversal is sorted array or not.
+To check if a tree is BST or not we can check in-order traversal is sorted array or not.
 
+**LCA**
 Distance from n1 to n2 can be computed as the distance from the root to n1, plus the distance from the root to n2, minus
 twice the distance from the root to their lowest common ancestor.
 
-* F(n) = floor((golden_ratio^n)/sqrt(5)+(1/2)) ,where golden_ratio=(sqrt(5)+1)/2
-* We can calculate nth power in logn time so we can calculate nth fibonacci number in logn time.
+In BST if we are doing things in in-order(most significant for BST) then space requirement is O(h).
+
+```cmd
+No of Binary Search Trees (nth Catalan number)
+>>> (2*n)! / ((n+1)! * n!)
+
+No of Binary Trees
+>>> No of Binary Search Trees * n!
+```

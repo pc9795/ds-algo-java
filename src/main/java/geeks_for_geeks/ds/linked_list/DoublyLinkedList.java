@@ -208,7 +208,7 @@ public class DoublyLinkedList implements LinkedList {
      * @param dll input list
      * @return binary search tree obtained from the list
      */
-    public static BinarySearchTree convert(DoublyLinkedList dll) {
+    public static BinarySearchTree toBST(DoublyLinkedList dll) {
         assert dll != null && dll.head != null;
 
         int n = dll.size();
