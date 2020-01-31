@@ -1,37 +1,37 @@
 package geeks_for_geeks.ds.tree.binary_tree;
 
-import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.ds.nodes.BTNodeWithRandom;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 09-02-2019 17:41
- * Purpose: TODO:
  **/
 public class BinaryTreeWithRandomNode {
-
     public BTNodeWithRandom root;
 
     public BinaryTreeWithRandomNode(int data) {
         this.root = new BTNodeWithRandom(data);
     }
 
-    public BinaryTreeWithRandomNode(BTNodeWithRandom root) {
+    private BinaryTreeWithRandomNode(BTNodeWithRandom root) {
         this.root = root;
     }
 
-    public BinaryTreeWithRandomNode cloneUsingHashMap() {
+    public BinaryTreeWithRandomNode copyUsingMap() {
+        assert this.root != null : "Tree is emtpy";
+
         HashMap<BTNodeWithRandom, BTNodeWithRandom> map = new HashMap<>();
         ArrayDeque<BTNodeWithRandom> queue = new ArrayDeque<>();
-
         queue.add(this.root);
-
-//        Caching all nodes using level order traversal.
+        // Caching all nodes using level order traversal.
         while (!queue.isEmpty()) {
             BTNodeWithRandom node = queue.poll();
+            assert node != null;
             map.put(node, new BTNodeWithRandom(node.data));
             if (node.left != null) {
                 queue.add(node.left);
@@ -40,13 +40,13 @@ public class BinaryTreeWithRandomNode {
                 queue.add(node.right);
             }
         }
-
+        //Queue will be empty at this point
         queue.add(this.root);
 
-//        Fixing the links.
+        //Fixing the links.
         while (!queue.isEmpty()) {
             BTNodeWithRandom node = queue.poll();
-
+            assert node != null;
             if (node.left != null) {
                 map.get(node).left = map.get(node.left);
                 queue.add(node.left);
@@ -63,12 +63,10 @@ public class BinaryTreeWithRandomNode {
     }
 
 
-    @Override
-    public BinaryTreeWithRandomNode clone() {
-        BTNodeWithRandom cloneRoot = buildCloneNodes(this.root);
-        fixRandomLinks(this.root, cloneRoot);
-        restoreTree(this.root, cloneRoot);
-
+    public BinaryTreeWithRandomNode copy() {
+        BTNodeWithRandom cloneRoot = buildCloneNodes(root);
+        fixRandomLinks(root, cloneRoot);
+        restoreTree(root, cloneRoot);
         return new BinaryTreeWithRandomNode(cloneRoot);
     }
 
@@ -80,11 +78,9 @@ public class BinaryTreeWithRandomNode {
         root.left = new BTNodeWithRandom(root.data);
         root.left.left = left;
         if (left != null) {
-            left.left = buildCloneNodes(root.left.left);
+            left.left = buildCloneNodes(left);
         }
-
         root.left.right = buildCloneNodes(root.right);
-
         return root.left;
     }
 
@@ -92,7 +88,6 @@ public class BinaryTreeWithRandomNode {
         if (originalRoot == null) {
             return;
         }
-
         if (originalRoot.random != null) {
             cloneRoot.random = originalRoot.random.left;
         }
@@ -116,20 +111,19 @@ public class BinaryTreeWithRandomNode {
         restoreTree(originalRoot.right, cloneRoot.right);
     }
 
-    public static void inOrderTraversal(BinaryTreeWithRandomNode tree) {
-        if (tree == null) {
-            throw new RuntimeException("Tree is empty!");
-        }
-        inOrderTraversalUtil(tree.root);
-        System.out.println();
+    public static List<Integer> inOrderTraversal(BinaryTreeWithRandomNode tree) {
+        assert tree != null : "Null instance given";
+        List<Integer> traversal = new ArrayList<>();
+        inOrderTraversalUtil(tree.root, traversal);
+        return traversal;
     }
 
-    private static void inOrderTraversalUtil(BTNodeWithRandom root) {
+    private static void inOrderTraversalUtil(BTNodeWithRandom root, List<Integer> traversal) {
         if (root == null) {
             return;
         }
-        inOrderTraversalUtil(root.left);
-        System.out.println(root);
-        inOrderTraversalUtil(root.right);
+        inOrderTraversalUtil(root.left, traversal);
+        traversal.add(root.data);
+        inOrderTraversalUtil(root.right, traversal);
     }
 }

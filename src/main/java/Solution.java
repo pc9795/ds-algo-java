@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Created By: Prashant Chaubey
@@ -82,49 +82,11 @@ class Solution {
     private static int MOD = 1000_000_007;
     private static boolean SINGLE_TEST_CASE = false;
 
-    private static ArrayList<String> state;
-    private static HashMap<Integer, Integer> dp;
-
     private static void solve(Scanner in) {
         int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
         in.nextLine();
         for (int _t = 0; _t < t; _t++) {
-            int n = in.nextInt();
-            int k = in.nextInt();
-            in.nextLine();
-            state = new ArrayList<>();
-            for (int i = 0; i < n; i++) {
-                state.add(in.nextLine());
-            }
-            HashSet<Integer> path = new HashSet<>();
-            dp = new HashMap<>();
-            int ans = solveUtil(path, 0, n, k);
-            System.out.println(ans);
-        }
-    }
 
-    private static int solveUtil(HashSet<Integer> path, int curr, int n, int k) {
-        if (dp.containsKey(curr) && (dp.get(curr) <= path.size() || dp.get(curr) == -1)) {
-            return dp.get(curr);
         }
-        if (curr == n - 1) {
-            return path.size();
-        }
-        int min = Integer.MAX_VALUE;
-        path.add(curr);
-        for (int i = curr - k < 0 ? 0 : curr - k; i <= curr + k && i < n; i++) {
-            if (i < 0 || i == curr || state.get(curr).charAt(i) != '1' || path.contains(i)) {
-                continue;
-            }
-            int subPathAns = solveUtil(path, i, n, k);
-            if (subPathAns == -1) {
-                continue;
-            }
-            min = Math.min(min, subPathAns);
-        }
-        path.remove(curr);
-        min = min == Integer.MAX_VALUE ? -1 : min;
-        dp.put(curr, min);
-        return min;
     }
 }

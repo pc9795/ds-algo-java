@@ -42,7 +42,7 @@ public class CircularLinkedList implements LinkedList {
      * @return calling instance
      */
     @Override
-    public CircularLinkedList insertAtPosition(int pos, int data) {
+    public CircularLinkedList insertAtPos(int pos, int data) {
         assert pos >= 0 && pos <= size : String.format("Position entered should be between %s and %s", 0, size);
 
         if (this.last == null) {

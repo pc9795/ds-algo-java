@@ -1,7 +1,6 @@
 package geeks_for_geeks.linked_list;
 
 import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
-import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import org.junit.jupiter.api.Test;
 

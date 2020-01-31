@@ -78,6 +78,7 @@ class TestSinglyLinkedList {
         assert list.equals(new SinglyLinkedList().append(50, 60, 10, 20, 30, 40));
     }
 
+    @SuppressWarnings("unused")
     static Stream<Arguments> testSwap() {
         return Stream.of(
                 Arguments.of(new SinglyLinkedList().append(1, 2, 3, 4, 5), 2, 4, new SinglyLinkedList().append(1, 4, 3, 2, 5)),
@@ -104,6 +105,7 @@ class TestSinglyLinkedList {
         assert ans;
     }
 
+    @SuppressWarnings("unused")
     static Stream<Arguments> testSortedMerge() {
         return Stream.of(
                 Arguments.of(new SinglyLinkedList().append(1, 2, 3), null, new SinglyLinkedList().append(1, 2, 3)),
@@ -120,5 +122,42 @@ class TestSinglyLinkedList {
     void testSortedMerge(SinglyLinkedList list1, SinglyLinkedList list2, SinglyLinkedList expected) {
         boolean ans = SinglyLinkedList.sortedMerge(list1, list2).equals(expected);
         assert ans;
+    }
+
+    @Test
+    void testDeleteAtPosition() {
+        SinglyLinkedList list = new SinglyLinkedList().append(1, 2, 3, 4, 5, 6);
+        //head
+        list.deleteAtPosition(0);
+        assert list.equals(new SinglyLinkedList().append(2, 3, 4, 5, 6));
+        //last
+        list.deleteAtPosition(list.size() - 1);
+        assert list.equals(new SinglyLinkedList().append(2, 3, 4, 5));
+
+        list.deleteAtPosition(1);
+        assert list.equals(new SinglyLinkedList().append(2, 4, 5));
+    }
+
+    @Test
+    void testMergeSort() {
+        SinglyLinkedList list = new SinglyLinkedList().append(5, 4, 3, 2, 1);
+        SinglyLinkedList.mergeSort(list);
+        assert list.equals(new SinglyLinkedList().append(1, 2, 3, 4, 5));
+    }
+
+    @Test
+    void testInsertAtPosition() {
+        SinglyLinkedList list = new SinglyLinkedList().append(1, 2, 3, 4, 5);
+        //head
+        list = list.insertAtPos(0, 0);
+        assert list.equals(new SinglyLinkedList().append(0, 1, 2, 3, 4, 5));
+        //last
+        list = list.insertAtPos(list.size(), 6);
+        assert list.equals(new SinglyLinkedList().append(0, 1, 2, 3, 4, 5, 6));
+
+        list = list.insertAtPos(2, 7);
+        assert list.equals(new SinglyLinkedList().append(0, 1, 7, 2, 3, 4, 5, 6));
+
+
     }
 }

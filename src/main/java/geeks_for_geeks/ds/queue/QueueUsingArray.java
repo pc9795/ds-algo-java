@@ -12,12 +12,6 @@ public class QueueUsingArray implements Queue {
     int front;
     int rear;
 
-    QueueUsingArray() {
-        values = new int[10];
-        front = -1;
-        rear = 0;
-    }
-
     QueueUsingArray(int size) {
         values = new int[size];
         front = -1;

@@ -71,7 +71,7 @@ public class GetMiddleStack implements Stack {
     public int popMiddle() {
         assert !isEmpty() : "Stack is empty";
         int val = mid.data;
-        DNode temp = null;
+        DNode temp;
         if (size % 2 == 1) {
             temp = mid.next;
         } else {

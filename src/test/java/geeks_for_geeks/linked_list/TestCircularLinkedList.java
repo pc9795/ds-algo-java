@@ -15,6 +15,7 @@ import java.util.stream.Stream;
  * Purpose: Test
  **/
 class TestCircularLinkedList {
+    @SuppressWarnings("unused")
     static Stream<Arguments> testSplitCircularLinkedList() {
         return Stream.of(
                 Arguments.of(new CircularLinkedList().append(1), new Pair<>(new CircularLinkedList().append(1),

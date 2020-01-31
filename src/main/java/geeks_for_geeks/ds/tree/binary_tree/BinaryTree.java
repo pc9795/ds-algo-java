@@ -2,19 +2,18 @@ package geeks_for_geeks.ds.tree.binary_tree;
 
 import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
-import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import util.DoublePointer;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 24-09-2018 02:06
  **/
+@SuppressWarnings("unused")
 public class BinaryTree {
     public BTNode root;
 
@@ -24,13 +23,6 @@ public class BinaryTree {
 
     public BinaryTree(BTNode root) {
         this.root = root;
-    }
-
-    @Override
-    public String toString() {
-        return "BinaryTree{" +
-                "root=" + root +
-                '}';
     }
 
     /**
@@ -71,59 +63,77 @@ public class BinaryTree {
         return this;
     }
 
-    public static int getHeight(BinaryTree bt) {
-        return getHeightUtil(bt.root, 0);
+    /**
+     * t=O(n)
+     * it will traverse the whole tree.
+     *
+     * @param bt binary tree
+     * @return height of the tree.
+     */
+    private static int height(BinaryTree bt) {
+        return heightUtil(bt.root, 0);
     }
 
-    public static int getHeightUtil(BTNode root, int height) {
+    private static int heightUtil(BTNode root, int height) {
         if (root == null) {
             return height;
         }
-        return Math.max(height + 1, Math.max(getHeightUtil(root.left, height + 1), getHeightUtil(root.right,
-                height + 1)));
+        return Math.max(height + 1, Math.max(heightUtil(root.left, height + 1), heightUtil(root.right, height + 1)));
     }
 
     /**
-     * t=O(n^2) ; for skewed tree.
+     * t=O(n^2); for skewed tree.
+     * s=O(w); w is maximum width of tree
+     * =O(n); for perfect binary tree;
      *
-     * @param bt
+     * @param bt binary tree
      */
-    public static void levelOrderTraversal(BinaryTree bt) {
-        if (bt.root == null) {
-            throw new RuntimeException("Tree is empty");
-        }
-        int height = getHeight(bt);
-        for (int i = 1; i <= height; i++) {
-            //O(n)
-            printLevel(bt.root, i);
-            System.out.println();
-        }
-    }
+    public static List<List<Integer>> levelOrderTraversal(BinaryTree bt) {
+        assert !bt.isEmpty() : "Tree is empty";
 
-    private static void printLevel(BTNode root, int level) {
-        if (root == null) {
-            return;
+        int height = height(bt);
+        List<List<Integer>> levels = new ArrayList<>();
+        for (int i = 1; i <= height; i++) {
+            List<Integer> currLevel = new ArrayList<>();
+            printLevel(bt.root, i, currLevel);
+            levels.add(currLevel);
         }
-        if (level == 1) {
-            System.out.print(root.data + "(" + root.left + "," + root.right + ")    ");
-            return;
-        }
-        printLevel(root.left, level - 1);
-        printLevel(root.right, level - 1);
+        return levels;
     }
 
     /**
      * t=O(n)
      *
-     * @param bt
+     * @param root  root node
+     * @param level level to be printed
      */
-    public static void levelOrderTraversalUsingQueue(BinaryTree bt) {
-        assert bt.root != null;
+    private static void printLevel(BTNode root, int level, List<Integer> elements) {
+        if (root == null) {
+            return;
+        }
+        if (level == 1) {
+            elements.add(root.data);
+            return;
+        }
+        printLevel(root.left, level - 1, elements);
+        printLevel(root.right, level - 1, elements);
+    }
+
+    /**
+     * t=O(n)
+     *
+     * @param bt binary tree
+     */
+    public static List<Integer> levelOrderTraversalUsingQueue(BinaryTree bt) {
+        assert !bt.isEmpty() : "Tree is empty";
+
+        List<Integer> traversal = new ArrayList<>();
         ArrayDeque<BTNode> queue = new ArrayDeque<>();
         queue.add(bt.root);
         while (!queue.isEmpty()) {
             BTNode node = queue.peek();
-            System.out.print(node.data + " ");
+            assert node != null;
+            traversal.add(node.data);
             if (node.left != null) {
                 queue.add(node.left);
             }
@@ -131,9 +141,9 @@ public class BinaryTree {
                 queue.add(node.right);
             }
         }
-        System.out.println();
-    }
 
+        return traversal;
+    }
 
     private static int getWidthFromLevel(BTNode root, int level) {
         if (root == null) {
@@ -142,118 +152,161 @@ public class BinaryTree {
         if (level == 1) {
             return 1;
         }
-        return getWidthFromLevel(root.left, level - 1) +
-                getWidthFromLevel(root.right, level - 1);
+        return getWidthFromLevel(root.left, level - 1) + getWidthFromLevel(root.right, level - 1);
     }
 
-    public static void preOrderTraversal(BinaryTree tree) {
-        if (tree == null) {
-            throw new RuntimeException("Tree is empty!");
-        }
-        preOrderTraversalUtil(tree.root);
-        System.out.println();
+    /**
+     * t=O(n)
+     * s=O(h); h is the height of the tree; due to Recursion stack
+     * =O(n); for skewed tree
+     *
+     * @param tree binary tree
+     * @return pre-order traversal; root, left, right
+     */
+    public static List<Integer> preOrderTraversal(BinaryTree tree) {
+        assert tree != null;
+        List<Integer> traversal = new ArrayList<>();
+        preOrderTraversalUtil(traversal, tree.root);
+        return traversal;
     }
 
-    private static void preOrderTraversalUtil(BTNode root) {
+    private static void preOrderTraversalUtil(List<Integer> traversal, BTNode root) {
         if (root == null) {
             return;
         }
-        System.out.print("data: " + root.data + "->");
-        preOrderTraversalUtil(root.left);
-        preOrderTraversalUtil(root.right);
+        traversal.add(root.data);
+        preOrderTraversalUtil(traversal, root.left);
+        preOrderTraversalUtil(traversal, root.right);
     }
 
-    public static void postOrderTraversal(BinaryTree tree) {
-        if (tree == null) {
-            throw new RuntimeException("Tree is empty!");
+    private static void preOrderTraversalWithNullsUtil(List<Integer> traversal, BTNode root) {
+        if (root == null) {
+            traversal.add(null);
+            return;
         }
-        postOrderTraversalUtil(tree.root);
-        System.out.println();
+        traversal.add(root.data);
+        preOrderTraversalUtil(traversal, root.left);
+        preOrderTraversalUtil(traversal, root.right);
     }
 
-    private static void postOrderTraversalUtil(BTNode root) {
+    /**
+     * t=O(n)
+     * s=O(h); h is the height of the tree; due to Recursion stack
+     * =O(n); for skewed tree
+     *
+     * @param tree binary tree
+     * @return post-order traversal; left, right, root
+     */
+    public static List<Integer> postOrderTraversal(BinaryTree tree) {
+        assert tree != null;
+        List<Integer> traversal = new ArrayList<>();
+        postOrderTraversalUtil(traversal, tree.root);
+        return traversal;
+    }
+
+    private static void postOrderTraversalUtil(List<Integer> traversal, BTNode root) {
         if (root == null) {
             return;
         }
-        postOrderTraversalUtil(root.left);
-        postOrderTraversalUtil(root.right);
-        System.out.print("data:" + root.data + "->");
+        postOrderTraversalUtil(traversal, root.left);
+        postOrderTraversalUtil(traversal, root.right);
+        traversal.add(root.data);
     }
 
-    public static void inOrderTraversal(BinaryTree tree) {
-        if (tree == null) {
-            throw new RuntimeException("Tree is empty!");
-        }
-        inOrderTraversalUtil(tree.root);
-        System.out.println();
+    /**
+     * t=O(n)
+     * s=O(h); h is the height of the tree; due to Recursion stack
+     * =O(n); for skewed tree
+     *
+     * @param tree binary tree
+     * @return in-order traversal; left, root, right
+     */
+    public static List<Integer> inOrderTraversal(BinaryTree tree) {
+        assert tree != null;
+        List<Integer> traversal = new ArrayList<>();
+        inOrderTraversalUtil(traversal, tree.root);
+        return traversal;
     }
 
-    private static void inOrderTraversalUtil(BTNode root) {
+    private static void inOrderTraversalUtil(List<Integer> traversal, BTNode root) {
         if (root == null) {
             return;
         }
-        inOrderTraversalUtil(root.left);
-        System.out.print(root.data + "->");
-        inOrderTraversalUtil(root.right);
+        inOrderTraversalUtil(traversal, root.left);
+        traversal.add(root.data);
+        inOrderTraversalUtil(traversal, root.right);
     }
 
-    //T=O(n)
-    public static void inOrderTraversalWoRecursion(BinaryTree tree) {
+    private static void inOrderTraversalWithNullsUtil(List<Integer> traversal, BTNode root) {
+        if (root == null) {
+            traversal.add(null);
+            return;
+        }
+        inOrderTraversalUtil(traversal, root.left);
+        traversal.add(root.data);
+        inOrderTraversalUtil(traversal, root.right);
+    }
+
+    /**
+     * t=O(n)
+     *
+     * @param tree binary tree
+     */
+    public static List<Integer> inOrderTraversalWoRecursion(BinaryTree tree) {
+        assert tree != null : "Null instance is give";
+
         ArrayDeque<BTNode> stack = new ArrayDeque<>();
         BTNode root = tree.root;
-
+        List<Integer> traversal = new ArrayList<>();
         for (; root != null; root = root.left) {
             stack.push(root);
         }
-
         for (; !stack.isEmpty(); ) {
-
             BTNode curr = stack.pop();
-            System.out.print("data:" + curr.data + "->");
-
+            traversal.add(curr.data);
             if (curr.right != null) {
                 for (BTNode temp = curr.right; temp != null; temp = temp.left) {
                     stack.push(temp);
                 }
             }
         }
-
-        System.out.println();
+        return traversal;
     }
 
-    //T=O(n) each node in worst case could be visited two times only.
-    public static void morisTraversal(BinaryTree tree) {
+    /**
+     * t=O(n)
+     * each node in worst case could be visited two times only.
+     *
+     * @param tree binary tree
+     * @return moris traversal of the tree
+     */
+    public static List<Integer> morisTraversal(BinaryTree tree) {
+        assert tree != null : "Null instance given";
 
-        if (tree == null || tree.root == null) {
-            System.out.println("Tree is empty!");
-            return;
-        }
-
+        List<Integer> traversal = new ArrayList<>();
         for (BTNode curr = tree.root; curr != null; ) {
-
             if (curr.left == null) {
-                System.out.print(curr.data + "->");
+                traversal.add(curr.data);
                 curr = curr.right;
-            } else {
-
-                BTNode pre = curr.left;
-
-                while (pre.right != null && pre.right != curr) {
-                    pre = pre.right;
-                }
-
-                if (pre.right == null) {
-                    pre.right = curr;
-                    curr = curr.left;
-                } else {
-                    pre.right = null;
-                    System.out.print(curr.data + "->");
-                    curr = curr.right;
-                }
+                continue;
             }
+            BTNode rightMostOfLeftSubTree = curr.left;
+            //Right most node in the left sub-tree
+            while (rightMostOfLeftSubTree.right != null && rightMostOfLeftSubTree.right != curr) {
+                rightMostOfLeftSubTree = rightMostOfLeftSubTree.right;
+            }
+            //Making link
+            if (rightMostOfLeftSubTree.right == null) {
+                rightMostOfLeftSubTree.right = curr;
+                curr = curr.left;
+                continue;
+            }
+            //Removing link
+            rightMostOfLeftSubTree.right = null;
+            traversal.add(curr.data);
+            curr = curr.right;
         }
-
-        System.out.println();
+        return traversal;
     }
 
     /**
@@ -306,88 +359,56 @@ public class BinaryTree {
         return head1;
     }
 
+    /**
+     * t=O(n)
+     *
+     * @param tree binary tree
+     * @return diameter of the binary tree
+     */
     public static int diameter(BinaryTree tree) {
-        assert tree != null && tree.root != null;
-        DoublePointer<Integer> diam = new DoublePointer<>();
-        diam.data = Integer.MIN_VALUE;
-        diameterUtil(tree.root, diam);
-        return diam.data;
+        assert tree != null;
+
+        DoublePointer<Integer> height = new DoublePointer<>(0);
+        return diameterUtil(tree.root, height);
     }
 
-    private static int diameterUtil(BTNode root, DoublePointer<Integer> diam) {
+    private static int diameterUtil(BTNode root, DoublePointer<Integer> height) {
         if (root == null) {
             return 0;
         }
-        int left = diameterUtil(root.left, diam);
-        int right = diameterUtil(root.right, diam);
-        diam.data = Math.min(diam.data, left + right + 1);
-        return Math.max(left, right) + 1;
+        height.data += 1;
+        DoublePointer<Integer> leftHeight = new DoublePointer<>(0);
+        DoublePointer<Integer> rightHeight = new DoublePointer<>(0);
+        int left = diameterUtil(root.left, leftHeight);
+        int right = diameterUtil(root.right, rightHeight);
+        // Update height from children
+        height.data += Math.max(leftHeight.data, rightHeight.data);
+        return Math.max(Math.max(left, right), leftHeight.data + rightHeight.data + 1);
     }
 
-    public List<Integer> getInOrder(boolean showNulls, int nullValue) {
-        List<Integer> traversal = new LinkedList<>();
-
-        getInOrder(this.root, traversal, showNulls, nullValue);
-
-        return traversal;
-    }
-
-    private static void getInOrder(BTNode root, List<Integer> inOrder, final boolean showNull, final int nullValue) {
-        if (root == null) {
-//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
-            if (showNull) {
-                inOrder.add(nullValue);
-            }
-            return;
+    /**
+     * t=O(n+m)
+     * s=O(n+m)
+     *
+     * @param subTree sub tree to check
+     * @return whether the given tree is a subtree
+     */
+    public boolean isSubTree(BinaryTree subTree) {
+        assert subTree != null : "Null instance given";
+        //Calculate inorder traversal
+        List<Integer> traversalSub = new ArrayList<>();
+        inOrderTraversalWithNullsUtil(traversalSub, subTree.root);
+        List<Integer> traversal = new ArrayList<>();
+        inOrderTraversalWithNullsUtil(traversal, root);
+        if (Collections.indexOfSubList(traversal, traversalSub) == -1) {
+            return false;
         }
-        getInOrder(root.left, inOrder, showNull, nullValue);
-        inOrder.add(root.data);
-        getInOrder(root.right, inOrder, showNull, nullValue);
-    }
-
-    public ArrayList<Integer> getPreOrder(boolean showNull, int nullValue) {
-        ArrayList<Integer> traversal = new ArrayList<>();
-
-        getPreOrder(this.root, traversal, showNull, nullValue);
-
-        return traversal;
-    }
-
-    private static void getPreOrder(BTNode root, ArrayList<Integer> preOrder, final boolean showNull, final int nullValue) {
-        if (root == null) {
-//            To prevent cases in which the tree is subtree but have some extra nodes attached to it.
-            if (showNull) {
-                preOrder.add(nullValue);
-            }
-            return;
-        }
-        preOrder.add(root.data);
-        getPreOrder(root.left, preOrder, showNull, nullValue);
-        getPreOrder(root.right, preOrder, showNull, nullValue);
-
-    }
-
-    //T=O(n+m), S=O(n+m)
-    public boolean isSubTree(BinaryTree bt) {
-        assert bt != null;
-
-        String inOrder = this.getInOrder(true, -1).stream().
-                map(Object::toString).collect(Collectors.joining(","));
-
-        String inOrderSuper = bt.getInOrder(true, -1).stream().
-                map(Object::toString).collect(Collectors.joining(","));
-
-        //We can only use pre-order traversal as soon as we are storing null values as special characters. Because it
-        //be unique.
-        //T=O(n), S=O(n)
-        String preOrder = this.getPreOrder(true, -1).stream()
-                .map(Object::toString).collect(Collectors.joining(","));
-
-        //T=O(m), S=O(m)
-        String preOrderSuper = bt.getPreOrder(true, -1).
-                stream().map(Object::toString).collect(Collectors.joining(","));
-
-        return inOrderSuper.contains(inOrder) && preOrderSuper.contains(preOrder);
+        //Calculate pre-order traversal
+        traversalSub = new ArrayList<>();
+        preOrderTraversalWithNullsUtil(traversalSub, subTree.root);
+        traversal = new ArrayList<>();
+        preOrderTraversalWithNullsUtil(traversal, root);
+        return Collections.indexOfSubList(traversal, traversalSub) != -1;
     }
 
     public int size() {
@@ -410,12 +431,18 @@ public class BinaryTree {
     }
 
     @Override
+    public String toString() {
+        return "BinaryTree{" +
+                "root=" + root +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         BinaryTree that = (BinaryTree) o;
-
         return equalsUtil(root, that.root);
     }
 

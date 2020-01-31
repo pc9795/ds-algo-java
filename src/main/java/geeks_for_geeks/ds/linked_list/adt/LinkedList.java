@@ -5,7 +5,7 @@ public interface LinkedList {
 
     LinkedList insertAtFront(int data);
 
-    LinkedList insertAtPosition(int pos, int data);
+    LinkedList insertAtPos(int pos, int data);
 
     LinkedList insertAtEnd(int data);
 }

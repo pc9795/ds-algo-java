@@ -81,9 +81,11 @@ public class QueueUsingStacks implements Queue {
      *
      * @return front of the queue
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public int front() {
         assert !isEmpty() : "Queue is empty";
+
         if (costlyEnqueue) {
             return queryStack.peek();
         } else {
@@ -101,6 +103,7 @@ public class QueueUsingStacks implements Queue {
      *
      * @return rear of the queue
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public int rear() {
         assert !isEmpty() : "Queue is empty";

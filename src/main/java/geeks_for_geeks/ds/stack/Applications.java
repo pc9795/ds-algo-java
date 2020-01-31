@@ -68,6 +68,7 @@ public class Applications {
      * @param exp expression
      * @return true if parenthesis are balanced
      */
+    @SuppressWarnings("ConstantConditions")
     public static boolean checkBalancedParenthesis(String exp) {
         ArrayDeque<Character> stack = new ArrayDeque<>();
         for (int i = 0; i < exp.length(); i++) {
@@ -136,6 +137,7 @@ public class Applications {
      * @param arr array of numbers
      * @return array of next greater elements. An index will have -1 if next greater element doesn't exist for it.
      */
+    @SuppressWarnings("ConstantConditions")
     public static int[] nextGreaterElements(int arr[]) {
         assert arr != null : "Array can't be null";
 
@@ -154,7 +156,7 @@ public class Applications {
     /**
      * t=O(n^2)
      *
-     * @param stack
+     * @param stack input stack
      */
     public static void sortStack(ArrayDeque<Integer> stack) {
         if (stack.isEmpty()) {
@@ -182,6 +184,7 @@ public class Applications {
      * @param stockValues values of stock in array
      * @return array containing stock spans
      */
+    @SuppressWarnings("ConstantConditions")
     public static int[] stockSpan(int[] stockValues) {
         assert stockValues != null && stockValues.length != 0;
 

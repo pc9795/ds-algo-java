@@ -12,6 +12,7 @@ public class KQueue {
     private int free;
 
     public KQueue(int queues, int size) {
+        assert queues <= size;
         arr = new int[size];
         front = new int[queues];
         rear = new int[queues];
@@ -32,6 +33,8 @@ public class KQueue {
      */
     public void enqueue(int queueNo, int data) {
         assert !isFull() : "Queue is full";
+        assert queueNo >= 0 && queueNo < front.length : "Invalid queue no";
+
         int toBeInsertedIndex = free;
         free = next[free];
 
@@ -53,6 +56,8 @@ public class KQueue {
      */
     public int dequeue(int queueNo) {
         assert !isEmpty(queueNo) : "Queue is empty";
+        assert queueNo >= 0 && queueNo < front.length : "Invalid queue no";
+
         int toBeDeletedIndex = front[queueNo];
 
         next[toBeDeletedIndex] = free;
@@ -75,7 +80,9 @@ public class KQueue {
      */
     public int front(int queueNo) {
         assert !isEmpty(queueNo) : "Queue is empty";
-        return front[queueNo];
+        assert queueNo >= 0 && queueNo < front.length : "Invalid queue no";
+
+        return arr[front[queueNo]];
     }
 
     /**
@@ -86,7 +93,9 @@ public class KQueue {
      */
     public int rear(int queueNo) {
         assert !isEmpty(queueNo) : "Queue is empty";
-        return rear[queueNo];
+        assert queueNo >= 0 && queueNo < front.length : "Invalid queue no";
+
+        return arr[rear[queueNo]];
     }
 
     /**
@@ -105,6 +114,8 @@ public class KQueue {
      * @return true if particular queue is empty
      */
     public boolean isEmpty(int queueNo) {
+        assert queueNo >= 0 && queueNo < front.length : "Invalid queue no";
+
         return front[queueNo] == -1;
     }
 

@@ -57,7 +57,7 @@ public class SortedCircularLinkedList extends CircularLinkedList {
     }
 
     @Override
-    public CircularLinkedList insertAtPosition(int pos, int data) {
+    public CircularLinkedList insertAtPos(int pos, int data) {
         throw new UnsupportedOperationException("Can't use with sorted circular list");
     }
 

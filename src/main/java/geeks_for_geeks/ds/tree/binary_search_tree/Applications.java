@@ -195,11 +195,10 @@ public class Applications {
 
     public static void convertBinaryTreeToBST(BinaryTree bt) {
         assert bt != null && bt.root != null;
-
-        List<Integer> list = bt.getInOrder(false, -1);
-
+        //todo update
+        // List<Integer> list = bt.getInOrder(false, -1);
+        List<Integer> list = null;
         Collections.sort(list);
-
         updateWithGivenInorder(bt.root, list);
     }
 

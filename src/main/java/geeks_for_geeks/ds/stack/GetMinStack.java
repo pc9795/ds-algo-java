@@ -24,12 +24,15 @@ public class GetMinStack {
 
     public int pop() {
         assert !isEmpty() : "Stack is empty";
+        assert stack.peek() != null;
+
         if (stack.peek().equals(minStack.peek())) {
             minStack.pop();
         }
         return stack.pop();
     }
 
+    @SuppressWarnings("ConstantConditions")
     public int getMin() {
         assert !isEmpty() : "Stack is empty";
         return minStack.peek();

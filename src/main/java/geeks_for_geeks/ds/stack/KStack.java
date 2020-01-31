@@ -1,5 +1,7 @@
 package geeks_for_geeks.ds.stack;
 
+import java.util.Arrays;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 27-01-2019 19:17
@@ -11,6 +13,7 @@ public class KStack {
     public KStack(int noOfStacks, int size) {
         arr = new int[size];
         top = new int[noOfStacks];
+        Arrays.fill(top, -1);
         next = new int[size];
         free = 0;
         for (int i = 0; i < size - 1; i++) {
@@ -25,9 +28,9 @@ public class KStack {
      * @param data  data to add
      * @param stack no of stack
      */
-    public void push(int data, int stack) {
+    public void push(int stack, int data) {
         assert stack >= 0 && stack < top.length;
-        assert isFull() : "Stack is full";
+        assert !isFull() : "Stack is full";
 
         int i = free;
         free = next[i];

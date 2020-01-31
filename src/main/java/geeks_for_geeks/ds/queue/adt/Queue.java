@@ -2,11 +2,11 @@ package geeks_for_geeks.ds.queue.adt;
 
 public interface Queue {
 
-    public Queue enqueue(int data);
+    Queue enqueue(int data);
 
-    public int dequeue();
+    int dequeue();
 
-    public int front();
+    int front();
 
-    public int rear();
+    int rear();
 }

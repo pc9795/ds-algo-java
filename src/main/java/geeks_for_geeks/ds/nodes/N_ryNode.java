@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 06-01-2019 18:57
- * Purpose: TODO:
  **/
 public class N_ryNode {
     public int data;
@@ -19,24 +18,17 @@ public class N_ryNode {
         this.children = new ArrayList<>();
     }
 
-    public N_ryNode(int data, int level) {
-        this.data = data;
-        this.children = new ArrayList<>();
-        this.level = level;
-    }
-
-    public N_ryNode(int data, int level, N_ryNode parent) {
+    private N_ryNode(int data, int level, N_ryNode parent) {
         this.data = data;
         this.children = new ArrayList<>();
         this.level = level;
         this.parent = parent;
     }
 
-    public N_ryNode addChild(int... childData) {
+    public void addChild(int... childData) {
         for (int child : childData) {
             this.children.add(new N_ryNode(child, level + 1, this));
         }
-        return this;
     }
 
     @Override
@@ -48,10 +40,7 @@ public class N_ryNode {
             return false;
         }
         N_ryNode other = (N_ryNode) obj;
-        if ((other.data != this.data) || (!other.children.equals(this.children))) {
-            return false;
-        }
-        return true;
+        return (other.data == this.data) && (other.children.equals(this.children));
     }
 
     @Override

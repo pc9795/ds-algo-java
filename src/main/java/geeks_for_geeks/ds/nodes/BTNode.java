@@ -6,8 +6,8 @@ import java.util.Objects;
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 00:52
  **/
+//NOTE: I could try to make it using generics but it will need extra code during comparison.
 public class BTNode {
-    //    For comparison can't keep it as Object.
     public int data;
     public BTNode left;
     public BTNode right;
@@ -36,9 +36,8 @@ public class BTNode {
 
     @Override
     public String toString() {
-        return "BTNode{" +
-                "data=" + data +
-                '}';
+        return "BTNode{" + "data=" + data + ", left=" + (left != null ? left.data : null) +
+                ", right=" + (right != null ? right.data : null) + '}';
     }
 
     @Override
@@ -51,7 +50,6 @@ public class BTNode {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(data);
     }
 }

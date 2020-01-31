@@ -76,7 +76,7 @@ public class StackUsingQueues implements Stack {
 
     @Override
     public int peek() {
-        int val = -1;
+        int val;
         if (costlyPush) {
             val = popEfficient();
             pushCostly(val);

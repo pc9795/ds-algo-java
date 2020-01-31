@@ -11,7 +11,7 @@ import util.DoublePointer;
  * Created On: 13-10-2018 17:48
  **/
 public class DoublyLinkedList implements LinkedList {
-    public DNode head;
+    private DNode head;
     public int size;
 
     @Override
@@ -46,7 +46,7 @@ public class DoublyLinkedList implements LinkedList {
      * @return calling instance
      */
     @Override
-    public DoublyLinkedList insertAtPosition(int pos, int data) {
+    public DoublyLinkedList insertAtPos(int pos, int data) {
         assert pos >= 0 && pos <= size : String.format("Position should be between %s and %s", 0, size);
         if (pos == 0) {
             insertAtFront(data);
@@ -58,7 +58,9 @@ public class DoublyLinkedList implements LinkedList {
         }
         DNode temp = this.head;
         // No need of prev as we know have prev pointer.
-        for (int i = 0; i < pos; i++, temp = temp.next) ;
+        for (int i = 0; i < pos; i++) {
+            temp = temp.next;
+        }
         DNode node = new DNode(data);
         node.prev = temp.prev;
         temp.prev = node;
@@ -82,7 +84,9 @@ public class DoublyLinkedList implements LinkedList {
             return this;
         }
         DNode temp;
-        for (temp = this.head; temp.next != null; temp = temp.next) ;
+        for (temp = this.head; temp.next != null; ) {
+            temp = temp.next;
+        }
         temp.next = new DNode(data);
         temp.next.prev = temp;
         size++;
@@ -97,7 +101,8 @@ public class DoublyLinkedList implements LinkedList {
      */
     public DoublyLinkedList delete(int data) {
         DNode curr = this.head;
-        for (; curr != null && curr.data != data; curr = curr.next) {
+        for (; curr != null && curr.data != data; ) {
+            curr = curr.next;
         }
         assert curr != null : "Node with given data not found";
         if (curr.next != null) {

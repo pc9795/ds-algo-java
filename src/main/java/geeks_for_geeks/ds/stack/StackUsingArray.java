@@ -10,11 +10,6 @@ public class StackUsingArray implements Stack {
     private int[] values;
     private int top;
 
-    public StackUsingArray() {
-        values = new int[10];
-        top = -1;
-    }
-
     public StackUsingArray(int size) {
         values = new int[size];
         top = -1;
@@ -27,7 +22,8 @@ public class StackUsingArray implements Stack {
      */
     @Override
     public void push(int data) {
-        assert isFull() : "Stack is full";
+        assert !isFull() : "Stack is full";
+
         values[++top] = data;
     }
 

@@ -8,11 +8,11 @@ import java.util.ArrayDeque;
  **/
 public class Applications {
 
-    static class PetrolPump {
+    public static class PetrolPump {
         int petrol;
         int nextPetrolPumpDistance;
 
-        PetrolPump(int petrol, int nextPetrolPumpDistance) {
+        public PetrolPump(int petrol, int nextPetrolPumpDistance) {
             this.petrol = petrol;
             this.nextPetrolPumpDistance = nextPetrolPumpDistance;
         }
@@ -36,7 +36,7 @@ public class Applications {
      * @param arr array of petrol pumps
      * @return index of petrol pump from which the tour starts.
      */
-    public static int printTour(PetrolPump[] arr) {
+    public static int getTour(PetrolPump[] arr) {
         if (arr.length == 0) {
             return -1;
         }
@@ -48,7 +48,9 @@ public class Applications {
         for (; start != next || currentPetrol < 0; next = (next + 1) % arr.length) {
             // If petrol is less than zero move the starting point.
             for (; start != next && currentPetrol < 0; ) {
-                currentPetrol -= queue.peek().petrol - queue.peek().nextPetrolPumpDistance;
+                PetrolPump curr = queue.peek();
+                assert curr != null;
+                currentPetrol -= curr.petrol - curr.nextPetrolPumpDistance;
                 start = (start + 1) % arr.length;
                 queue.poll();
                 if (start == 0) {
@@ -67,6 +69,7 @@ public class Applications {
      * @param arr        input array
      * @param windowSize window size
      */
+    @SuppressWarnings("ConstantConditions")
     public static int[] slidingWindowMaximum(int[] arr, int windowSize) {
         assert arr.length >= windowSize : "Array length can't be less than window size";
         assert windowSize >= 1 : "Window size can't be less than 1";

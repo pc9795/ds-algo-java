@@ -1,15 +1,17 @@
 package geeks_for_geeks.binary_tree;
 
-import geeks_for_geeks.ds.nodes.BTNodeWithRandom;
-import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.ds.nodes.BTNodeWithRandom;
 import geeks_for_geeks.ds.tree.binary_tree.Applications;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTreeWithRandomNode;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created By: Prashant Chaubey
@@ -17,39 +19,31 @@ import java.io.PrintStream;
  * Purpose: Test
  **/
 class TestBinaryTree {
-    private final ByteArrayOutputStream testOut = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+
+    @Test
+    void testDiameter() {
+        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3).
+                insertAtPos("00", 4).insertAtPos("01", 5);
+        int ans = BinaryTree.diameter(bt);
+        assert ans == 4;
+    }
 
     @Test
     void testToList() {
-        BinaryTree bt = new BinaryTree(10);
-        bt.root.left = new BTNode(12);
-        bt.root.right = new BTNode(15);
-        bt.root.left.left = new BTNode(25);
-        bt.root.left.right = new BTNode(30);
-        bt.root.right.left = new BTNode(36);
-        System.out.println(bt.toList());
+        BinaryTree bt = new BinaryTree(10).insertAtPos("0", 12).insertAtPos("1", 15).
+                insertAtPos("00", 25).insertAtPos("01", 30).insertAtPos("10", 36);
+        assert bt.toList().equals(new DoublyLinkedList().append(25, 12, 30, 10, 36, 15));
     }
 
     @Test
     void testMorisTraversal() {
-        System.setOut(new PrintStream(testOut));
+        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3)
+                .insertAtPos("00", 4).insertAtPos("01", 5).insertAtPos("010", 6).
+                        insertAtPos("011", 7).insertAtPos("0111", 8);
+        List<Integer> expected = Arrays.asList(4, 2, 6, 5, 7, 8, 1, 3);
 
-        BinaryTree bt = new BinaryTree(1);
-        bt.root.left = new BTNode(2);
-        bt.root.right = new BTNode(3);
-        bt.root.left.left = new BTNode(4);
-        bt.root.left.right = new BTNode(5);
-
-        BTNode rightChildOfLeftChildOfRoot = bt.root.left.right;
-        rightChildOfLeftChildOfRoot.left = new BTNode(6);
-        rightChildOfLeftChildOfRoot.right = new BTNode(7);
-        rightChildOfLeftChildOfRoot.right.right = new BTNode(8);
-
-        BinaryTree.morisTraversal(bt);
-        Assertions.assertEquals(testOut.toString(), "4->2->6->5->7->8->1->3->" + System.lineSeparator());
-
-        System.setOut(originalOut);
+        boolean ans = BinaryTree.morisTraversal(bt).equals(expected);
+        assert ans;
     }
 
     @Test
@@ -61,67 +55,128 @@ class TestBinaryTree {
         bt.root.left.right = new BTNodeWithRandom(5);
         bt.root.random = bt.root.left.right;
         bt.root.left.random = bt.root.right;
-        System.out.println("Original:");
-        BinaryTreeWithRandomNode.inOrderTraversal(bt);
+        List<Integer> original = BinaryTreeWithRandomNode.inOrderTraversal(bt);
 
-        System.out.println("Cloned Using HashMap:");
-        BinaryTreeWithRandomNode.inOrderTraversal(bt.cloneUsingHashMap());
+        List<Integer> ans = BinaryTreeWithRandomNode.inOrderTraversal(bt.copyUsingMap());
+        assert ans.equals(original);
 
-        System.out.println("Clone:");
-        BinaryTreeWithRandomNode.inOrderTraversal(bt.clone());
+        ans = BinaryTreeWithRandomNode.inOrderTraversal(bt.copy());
+        assert ans.equals(original);
     }
 
     @Test
     void testCreateFromPreAndInOrder() {
-        int[] preOrder = {1, 2, 4, 6, 7, 3, 4, 5};
-        int[] inOrder = {4, 6, 2, 7, 1, 4, 3, 5};
-        BinaryTree.levelOrderTraversal(Applications.createFromPreAndInorder(preOrder, inOrder));
+        /*
+         *       1
+         *    /    \
+         *   2      3
+         *  / \    /
+         * 4   5  6
+         */
+        int[] inOrder = {4, 2, 5, 1, 6, 3};
+        int[] preOrder = {1, 2, 4, 5, 3, 6};
+        BinaryTree bt = Applications.createFromPreAndInorder(preOrder, inOrder);
+        List<List<Integer>> traversal = BinaryTree.levelOrderTraversal(bt);
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Collections.singletonList(1));
+        expected.add(Arrays.asList(2, 3));
+        expected.add(Arrays.asList(4, 5, 6));
+        assert expected.equals(traversal);
+        assert BinaryTree.preOrderTraversal(bt).equals(Arrays.asList(1, 2, 4, 5, 3, 6));
+        assert BinaryTree.inOrderTraversal(bt).equals(Arrays.asList(4, 2, 5, 1, 6, 3));
+
+    }
+
+    @Test
+    void testCreateFromPreAndInOrder2() {
+        /*
+         *       1
+         *    /    \
+         *   2      3
+         *  / \    /
+         * 4   5  6
+         */
+        int[] inOrder = {4, 2, 5, 1, 6, 3};
+        int[] preOrder = {1, 2, 4, 5, 3, 6};
+        BinaryTree bt = Applications.createFromPreAndInorder2(preOrder, inOrder);
+        List<List<Integer>> traversal = BinaryTree.levelOrderTraversal(bt);
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Collections.singletonList(1));
+        expected.add(Arrays.asList(2, 3));
+        expected.add(Arrays.asList(4, 5, 6));
+        assert expected.equals(traversal);
+        assert BinaryTree.preOrderTraversal(bt).equals(Arrays.asList(1, 2, 4, 5, 3, 6));
+        assert BinaryTree.inOrderTraversal(bt).equals(Arrays.asList(4, 2, 5, 1, 6, 3));
+
     }
 
     @Test
     void testPrintAncestors() {
-        System.setOut(new PrintStream(testOut));
-
-        BinaryTree bt = new BinaryTree(1);
-        bt.root.left = new BTNode(2);
-        bt.root.right = new BTNode(3);
-        bt.root.left.left = new BTNode(4);
-        bt.root.left.right = new BTNode(5);
-
-        Applications.printAncestors(bt, bt.root.left.left);
-
-        Assertions.assertEquals(testOut.toString(), "2" + System.lineSeparator() + "1" + System.lineSeparator());
-
-        System.setOut(originalOut);
-
+        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3)
+                .insertAtPos("00", 4).insertAtPos("01", 5);
+        List<Integer> ans = Applications.getAncestors(bt, new BTNode(4));
+        assert ans.equals(Arrays.asList(2, 1));
     }
 
     @Test
     void testIsSubTree() {
-        BinaryTree bt = new BinaryTree(1);
-        bt.root.left = new BTNode(2);
-        bt.root.right = new BTNode(3);
-        bt.root.left.right = new BTNode(4);
+        /*
+         *    1
+         *   / \
+         *  2   3
+         *   \
+         *    4
+         */
+        BinaryTree subTree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3).insertAtPos("01", 4);
+        /*
+         *      5
+         *     / \
+         *    1   6
+         *  /  \   \
+         * 2    3   7
+         *  \
+         *   4
+         */
+        BinaryTree tree = new BinaryTree(5).insertAtPos("1", 6).insertAtPos("11", 7);
+        tree.root.right = new BTNode(6);
+        tree.root.right.right = new BTNode(7);
+        tree.root.left = subTree.root;
 
-        BinaryTree btSuper = new BinaryTree(5);
-        btSuper.root.right = new BTNode(6);
-        btSuper.root.right.right = new BTNode(7);
-        btSuper.root.left = bt.root;
+        assert tree.isSubTree(subTree);
 
-        BinaryTree bt2 = new BinaryTree(1);
-        bt2.root.left = new BTNode(2);
-        bt2.root.right = new BTNode(4);
-        bt2.root.left.left = new BTNode(3);
-
-        BinaryTree bt2Super = new BinaryTree(1);
-        bt2Super.root.left = new BTNode(2);
-        bt2Super.root.right = new BTNode(4);
-        bt2Super.root.left.left = new BTNode(3);
-        bt2Super.root.right.right = new BTNode(5);
-
-        Assertions.assertTrue(bt.isSubTree(btSuper));
-        Assertions.assertFalse(bt2.isSubTree(bt2Super));
+        /*
+         *     1
+         *    / \
+         *   2   4
+         *  /
+         * 3
+         */
+        subTree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 4).insertAtPos("00", 3);
+        /*
+         *       1
+         *     /  \
+         *    2    4
+         *   /      \
+         *  3        5
+         */
+        tree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 4).insertAtPos("00", 3).insertAtPos("11", 5);
+        assert !tree.isSubTree(subTree);
     }
 
-
+    @Test
+    void testGetMaxWidth() {
+        /*
+              1
+            /  \
+           2    3
+         /  \    \
+        4   5     8
+                 /  \
+                6   7
+         */
+        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("00", 4).
+                insertAtPos("01", 5).insertAtPos("1", 3).insertAtPos("11", 8).
+                insertAtPos("110", 6).insertAtPos("111", 7);
+        assert Applications.getMaxWidth(bt) == 3;
+    }
 }

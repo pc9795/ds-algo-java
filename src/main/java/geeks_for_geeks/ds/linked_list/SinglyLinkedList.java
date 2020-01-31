@@ -57,7 +57,7 @@ public class SinglyLinkedList implements LinkedList {
      * @return modified list
      */
     @Override
-    public SinglyLinkedList insertAtPosition(int pos, int data) {
+    public SinglyLinkedList insertAtPos(int pos, int data) {
         assert pos >= 0 && pos <= size : String.format("Position should be between %s and %s", 0, size);
         if (pos == 0) {
             insertAtFront(data);
