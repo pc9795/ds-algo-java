@@ -36,8 +36,4 @@ public class DPProblems {
         }
         return dp[1][arr.length - 1];
     }
-
-    public static void main(String[] args) {
-        System.out.println(matrixChainOrder(new int[]{1, 2, 3, 4}));
-    }
 }

@@ -54,7 +54,4 @@ public class Searching {
         System.out.println("Element not found!");
         return -1;
     }
-
-
-
 }

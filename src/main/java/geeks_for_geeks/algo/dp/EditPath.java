@@ -15,7 +15,6 @@ public class EditPath {
      * @return
      */
     public static int editPath(String str1, String str2) {
-//        TODO:validation
         int[][] dp = new int[str1.length() + 1][str2.length() + 1];
         for (int i = 0; i <= str1.length(); i++) {
             for (int j = 0; j <= str2.length(); j++) {
@@ -31,9 +30,5 @@ public class EditPath {
             }
         }
         return dp[str1.length()][str2.length()];
-    }
-
-    public static void main(String[] args) {
-        System.out.println(editPath("sunday", "saturday"));
     }
 }

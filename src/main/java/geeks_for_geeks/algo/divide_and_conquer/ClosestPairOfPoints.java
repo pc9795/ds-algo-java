@@ -8,7 +8,6 @@ import java.util.*;
 /**
  * Created By: Prashant Chaubey
  * Created On: 26-12-2018 08:40
- * Purpose: TODO:
  **/
 public class ClosestPairOfPoints {
     /**
@@ -79,19 +78,8 @@ public class ClosestPairOfPoints {
 
     public static double closestPairOfPoints(Pair<Double, Double>[] points) {
         assert points.length >= 2;
-        Arrays.sort(points, (o1, o2) -> {
-                    int ans = (int) (o1.getKey() - o2.getKey());
-                    return ans;
-                }
+        Arrays.sort(points, (o1, o2) -> (int) (o1.getKey() - o2.getKey())
         );
         return closestPairOfPointsUtil(points, 0, points.length - 1);
-    }
-
-    public static void main(String[] args) {
-        Pair<Double, Double>[] points = new Pair[]{
-                new Pair(2.0, 3.0), new Pair(12.0, 30.0), new Pair(40.0, 50.0), new Pair(5.0, 1.0)
-                , new Pair(12.0, 10.0), new Pair(3.0, 4.0)
-        };
-        System.out.println(closestPairOfPoints(points));
     }
 }

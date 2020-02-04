@@ -8,20 +8,23 @@ import java.util.HashSet;
 /**
  * Created By: Prashant Chaubey
  * Created On: 04-09-2019 22:02
- * Purpose: TODO:
  **/
-class Solution {
+public class Solution {
 
-    // T=O(N) S=O(1)
-    static void removeDups(SinglyLinkedList list) {
-        if (list.getSize() == 0) {
+    /**
+     * t=O(N)
+     * s=O(1)
+     *
+     * @param list input list
+     */
+    public static void removeDups(SinglyLinkedList list) {
+        if (list == null) {
             return;
         }
 
         HashSet<Integer> set = new HashSet<>();
         Node prev = null;
         Node curr = list.getHead();
-
         while (curr != null) {
             if (set.contains(curr.data)) {
                 if (prev == null) {
@@ -37,11 +40,17 @@ class Solution {
         }
     }
 
-    // T=O(N^2) S=O(1)
-    static void removeDups2(SinglyLinkedList list) {
-        if (list.getSize() == 0) {
+    /**
+     * t=O(N^2)
+     * s=O(1)
+     *
+     * @param list input list
+     */
+    public static void removeDups2(SinglyLinkedList list) {
+        if (list == null) {
             return;
         }
+
         Node curr = list.getHead();
         while (curr != null) {
             Node runner = curr;
@@ -57,7 +66,7 @@ class Solution {
         }
     }
 
-    static int kthFromLast(SinglyLinkedList list, int k) {
+    public static int kthFromLast(SinglyLinkedList list, int k) {
         int kFromFirst = list.getSize() - k + 1;
         if (kFromFirst > list.getSize() || kFromFirst < 1) {
             return -1;
@@ -69,7 +78,7 @@ class Solution {
         return curr.data;
     }
 
-    static void deleteMiddleNode(SinglyLinkedList list, Node ref) {
+    public static void deleteMiddleNode(SinglyLinkedList list, Node ref) {
         if (ref == null || ref.next == null) {
             return;
         }
@@ -78,7 +87,7 @@ class Solution {
         list.setSize(list.getSize() - 1);
     }
 
-    static void partition(SinglyLinkedList list, int partitionElement) {
+    public static void partition(SinglyLinkedList list, int partitionElement) {
         SinglyLinkedList listWithElementsLessThanPartitionElem = new SinglyLinkedList();
         Node prev = null;
         Node curr = list.getHead();
@@ -103,7 +112,7 @@ class Solution {
         }
     }
 
-    static SinglyLinkedList sumLists(SinglyLinkedList list1, SinglyLinkedList list2) {
+    public static SinglyLinkedList sumLists(SinglyLinkedList list1, SinglyLinkedList list2) {
         Node i = list1.getHead();
         Node j = list2.getHead();
         SinglyLinkedList ans = new SinglyLinkedList();
@@ -127,7 +136,7 @@ class Solution {
         return ans;
     }
 
-    static SinglyLinkedList sumListsInForwardOrder(SinglyLinkedList list1, SinglyLinkedList list2) {
+    public static SinglyLinkedList sumListsInForwardOrder(SinglyLinkedList list1, SinglyLinkedList list2) {
         if (list1.size() > list2.getSize()) {
             list2 = padListWithZeroes(list2, list1.size() - list2.size());
         } else if (list1.size() < list2.getSize()) {
@@ -167,7 +176,7 @@ class Solution {
         return list;
     }
 
-    static boolean isPalindrome(SinglyLinkedList list) {
+    public static boolean isPalindrome(SinglyLinkedList list) {
         if (list.size() == 1) {
             return true;
         }
@@ -188,7 +197,7 @@ class Solution {
         return true;
     }
 
-    static boolean isIntersecting(SinglyLinkedList list1, SinglyLinkedList list2) {
+    public static boolean isIntersecting(SinglyLinkedList list1, SinglyLinkedList list2) {
         if (list1 == null || list2 == null) {
             return false;
         }
@@ -217,7 +226,7 @@ class Solution {
         return list;
     }
 
-    static Node getLoopPoint(SinglyLinkedList list) {
+    public static Node getLoopPoint(SinglyLinkedList list) {
         Node slow = list.getHead();
         Node fast = list.getHead();
         while (fast != null && fast.next != null) {

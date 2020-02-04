@@ -10,16 +10,20 @@ import java.util.*;
 /**
  * Created By: Prashant Chaubey
  * Created On: 08-09-2019 14:58
- * Purpose: TODO:
  **/
 public class Solution {
 
-    //T=O(N)
-    static BinarySearchTree minimalTree(int[] arr) {
+    /**
+     * t=O(n)
+     *
+     * @param arr input array
+     * @return minimal BST
+     */
+    public static BinarySearchTree minimalTree(int[] arr) {
         return new BinarySearchTree(minimalTreeUtil(arr, 0, arr.length - 1));
     }
 
-    static BTNode minimalTreeUtil(int[] arr, int begin, int end) {
+    private static BTNode minimalTreeUtil(int[] arr, int begin, int end) {
         if (begin > end) {
             return null;
         }
@@ -33,8 +37,14 @@ public class Solution {
         return root;
     }
 
-    //T=O(N); BFS
-    static ArrayList<LinkedList<BTNode>> listOfDepths(BinaryTree bt) {
+    /**
+     * t=O(N)
+     * BFS
+     *
+     * @param bt binary tree
+     * @return list of depths
+     */
+    public static ArrayList<LinkedList<BTNode>> listOfDepths(BinaryTree bt) {
 
         class BTNodeInfo {
             BTNode node;
@@ -65,7 +75,7 @@ public class Solution {
     }
 
     //T=O(N)
-    static boolean checkBalanced(BinaryTree bt) {
+    public static boolean checkBalanced(BinaryTree bt) {
         DoublePointer<Boolean> ans = new DoublePointer<>();
         ans.data = true;
         checkBalancedUtil(bt.root, ans);
@@ -85,7 +95,7 @@ public class Solution {
     }
 
     //T=O(depth of deepest node)
-    static BTNode firstCommonAncestor(BTNode first, BTNode second) {
+    public static BTNode firstCommonAncestor(BTNode first, BTNode second) {
         int dist1 = distanceFromRoot(first);
         int dist2 = distanceFromRoot(second);
         if (dist1 > dist2) {
@@ -108,7 +118,7 @@ public class Solution {
         return parent1;
     }
 
-    static int distanceFromRoot(BTNode node) {
+    private static int distanceFromRoot(BTNode node) {
         int dist = 0;
         while (node != null) {
             node = node.parent;
@@ -118,7 +128,7 @@ public class Solution {
     }
 
     // If we are not traversing the whole tree then T=O(t) size of the subtree of the first common ancestor.
-    static BTNode firstCommonAncestor2(BTNode first, BTNode second) {
+    public static BTNode firstCommonAncestor2(BTNode first, BTNode second) {
         //Check the nodes are in the tree
         //Null checks
         if (covers(first, second)) {
@@ -154,7 +164,7 @@ public class Solution {
     }
 
     //T=O(N); N + N/2 + N/4 ...
-    static BTNode firstCommonAncestorWithoutParentLinks(BTNode root, BTNode first, BTNode second) {
+    public static BTNode firstCommonAncestorWithoutParentLinks(BTNode root, BTNode first, BTNode second) {
         //Check the nodes in there or not
         //Null checks
         return firstCommonAncestorWithoutParentLinksUtil(root, first, second);
@@ -182,7 +192,7 @@ public class Solution {
         }
     }
 
-    static BTNode firstCommonAncestorWithoutParentLinks2(BTNode root, BTNode first, BTNode second) {
+    public static BTNode firstCommonAncestorWithoutParentLinks2(BTNode root, BTNode first, BTNode second) {
         //Check the nodes in there are not
         // Null checks
         FirstCommonAncestorResult result = firstCommonAncestorWithoutParentLinks2Util(root, first, second);
@@ -216,12 +226,12 @@ public class Solution {
         return left.node != null ? left : right;
     }
 
-    static ArrayList<LinkedList<Integer>> BSTSequences(BinarySearchTree bst) {
+    public static ArrayList<LinkedList<Integer>> BSTSequences(BinarySearchTree bst) {
         //Null checks
         return BSTSequencesUtil(bst.root);
     }
 
-    static ArrayList<LinkedList<Integer>> BSTSequencesUtil(BTNode root) {
+    private static ArrayList<LinkedList<Integer>> BSTSequencesUtil(BTNode root) {
         ArrayList<LinkedList<Integer>> ans = new ArrayList<>();
         if (root == null) {
             //An empty one is added so that for leaf nodes the weaveLists will return a result with them else it will
@@ -241,8 +251,8 @@ public class Solution {
         return ans;
     }
 
-    static void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second, ArrayList<LinkedList<Integer>> result,
-                           LinkedList<Integer> prefix) {
+    public static void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second, ArrayList<LinkedList<Integer>> result,
+                                  LinkedList<Integer> prefix) {
         if (first.size() == 0 || second.size() == 0) {
             LinkedList<Integer> list = new LinkedList<>(prefix);
             list.addAll(first);
@@ -263,13 +273,13 @@ public class Solution {
         second.addLast(head);
     }
 
-    static boolean isSubtree(BinaryTree bt1, BinaryTree bt2) {
+    public static boolean isSubtree(BinaryTree bt1, BinaryTree bt2) {
         //Null checks
         //Null tree is always a subtree
         return bt2 == null || isSubtreeUtil(bt1.root, bt2.root);
     }
 
-    static boolean isSubtreeUtil(BTNode node1, BTNode node2) {
+    private static boolean isSubtreeUtil(BTNode node1, BTNode node2) {
         if (node1 == null) {
             return false;
         }
@@ -279,7 +289,7 @@ public class Solution {
         return isSubtreeUtil(node1.left, node2) || isSubtreeUtil(node1.right, node2);
     }
 
-    static boolean matchTree(BTNode node1, BTNode node2) {
+    private static boolean matchTree(BTNode node1, BTNode node2) {
         if (node1 == null && node2 == null) {
             return true;
         }
@@ -330,7 +340,7 @@ public class Solution {
         }
     }
 
-    static int pathsWithSum(BinaryTree bt, int targetSum) {
+    public static int pathsWithSum(BinaryTree bt, int targetSum) {
         //Null checks
         return pathsWithSumUtil(bt.root, targetSum);
     }
@@ -361,12 +371,12 @@ public class Solution {
         return totalPaths;
     }
 
-    static int pathsWithSum2(BinaryTree bt, int targetSum) {
+    public static int pathsWithSum2(BinaryTree bt, int targetSum) {
         //Null checks
         return pathsWithSum2Util(bt.root, targetSum, 0, new HashMap<>());
     }
 
-    static int pathsWithSum2Util(BTNode node, int targetSum, int runningSum, HashMap<Integer, Integer> pathCount) {
+    private static int pathsWithSum2Util(BTNode node, int targetSum, int runningSum, HashMap<Integer, Integer> pathCount) {
         if (node == null) {
             return 0;
         }

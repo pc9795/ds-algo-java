@@ -9,7 +9,6 @@ import java.util.Map;
 /**
  * Created By: Prashant Chaubey
  * Created On: 06-01-2019 18:39
- * Purpose: TODO:
  **/
 public class LCA {
 
@@ -142,40 +141,4 @@ public class LCA {
         int[][] dp = getLCADPMatrix(parent);
         return lcaUtil(a, b, parent, level, dp);
     }
-
-//Tests
-
-    /*             1
-     *          /  |  \
-     *         2   3   4
-     *           / |  \
-     *          5  6    7
-     *            / \   / \
-     *           8   9 10 11
-     *                 / \
-     *                12  13
-     * */
-
-    public static void test1() {
-        N_ryTree tree = new N_ryTree(1);
-        tree.root.addChild(2, 3, 4);
-        N_ryNode secondChild = tree.root.children.get(1);
-        secondChild.addChild(5, 6, 7);
-        secondChild.children.get(1).addChild(8, 9);
-        secondChild.children.get(2).addChild(10, 11);
-        secondChild.children.get(2).children.get(0).addChild(12, 13);
-        System.out.println(lca(tree, 5, secondChild.children.get(1).children.get(1), secondChild.children.get(2).children.get(0).children.get(0)));
-    }
-
-    public static void test2() {
-        int parent[] = {-1, 0, 0, 0, 2, 2, 2, 5, 5, 6, 6, 9, 9};
-        int level[] = {1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5};
-        System.out.println(lca(8, 11, parent, level));
-
-    }
-
-    public static void main(String[] args) {
-        test2();
-    }
-
 }

@@ -50,10 +50,4 @@ public class KMP {
         }
         return lps;
     }
-
-
-    public static void main(String[] args) {
-//        System.out.println(Arrays.toString(buildPrefixArray("acacabacacabacacac")));
-        kmpSubstringSearch("ABABDABACDABABCABAB", "ABABCABAB");
-    }
 }

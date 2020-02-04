@@ -8,11 +8,10 @@ import java.util.ArrayList;
 /**
  * Created By: Prashant Chaubey
  * Created On: 16-08-2019 23:32
- * Purpose: TODO:
  **/
 public class Solution {
 
-    static int insertion(int n, int m, int j, int i) {
+    public static int insertion(int n, int m, int j, int i) {
         //Removing extra bits which are not be inserted and if present.
         m = m & ((1 << (j - i + 1)) - 1);
         //Shifting the needed bits.
@@ -23,7 +22,7 @@ public class Solution {
         return n | m;
     }
 
-    static String binaryToString(double number, int threshold) {
+    public static String binaryToString(double number, int threshold) {
         if (Double.compare(number, 0) < 0 || Double.compare(number, 1) > 0) {
             return "";
         }
@@ -39,7 +38,7 @@ public class Solution {
     }
 
     //T=O(b), S=O(b); b is the length of the sequence.
-    static int flipBitToWin(int integer) {
+    public static int flipBitToWin(int integer) {
         //Length of alternate sequences of 0s and 1s.
         ArrayList<Integer> list = new ArrayList<>();
         int counter = 0;
@@ -71,7 +70,7 @@ public class Solution {
         return max;
     }
 
-    static Pair<Integer, Integer> nextNumber(int num) {
+    public static Pair<Integer, Integer> nextNumber(int num) {
         if (num < 0) {
             return new Pair<>(-1, -1);
         }
@@ -79,7 +78,7 @@ public class Solution {
     }
 
 
-    static int getNext(int num) {
+    private static int getNext(int num) {
         int c0 = 0;
         int c1 = 0;
         int temp = num;
@@ -126,7 +125,7 @@ public class Solution {
         return num;
     }
 
-    static int conversion(int num1, int num2) {
+    public static int conversion(int num1, int num2) {
         int counter = 0;
         //We can use xor also.
         while (num1 != 0 || num2 != 0) {
@@ -137,7 +136,7 @@ public class Solution {
         return counter;
     }
 
-    static int pairwiseSwap(int num) {
+    public static int pairwiseSwap(int num) {
         int ans = 0;
         int counter = 0;
         while (num != 0) {
@@ -150,19 +149,19 @@ public class Solution {
         return ans;
     }
 
-    static int pairwiseSwap2(int num) {
+    public static int pairwiseSwap2(int num) {
         // We are using unsigned right shift as we want 0 at the sign bit.
         return ((num & 0xaaaaaaaa) >>> 1) | ((num & 0x55555555) << 1);
     }
 
-    static void drawLine(byte[] screen, int width, int x1, int x2, int y) {
+    public static void drawLine(byte[] screen, int width, int x1, int x2, int y) {
         for (int i = x1; i <= x2; i++) {
             byte num = screen[(y * (width / 8)) + (i / 8)];
             screen[(y * (width / 8)) + (i / 8)] = (byte) BitUtils.setBit(num, 7 - (i % 8));
         }
     }
 
-    static void drawLine2(byte[] screen, int width, int x1, int x2, int y) {
+    public static void drawLine2(byte[] screen, int width, int x1, int x2, int y) {
         int heightOffset = y * (width / 8);
         int firstOffset = x1 % 8;
         int firstByte = x1 / 8;
@@ -194,6 +193,4 @@ public class Solution {
             }
         }
     }
-
-
 }

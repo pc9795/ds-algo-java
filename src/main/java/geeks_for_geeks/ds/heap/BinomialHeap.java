@@ -1,8 +1,7 @@
 package geeks_for_geeks.ds.heap;
 
-import geeks_for_geeks.ds.heap.adt.Heap;
+import geeks_for_geeks.ds.heap.adt.MinHeap;
 import geeks_for_geeks.ds.nodes.BinomialTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,102 +9,101 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 17-09-2018 18:08
+ * This is not referenced from anywhere I have implemented this on own. SO USE WISELY.
  **/
-public class BinomialHeap implements Heap {
-    List<BinomialTreeNode> values = new ArrayList<>();
+public class BinomialHeap implements MinHeap {
+    private List<BinomialTreeNode> values = new ArrayList<>();
 
     public BinomialHeap() {
     }
 
-    public BinomialHeap(int data) {
+    private BinomialHeap(int data) {
         BinomialTreeNode btree = new BinomialTreeNode(data);
         this.values.add(btree);
     }
 
+    private BinomialTreeNode getChild(int child) {
+        assert child >= 0 && child < values.size();
+
+        return values.get(child);
+    }
+
+    public int size() {
+        return this.values.size();
+    }
+
+    /**
+     * t=O(log(n) + log(m)); sum of length of children
+     *
+     * @param other other heap
+     */
     private void union(BinomialHeap other) {
-        if (other.values.isEmpty()) {
+        if (other.isEmpty()) {
             return;
         }
-        if (this.values.isEmpty()) {
-//            Add all children of other geeks_for_geeks.heap to this.
+        if (isEmpty()) {
+            // add all children of other heap to this.
             this.values.addAll(other.values);
             return;
         }
-
         BinomialHeap merged = new BinomialHeap();
         int i, j;
-
-//        Simple merging of heaps in non-decreasing order.
-        for (i = 0, j = 0; i < this.values.size() && j < other.values.size(); ) {
-
-            if (this.values.get(i).degree() <= other.values.get(j).degree()) {
-                merged.values.add(this.values.get(i));
+        // simple merging of heaps in non-decreasing order.
+        for (i = 0, j = 0; i < size() && j < other.size(); ) {
+            if (getChild(i).degree() <= other.getChild(j).degree()) {
+                merged.values.add(getChild(i));
                 i++;
             } else {
-                merged.values.add(other.values.get(j));
+                merged.values.add(other.getChild(j));
                 j++;
             }
         }
 
-//        Adding leftovers.
-        if (i != this.values.size()) {
-            for (; i < this.values.size(); i++) {
-                merged.values.add(this.values.get(i));
-            }
+        // adding leftovers.
+        BinomialHeap leftOver = i != size() ? this : other;
+        i = i != size() ? i : j;
+        for (; i < leftOver.size(); i++) {
+            merged.values.add(leftOver.getChild(i));
         }
 
-        if (j != other.values.size()) {
-            for (; j < other.values.size(); j++) {
-                merged.values.add(other.values.get(j));
-            }
-        }
-
+        // the original heap will contain all the merged trees
         this.values = merged.values;
+        int size = size();
 
-        int size = this.values.size();
-
-//      Combining degrees.
-//      We only check for nextNext because their can only be three nodes of same degrees, one of current geeks_for_geeks.heap,
-//      other for merging geeks_for_geeks.heap and one from merger of previous nodes. (Every geeks_for_geeks.heap have single tree for some degree)
-
+        // combining degrees.
+        // We only check for nextNext because their can only be three nodes of same degrees, one from current heap, other
+        // from going to be merged heap and one from the merger.(Every heap have single tree for some degree)
         for (int k = 0; k < size; ) {
-
             int next = k + 1;
             int nextNext = k + 2;
-
-            if (next < this.values.size()) {
-
-                if (this.values.get(k).degree() != this.values.get(next).degree()) {
-//                    No need for combining; move ahead.
-                    k++;
-                } else {
-                    if (nextNext < this.values.size() && this.values.get(k).degree() ==
-                            this.values.get(nextNext).degree()) {
-//                      next next and next are having same degrees so they will be merged
-//                      in next iteration so move ahead.
-                        k++;
-                    } else {
-                        if (this.values.get(k).data < this.values.get(next).data) {
-//                        For get array list is better and for remove linked list is better
-//                        It can be improved by using custom linked list.
-                            this.values.get(k).children.add(this.values.get(next));
-                            this.values.remove(next);
-                            size--;
-                        } else {
-                            this.values.get(next).children.add(this.values.get(k));
-                            this.values.remove(k);
-                            size--;
-                        }
-                    }
-                }
-            } else {
-//              This is for the case when the value of k is size-1 if no k++ then it wil stick into an infinite loop
+            if (k == size - 1 || (getChild(k).degree() != getChild(next).degree())) {
                 k++;
+                continue;
             }
+            if (nextNext < size && getChild(k).degree() == getChild(nextNext).degree()) {
+                // nextNext and next are having same degrees so they will be merged
+                // in next iteration so move ahead.
+                k++;
+                continue;
+            }
+            // merging
+            if (getChild(k).data < getChild(next).data) {
+                getChild(k).merge(getChild(next));
+                values.remove(next);
+            } else {
+                getChild(next).merge(getChild(k));
+                values.remove(k);
+            }
+            size--;
         }
-        System.out.println("parent after merging:" + this);
     }
 
+    /**
+     * t=O(log n)
+     *
+     * @param key key to add
+     * @return calling instance
+     */
     @Override
     public BinomialHeap insert(int key) {
         BinomialHeap other = new BinomialHeap(key);
@@ -113,64 +111,65 @@ public class BinomialHeap implements Heap {
         return this;
     }
 
-    /**
-     * t=O(logn) ;a binomaial tree can be seen as bit repr of a number so that repr is logn.
-     * It can be optimized to O(1) by maintaining a pointer
-     * to minimum ke root.
-     */
     @Override
-    public int getMin() {
-        int min = Integer.MAX_VALUE;
-
-        for (BinomialTreeNode node : this.values) {
-            min = Math.min(min, node.data);
-        }
-
-        return min;
+    public void delete(int index) {
+        throw new UnsupportedOperationException();
     }
 
     /**
-     * t=O(logn)
+     * t=O(log n)
+     * a binomial tree can be seen as bit representation of a number which is log n. It can be optimized to O(1) by
+     * maintaining a pointer to minimum ke root.
      *
-     * @return
+     * @return minimum value
+     */
+    @Override
+    public int getMin() {
+        assert isEmpty() : "Heap is empty";
+
+        int min = Integer.MAX_VALUE;
+        for (BinomialTreeNode node : values) {
+            min = Math.min(min, node.data);
+        }
+        return min;
+    }
+
+    public boolean isEmpty() {
+        return this.values.isEmpty();
+    }
+
+    /**
+     * t=O(log n)
+     *
+     * @return extract minimum
      */
     public int extractMin() {
+        // log n
         int minIndex = 0;
-//       logn
-        for (int i = 0; i < this.values.size(); i++) {
-            if (this.values.get(minIndex).data > this.values.get(i).data) {
+        for (int i = 0; i < size(); i++) {
+            if (getChild(minIndex).data > getChild(i).data) {
                 minIndex = i;
             }
         }
 
-        BinomialTreeNode minBinomialTree = this.values.get(minIndex);
-
-//        logn
+        BinomialTreeNode minBinomialTree = getChild(minIndex);
+        // log n
         this.values.remove(minIndex);
 
         BinomialHeap heapFromChildOfMin = new BinomialHeap();
-
-        for (BinomialTreeNode child : minBinomialTree.children) {
-
+        BinomialTreeNode child;
+        while ((child = minBinomialTree.divide()) != null) {
             BinomialHeap childHeap = new BinomialHeap();
             childHeap.values.add(child);
-
             heapFromChildOfMin.union(childHeap);
         }
-
         this.union(heapFromChildOfMin);
-
         return minBinomialTree.data;
     }
 
     @Override
-    public void delete(int key) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void decreaseKey(int key, int newValue) {
-        throw new NotImplementedException();
+    public void decreaseKey(int index, int newVal) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -179,5 +178,4 @@ public class BinomialHeap implements Heap {
                 "values=" + values +
                 '}';
     }
-
 }

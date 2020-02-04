@@ -68,17 +68,11 @@ public class PatternSearchingProblems {
      * @return
      */
     private static boolean compareArray(int[] first, int[] second) {
-//        TODO:validation
         for (int i = 0; i < first.length; i++) {
             if (first[i] != second[i]) {
                 return false;
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-//        patternSearchUsingSuffixArray("banana", "nan");
-        anagramSubstringSearch("BACDGABCDA", "ABCD");
     }
 }

@@ -62,6 +62,7 @@ public class Puzzle8 {
         heap.add(node);
         for (; ; ) {
             PuzzleNode curr = heap.poll();
+            assert curr != null;
             for (int i = 0; i < row.length; i++) {
                 if (Utils.isSafe(curr.value, curr.x + row[i], curr.y + col[i])) {
                     PuzzleNode child = new PuzzleNode();
@@ -91,19 +92,5 @@ public class Puzzle8 {
             }
         }
 
-    }
-
-    public static void main(String[] args) {
-        int[][] initial = new int[][]{
-                {1, 2, 3},
-                {5, 6, 0},
-                {7, 8, 4}
-        };
-        int[][] result = new int[][]{
-                {1, 2, 3},
-                {5, 8, 6},
-                {0, 7, 4}
-        };
-        puzzle8(initial, result, 1, 2);
     }
 }

@@ -85,6 +85,7 @@ public class MST {
         nodes[0].key = 0;
         while (!heap.isEmpty()) {
             PrimNode node = heap.poll();
+            assert node != null;
             if (node.parent != -1) {
                 mst.addEdge(node.parent, node.vertex, node.key);
             }

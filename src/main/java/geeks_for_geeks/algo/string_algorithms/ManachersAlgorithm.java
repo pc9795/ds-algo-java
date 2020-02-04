@@ -68,7 +68,7 @@ public class ManachersAlgorithm {
                         boolean evenPosition = ((currentRight + lps[currentRight] + 1) % 2 == 0);
                         int leftCharPosition = (currentRight - lps[currentRight] - 1) / 2;
                         int rightCharPosition = ((currentRight + lps[currentRight] + 1) / 2);
-                        boolean oddPosition = rightCharPosition < text.length() ? text.charAt(rightCharPosition) == text.charAt(leftCharPosition) : false;
+                        boolean oddPosition = rightCharPosition < text.length() && text.charAt(rightCharPosition) == text.charAt(leftCharPosition);
                         if (evenPosition || oddPosition) {
                             lps[currentRight]++;
                         } else {
@@ -97,9 +97,4 @@ public class ManachersAlgorithm {
         int start = (maxPos - lps[maxPos]) / 2;
         return text.substring(start, start + lps[maxPos]);
     }
-
-    public static void main(String[] args) {
-        System.out.println(longestPalindromicSubstring("abababa"));
-    }
-
 }

@@ -2,7 +2,6 @@ package geeks_for_geeks.algo.searching_and_sorting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -12,17 +11,17 @@ import java.util.Collections;
 public class Sorting {
 
     /**
-     * T=O(n^2)
-     * S=O(1)
+     * t=O(n^2)
+     * s=O(1)
      * not stable
      * in place
      * Only O(n) swaps good when memory write is costly.
+     * Selects a minimum at each iteration and then fills it starting from 0,1,...
      *
-     * @param arr
+     * @param arr input array
      */
     public static void selectionSort(int arr[]) {
-        if (arr == null || arr.length == 0) {
-            System.out.println("Array is empty!");
+        if (arr == null) {
             return;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -39,16 +38,17 @@ public class Sorting {
     }
 
     /**
-     * T=O(n^2) (worst case), O(n) (best case)
-     * S=O(1)
+     * t=O(n^2) (worst case)
+     * =O(n) (best case)
+     * s=O(1)
      * stable
      * in place
+     * The current largest value will be bubbled to the end at each iteration.
      *
-     * @param arr
+     * @param arr input array
      */
     public static void bubbleSort(int arr[]) {
-        if (arr == null || arr.length == 0) {
-            System.out.println("Array is empty!");
+        if (arr == null) {
             return;
         }
         for (int i = 0; i < arr.length; i++) {
@@ -61,6 +61,7 @@ public class Sorting {
                     swapped = true;
                 }
             }
+            //Optimization
             if (!swapped) {
                 break;
             }
@@ -68,29 +69,25 @@ public class Sorting {
     }
 
     /**
-     * T=O(n^2) (worst case) reverse sorted, O(n) (best case) sorted
-     * S=O(1)
+     * t=O(n^2) (worst case) reverse sorted
+     * =O(n) (best case) sorted
+     * s=O(1)
      * stable
      * in place
      * online
      * powerful when elements are small or array is almost sorted.
      *
-     * @param arr
+     * @param arr input array
      */
     public static void insertionSort(int arr[]) {
-        if (arr == null || arr.length == 0) {
-            System.out.println("Array is empty!");
+        if (arr == null) {
             return;
         }
         for (int i = 1; i < arr.length; i++) {
             int value = arr[i];
             int j = i;
-            for (; j > 0; j--) {
-                if (arr[j - 1] > value) {
-                    arr[j] = arr[j - 1];
-                } else {
-                    break;
-                }
+            for (; j > 0 && arr[j - 1] > value; j--) {
+                arr[j] = arr[j - 1];
             }
             arr[j] = value;
         }
@@ -371,24 +368,5 @@ public class Sorting {
             }
 
         }
-    }
-
-    public static void main(String[] args) {
-        int arr[] = {64, 25, 12, 22, 11};
-        int arr2[] = {170, 45, 75, 90, 802, 24, 2, 66};
-        int arr3[] = {8, 4, 1, 56, 3, -44, 23, -6, 28, 0};
-        double arr4[] = {0.897, 0.565, 0.656, 0.1234, 0.665, 0.3434};
-//        selectionSort(arr);
-//        bubbleSort(arr);
-//        insertionSort(arr);
-//        quickSort(arr);
-//        countSort(arr, Arrays.stream(arr).reduce(Integer.MIN_VALUE, Math::max));
-//        radixSort(arr2);
-//        combSort(arr3);
-//        pigeonHoleSort(arr3);
-//        bucketSort(arr4);
-//        shellSort(arr2);
-        cycleSort(arr2);
-        System.out.println(Arrays.toString(arr2));
     }
 }

@@ -24,8 +24,4 @@ public class Permutations {
             printPermutationsUtil(first + last.charAt(i), last.substring(0, i) + last.substring(i + 1));
         }
     }
-
-    public static void main(String[] args) {
-        printPermutations("ABC");
-    }
 }

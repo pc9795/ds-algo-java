@@ -6,20 +6,16 @@ public class GetSingle {
         int ones = 0;
         int twos = 0;
         int commonBits = 0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int anArr : arr) {
 //            have values that are appeared two times.
-            twos |= ones & arr[i];
+            twos |= ones & anArr;
 //            it will add the value for first time and xor will remove if it is added second time.
-            ones ^= arr[i];
+            ones ^= anArr;
 //            if values are appeared third time then it will be in both twos and ones so remove it.
             commonBits = ones & twos;
             ones &= ~commonBits;
             twos &= ~commonBits;
         }
         return ones;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getSingle(new int[]{3, 3, 10, 3}));
     }
 }

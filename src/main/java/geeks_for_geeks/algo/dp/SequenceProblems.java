@@ -58,19 +58,13 @@ public class SequenceProblems {
             }
         }
         int max = Integer.MIN_VALUE;
-        for (int i = 0; i < dp.length; i++) {
+        for (int[] aDp : dp) {
             for (int j = 0; j < dp[0].length; j++) {
-                if (dp[i][j] > max) {
-                    max = dp[i][j];
+                if (aDp[j] > max) {
+                    max = aDp[j];
                 }
             }
         }
         return max;
-    }
-
-    public static void main(String[] args) {
-        int arr[] = {10, 22, 9, 33, 21, 50, 41, 60};
-//        System.out.println(longestIncreasingSubsequence(arr));
-        System.out.println(longestCommonSubsequence("AGGTAB", "GXTXAYB"));
     }
 }

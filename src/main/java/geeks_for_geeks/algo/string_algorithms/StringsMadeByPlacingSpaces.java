@@ -32,8 +32,4 @@ public class StringsMadeByPlacingSpaces {
         stringMadeByPlacingSpacesUtil(first + last.substring(0, 1), last.substring(1));
         stringMadeByPlacingSpacesUtil(first + last.substring(0, 1) + " ", last.substring(1));
     }
-
-    public static void main(String[] args) {
-        stringMadeByPlacingSpaces("ABCD");
-    }
 }

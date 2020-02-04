@@ -10,8 +10,8 @@ public class NQueen {
     public static void nqueen(int boardSize) {
         int chessBoard[][] = new int[boardSize][boardSize];
         if (nqueenUtil(0, chessBoard)) {
-            for (int i = 0; i < chessBoard.length; i++) {
-                System.out.println(Arrays.toString(chessBoard[i]));
+            for (int[] aChessBoard : chessBoard) {
+                System.out.println(Arrays.toString(aChessBoard));
             }
         } else {
             System.out.println("No solution exists!");
@@ -57,9 +57,5 @@ public class NQueen {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        nqueen(18);
     }
 }

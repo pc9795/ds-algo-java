@@ -1,7 +1,7 @@
 package geeks_for_geeks.ds.nodes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * Created By: Prashant Chaubey
@@ -9,10 +9,30 @@ import java.util.List;
  **/
 public class BinomialTreeNode {
     public int data;
-    public List<BinomialTreeNode> children = new ArrayList<>();
+    private Deque<BinomialTreeNode> children = new LinkedList<>();
+    private BinomialTreeNode parent;
 
     public BinomialTreeNode(int data) {
         this.data = data;
+    }
+
+    public BinomialTreeNode divide() {
+        if (children.size() == 0) {
+            return null;
+        }
+        BinomialTreeNode child = children.removeFirst();
+        child.parent = null;
+        return child;
+    }
+
+    public BinomialTreeNode merge(BinomialTreeNode other) {
+        assert degree() == other.degree() : "Only trees of same degree can be merged";
+        //So that after merging no can mutate the structure of sub-tree.
+        assert other.parent == null : "Only root trees can be merged";
+
+        children.addFirst(other);
+        other.parent = this;
+        return this;
     }
 
     public int degree() {
@@ -23,7 +43,6 @@ public class BinomialTreeNode {
     public String toString() {
         return "BinomialTreeNode{" +
                 "data=" + data +
-                ", children=" + children +
                 '}';
     }
 }

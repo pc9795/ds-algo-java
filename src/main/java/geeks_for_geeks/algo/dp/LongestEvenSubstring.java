@@ -99,8 +99,4 @@ public class LongestEvenSubstring {
         }
         return ans;
     }
-
-    public static void main(String[] args) {
-        System.out.println(longestEvenSubstringSumOfFirstAndSecondHalfSame("153803"));
-    }
 }

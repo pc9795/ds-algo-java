@@ -12,13 +12,13 @@ public class KnightTour {
 
     public static void knightTour(int boardSize) {
         int mat[][] = new int[boardSize][boardSize];
-        for (int i = 0; i < mat.length; i++) {
-            Arrays.fill(mat[i], -1);
+        for (int[] aMat1 : mat) {
+            Arrays.fill(aMat1, -1);
         }
         mat[0][0] = 0;
         if (knightTourUtil(0, 0, 8, mat, 1)) {
-            for (int i = 0; i < mat.length; i++) {
-                System.out.println(Arrays.toString(mat[i]));
+            for (int[] aMat : mat) {
+                System.out.println(Arrays.toString(aMat));
             }
         } else {
             System.out.println("No solution exists!");
@@ -26,7 +26,6 @@ public class KnightTour {
     }
 
     private static boolean knightTourUtil(int x, int y, int boardSize, int[][] board, int nextMove) {
-//        System.out.println("Move:" + nextMove);
         int moves = 8;
         int[] row = {2, 1, -1, -2, -2, -1, 1, 2};
         int[] col = {1, 2, 2, 1, -1, -2, -2, -1};
@@ -47,9 +46,5 @@ public class KnightTour {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        knightTour(8);
     }
 }

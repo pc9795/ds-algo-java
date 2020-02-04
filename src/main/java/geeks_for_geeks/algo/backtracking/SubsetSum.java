@@ -28,12 +28,6 @@ public class SubsetSum {
             }
         }
     }
-
-    public static void main(String[] args) {
-        int weights[] = {15, 22, 14, 26, 32, 9, 16, 8};
-        int target = 53;
-        subsetSum(weights, target);
-    }
 }
 
 

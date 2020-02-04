@@ -104,10 +104,4 @@ public class HuffmanCoding {
             return second.poll();
         }
     }
-
-    public static void main(String[] args) {
-        Data[] arr = {new Data("a", 5), new Data("b", 9), new Data("c", 12), new Data("d", 13)
-                , new Data("e", 16), new Data("f", 45)};
-        huffmanCoding2(arr);
-    }
 }

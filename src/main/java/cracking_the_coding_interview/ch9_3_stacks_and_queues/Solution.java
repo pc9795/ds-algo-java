@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 05-09-2019 23:13
- * Purpose: TODO:
  **/
 public class Solution {
 
@@ -116,7 +115,7 @@ public class Solution {
         }
     }
 
-    static void sortStack(ArrayDeque<Integer> stack) {
+    public static void sortStack(ArrayDeque<Integer> stack) {
         ArrayDeque<Integer> tempStack = new ArrayDeque<>();
         while (!stack.isEmpty()) {
             int temp = stack.pop();
@@ -131,7 +130,7 @@ public class Solution {
         }
     }
 
-    static abstract class Animal {
+    public static abstract class Animal {
         int order;
         String name;
 
@@ -148,32 +147,32 @@ public class Solution {
         }
     }
 
-    static class Dog extends Animal {
+    public static class Dog extends Animal {
 
         public Dog(String name) {
             super(name);
         }
     }
 
-    static class Cat extends Animal {
+    public static class Cat extends Animal {
 
         public Cat(String name) {
             super(name);
         }
     }
 
-    static class AnimalShelter {
+    public static class AnimalShelter {
         LinkedList<Animal> data = new LinkedList<>();
 
         boolean isEmpty() {
             return data.isEmpty();
         }
 
-        void enqueue(Animal item) {
+        public void enqueue(Animal item) {
             data.add(item);
         }
 
-        Animal dequeueAny() {
+        public Animal dequeueAny() {
             if (isEmpty()) {
                 throw new RuntimeException("Stack empty");
             }
@@ -200,16 +199,16 @@ public class Solution {
             return poppedItem;
         }
 
-        Animal dequeueCat() {
+        public Animal dequeueCat() {
             return dequeueAnimal(Cat.class);
         }
 
-        Animal dequeueDog() {
+        public Animal dequeueDog() {
             return dequeueAnimal(Dog.class);
         }
     }
 
-    static class AnimalShelter2 {
+    public static class AnimalShelter2 {
 
         LinkedList<Dog> dogsList = new LinkedList<>();
         LinkedList<Cat> catList = new LinkedList<>();
@@ -224,7 +223,7 @@ public class Solution {
             throw new RuntimeException("Unrecognized input");
         }
 
-        void enqueue(Animal item) {
+        public void enqueue(Animal item) {
             item.order = order;
             order++;
             if (item instanceof Dog) {
@@ -234,7 +233,7 @@ public class Solution {
             }
         }
 
-        Animal dequeueAny() {
+        public Animal dequeueAny() {
             if (isEmpty(Dog.class) && isEmpty(Cat.class)) {
                 throw new RuntimeException("Stack empty");
             }
@@ -249,7 +248,7 @@ public class Solution {
             return poppedAnimal;
         }
 
-        Animal dequeueCat() {
+        public Animal dequeueCat() {
             if (isEmpty(Cat.class)) {
                 throw new RuntimeException("Stack empty");
             }
@@ -258,7 +257,7 @@ public class Solution {
             return poppedItem;
         }
 
-        Animal dequeueDog() {
+        public Animal dequeueDog() {
             if (isEmpty(Dog.class)) {
                 throw new RuntimeException("Stack empty");
             }

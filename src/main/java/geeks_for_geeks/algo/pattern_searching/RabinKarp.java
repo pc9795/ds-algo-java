@@ -40,10 +40,4 @@ public class RabinKarp {
             }
         }
     }
-
-    public static void main(String[] args) {
-        String txt = "GEEKS FOR GEEKS";
-        String pat = "GEEK";
-        rabinKarp(txt, pat);
-    }
 }

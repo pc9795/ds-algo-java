@@ -38,11 +38,4 @@ public class FloydWarshall {
             System.out.println(Arrays.toString(sp[i]));
         }
     }
-
-    public static void main(String[] args) {
-        Graph graph = new Graph(4);
-        graph.addEdge(0, 1, 5).addEdge(0, 3, 10).
-                addEdge(1, 2, 3).addEdge(2, 3, 1);
-        allPairsShortestPath(graph);
-    }
 }

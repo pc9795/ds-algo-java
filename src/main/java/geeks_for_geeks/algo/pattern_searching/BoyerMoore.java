@@ -5,9 +5,9 @@ package geeks_for_geeks.algo.pattern_searching;
  * Created On: 10-11-2018 21:22
  **/
 public class BoyerMoore {
-    public static int NUM_OF_CHARS = 4;
 
     private static int[] badCharacterHeuristic(String pattern) {
+        int NUM_OF_CHARS = 4;
         int bc[] = new int[NUM_OF_CHARS];
         for (int i = 0; i < bc.length; i++) {
             bc[i] = -1;
@@ -42,9 +42,5 @@ public class BoyerMoore {
                 shift += Math.max(1, j - bc[text.charAt(shift + j) - 'A']);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        search("ABAAABCD", "ABC");
     }
 }

@@ -6,7 +6,6 @@ package geeks_for_geeks.algo.searching_and_sorting;
  **/
 public class SortingProblems {
     public static void minimumLengthUnsortedSubarray(int arr[]) {
-//            TODO: verification.
         int start = 0;
         int end = arr.length - 1;
         int i = 0;
@@ -49,12 +48,5 @@ public class SortingProblems {
             }
         }
         System.out.println("Start:" + start + ", End:" + end);
-    }
-
-
-    public static void main(String[] args) {
-        int arr[] = new int[]{10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
-        int arr2[] = new int[]{0, 1, 15, 25, 6, 7, 30, 40, 50};
-        minimumLengthUnsortedSubarray(arr2);
     }
 }
