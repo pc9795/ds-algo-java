@@ -41,4 +41,12 @@ public class Edge {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = src;
+        result = 31 * result + weight;
+        result = 31 * result + dest;
+        return result;
+    }
 }

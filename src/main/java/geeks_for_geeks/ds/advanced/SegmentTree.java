@@ -150,5 +150,4 @@ public class SegmentTree {
             lazy[segmentTreeNode] = 0;
         }
     }
-
 }

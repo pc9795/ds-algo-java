@@ -9,7 +9,6 @@ public class BTNodeWithSibling {
     public BTNodeWithSibling left;
     public BTNodeWithSibling right;
     public BTNodeWithSibling rightSibling;
-    public BTNodeWithSibling leftSibling;
 
     public BTNodeWithSibling(int data) {
         this.data = data;

@@ -4,30 +4,28 @@ import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.union_find.UnionFind;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * This is undirected geeks_for_geeks.graph.
  * Created By: Prashant Chaubey
  * Created On: 15-10-2018 22:40
  **/
-public class Graph {
+public class UndirectedGraph {
     public List<Edge> edges;
     private ArrayList<Integer>[] values;
     public int vertices;
 
-    public Graph(int vertices) {
+    public UndirectedGraph(int vertices) {
         this.vertices = vertices;
         this.edges = new ArrayList<>();
+        //noinspection unchecked
         this.values = new ArrayList[vertices];
         for (int i = 0; i < vertices; i++) {
             values[i] = new ArrayList<>();
         }
     }
 
-
-    public Graph addEdge(int src, int dest, int weight) {
+    public UndirectedGraph addEdge(int src, int dest, int weight) {
         assert dest >= 0 && dest < vertices && src >= 0 && src < vertices;
         int index = edges.size();
         this.values[src].add(index);
@@ -36,23 +34,72 @@ public class Graph {
         return this;
     }
 
+    public UndirectedGraph addEdge(int src, int dest) {
+        return addEdge(src, dest, 0);
+    }
+
+    /**
+     * t=O(E*Log V)
+     * Assumes that there are no self loops
+     *
+     * @return true if cyclic
+     */
     public boolean isCyclic() {
         UnionFind uf = new UnionFind(this.vertices);
-
         for (Edge edge : edges) {
-            int parent1 = uf.find(edge.src);
-            int parent2 = uf.find(edge.dest);
-
-            if (parent1 == parent2) {
+            if (uf.find(edge.src) == uf.find(edge.dest)) {
                 return true;
             }
-
             uf.union(edge.src, edge.dest);
         }
-
         return false;
     }
 
+    /**
+     * todo time complexity
+     *
+     * @return true if connected
+     */
+    private boolean isConnected() {
+        boolean[] visited = new boolean[this.vertices];
+        dfsUtil(0, visited);
+        for (boolean i : visited) {
+            if (!i) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * todo time complexity
+     *
+     * @return true if eulerian circuit exists
+     */
+    public boolean isEulerianCircuitExists() {
+        if (!isConnected()) {
+            return false;
+        }
+        for (ArrayList<Integer> value : this.values) {
+            if (value.size() % 2 == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void dfsUtil(int source, boolean[] visited) {
+        if (visited[source]) {
+            return;
+        }
+        visited[source] = true;
+        ArrayList<Integer> neighbours = this.values[source];
+        for (Integer neighbourEdge : neighbours) {
+            Edge edge = this.edges.get(neighbourEdge);
+            int neighbour = source ^ edge.src ^ edge.dest;
+            dfsUtil(neighbour, visited);
+        }
+    }
 
     @Override
     public String toString() {
@@ -64,41 +111,4 @@ public class Graph {
         sb.append("}");
         return sb.toString();
     }
-
-    public boolean isConnected(int source) {
-        boolean[] visited = new boolean[this.vertices];
-        Arrays.fill(visited, false);
-        dfsUtil(source, visited);
-        for (boolean i : visited) {
-            if (!i) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isEulerianCircuitExists() {
-        if (!isConnected(0)) {
-            return false;
-        }
-        for (int i = 0; i < this.values.length; i++) {
-            if (this.values[i].size() % 2 == 1) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void dfsUtil(int source, boolean[] visited) {
-        visited[source] = true;
-        ArrayList<Integer> neighbours = this.values[source];
-        for (Integer neighbourEdge : neighbours) {
-            Edge edge = this.edges.get(neighbourEdge);
-            int neighbour = source ^ edge.src ^ edge.dest;
-            if (!visited[neighbour]) {
-                dfsUtil(neighbour, visited);
-            }
-        }
-    }
-
 }

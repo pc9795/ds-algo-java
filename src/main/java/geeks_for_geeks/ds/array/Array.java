@@ -54,9 +54,7 @@ public class Array {
         if (isEmpty()) {
             throw new RuntimeException("Array is empty");
         }
-        for (int i = index; i < size - 1; i++) {
-            values[i] = values[i + 1];
-        }
+        System.arraycopy(values, index + 1, values, index, size - 1 - index);
         size--;
 
     }
@@ -70,14 +68,9 @@ public class Array {
         return this;
     }
 
-    public void print() {
+    private void print() {
         for (int i = 0; i < size; i++) {
             System.out.print(values[i] + "=>");
         }
-    }
-
-    public static void main(String[] args) {
-        Array array = new Array();
-        array.insert(1).insert(2).insert(3).insert(4).insert(5).reverse().print();
     }
 }

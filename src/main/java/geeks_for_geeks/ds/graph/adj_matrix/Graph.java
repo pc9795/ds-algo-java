@@ -5,7 +5,6 @@ package geeks_for_geeks.ds.graph.adj_matrix;
  * Created On: 15-09-2018 17:08
  **/
 public class Graph extends GraphBase {
-
     public Graph(int vertices) {
         super(vertices);
     }
@@ -20,16 +19,12 @@ public class Graph extends GraphBase {
 
     @Override
     public Graph addEdge(int src, int dest) {
-        assert (src >= 0 && dest >= 0 && src < values.length && dest < values.length);
-
-        values[src][dest] = 1;
-        return this;
+        return addEdge(src, dest, 0);
     }
 
     @Override
     public int vertices() {
         return values.length;
     }
-
 }
 

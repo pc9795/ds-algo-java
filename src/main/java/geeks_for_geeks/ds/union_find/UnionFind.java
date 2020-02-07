@@ -39,5 +39,4 @@ public class UnionFind {
             rank[parent2]++;
         }
     }
-
 }

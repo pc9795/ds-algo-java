@@ -1,7 +1,7 @@
 package geeks_for_geeks.algo.greedy_algorithms;
 
 import geeks_for_geeks.ds.graph.adj_list.GraphBase;
-import geeks_for_geeks.ds.graph.edge_repr.Graph;
+import geeks_for_geeks.ds.graph.edge_repr.UndirectedGraph;
 import geeks_for_geeks.ds.nodes.Edge;
 import geeks_for_geeks.ds.nodes.GraphNode;
 import geeks_for_geeks.ds.nodes.PrimNode;
@@ -27,10 +27,10 @@ public class MST {
      * @param graph
      * @return
      */
-    public static Graph kruskalMinimumSpanningTree(Graph graph) {
+    public static UndirectedGraph kruskalMinimumSpanningTree(UndirectedGraph graph) {
         assert graph != null;
 
-        Graph mst = new Graph(graph.vertices);
+        UndirectedGraph mst = new UndirectedGraph(graph.vertices);
         graph.edges.sort(new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {

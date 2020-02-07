@@ -18,19 +18,6 @@ public class N_ryNode {
         this.children = new ArrayList<>();
     }
 
-    private N_ryNode(int data, int level, N_ryNode parent) {
-        this.data = data;
-        this.children = new ArrayList<>();
-        this.level = level;
-        this.parent = parent;
-    }
-
-    public void addChild(int... childData) {
-        for (int child : childData) {
-            this.children.add(new N_ryNode(child, level + 1, this));
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -1,6 +1,6 @@
 package geeks_for_geeks.algo.dp;
 
-import geeks_for_geeks.ds.graph.edge_repr.Graph;
+import geeks_for_geeks.ds.graph.edge_repr.UndirectedGraph;
 import geeks_for_geeks.ds.nodes.Edge;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class BellmanFord {
      * @param graph
      * @param src
      */
-    public static void shortestPath(Graph graph, int src) {
+    public static void shortestPath(UndirectedGraph graph, int src) {
         assert graph != null;
         int v = graph.vertices;
         assert src < v;

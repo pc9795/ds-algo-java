@@ -1,7 +1,8 @@
 package geeks_for_geeks.ds.advanced;
 
 import java.util.Arrays;
-import java.util.Comparator;
+
+import geeks_for_geeks.ds.nodes.SuffixNode;
 
 /**
  * Created By: Prashant Chaubey
@@ -26,20 +27,5 @@ public class SuffixArray {
             suffixArr[i] = arr[i].index;
         }
         return suffixArr;
-    }
-}
-
-class SuffixNode implements Comparable<SuffixNode> {
-    int index;
-    String suffix;
-
-    public SuffixNode(int index, String suffix) {
-        this.index = index;
-        this.suffix = suffix;
-    }
-
-    @Override
-    public int compareTo(SuffixNode o) {
-        return this.suffix.compareTo(o.suffix);
     }
 }

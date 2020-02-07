@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 17-02-2019 01:58
- * Purpose: TODO:
  **/
 public class PersistentSegmentTree {
     private BTNode root;
@@ -82,6 +81,4 @@ public class PersistentSegmentTree {
         assert version < versions.size();
         this.root = versions.get(version);
     }
-
-
 }

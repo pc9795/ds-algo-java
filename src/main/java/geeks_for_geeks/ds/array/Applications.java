@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created By: Prashant Chaubey
  * Created On: 04-10-2018 02:09
  **/
-public class ArrayApplications {
+public class Applications {
     public static void findLeaders(int arr[]) {
         if (arr.length == 0) {
             System.out.println("Leaders:{}");
@@ -64,11 +64,5 @@ public class ArrayApplications {
 
         System.out.println("start:" + start + ", end:" + end);
 
-    }
-
-    public static void main(String[] args) {
-//        findLeaders(new int[]{16, 17, 4, 3, 5, 2});
-//        System.out.println(findValueWhichOccurredOddNumberOfTimes(new int[]{1, 2, 3, 2, 3, 1, 3}));
-        maxSumContiguousSubarray(new int[]{-2, -3, 4, -1, -2, 1, 5, -3});
     }
 }
