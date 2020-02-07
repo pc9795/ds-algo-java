@@ -9,17 +9,17 @@ I followed a style where in most of the places I used assertions in place of exc
 
 **Common**
 
-Name|Type|Access|Insertion|Deletion|Search|
----|---|---|---|---|---|
-Array|Linear|O(1)|O(n)|O(n)|<table><thead></thead><tbody><tr><td>O(n)</td><td>Sequential</td></tr><tr><td>O(log n)</td><td>Binary</td></tr></tbody></table>|
-Singly Linked List|Linear|O(n)|<table><thead></thead><tbody><tr><td>O(1)</td><td>At Beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Circular Singly Linked List|Linear|O(n)|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Doubly Linked List|Linear|O(n)|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Circular Doubly Linked List|Linear|O(n)|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|O(n)|
-Binary Tree|Tree|O(n)|-|O(n)|O(n)|
-Binary Search Tree|Tree|O(h)|O(h)|O(h)|O(h)|
-Balanced Binary Search Tree|Tree|O(log n)|O(log n)|O(log n)|O(log n)|
-Map|Map|O(1)|O(1)|O(1)|O(1)|
+Name|Type|Insertion|Deletion|Search|
+---|---|---|---|---|
+Array|Linear|O(n)|O(n)|<table><thead></thead><tbody><tr><td>O(n)</td><td>Sequential</td></tr><tr><td>O(log n)</td><td>Binary</td></tr></tbody></table>|
+Singly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At Beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
+Circular Singly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
+Doubly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
+Circular Doubly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|O(n)|
+Binary Tree|Tree|-|O(n)|O(n)|
+Binary Search Tree|Tree|O(h)|O(h)|O(h)|
+Balanced Binary Search Tree|Tree|O(log n)|O(log n)|O(log n)|
+Map|Map|O(1)|O(1)|O(1)|
 
 **Insertion/Deletion**
 
@@ -43,7 +43,7 @@ Name|Type|Adding Vertex|Adding Edge|Querying Edge|Space|
 Adjacency Matrix|Graph|O(V^2)|O(1)|O(1)|O(V^2)|
 Adjacency List|Graph|-|O(1)|-|O(V+E)|
 
-**To Add**
+**Tables to add**
 * Union Find
 * Segment Tree
 * Suffix Tree

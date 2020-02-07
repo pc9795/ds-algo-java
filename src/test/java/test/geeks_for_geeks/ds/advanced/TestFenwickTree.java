@@ -8,7 +8,6 @@ import java.util.Arrays;
 /**
  * Created By: Prashant Chaubey
  * Created On: 01-10-2019 19:27
- * Purpose: TODO:
  **/
 class TestFenwickTree {
 
