@@ -15,7 +15,7 @@ public class Trie {
         this.root = new TrieNode(ALPHABET_SIZE);
     }
 
-    public int toIndex(char ch) {
+    int toIndex(char ch) {
         return ch - 'a';
     }
 

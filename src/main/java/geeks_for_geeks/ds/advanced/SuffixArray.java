@@ -11,7 +11,7 @@ import geeks_for_geeks.ds.nodes.SuffixNode;
 public class SuffixArray {
 
     /**
-     * T=(n^2)*logn ; sort*string comparison during sort(O(n))
+     * T=(n^2)*(log n) ; sort*string comparison during sort(O(n))
      *
      * @param input
      * @return
