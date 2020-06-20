@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Created On: 31-03-2019 01:36
  * Purpose: Template for code chef's problems.
  **/
-@SuppressWarnings("Duplicates")
+@SuppressWarnings({"Duplicates", "unchecked", "unused"})
 class Solution {
 
     static class Pair<K, V> {
@@ -36,8 +36,7 @@ class Solution {
             if (o instanceof Pair) {
                 Pair pair = (Pair) o;
                 if (key != null ? !key.equals(pair.key) : pair.key != null) return false;
-                if (value != null ? !value.equals(pair.value) : pair.value != null) return false;
-                return true;
+                return value != null ? value.equals(pair.value) : pair.value == null;
             }
             return false;
         }
@@ -80,13 +79,37 @@ class Solution {
     }
 
     private static int MOD = 1000_000_007;
-    private static boolean SINGLE_TEST_CASE = false;
 
     private static void solve(Scanner in) {
-        int t = SINGLE_TEST_CASE ? 1 : in.nextInt();
+        int t = in.nextInt();
         in.nextLine();
         for (int _t = 0; _t < t; _t++) {
-
+            int n = in.nextInt();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= n; i++) {
+                if (n % 2 == 0 && i % 2 == 0) {
+                    int temp = i * n;
+                    for (int j = temp; j > temp - n; j--) {
+                        sb.append(j);
+                        if (j == temp - n + 1) {
+                            sb.append(System.lineSeparator());
+                        } else {
+                            sb.append(" ");
+                        }
+                    }
+                } else {
+                    int temp = (i - 1) * n + 1;
+                    for (int j = temp; j < temp + n; j++) {
+                        sb.append(j);
+                        if (j == temp + n - 1) {
+                            sb.append(System.lineSeparator());
+                        } else {
+                            sb.append(" ");
+                        }
+                    }
+                }
+            }
+            System.out.println(sb);
         }
     }
 }

@@ -20,7 +20,7 @@ npx is the value stored by each node.
 * time - `O(sqrt n)`; The worst case time complexity is number of nodes on "express lane" plus number of nodes in a 
 segment.
 
-**Self Organizing List** 
+### Self Organizing List 
 
 Place more frequently accessed items closet to head.
 
@@ -36,6 +36,8 @@ This strategy requires extra space for storing count.
 adapt quickly to changing access patterns.
 
 `O(n)` -> searched element is always last element.
+
+#
 
 **Unrolled Linked List**  Stores an array of elements at a node.
 

@@ -26,3 +26,5 @@ ans is sum of last row.
 | 7 | 1 |  7 | 18 | 20 |  8 |
 +---+---+----+----+----+----+
 ```
+
+* If you are getting TLE in Java output then buffer it in `StringBuilder`.

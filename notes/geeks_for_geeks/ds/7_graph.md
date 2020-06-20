@@ -1,5 +1,5 @@
-Adjacency Matrix
---
+### Adjacency Matrix
+
 symmetric for undirected graph.
 
 **Pros**
@@ -11,8 +11,8 @@ symmetric for undirected graph.
 * More space O(V^2). Even if the graph is sparse it consumes the same space.
 * Adding a vertex is O(V^2)
 
-Adjacency List
---
+### Adjacency List
+
 **Pros**
 * Saves space O(V+E)
 * Adding a vertex is easier
@@ -40,16 +40,15 @@ with the same color.
 
 We can maintain DAG structure of a graph by using Topological sort.
 
-Directed Graph
---
+### Directed Graph
  
 **Transitive closure**
 1. Transitive closure is the reachability matrix which shows whether a vertex is reachable from other or not. We can use
 Floyd warshall algorithm and instead of storing distance we can store boolean values. O(V^3)
 2. Launch dfs for all vertices O(V^2)
 
-Undirected Graph
---
+### Undirected Graph
+
 Connected components of a Undirected geeks_for_geeks.graph can be obtained using DFS and printing them.
 
 If edge weight is one then BFS will give shortest path.

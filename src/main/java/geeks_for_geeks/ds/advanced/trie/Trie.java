@@ -54,6 +54,24 @@ public class Trie {
     }
 
     /**
+     * Check whether the searched prefix is prefix of any data stored in trie.
+     *
+     * @param prefix prefix to search
+     * @return true if it is prefix of any stored key.
+     */
+    public boolean prefixSearch(String prefix) {
+        prefix = prefix.toLowerCase();
+        TrieNode curr = root;
+        for (char ch : prefix.toCharArray()) {
+            curr = curr.getChild(toIndex(ch));
+            if (curr == null) {
+                return false;
+            }
+        }
+        return curr != null;
+    }
+
+    /**
      * t=O(M); M is the key length
      *
      * @param key key to delete

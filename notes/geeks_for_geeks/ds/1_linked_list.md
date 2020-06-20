@@ -1,5 +1,4 @@
-Singly Linked List
---
+### Singly Linked List
 
 **Disadvantages of Arrays:**
 1. Size of arrays is fixed. So we must know the upper limit on number of elements in advance. -> Dynamic Size
@@ -15,6 +14,8 @@ takes to access them.
 
 Array memory is allocated from Data section(global array) or Stack section(local array). However memory for linked list
 is allocated from Heap section.
+
+#
 
 **Explanation of a method of removing floyd cycle detection algorithm**
 ```
@@ -78,14 +79,14 @@ the head meet at the loop starting point.
 Quick sort can be implemented for Linked List only when we can pick a fixed point as pivot. Random Quick sort cannot be 
 efficiently implemented for Linked lists by piking random pivot.
 
-Circular Linked List
---
+### Circular Linked List
+
 **Advantages**
 * Any node can be starting point.
 * Useful in implementing queue. We don't need `front` and `rear` we only maintain `last`.
 
-Doubly Linked List
---
+### Doubly Linked List
+
 **Advantages**
 * Can be traversed in both forward and backward direction.
 * Delete operation is more efficient if pointer to the node to be deleted is given
@@ -95,4 +96,4 @@ Doubly Linked List
 * Every node requires extra space for an previous pointer
 * All operations require and extra poiner previous to be maintained.
 
-Merge sort in doubly linked list is same as Linked List; only prev pointers have to be updated.
+Merge sort in doubly linked list is same as Linked List; only `prev` pointers have to be updated.

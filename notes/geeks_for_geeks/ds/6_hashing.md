@@ -5,8 +5,8 @@ smaller number and uses the small number as index in a table called hash table.
 * Efficiently computable
 * Should uniformly distribute the keys.
 
-Collision
---
+### Collision
+
 The situation where a newly inserted key maps to an already occupied slot in the hash table is called collision.
 
 **Chaining**

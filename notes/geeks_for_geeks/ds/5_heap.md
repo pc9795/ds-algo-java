@@ -34,8 +34,10 @@ order k-1 and making one as leftmost child or other.
 3. There are exactly kCi nodes at depth i for i-0,1....k
 4. The root has degree k and children of root are themselves Binomial trees with order k-1, k-2,..0 from left to right
 
-**Binomial Heap** -> Set of binomial trees where each binomial tree follows min heap property. And there can be at most 
-one binomial tree of any degree.
+**Binomial Heap**
+
+Set of binomial trees where each binomial tree follows min heap property. And there can be at most one binomial tree of 
+any degree.
 
 A Binomial heap with n nodes has the number of Binomial trees equal to the number of set bits in the binary representation 
 of n. There are O(log n) Binomial trees in a Binomial heap.

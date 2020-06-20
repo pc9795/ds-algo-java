@@ -19,8 +19,8 @@ that all leaves are at last level and all levels are filled.
 5. In Binary tree where every node has 0 or 2 children, number of leaf nodes is always one more than nodes with two 
 children -> Handshaking leema.
 
-**Handshaking leema**
------------------
+### Handshaking leema
+
 1. In a k-ary tree where every node has either 0 or k children
 ```cmd
 L(Number of leaf node), I(Number of internal nodes)
@@ -60,6 +60,8 @@ case 3. Root has one child
 >>> T = L - 1 [proved]
 ```
 
+#
+
 **Types of Binary Trees**
 1. Full Binary Tree - every node has 0 or 2 children
 2. Complete Binary Tree - all levels are completely filled except possibly the last level and the last level has all 
@@ -84,7 +86,7 @@ B   C
 
 ```
 
- **Unlabelled Trees with n nodes**
+**Unlabelled Trees with n nodes**
  
 n = 1 -> 1(no of possible trees)
  ```cmd

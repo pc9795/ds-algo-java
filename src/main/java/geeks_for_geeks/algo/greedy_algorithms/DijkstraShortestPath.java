@@ -40,23 +40,29 @@ public class DijkstraShortestPath {
             nodes[i].parent = -1;
             heap.add(nodes[i]);
         }
-//       because first node is at the top that's why we are getting it as first. This changing of key will have no
-//        effect.
+        // because first node is at the top that's why we are getting it as first (`heap.poll()`). This changing of key
+        // will have no effect.
+        // key represent the cost
         nodes[0].key = 0;
         while (!heap.isEmpty()) {
             PrimNode node = heap.poll();
+            assert node != null;
             inHeap[node.vertex] = false;
             dist[node.vertex] = node.key;
             for (int i = 0; i < graph.values[node.vertex].size(); i++) {
+                // todo make getting of neighbors clean
                 GraphNode neighbour = graph.values[node.vertex].get(i);
-                if (inHeap[neighbour.vertex]) {
-                    PrimNode neighbourNode = nodes[neighbour.vertex];
-                    if (neighbourNode.key > node.key + neighbour.weight) {
-                        heap.remove(neighbourNode);
-                        nodes[neighbour.vertex].key = node.key + neighbour.weight;
-                        heap.add(nodes[neighbour.vertex]);
-                    }
+                // already processed
+                if (!inHeap[neighbour.vertex]) {
+                    continue;
                 }
+                PrimNode neighbourNode = nodes[neighbour.vertex];
+                if (neighbourNode.key <= node.key + neighbour.weight) {
+                    continue;
+                }
+                heap.remove(neighbourNode);
+                nodes[neighbour.vertex].key = node.key + neighbour.weight;
+                heap.add(nodes[neighbour.vertex]);
             }
         }
         return dist;

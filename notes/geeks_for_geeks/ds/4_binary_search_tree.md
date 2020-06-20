@@ -17,6 +17,7 @@ the pointer with insertion and deletion if required. With delete we can update b
 To check if a tree is BST or not we can check in-order traversal is sorted array or not.
 
 **LCA**
+
 Distance from n1 to n2 can be computed as the distance from the root to n1, plus the distance from the root to n2, minus
 twice the distance from the root to their lowest common ancestor.
 

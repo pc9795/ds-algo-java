@@ -1,8 +1,3 @@
-**Trie vs Hashing**
-
-Trie is more powerful in case of prefix search. Moreover, time complexity of hashing is O(1) in average case, it may 
-have collisions.
-
 **Binary Indexed Tree**
 * Segment tree in which each segment start from 0.(Stores consecutive sums)
 * Fenwick tree requires less space but the complexity for query and update are same as segment tree.
