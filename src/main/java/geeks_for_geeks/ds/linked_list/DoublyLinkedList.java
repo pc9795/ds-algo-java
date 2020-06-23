@@ -4,6 +4,7 @@ import geeks_for_geeks.ds.linked_list.adt.LinkedList;
 import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.ds.nodes.DNode;
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import util.DoublePointer;
 
 /**
@@ -212,7 +213,7 @@ public class DoublyLinkedList implements LinkedList {
         assert dll != null && dll.head != null;
 
         int n = dll.size();
-        return new BinarySearchTree(convertUtil(new DoublePointer<>(dll.head), n));
+        return BinarySearchTree.fromBinaryTree(new BinaryTree(convertUtil(new DoublePointer<>(dll.head), n)));
     }
 
     /**

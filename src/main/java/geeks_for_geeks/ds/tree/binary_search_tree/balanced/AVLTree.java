@@ -25,9 +25,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode rightRotate(BTNode node) {
         assert node != null && node.left != null;
@@ -46,9 +43,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode leftRotate(BTNode node) {
         assert node != null && node.right != null;
@@ -67,9 +61,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode leftLeft(BTNode node) {
         return rightRotate(node);
@@ -78,9 +69,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode leftRight(BTNode node) {
         assert node != null && node.left != null;
@@ -92,9 +80,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode rightLeft(BTNode node) {
         assert node != null && node.right != null;
@@ -106,9 +91,6 @@ public class AVLTree extends BinaryTree {
     /**
      * t=O(1)
      * NOTE: It MODIFIES the links of input node.
-     *
-     * @param node node to rotate
-     * @return rotated node
      */
     private BTNode rightRight(BTNode node) {
         return leftRotate(node);
@@ -116,9 +98,6 @@ public class AVLTree extends BinaryTree {
 
     /**
      * t=O(1)
-     *
-     * @param node input node
-     * @return difference in height between left and right subtrees.
      */
     private int balanceFactor(BTNode node) {
         return node == null ? 0 : height(node.left) - height(node.right);
@@ -126,9 +105,6 @@ public class AVLTree extends BinaryTree {
 
     /**
      * t=O(1)
-     *
-     * @param node input node
-     * @return height of the node
      */
     private int height(BTNode node) {
         return node == null ? 0 : node.height;
@@ -144,10 +120,6 @@ public class AVLTree extends BinaryTree {
      * In the recursive BST insert, after insertion, we get pointers to all ancestors one by one in a bottom-up manner.
      * So we don’t need parent pointer to travel up. The recursive code itself travels up and visits all the ancestors
      * of the newly inserted node.
-     *
-     * @param data data to insert
-     * @param node root node
-     * @return new root
      */
     private BTNode insertUtil(BTNode node, int data) {
         if (node == null) {
@@ -188,14 +160,10 @@ public class AVLTree extends BinaryTree {
     }
 
     /**
-     * t=o(log n)
+     * t=O(log n)
      * In the recursive BST delete, after deletion, we get pointers to all ancestors one by one in bottom up manner. So
      * we don’t need parent pointer to travel up. The recursive code itself travels up and visits all the ancestors of the
      * deleted node.
-     *
-     * @param node root node
-     * @param data data to delete
-     * @return updated root node
      */
     private BTNode deleteUtil(BTNode node, int data) {
         if (node == null) {

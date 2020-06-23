@@ -17,8 +17,8 @@ public class BinarySearchTree extends BinaryTree {
         super(data);
     }
 
-    public BinarySearchTree(BTNode root) {
-        super(root);
+    private BinarySearchTree(BTNode node) {
+        super(node);
     }
 
     /**
@@ -270,6 +270,10 @@ public class BinarySearchTree extends BinaryTree {
         }
         prev.data = root;
         return isBSTUtil(root.right, prev);
+    }
+
+    public static BinarySearchTree fromBinaryTree(BinaryTree binaryTree) {
+        return binaryTree != null && isBST(binaryTree) ? new BinarySearchTree(binaryTree.root) : null;
     }
 
     /**

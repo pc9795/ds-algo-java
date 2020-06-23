@@ -20,7 +20,7 @@ public class Solution {
      * @return minimal BST
      */
     public static BinarySearchTree minimalTree(int[] arr) {
-        return new BinarySearchTree(minimalTreeUtil(arr, 0, arr.length - 1));
+        return BinarySearchTree.fromBinaryTree(new BinaryTree(minimalTreeUtil(arr, 0, arr.length - 1)));
     }
 
     private static BTNode minimalTreeUtil(int[] arr, int begin, int end) {
