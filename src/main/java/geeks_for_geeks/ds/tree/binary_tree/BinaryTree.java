@@ -13,7 +13,6 @@ import java.util.List;
  * Created By: Prashant Chaubey
  * Created On: 24-09-2018 02:06
  **/
-@SuppressWarnings("unused")
 public class BinaryTree {
     public BTNode root;
 
@@ -62,6 +61,35 @@ public class BinaryTree {
         }
         return this;
     }
+
+    /**
+     * Position string is a binary string of '0s' and '1s'. 0 means left and 1 means right. So if input is '01' it means
+     * we need data of `root.left.right`.
+     * NOTE: You can't get the data to root using this method.
+     *
+     * @param pos string representing the position where data is going to be inserted
+     * @return data at position
+     */
+    public int getAtPos(String pos) {
+        assert !isEmpty() : "Tree is empty";
+        BTNode curr = this.root;
+
+        for (int i = 0; i < pos.length(); i++) {
+            char ch = pos.charAt(i);
+            if (ch == '0') {
+                curr = curr.left;
+            } else if (ch == '1') {
+                curr = curr.right;
+            } else {
+                throw new RuntimeException(String.format("Unexpected character:%s found at position:%s", ch, i + 1));
+            }
+            if (curr == null) {
+                throw new RuntimeException(String.format("Tree is evaluating null at position:%s", i + 1));
+            }
+        }
+        return curr.data;
+    }
+
 
     /**
      * t=O(n)
@@ -166,27 +194,20 @@ public class BinaryTree {
     public static List<Integer> preOrderTraversal(BinaryTree tree) {
         assert tree != null;
         List<Integer> traversal = new ArrayList<>();
-        preOrderTraversalUtil(traversal, tree.root);
+        preOrderTraversalUtil(traversal, tree.root, false);
         return traversal;
     }
 
-    private static void preOrderTraversalUtil(List<Integer> traversal, BTNode root) {
+    private static void preOrderTraversalUtil(List<Integer> traversal, BTNode root, boolean includeNull) {
         if (root == null) {
+            if (includeNull) {
+                traversal.add(null);
+            }
             return;
         }
         traversal.add(root.data);
-        preOrderTraversalUtil(traversal, root.left);
-        preOrderTraversalUtil(traversal, root.right);
-    }
-
-    private static void preOrderTraversalWithNullsUtil(List<Integer> traversal, BTNode root) {
-        if (root == null) {
-            traversal.add(null);
-            return;
-        }
-        traversal.add(root.data);
-        preOrderTraversalUtil(traversal, root.left);
-        preOrderTraversalUtil(traversal, root.right);
+        preOrderTraversalUtil(traversal, root.left, includeNull);
+        preOrderTraversalUtil(traversal, root.right, includeNull);
     }
 
     /**
@@ -224,27 +245,20 @@ public class BinaryTree {
     public static List<Integer> inOrderTraversal(BinaryTree tree) {
         assert tree != null;
         List<Integer> traversal = new ArrayList<>();
-        inOrderTraversalUtil(traversal, tree.root);
+        inOrderTraversalUtil(traversal, tree.root, false);
         return traversal;
     }
 
-    private static void inOrderTraversalUtil(List<Integer> traversal, BTNode root) {
+    private static void inOrderTraversalUtil(List<Integer> traversal, BTNode root, boolean includeNull) {
         if (root == null) {
+            if (includeNull) {
+                traversal.add(null);
+            }
             return;
         }
-        inOrderTraversalUtil(traversal, root.left);
+        inOrderTraversalUtil(traversal, root.left, includeNull);
         traversal.add(root.data);
-        inOrderTraversalUtil(traversal, root.right);
-    }
-
-    private static void inOrderTraversalWithNullsUtil(List<Integer> traversal, BTNode root) {
-        if (root == null) {
-            traversal.add(null);
-            return;
-        }
-        inOrderTraversalUtil(traversal, root.left);
-        traversal.add(root.data);
-        inOrderTraversalUtil(traversal, root.right);
+        inOrderTraversalUtil(traversal, root.right, includeNull);
     }
 
     /**
@@ -395,17 +409,17 @@ public class BinaryTree {
         assert subTree != null : "Null instance given";
         //Calculate inorder traversal
         List<Integer> traversalSub = new ArrayList<>();
-        inOrderTraversalWithNullsUtil(traversalSub, subTree.root);
+        inOrderTraversalUtil(traversalSub, subTree.root, true);
         List<Integer> traversal = new ArrayList<>();
-        inOrderTraversalWithNullsUtil(traversal, root);
+        inOrderTraversalUtil(traversal, root, true);
         if (Collections.indexOfSubList(traversal, traversalSub) == -1) {
             return false;
         }
         //Calculate pre-order traversal
         traversalSub = new ArrayList<>();
-        preOrderTraversalWithNullsUtil(traversalSub, subTree.root);
+        preOrderTraversalUtil(traversalSub, subTree.root, true);
         traversal = new ArrayList<>();
-        preOrderTraversalWithNullsUtil(traversal, root);
+        preOrderTraversalUtil(traversal, root, true);
         return Collections.indexOfSubList(traversal, traversalSub) != -1;
     }
 
@@ -427,6 +441,39 @@ public class BinaryTree {
     public boolean isEmpty() {
         return root == null;
     }
+
+    /**
+     * In order successor if subtree is present of a node.
+     *
+     * @param node node for which in-order successor has to be found
+     * @return in-order successor
+     */
+    public static BTNode inOrderSucc(BTNode node) {
+        assert node != null && node.right != null;
+
+        BTNode inOrderSucc = node.right;
+        for (; inOrderSucc.left != null; ) {
+            inOrderSucc = inOrderSucc.left;
+        }
+        return inOrderSucc;
+    }
+
+    /**
+     * In order predecessor if subtree is present of a node.
+     *
+     * @param node node for which in-order predecessor has to be found
+     * @return in-order predecessor
+     */
+    public static BTNode inOrderPred(BTNode node) {
+        assert node != null && node.left != null;
+
+        BTNode inOrderPred = node.left;
+        for (; inOrderPred.right != null; ) {
+            inOrderPred = inOrderPred.right;
+        }
+        return inOrderPred;
+    }
+
 
     @Override
     public String toString() {

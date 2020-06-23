@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,7 +11,6 @@ import java.util.Scanner;
  * Created On: 31-03-2019 01:36
  * Purpose: Template for code chef's problems.
  **/
-@SuppressWarnings({"Duplicates", "unchecked", "unused"})
 class Solution {
 
     static class Pair<K, V> {
@@ -78,6 +80,65 @@ class Solution {
         return arr;
     }
 
+    private static class UGraph {
+        double[] nodes;
+        List<Integer>[] values;
+
+        UGraph(int vertices) {
+            nodes = new double[vertices];
+            values = new ArrayList[vertices];
+        }
+
+        void addEdge(int src, int dest) {
+            if (values[src] == null) {
+                values[src] = new ArrayList<>();
+            }
+            if (values[dest] == null) {
+                values[dest] = new ArrayList<>();
+            }
+            values[src].add(dest);
+            values[dest].add(dest);
+        }
+
+        List<Integer> solve(double maxPerCapita) {
+            int vertices = nodes.length;
+            boolean visited[] = new boolean[nodes.length];
+            List<Integer> ans = new ArrayList<>();
+            for (int i = 0; i < vertices; i++) {
+                if (nodes[i] < maxPerCapita || visited[i]) {
+                    continue;
+                }
+                List<Integer> traversal = new ArrayList<>();
+                dfsUtil(i, visited, traversal);
+                if (traversal.size() > ans.size()) {
+                    ans = traversal;
+                }
+            }
+            return ans;
+        }
+
+        void dfsUtil(int source, boolean[] visited, List<Integer> traversal) {
+            ArrayDeque<Integer> stack = new ArrayDeque<>();
+            stack.push(source);
+            while (!stack.isEmpty()) {
+                source = stack.pop();
+                if (visited[source]) {
+                    continue;
+                }
+                traversal.add(source);
+                visited[source] = true;
+                if (values[source] == null) {
+                    continue;
+                }
+                for (Integer neighbour : values[source]) {
+                    if (!visited[neighbour]) {
+                        stack.push(neighbour);
+                    }
+                }
+            }
+        }
+    }
+
     private static int MOD = 1000_000_007;
 
     private static void solve(Scanner in) {
@@ -85,29 +146,30 @@ class Solution {
         in.nextLine();
         for (int _t = 0; _t < t; _t++) {
             int n = in.nextInt();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= n; i++) {
-                if (n % 2 == 0 && i % 2 == 0) {
-                    int temp = i * n;
-                    for (int j = temp; j > temp - n; j--) {
-                        sb.append(j);
-                        if (j == temp - n + 1) {
-                            sb.append(System.lineSeparator());
-                        } else {
-                            sb.append(" ");
-                        }
-                    }
-                } else {
-                    int temp = (i - 1) * n + 1;
-                    for (int j = temp; j < temp + n; j++) {
-                        sb.append(j);
-                        if (j == temp + n - 1) {
-                            sb.append(System.lineSeparator());
-                        } else {
-                            sb.append(" ");
-                        }
-                    }
+            UGraph graph = new UGraph(n);
+            int m = in.nextInt();
+            int income[] = fillIntArr(in, n);
+
+            double maxPerCapita = 0;
+            for (int i = 0; i < n; i++) {
+                graph.nodes[i] = income[i] / (double) in.nextInt();
+                if (graph.nodes[i] > maxPerCapita) {
+                    maxPerCapita = graph.nodes[i];
                 }
+            }
+            for (int i = 0; i < m; i++) {
+                int src = in.nextInt() - 1;
+                int dest = in.nextInt() - 1;
+                if (graph.nodes[src] < maxPerCapita || graph.nodes[dest] < maxPerCapita) {
+                    continue;
+                }
+                graph.addEdge(src, dest);
+            }
+            List<Integer> ans = graph.solve(maxPerCapita);
+            System.out.println(ans.size());
+            StringBuilder sb = new StringBuilder();
+            for (Integer i : ans) {
+                sb.append(i + 1).append(" ");
             }
             System.out.println(sb);
         }

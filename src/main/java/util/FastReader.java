@@ -7,29 +7,30 @@ import java.io.IOException;
 /**
  * Created By: Prashant Chaubey
  * Created On: 16-08-2019 16:16
- * Purpose: Fast reader for Java
+ * Purpose: Fast reader for Java.
+ * No need of nextLine after integer as in Scanner
  **/
-//No need of nextLine after integer as in Scanner
-class Reader {
-    private int LINE_LENGTH = 1000000;
+
+public class FastReader {
     final private int BUFFER_SIZE = 1 << 16;
     private DataInputStream din;
     private byte[] buffer;
     private int bufferPointer, bytesRead;
 
-    public Reader() {
+    public FastReader() {
         din = new DataInputStream(System.in);
         buffer = new byte[BUFFER_SIZE];
         bufferPointer = bytesRead = 0;
     }
 
-    public Reader(String file_name) throws IOException {
+    public FastReader(String file_name) throws IOException {
         din = new DataInputStream(new FileInputStream(file_name));
         buffer = new byte[BUFFER_SIZE];
         bufferPointer = bytesRead = 0;
     }
 
     public String nextLine() throws IOException {
+        int LINE_LENGTH = 1000000;
         byte[] buf = new byte[LINE_LENGTH]; // line length
         int cnt = 0, c;
         while ((c = next()) != -1) {

@@ -44,6 +44,7 @@ public class BinarySearchTree extends BinaryTree {
      * t=O(h)
      * =O(n); skewed tree
      * =O(log n); complete tree
+     * For recursive implementation check `AVLTree.insert`
      *
      * @param data data to insert
      * @return calling instance
@@ -72,45 +73,19 @@ public class BinarySearchTree extends BinaryTree {
 
     @Override
     public BinarySearchTree insertAtPos(String pos, int data) {
-        throw new UnsupportedOperationException("We can't insert at position for Binary search tree");
+        throw new UnsupportedOperationException("This method is not applicable for BST");
     }
 
-    /**
-     * In order successor if subtree is present of a node.
-     *
-     * @param node node for which in-order successor has to be found
-     * @return in-order successor
-     */
-    private static BTNode inOrderSucc(BTNode node) {
-        assert node != null && node.right != null;
-
-        BTNode inOrderSucc = node.right;
-        for (; inOrderSucc.left != null; ) {
-            inOrderSucc = inOrderSucc.left;
-        }
-        return inOrderSucc;
-    }
-
-    /**
-     * In order predecessor if subtree is present of a node.
-     *
-     * @param node node for which in-order predecessor has to be found
-     * @return in-order predecessor
-     */
-    private static BTNode inOrderPred(BTNode node) {
-        assert node != null && node.left != null;
-
-        BTNode inOrderPred = node.left;
-        for (; inOrderPred.right != null; ) {
-            inOrderPred = inOrderPred.right;
-        }
-        return inOrderPred;
+    @Override
+    public int getAtPos(String pos) {
+        throw new UnsupportedOperationException("This method is not applicable for BST");
     }
 
     /**
      * t=O(h)
      * =O(n); skewed tree
      * =O(log n); complete tree
+     * For recursive implementation check `AVLTree.insert`
      *
      * @param key data to be deleted.
      */
@@ -147,7 +122,7 @@ public class BinarySearchTree extends BinaryTree {
         // Node with two children.
         // Finding in-order successor for the node.
         // NOTE: we can try to delete and find here only which can optimize this code somewhat.
-        BTNode inOrderSucc = BinarySearchTree.inOrderSucc(curr);
+        BTNode inOrderSucc = BinaryTree.inOrderSucc(curr);
         delete(inOrderSucc.data);
         // Swapping inside data will be expensive for bigger object.
         // We can use recursive delete code which will use the links.
@@ -186,10 +161,10 @@ public class BinarySearchTree extends BinaryTree {
         for (; curr != null; ) {
             if (curr.data == key) {
                 if (curr.left != null) {
-                    pred = inOrderPred(curr);
+                    pred = BinaryTree.inOrderPred(curr);
                 }
                 if (curr.right != null) {
-                    succ = inOrderSucc(curr);
+                    succ = BinaryTree.inOrderSucc(curr);
                 }
                 break;
             }

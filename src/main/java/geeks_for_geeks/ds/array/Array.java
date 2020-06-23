@@ -1,8 +1,5 @@
 package geeks_for_geeks.ds.array;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 18:37

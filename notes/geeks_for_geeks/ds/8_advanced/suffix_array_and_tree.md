@@ -54,10 +54,3 @@ we can se that lcp of "na" is atleast k-1 which is 2.
 **Suffix Tree**
 
 Compressed Trie of all suffixes.
-
-**Implicit Suffix Tree**
-
-To get implicit suffix tree from a suffix tree.
-* Remove all terminal symbol $ from the edge labels of the tree.
-* Remove any edge that has no label
-* Remove any node that has only one edge going out of it and merge the edges.

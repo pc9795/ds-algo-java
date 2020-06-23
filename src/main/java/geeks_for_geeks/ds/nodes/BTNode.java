@@ -5,13 +5,15 @@ import java.util.Objects;
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 00:52
+ * //NOTE: I could try to make it using generics but it will need extra code during comparison.
  **/
-//NOTE: I could try to make it using generics but it will need extra code during comparison.
+
 public class BTNode {
     public int data;
     public BTNode left;
     public BTNode right;
     public BTNode parent;
+    public int height;
 
     public BTNode(int data) {
         this.data = data;
