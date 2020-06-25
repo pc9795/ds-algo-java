@@ -1,7 +1,7 @@
 package geeks_for_geeks.ds.linked_list;
 
-import geeks_for_geeks.ds.linked_list.DoublyLinkedList;
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
+import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,9 +29,10 @@ class TestDoublyLinkedList {
     void testToBST() {
         DoublyLinkedList list = new DoublyLinkedList().append(1, 2, 3, 4, 5, 6);
         BinarySearchTree bst = DoublyLinkedList.toBST(list);
-        BinarySearchTree expected = new BinarySearchTree(4);
+        BinaryTree expected = new BinaryTree().insertAtRoot(4);
         expected.insertAtPos("0", 2).insertAtPos("00", 1).insertAtPos("01", 3)
                 .insertAtPos("1", 6).insertAtPos("10", 5);
+        expected = BinarySearchTree.fromBinaryTree(expected);
         assert expected.equals(bst);
     }
 }

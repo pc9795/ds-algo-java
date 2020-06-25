@@ -1,6 +1,5 @@
 package geeks_for_geeks.ds.hashing;
 
-import geeks_for_geeks.ds.hashing.Applications;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import java.util.*;
 class TestHashing {
     @Test
     void testGetVerticalOrder() {
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3).
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3).
                 insertAtPos("00", 4).insertAtPos("01", 5).insertAtPos("10", 6).
                 insertAtPos("11", 7).insertAtPos("110", 8).insertAtPos("111", 9);
         Map<Integer, List<Integer>> ans = Applications.getVerticalOrder(bt);

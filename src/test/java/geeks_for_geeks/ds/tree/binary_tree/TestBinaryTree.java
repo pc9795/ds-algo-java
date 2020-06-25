@@ -19,7 +19,7 @@ class TestBinaryTree {
 
     @Test
     void testDiameter() {
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3).
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3).
                 insertAtPos("00", 4).insertAtPos("01", 5);
         int ans = BinaryTree.diameter(bt);
         assert ans == 4;
@@ -27,14 +27,14 @@ class TestBinaryTree {
 
     @Test
     void testToList() {
-        BinaryTree bt = new BinaryTree(10).insertAtPos("0", 12).insertAtPos("1", 15).
+        BinaryTree bt = new BinaryTree().insertAtRoot(10).insertAtPos("0", 12).insertAtPos("1", 15).
                 insertAtPos("00", 25).insertAtPos("01", 30).insertAtPos("10", 36);
         assert bt.toList().equals(new DoublyLinkedList().append(25, 12, 30, 10, 36, 15));
     }
 
     @Test
     void testMorisTraversal() {
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3)
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3)
                 .insertAtPos("00", 4).insertAtPos("01", 5).insertAtPos("010", 6).
                         insertAtPos("011", 7).insertAtPos("0111", 8);
         List<Integer> expected = Arrays.asList(4, 2, 6, 5, 7, 8, 1, 3);
@@ -45,7 +45,7 @@ class TestBinaryTree {
 
     @Test
     void testClone() {
-        BinaryTreeWithRandomNode bt = new BinaryTreeWithRandomNode(1);
+        BinaryTreeWithRandomNode bt = new BinaryTreeWithRandomNode().insertAtRoot(1);
         bt.root.left = new BTNodeWithRandom(2);
         bt.root.right = new BTNodeWithRandom(3);
         bt.root.left.left = new BTNodeWithRandom(4);
@@ -109,7 +109,7 @@ class TestBinaryTree {
 
     @Test
     void testPrintAncestors() {
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3)
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3)
                 .insertAtPos("00", 4).insertAtPos("01", 5);
         List<Integer> ans = Applications.getAncestors(bt, new BTNode(4));
         assert ans.equals(Arrays.asList(2, 1));
@@ -124,7 +124,8 @@ class TestBinaryTree {
          *   \
          *    4
          */
-        BinaryTree subTree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 3).insertAtPos("01", 4);
+        BinaryTree subTree = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3).
+                insertAtPos("01", 4);
         /*
          *      5
          *     / \
@@ -134,7 +135,7 @@ class TestBinaryTree {
          *  \
          *   4
          */
-        BinaryTree tree = new BinaryTree(5).insertAtPos("1", 6).insertAtPos("11", 7);
+        BinaryTree tree = new BinaryTree().insertAtRoot(5).insertAtPos("1", 6).insertAtPos("11", 7);
         tree.root.right = new BTNode(6);
         tree.root.right.right = new BTNode(7);
         tree.root.left = subTree.root;
@@ -148,7 +149,8 @@ class TestBinaryTree {
          *  /
          * 3
          */
-        subTree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 4).insertAtPos("00", 3);
+        subTree = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 4).
+                insertAtPos("00", 3);
         /*
          *       1
          *     /  \
@@ -156,7 +158,8 @@ class TestBinaryTree {
          *   /      \
          *  3        5
          */
-        tree = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("1", 4).insertAtPos("00", 3).insertAtPos("11", 5);
+        tree = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 4).
+                insertAtPos("00", 3).insertAtPos("11", 5);
         assert !tree.isSubTree(subTree);
     }
 
@@ -171,7 +174,7 @@ class TestBinaryTree {
                  /  \
                 6   7
          */
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("00", 4).
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("00", 4).
                 insertAtPos("01", 5).insertAtPos("1", 3).insertAtPos("11", 8).
                 insertAtPos("110", 6).insertAtPos("111", 7);
         assert Applications.getMaxWidth(bt) == 3;
@@ -188,7 +191,7 @@ class TestBinaryTree {
                  /  \
                 6   7
          */
-        BinaryTree bt = new BinaryTree(1).insertAtPos("0", 2).insertAtPos("00", 4).
+        BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("00", 4).
                 insertAtPos("01", 5).insertAtPos("1", 3).insertAtPos("11", 8).
                 insertAtPos("110", 6).insertAtPos("111", 7);
         assert bt.getAtPos("0") == 2;

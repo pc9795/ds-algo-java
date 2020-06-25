@@ -20,7 +20,7 @@ public class Applications {
      */
     public static BinaryTree createFromPreAndInorder2(int[] preOrder, int[] inOrder) {
         assert preOrder.length == inOrder.length;
-        return new BinaryTree(createFromPreAndInorder2Util(preOrder, inOrder, 0, inOrder.length - 1, new DoublePointer<>(0)));
+        return new BinaryTree().insertAtRoot(createFromPreAndInorder2Util(preOrder, inOrder, 0, inOrder.length - 1, new DoublePointer<>(0)));
     }
 
     private static BTNode createFromPreAndInorder2Util(int[] preOrder, int[] inOrder, int inStart, int inEnd, DoublePointer<Integer> preIndex) {
@@ -63,7 +63,7 @@ public class Applications {
                 BTNode node;
                 if (bt == null) {
                     // First element in pre-order is the root of the tree;
-                    bt = new BinaryTree(preOrder[pre]);
+                    bt = new BinaryTree().insertAtRoot(preOrder[pre]);
                     node = bt.root;
                 } else {
                     node = new BTNode(preOrder[pre]);

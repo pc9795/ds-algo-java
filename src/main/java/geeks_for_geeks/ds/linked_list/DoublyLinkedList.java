@@ -213,7 +213,7 @@ public class DoublyLinkedList implements LinkedList {
         assert dll != null && dll.head != null;
 
         int n = dll.size();
-        return BinarySearchTree.fromBinaryTree(new BinaryTree(convertUtil(new DoublePointer<>(dll.head), n)));
+        return BinarySearchTree.fromBinaryTree(new BinaryTree().insertAtRoot(convertUtil(new DoublePointer<>(dll.head), n)));
     }
 
     /**

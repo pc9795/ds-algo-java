@@ -16,7 +16,7 @@ import java.util.Arrays;
 class TestSplayTree {
     @Test
     void testZig() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        SplayTree splayTree = new SplayTree(-1);
+        SplayTree splayTree = new SplayTree();
 
          /*
          ACTUAL
@@ -34,7 +34,7 @@ class TestSplayTree {
               4   6
 
          */
-        BinaryTree binaryTree = new BinaryTree(5);
+        BinaryTree binaryTree = new BinaryTree().insertAtRoot(5);
         binaryTree.
                 insertAtPos("1", 6).
                 insertAtPos("0", 3).
@@ -45,7 +45,7 @@ class TestSplayTree {
         zigMethod.setAccessible(true);
         BTNode result = (BTNode) zigMethod.invoke(splayTree, binaryTree.root);
 
-        binaryTree = new BinaryTree(result);
+        binaryTree = new BinaryTree().insertAtRoot(result);
         assert binaryTree.root.data == 3;
         assert binaryTree.getAtPos("0") == 2;
         assert binaryTree.getAtPos("1") == 5;
@@ -55,7 +55,7 @@ class TestSplayTree {
 
     @Test
     void testZag() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        SplayTree splayTree = new SplayTree(-1);
+        SplayTree splayTree = new SplayTree();
 
          /*
          ACTUAL
@@ -73,7 +73,7 @@ class TestSplayTree {
         2   4
 
          */
-        BinaryTree binaryTree = new BinaryTree(3);
+        BinaryTree binaryTree = new BinaryTree().insertAtRoot(3);
         binaryTree.
                 insertAtPos("0", 2).
                 insertAtPos("1", 5).
@@ -84,7 +84,7 @@ class TestSplayTree {
         zagMethod.setAccessible(true);
         BTNode result = (BTNode) zagMethod.invoke(splayTree, binaryTree.root);
 
-        binaryTree = new BinaryTree(result);
+        binaryTree = new BinaryTree().insertAtRoot(result);
         assert binaryTree.root.data == 5;
         assert binaryTree.getAtPos("0") == 3;
         assert binaryTree.getAtPos("1") == 6;
@@ -94,11 +94,11 @@ class TestSplayTree {
 
     @Test
     void testSearch() throws NoSuchFieldException, IllegalAccessException {
-        BinaryTree binaryTree = new BinaryTree(100);
+        BinaryTree binaryTree = new BinaryTree().insertAtRoot(100);
         binaryTree.insertAtPos("0", 50).insertAtPos("1", 200).insertAtPos("00", 40).
                 insertAtPos("000", 30).insertAtPos("0000", 20);
 
-        SplayTree splayTree = new SplayTree(-1);
+        SplayTree splayTree = new SplayTree();
 
         //Filed exists in BinaryTree
         Field rootField = splayTree.getClass().getSuperclass().getDeclaredField("root");
@@ -113,8 +113,8 @@ class TestSplayTree {
 
     @Test
     void testInsert() {
-        SplayTree tree = new SplayTree(100);
-        tree.insert(50).insert(200).insert(40).insert(30).insert(20).insert(25);
+        SplayTree tree = new SplayTree();
+        tree.insert(100).insert(50).insert(200).insert(40).insert(30).insert(20).insert(25);
 
         assert BinaryTree.preOrderTraversal(tree).equals(Arrays.asList(25, 20, 30, 40, 50, 100, 200));
     }

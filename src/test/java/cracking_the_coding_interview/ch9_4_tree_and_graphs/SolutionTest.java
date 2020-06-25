@@ -1,6 +1,5 @@
 package cracking_the_coding_interview.ch9_4_tree_and_graphs;
 
-import cracking_the_coding_interview.ch9_4_tree_and_graphs.Solution;
 import geeks_for_geeks.ds.nodes.BTNode;
 import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
@@ -30,7 +29,7 @@ class SolutionTest {
 
     @Test
     void testListOfDepths() {
-        BinaryTree bt = new BinaryTree(1);
+        BinaryTree bt = new BinaryTree().insertAtRoot(1);
         bt.root.left = new BTNode(2);
         bt.root.right = new BTNode(3);
         bt.root.left.left = new BTNode(4);
@@ -55,13 +54,13 @@ class SolutionTest {
     }
 
     private static Stream<Arguments> testCheckBalanced() {
-        BinaryTree bt = new BinaryTree(1);
+        BinaryTree bt = new BinaryTree().insertAtRoot(1);
         bt.root.left = new BTNode(2);
         bt.root.right = new BTNode(3);
         bt.root.left.left = new BTNode(4);
         bt.root.left.left.left = new BTNode(5);
 
-        BinaryTree bt2 = new BinaryTree(1);
+        BinaryTree bt2 = new BinaryTree().insertAtRoot(1);
         bt2.root.left = new BTNode(2);
         bt2.root.right = new BTNode(3);
         bt2.root.left.left = new BTNode(4);
@@ -76,7 +75,7 @@ class SolutionTest {
     }
 
     private static Stream<Arguments> testFirstCommonAncestor() {
-        BinaryTree bt = new BinaryTree(1);
+        BinaryTree bt = new BinaryTree().insertAtRoot(1);
         bt.root.left = new BTNode(2);
         bt.root.left.parent = bt.root;
         bt.root.right = new BTNode(3);
@@ -86,7 +85,7 @@ class SolutionTest {
         bt.root.left.right = new BTNode(5);
         bt.root.left.right.parent = bt.root.left;
 
-        BinaryTree bt2 = new BinaryTree(1);
+        BinaryTree bt2 = new BinaryTree().insertAtRoot(1);
         bt2.root.left = new BTNode(2);
         bt2.root.left.parent = bt2.root;
         bt2.root.right = new BTNode(4);
@@ -96,7 +95,7 @@ class SolutionTest {
         bt2.root.right.right = new BTNode(6);
         bt2.root.right.right.parent = bt2.root.right;
 
-        BinaryTree bt3 = new BinaryTree(1);
+        BinaryTree bt3 = new BinaryTree().insertAtRoot(1);
         bt3.root.left = new BTNode(2);
         bt3.root.left.parent = bt3.root;
         bt3.root.left.left = new BTNode(4);
@@ -171,29 +170,29 @@ class SolutionTest {
 
     @Test
     void testBSTSequences() {
-        BinarySearchTree bst = new BinarySearchTree(50);
-        bst.insert(20).insert(60).insert(10).insert(25).insert(70);
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.insert(50).insert(20).insert(60).insert(10).insert(25).insert(70);
         Solution.BSTSequences(bst).forEach(System.out::println);
     }
 
     @Test
     void testIsSubTree() {
-        BinaryTree bt = new BinaryTree(1);
+        BinaryTree bt = new BinaryTree().insertAtRoot(1);
         bt.root.left = new BTNode(2);
         bt.root.right = new BTNode(3);
         bt.root.left.right = new BTNode(4);
 
-        BinaryTree btSuper = new BinaryTree(5);
+        BinaryTree btSuper = new BinaryTree().insertAtRoot(5);
         btSuper.root.right = new BTNode(6);
         btSuper.root.right.right = new BTNode(7);
         btSuper.root.left = bt.root;
 
-        BinaryTree bt2 = new BinaryTree(1);
+        BinaryTree bt2 = new BinaryTree().insertAtRoot(1);
         bt2.root.left = new BTNode(2);
         bt2.root.right = new BTNode(4);
         bt2.root.left.left = new BTNode(3);
 
-        BinaryTree bt2Super = new BinaryTree(1);
+        BinaryTree bt2Super = new BinaryTree().insertAtRoot(1);
         bt2Super.root.left = new BTNode(2);
         bt2Super.root.right = new BTNode(4);
         bt2Super.root.left.left = new BTNode(3);
@@ -204,7 +203,7 @@ class SolutionTest {
     }
 
     private static Stream<Arguments> testPathsWithSum() {
-        BinaryTree bt = new BinaryTree(10);
+        BinaryTree bt = new BinaryTree().insertAtRoot(10);
         bt.root.left = new BTNode(5);
         bt.root.right = new BTNode(-3);
         bt.root.left.left = new BTNode(3);

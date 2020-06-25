@@ -13,14 +13,6 @@ import java.util.ArrayDeque;
  **/
 public class BinarySearchTree extends BinaryTree {
 
-    public BinarySearchTree(int data) {
-        super(data);
-    }
-
-    private BinarySearchTree(BTNode node) {
-        super(node);
-    }
-
     /**
      * t=O(h)
      * =O(n); skewed tree
@@ -39,6 +31,12 @@ public class BinarySearchTree extends BinaryTree {
         return false;
     }
 
+    public BinarySearchTree insert(int... data) {
+        for (Integer val : data) {
+            this.insert(val);
+        }
+        return this;
+    }
 
     /**
      * t=O(h)
@@ -89,7 +87,7 @@ public class BinarySearchTree extends BinaryTree {
      *
      * @param key data to be deleted.
      */
-    public void delete(int key) {
+    public BinarySearchTree delete(int key) {
         assert !isEmpty() : "Empty tree";
 
         BTNode curr = root;
@@ -103,32 +101,46 @@ public class BinarySearchTree extends BinaryTree {
         }
 
         assert curr != null : "Element not found";
-        if (curr.left == null || curr.right == null) {
-            // Will cover both leaf and single child node.
+
+        if (curr.left == null) {
             if (prev == null) {
-                // if node is root.
-                root = curr.left == null ? curr.right : curr.left;
-                return;
+                root = curr.right;
+            } else {
+                if (prev.right == curr) {
+                    prev.right = curr.right;
+                } else {
+                    prev.left = curr.right;
+                }
             }
-            // Right child
-            if (prev.right == curr) {
-                prev.right = curr.left == null ? curr.right : curr.left;
-                return;
+            return this;
+        } else if (curr.right == null) {
+            if (prev == null) {
+                root = curr.left;
+            } else {
+                if (prev.right == curr) {
+                    prev.right = curr.left;
+                } else {
+                    prev.left = curr.left;
+                }
             }
-            // Left child
-            prev.left = curr.left == null ? curr.right : curr.left;
-            return;
+            return this;
         }
         // Node with two children.
         // Finding in-order successor for the node.
-        // NOTE: we can try to delete and find here only which can optimize this code somewhat.
         BTNode inOrderSucc = BinaryTree.inOrderSucc(curr);
         delete(inOrderSucc.data);
-        // Swapping inside data will be expensive for bigger object.
-        // We can use recursive delete code which will use the links.
-        int temp = curr.data;
-        curr.data = inOrderSucc.data;
-        inOrderSucc.data = temp;
+        inOrderSucc.left = curr.left;
+        inOrderSucc.right = curr.right;
+        if (prev == null) {
+            root = inOrderSucc;
+        } else {
+            if (curr == prev.right) {
+                prev.right = inOrderSucc;
+            } else {
+                prev.left = inOrderSucc;
+            }
+        }
+        return this;
     }
 
     /**
@@ -273,7 +285,12 @@ public class BinarySearchTree extends BinaryTree {
     }
 
     public static BinarySearchTree fromBinaryTree(BinaryTree binaryTree) {
-        return binaryTree != null && isBST(binaryTree) ? new BinarySearchTree(binaryTree.root) : null;
+        if (binaryTree == null || !isBST(binaryTree)) {
+            return null;
+        }
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.root = binaryTree.root;
+        return bst;
     }
 
     /**

@@ -16,8 +16,8 @@ import java.util.List;
 class TestBinarySearchTree {
     @Test
     void testMergedInorder() {
-        BinarySearchTree bst1 = new BinarySearchTree(3).insert(1).insert(5);
-        BinarySearchTree bst2 = new BinarySearchTree(4).insert(2).insert(6);
+        BinarySearchTree bst1 = new BinarySearchTree().insert(3).insert(1).insert(5);
+        BinarySearchTree bst2 = new BinarySearchTree().insert(4).insert(2).insert(6);
 
         List<Integer> traversal = Applications.mergedInorder(bst1, bst2);
         assert traversal.equals(Arrays.asList(1, 2, 3, 4, 5, 6));
@@ -25,7 +25,7 @@ class TestBinarySearchTree {
 
     @Test
     void testFindPairWithGivenSum() {
-        BinarySearchTree bst = new BinarySearchTree(15).insert(10).insert(20).insert(8).insert(12).insert(16).insert(25);
+        BinarySearchTree bst = new BinarySearchTree().insert(15).insert(10).insert(20).insert(8).insert(12).insert(16).insert(25);
 
         Pair<BTNode, BTNode> result = Applications.findPairWithGivenSum(bst, 33);
         assert result.equals(new Pair<>(new BTNode(8), new BTNode(25)));
@@ -40,7 +40,7 @@ class TestBinarySearchTree {
 
     @Test
     void testConvertBinaryTreeToBST() {
-        BinaryTree bt = new BinaryTree(10).insertAtPos("0", 2).insertAtPos("1", 7).
+        BinaryTree bt = new BinaryTree().insertAtRoot(10).insertAtPos("0", 2).insertAtPos("1", 7).
                 insertAtPos("00", 8).insertAtPos("01", 4);
         Applications.convertBinaryTreeToBST(bt);
         assert BinarySearchTree.isBST(bt);
@@ -57,13 +57,13 @@ class TestBinarySearchTree {
         /*
          *     1
          */
-        bst1 = new BinarySearchTree(1);
+        bst1 = new BinarySearchTree().insert(1);
         /*
          *    5
          *   /
          *  1
          */
-        bst2 = new BinarySearchTree(5).insert(1);
+        bst2 = new BinarySearchTree().insert(5).insert(1);
         /*
          *      5
          *     /
@@ -71,7 +71,7 @@ class TestBinarySearchTree {
          *     \
          *      3
          */
-        bst3 = new BinarySearchTree(5).insert(1).insert(3);
+        bst3 = new BinarySearchTree().insert(5).insert(1).insert(3);
         /*
          *      5
          *     /  \
@@ -81,7 +81,7 @@ class TestBinarySearchTree {
          *      /
          *     3
          */
-        bst4 = new BinarySearchTree(5).insert(6).insert(2).insert(1).insert(4).insert(3);
+        bst4 = new BinarySearchTree().insert(5).insert(6).insert(2).insert(1).insert(4).insert(3);
         /*
          *      18
          *     /  \
@@ -91,7 +91,7 @@ class TestBinarySearchTree {
          *      /
          *     12
          */
-        bst5 = new BinarySearchTree(18).insert(111).insert(10).insert(1).insert(14).insert(12);
+        bst5 = new BinarySearchTree().insert(18).insert(111).insert(10).insert(1).insert(14).insert(12);
 
     }
 
@@ -100,32 +100,32 @@ class TestBinarySearchTree {
         bst1.delete(1);
         assert bst1.isEmpty();
 
-        bst2 = new BinarySearchTree(5).insert(1);
+        bst2 = new BinarySearchTree().insert(5).insert(1);
         bst2.delete(1);
-        assert bst2.equals(new BinarySearchTree(5));
+        assert bst2.equals(new BinarySearchTree().insert(5));
     }
 
     @Test
     void testDeleteSingleChild() {
         bst2.delete(5);
-        assert bst2.equals(new BinarySearchTree(1));
+        assert bst2.equals(new BinarySearchTree().insert(1));
 
         bst3.delete(1);
-        BinarySearchTree expected = new BinarySearchTree(5).insert(3);
+        BinarySearchTree expected = new BinarySearchTree().insert(5).insert(3);
         assert bst3.equals(expected);
     }
 
     @Test
     void testDeleteRoot() {
         bst4.delete(5);
-        BinarySearchTree expected = new BinarySearchTree(6).insert(2).insert(4).insert(1).insert(3);
+        BinarySearchTree expected = new BinarySearchTree().insert(6).insert(2).insert(4).insert(1).insert(3);
         assert bst4.equals(expected);
     }
 
     @Test
     void testDeleteInternalNode() {
         bst4.delete(2);
-        BinarySearchTree expected = new BinarySearchTree(5).insert(6).insert(3).insert(1).insert(4);
+        BinarySearchTree expected = new BinarySearchTree().insert(5).insert(6).insert(3).insert(1).insert(4);
         assert bst4.equals(expected);
     }
 

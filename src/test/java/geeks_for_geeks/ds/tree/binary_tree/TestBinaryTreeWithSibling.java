@@ -17,7 +17,7 @@ class TestBinaryTreeWithSibling {
             / \   \
            4   5   6
          */
-        BinaryTreeWithSibling bt = new BinaryTreeWithSibling(1);
+        BinaryTreeWithSibling bt = new BinaryTreeWithSibling().insertAtRoot(1);
         bt.root.left = new BTNodeWithSibling(2);
         bt.root.left.left = new BTNodeWithSibling(4);
         bt.root.left.right = new BTNodeWithSibling(5);
@@ -42,7 +42,7 @@ class TestBinaryTreeWithSibling {
             / \   \
            4   5   6
          */
-        BinaryTreeWithSibling bt = new BinaryTreeWithSibling(1);
+        BinaryTreeWithSibling bt = new BinaryTreeWithSibling().insertAtRoot(1);
         bt.root.left = new BTNodeWithSibling(2);
         bt.root.left.left = new BTNodeWithSibling(4);
         bt.root.left.right = new BTNodeWithSibling(5);
@@ -63,7 +63,7 @@ class TestBinaryTreeWithSibling {
             / \   / \
            4   5 6   7
          */
-        BinaryTreeWithSibling bt = new BinaryTreeWithSibling(1);
+        BinaryTreeWithSibling bt = new BinaryTreeWithSibling().insertAtRoot(1);
         bt.root.left = new BTNodeWithSibling(2);
         bt.root.left.left = new BTNodeWithSibling(4);
         bt.root.left.right = new BTNodeWithSibling(5);

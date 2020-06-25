@@ -16,12 +16,14 @@ import java.util.List;
 public class BinaryTree {
     public BTNode root;
 
-    public BinaryTree(int data) {
-        root = new BTNode(data);
+    public BinaryTree insertAtRoot(int data) {
+        this.root = new BTNode(data);
+        return this;
     }
 
-    public BinaryTree(BTNode root) {
-        this.root = root;
+    public BinaryTree insertAtRoot(BTNode node) {
+        this.root = node;
+        return this;
     }
 
     /**

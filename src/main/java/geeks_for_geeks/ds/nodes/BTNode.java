@@ -9,11 +9,14 @@ import java.util.Objects;
  **/
 
 public class BTNode {
+    public enum Color {RED, BLACK}
+
     public int data;
     public BTNode left;
     public BTNode right;
     public BTNode parent;
-    public int height;
+    public int height; //Used by AVL tree
+    public Color color; //Used by Red black tree
 
     public BTNode(int data) {
         this.data = data;

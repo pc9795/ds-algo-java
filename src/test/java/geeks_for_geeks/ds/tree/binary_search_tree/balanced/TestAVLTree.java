@@ -16,7 +16,7 @@ class TestAVLTree {
 
     @Test
     void testRightRotate() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        AVLTree avlTree = new AVLTree(-1);
+        AVLTree avlTree = new AVLTree();
 
          /*
          ACTUAL
@@ -34,7 +34,7 @@ class TestAVLTree {
               4   6
 
          */
-        BinaryTree binaryTree = new BinaryTree(5);
+        BinaryTree binaryTree = new BinaryTree().insertAtRoot(5);
         binaryTree.
                 insertAtPos("1", 6).
                 insertAtPos("0", 3).
@@ -45,7 +45,7 @@ class TestAVLTree {
         rightRotateMethod.setAccessible(true);
         BTNode result = (BTNode) rightRotateMethod.invoke(avlTree, binaryTree.root);
 
-        binaryTree = new BinaryTree(result);
+        binaryTree = new BinaryTree().insertAtRoot(result);
         assert binaryTree.root.data == 3;
         assert binaryTree.getAtPos("0") == 2;
         assert binaryTree.getAtPos("1") == 5;
@@ -55,7 +55,7 @@ class TestAVLTree {
 
     @Test
     void testLeftRotate() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        AVLTree avlTree = new AVLTree(-1);
+        AVLTree avlTree = new AVLTree();
 
          /*
          ACTUAL
@@ -73,7 +73,7 @@ class TestAVLTree {
         2   4
 
          */
-        BinaryTree binaryTree = new BinaryTree(3);
+        BinaryTree binaryTree = new BinaryTree().insertAtRoot(3);
         binaryTree.
                 insertAtPos("0", 2).
                 insertAtPos("1", 5).
@@ -84,7 +84,7 @@ class TestAVLTree {
         leftRotateMethod.setAccessible(true);
         BTNode result = (BTNode) leftRotateMethod.invoke(avlTree, binaryTree.root);
 
-        binaryTree = new BinaryTree(result);
+        binaryTree = new BinaryTree().insertAtRoot(result);
         assert binaryTree.root.data == 5;
         assert binaryTree.getAtPos("0") == 3;
         assert binaryTree.getAtPos("1") == 6;
@@ -94,15 +94,15 @@ class TestAVLTree {
 
     @Test
     void testInsertion() {
-        AVLTree tree = new AVLTree(10);
-        tree.insert(20).insert(30).insert(40).insert(50).insert(25);
+        AVLTree tree = new AVLTree();
+        tree.insert(10).insert(20).insert(30).insert(40).insert(50).insert(25);
         assert BinaryTree.preOrderTraversal(tree).equals(Arrays.asList(30, 20, 10, 25, 40, 50));
     }
 
     @Test
     void testDeletion() {
-        AVLTree tree = new AVLTree(9);
-        tree.insert(5).insert(10).insert(0).insert(6).insert(11).insert(-1).insert(1).insert(2);
+        AVLTree tree = new AVLTree();
+        tree.insert(9).insert(5).insert(10).insert(0).insert(6).insert(11).insert(-1).insert(1).insert(2);
         assert BinaryTree.preOrderTraversal(tree).equals(Arrays.asList(9, 1, 0, -1, 5, 2, 6, 10, 11));
         tree.delete(10);
         assert BinaryTree.preOrderTraversal(tree).equals(Arrays.asList(1, 0, -1, 9, 5, 2, 6, 11));

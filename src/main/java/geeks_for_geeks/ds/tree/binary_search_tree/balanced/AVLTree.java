@@ -1,26 +1,14 @@
 package geeks_for_geeks.ds.tree.binary_search_tree.balanced;
 
 import geeks_for_geeks.ds.nodes.BTNode;
+import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 22-06-2020 22:38
  **/
-public class AVLTree extends BinaryTree {
-    public AVLTree(int data) {
-        super(data);
-    }
-
-    @Override
-    public BinaryTree insertAtPos(String pos, int data) {
-        throw new UnsupportedOperationException("This method is not applicable for AVL tree");
-    }
-
-    @Override
-    public int getAtPos(String pos) {
-        throw new UnsupportedOperationException("This method is not applicable for AVL tree");
-    }
+public class AVLTree extends BinarySearchTree {
 
     /**
      * t=O(1)
@@ -110,6 +98,7 @@ public class AVLTree extends BinaryTree {
         return node == null ? 0 : node.height;
     }
 
+    @Override
     public AVLTree insert(int data) {
         root = insertUtil(root, data);
         return this;
@@ -154,6 +143,7 @@ public class AVLTree extends BinaryTree {
         return node;
     }
 
+    @Override
     public AVLTree delete(int data) {
         this.root = deleteUtil(this.root, data);
         return this;

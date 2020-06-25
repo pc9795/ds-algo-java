@@ -11,8 +11,9 @@ import java.util.ArrayDeque;
 public class BinaryTreeWithSibling {
     public BTNodeWithSibling root;
 
-    public BinaryTreeWithSibling(int data) {
+    public BinaryTreeWithSibling insertAtRoot(int data) {
         this.root = new BTNodeWithSibling(data);
+        return this;
     }
 
     /**

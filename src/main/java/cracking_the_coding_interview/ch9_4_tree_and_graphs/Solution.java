@@ -20,7 +20,7 @@ public class Solution {
      * @return minimal BST
      */
     public static BinarySearchTree minimalTree(int[] arr) {
-        return BinarySearchTree.fromBinaryTree(new BinaryTree(minimalTreeUtil(arr, 0, arr.length - 1)));
+        return BinarySearchTree.fromBinaryTree(new BinaryTree().insertAtRoot(minimalTreeUtil(arr, 0, arr.length - 1)));
     }
 
     private static BTNode minimalTreeUtil(int[] arr, int begin, int end) {
@@ -304,10 +304,6 @@ public class Solution {
 
     static class BinaryTreeWithGetRandom {
         BinarySearchTree bst;
-
-        public BinaryTreeWithGetRandom(int data) {
-            this.bst = new BinarySearchTree(data);
-        }
 
         boolean find(int key) {
             return bst.search(key);

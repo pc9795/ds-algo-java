@@ -14,12 +14,14 @@ import java.util.List;
 public class BinaryTreeWithRandomNode {
     public BTNodeWithRandom root;
 
-    public BinaryTreeWithRandomNode(int data) {
-        this.root = new BTNodeWithRandom(data);
+    public BinaryTreeWithRandomNode insertAtRoot(BTNodeWithRandom node) {
+        this.root = node;
+        return this;
     }
 
-    private BinaryTreeWithRandomNode(BTNodeWithRandom root) {
-        this.root = root;
+    public BinaryTreeWithRandomNode insertAtRoot(int data) {
+        this.root = new BTNodeWithRandom(data);
+        return this;
     }
 
     public BinaryTreeWithRandomNode copyUsingMap() {
@@ -59,7 +61,7 @@ public class BinaryTreeWithRandomNode {
                 map.get(node).random = map.get(node.random);
             }
         }
-        return new BinaryTreeWithRandomNode(map.get(this.root));
+        return new BinaryTreeWithRandomNode().insertAtRoot(map.get(this.root));
     }
 
 
@@ -67,7 +69,7 @@ public class BinaryTreeWithRandomNode {
         BTNodeWithRandom cloneRoot = buildCloneNodes(root);
         fixRandomLinks(root, cloneRoot);
         restoreTree(root, cloneRoot);
-        return new BinaryTreeWithRandomNode(cloneRoot);
+        return new BinaryTreeWithRandomNode().insertAtRoot(cloneRoot);
     }
 
     private BTNodeWithRandom buildCloneNodes(BTNodeWithRandom root) {

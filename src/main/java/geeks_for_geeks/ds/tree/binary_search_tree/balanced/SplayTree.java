@@ -1,20 +1,17 @@
 package geeks_for_geeks.ds.tree.binary_search_tree.balanced;
 
 import geeks_for_geeks.ds.nodes.BTNode;
-import geeks_for_geeks.ds.tree.binary_tree.BinaryTree;
+import geeks_for_geeks.ds.tree.binary_search_tree.BinarySearchTree;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 23-06-2020 19:33
  **/
-public class SplayTree extends BinaryTree {
-    public SplayTree(int data) {
-        super(data);
-    }
-
+public class SplayTree extends BinarySearchTree {
     /**
      * t=O(1)
      * Similar to right rotation
+     * NOTE: It MODIFIES the links of input node.
      */
     private BTNode zig(BTNode node) {
         assert node != null && node.left != null;
@@ -30,6 +27,7 @@ public class SplayTree extends BinaryTree {
     /**
      * t=O(1)
      * Similar to left rotation
+     * NOTE: It MODIFIES the links of input node.
      */
     private BTNode zag(BTNode node) {
         assert node != null && node.right != null;
@@ -85,7 +83,12 @@ public class SplayTree extends BinaryTree {
     /**
      * t=O(log n)
      */
+    @Override
     public SplayTree insert(int data) {
+        if (isEmpty()) {
+            root = new BTNode(data);
+            return this;
+        }
         root = splay(root, data);
         if (data < root.data) {
             BTNode newNode = new BTNode(data);
@@ -108,8 +111,14 @@ public class SplayTree extends BinaryTree {
         return this;
     }
 
+    @Override
     public boolean search(int data) {
         root = splay(root, data);
         return root != null && root.data == data;
+    }
+
+    @Override
+    public SplayTree delete(int key) {
+        throw new UnsupportedOperationException("Not implemented");
     }
 }
