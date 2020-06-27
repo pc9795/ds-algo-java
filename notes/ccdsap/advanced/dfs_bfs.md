@@ -27,17 +27,17 @@ Directed Graphs
 --
 **SCC**
 
-We can compute pre/entry and post/time of a geeks_for_geeks.graph using DFS.
+We can compute pre/entry and post/time of a gfg.graph using DFS.
 
-Now suppose we construct a new geeks_for_geeks.graph in which
-* Vertices: SCC's of original geeks_for_geeks.graph
-* Edge: c1->c2 if there is an edge in the original geeks_for_geeks.graph from some v1 in c1 to some v2 in c2.
+Now suppose we construct a new gfg.graph in which
+* Vertices: SCC's of original gfg.graph
+* Edge: c1->c2 if there is an edge in the original gfg.graph from some v1 in c1 to some v2 in c2.
 
-This new geeks_for_geeks.graph is dag. Observe that if c1->c2 in the SCC dag, the max exit number in c1 is bigger than the max exit number
+This new gfg.graph is dag. Observe that if c1->c2 in the SCC dag, the max exit number in c1 is bigger than the max exit number
 in c2.
 
 In Grev, we start a dfs in an SCC containing the highest exit number. This DFS can't leave the SCC-thisSCC has only
-outgoing edges in the original geeks_for_geeks.graph since it has the highest exit number, so in the reversed geeks_for_geeks.graph it has only incoming
+outgoing edges in the original gfg.graph since it has the highest exit number, so in the reversed gfg.graph it has only incoming
 edges. On hte other hand, since this is an scc, whether we follow reversed edges or original edges, all vertices in the
 SCC will be reachable by DFS. In other words, the DFS will mark precisely the vertices of this SCC.
 

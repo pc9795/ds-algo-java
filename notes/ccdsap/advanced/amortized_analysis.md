@@ -9,7 +9,7 @@ saved "credit" that pays for later operations having an amortized cost lower tha
 
 `sum 1 to n( C_amortized)>=sum 1 to n(C)`
 
-ex-for geeks_for_geeks.stack with size |S|
+ex-for gfg.stack with size |S|
 
 Operation|Actual cost(C)|Amortized Cost(C_amortized)
 ---|---|---
@@ -17,8 +17,8 @@ Push|1|2
 Pop|1|0
 MultiPop(k)|min{abs(S),k}|0
 
-When an object is pushed to the geeks_for_geeks.stack, it comes endowed with enough credit to pay not only for the operation of pushing 
-it onto the geeks_for_geeks.stack, but also for whatever operation will eventually remove it from geeks_for_geeks.stack, be that a POP, a Multipop, or 
+When an object is pushed to the gfg.stack, it comes endowed with enough credit to pay not only for the operation of pushing 
+it onto the gfg.stack, but also for whatever operation will eventually remove it from gfg.stack, be that a POP, a Multipop, or 
 no operation at all.
 
 **Potential method** -> The strategy is to define a potential function PHI which maps a state D to a scalar-valued 
@@ -31,7 +31,7 @@ its initial state D0 through states D1,...,Dn, we define heuristic costs
 
 ex-Stack
 ```cmd
-PHI(S)=|S| (geeks_for_geeks.stack length)
+PHI(S)=|S| (gfg.stack length)
 PHI(0)=0
 
 Push-> C_amortized_push = C_push + PHI(D_new) - PHI(D_old)=1 + (|S_old| + 1) - |S_old| = 2
