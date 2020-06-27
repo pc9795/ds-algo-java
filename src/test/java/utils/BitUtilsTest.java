@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 /**
  * Created By: Prashant Chaubey
  * Created On: 05-10-2019 23:19
- * Purpose: TODO:
  **/
 class BitUtilsTest {
 

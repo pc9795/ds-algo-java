@@ -186,7 +186,7 @@ public class SinglyLinkedList implements LinkedList {
 
     /**
      * t=O(n)
-     * NOTE: It assumes that all data values are distinct as how it will know which data we are referring to. Even if
+     * NOTE: It assumes that all data values are distinct as how it will know which values we are referring to. Even if
      * a list with duplicate values is used this implementation will always operate on the first occurrence.
      *
      * @param data1 first input

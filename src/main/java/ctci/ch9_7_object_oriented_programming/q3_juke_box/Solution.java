@@ -7,7 +7,6 @@ import java.util.Set;
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2019 19:10
- * Purpose: TODO:
  **/
 
 class Person {

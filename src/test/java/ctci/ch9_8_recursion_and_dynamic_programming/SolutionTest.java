@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 06-10-2019 19:15
- * Purpose: TODO:
  **/
 class SolutionTest {
 

@@ -7,7 +7,6 @@ import java.util.HashSet;
 /**
  * Created By: Prashant Chaubey
  * Created On: 13-08-2019 13:07
- * Purpose: TODO:
  **/
 public class Solution {
 

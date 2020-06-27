@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 /**
  * Created By: Prashant Chaubey
  * Created On: 04-09-2019 22:16
- * Purpose: TODO:
  **/
 class SolutionTest {
     private static Stream<Arguments> testRemoveDups() {

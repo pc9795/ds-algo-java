@@ -9,7 +9,6 @@ import java.util.*;
 /**
  * Created By: Prashant Chaubey
  * Created On: 06-10-2019 19:13
- * Purpose: TODO:
  **/
 public class Solution {
 
