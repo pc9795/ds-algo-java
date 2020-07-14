@@ -20,9 +20,6 @@ public class SuffixTree {
 
     /**
      * t=O(m)
-     *
-     * @param pattern text to search
-     * @return true if pattern is found
      */
     public boolean search(String pattern) {
         return trie.prefixSearch(pattern);

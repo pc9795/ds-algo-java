@@ -52,8 +52,8 @@ public class BinarySearchTree extends BinaryTree {
             prev = curr;
             curr = data < curr.data ? curr.left : curr.right;
         }
-        assert prev != null;
-        // Prev is empty only if tree is empty but we are checking that before hand.
+        assert prev != null; // Prev is empty only if tree is empty but we are checking that before hand.
+
         if (data < prev.data) {
             prev.left = new BinaryTreeNode(data);
         } else {

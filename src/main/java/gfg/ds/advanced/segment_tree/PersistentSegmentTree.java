@@ -25,18 +25,14 @@ public class PersistentSegmentTree {
 
     /**
      * t=O(n)
-     *
-     * @param left  left limit of the bound
-     * @param right right limit of the bound
-     * @return node representing data for bound
      */
-    private BinaryTree.BinaryTreeNode build(int left, int right) {
-        if (left == right) {
-            return new BinaryTree.BinaryTreeNode(this.original[left]);
+    private BinaryTree.BinaryTreeNode build(int leftLimit, int rightLimit) {
+        if (leftLimit == rightLimit) {
+            return new BinaryTree.BinaryTreeNode(this.original[leftLimit]);
         }
-        int mid = (left + right) / 2;
-        BinaryTree.BinaryTreeNode leftChild = build(left, mid);
-        BinaryTree.BinaryTreeNode rightChild = build(mid + 1, right);
+        int mid = (leftLimit + rightLimit) / 2;
+        BinaryTree.BinaryTreeNode leftChild = build(leftLimit, mid);
+        BinaryTree.BinaryTreeNode rightChild = build(mid + 1, rightLimit);
         BinaryTree.BinaryTreeNode root = new BinaryTree.BinaryTreeNode(leftChild.data + rightChild.data);
         root.left = leftChild;
         root.right = rightChild;
@@ -46,34 +42,27 @@ public class PersistentSegmentTree {
 
     /**
      * t=O(log n)
-     *
-     * @param ql left limit of query
-     * @param qr right limit of query
-     * @return result of the query
      */
-    public int query(int ql, int qr) {
-        return queryUtil(ql, qr, 0, this.original.length - 1, this.root);
+    public int query(int queryLeftLimit, int queryRightLimit) {
+        return queryUtil(queryLeftLimit, queryRightLimit, 0, this.original.length - 1, this.root);
     }
 
-    private int queryUtil(int ql, int qr, int sl, int sr, BinaryTree.BinaryTreeNode root) {
+    private int queryUtil(int queryLeftLimit, int queryRightLimit, int treeLeftLimit, int treeRightLimit, BinaryTree.BinaryTreeNode root) {
         //Inside range
-        if (ql <= sl && qr >= sr) {
+        if (queryLeftLimit <= treeLeftLimit && queryRightLimit >= treeRightLimit) {
             return root.data;
         }
         //Outside range
-        if (qr < sl || ql > sr) {
+        if (queryRightLimit < treeLeftLimit || queryLeftLimit > treeRightLimit) {
             return 0;
         }
-        int mid = (sl + sr) / 2;
-        return queryUtil(ql, qr, sl, mid, root.left) + queryUtil(ql, qr, mid + 1, sr, root.right);
+        int mid = (treeLeftLimit + treeRightLimit) / 2;
+        return queryUtil(queryLeftLimit, queryRightLimit, treeLeftLimit, mid, root.left) + queryUtil(queryLeftLimit, queryRightLimit, mid + 1, treeRightLimit, root.right);
     }
 
     /**
      * t=O(log n)
      * At each update only log n nodes will be affected
-     *
-     * @param index  index of the array to update
-     * @param newVal new value at the index
      */
     public void update(int index, int newVal) {
         int increment = newVal - this.original[index];
@@ -83,17 +72,17 @@ public class PersistentSegmentTree {
         this.versions.add(newRoot);
     }
 
-    private BinaryTree.BinaryTreeNode updateUtil(int sl, int sr, int index, BinaryTree.BinaryTreeNode root, int increment) {
+    private BinaryTree.BinaryTreeNode updateUtil(int treeLeftLimit, int treeRightLimit, int index, BinaryTree.BinaryTreeNode root, int increment) {
         if (root == null) {
             return null;
         }
-        if (index < sl || index > sr) {
+        if (index < treeLeftLimit || index > treeRightLimit) {
             return null;
         }
         BinaryTree.BinaryTreeNode newRoot = new BinaryTree.BinaryTreeNode(root.data + increment);
-        int mid = (sl + sr) / 2;
-        BinaryTree.BinaryTreeNode leftChild = updateUtil(sl, mid, index, root.left, increment);
-        BinaryTree.BinaryTreeNode rightChild = updateUtil(mid + 1, sr, index, root.right, increment);
+        int mid = (treeLeftLimit + treeRightLimit) / 2;
+        BinaryTree.BinaryTreeNode leftChild = updateUtil(treeLeftLimit, mid, index, root.left, increment);
+        BinaryTree.BinaryTreeNode rightChild = updateUtil(mid + 1, treeRightLimit, index, root.right, increment);
         newRoot.left = leftChild == null ? root.left : leftChild;
         newRoot.right = rightChild == null ? root.right : rightChild;
         return newRoot;

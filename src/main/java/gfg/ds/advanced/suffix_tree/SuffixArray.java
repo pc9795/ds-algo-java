@@ -19,8 +19,6 @@ public class SuffixArray {
 
     /**
      * T=(n^2)*(log n) ; sort*string comparison during sort(O(n))
-     *
-     * @param input input string
      */
     private void buildSuffixArray(String input) {
         SuffixNode[] arr = new SuffixNode[input.length()];
@@ -36,8 +34,6 @@ public class SuffixArray {
     /**
      * t=O(n*log n*log n); if n*log n sorting algo is used
      * =O(n*log n); if radix sort is used.
-     *
-     * @param input input string
      */
     public static int[] buildSuffixArray2(String input) {
         int n = input.length();
@@ -91,9 +87,6 @@ public class SuffixArray {
 
     /**
      * t=O(m*log n); m is pattern length
-     *
-     * @param pattern pattern to search
-     * @return index in the suffix array
      */
     public int search(String pattern) {
         int l = 0;

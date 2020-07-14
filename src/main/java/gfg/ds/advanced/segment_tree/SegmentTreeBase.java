@@ -15,9 +15,6 @@ public abstract class SegmentTreeBase {
      * n leaves and n-1 internal nodes = (2*n)-1
      * The total no of nodes will be (2*2^(ceil(log n)))-1 ; we convert n to nearest power of 2 so that a full binary
      * tree can be constructed.
-     *
-     * @param arr          input array
-     * @param copyOriginal if true then make a copy of original array else maintain a reference of it.
      */
     SegmentTreeBase(int arr[], boolean copyOriginal) {
         int size = (int) (2 * Math.pow(2, Math.ceil(Math.log(arr.length) / Math.log(2))) - 1);
@@ -39,18 +36,13 @@ public abstract class SegmentTreeBase {
     /**
      * t=O(n)
      * original nodes were (2*n)-1 => O(n)
-     *
-     * @param currIndex index of the segment tree
-     * @param left      left bound of the range
-     * @param right     right bound of the range
-     * @return value of the tree at the given index
      */
-    private int build(int currIndex, int left, int right) {
-        if (left == right) {
-            return this.val[currIndex] = this.original[left];
+    private int build(int currIndex, int leftLimit, int rightLimit) {
+        if (leftLimit == rightLimit) {
+            return this.val[currIndex] = this.original[leftLimit];
         }
-        int mid = (left + right) / 2;
-        return this.val[currIndex] = operation(build(left(currIndex), left, mid), build(right(currIndex), mid + 1, right));
+        int mid = (leftLimit + rightLimit) / 2;
+        return this.val[currIndex] = operation(build(left(currIndex), leftLimit, mid), build(right(currIndex), mid + 1, rightLimit));
     }
 
     int left(int i) {
@@ -65,41 +57,34 @@ public abstract class SegmentTreeBase {
 
     /**
      * t=O(log n)
-     *
-     * @param ql left bound for query range
-     * @param qr right bound for query range
-     * @return result of the query for a particular range
      */
-    public int query(int ql, int qr) {
-        return queryUtil(ql, qr, 0, this.original.length - 1, 0);
+    public int query(int queryLeftLimit, int queryRightLimit) {
+        return queryUtil(queryLeftLimit, queryRightLimit, 0, this.original.length - 1, 0);
     }
 
-    private int queryUtil(int ql, int qr, int sl, int sr, int currIndex) {
+    private int queryUtil(int queryLeftLimit, int queryRightLimit, int treeLeftLimit, int treeRightLimit, int currIndex) {
         if (lazy) {
-            makePendingUpdates(currIndex, sl, sr);
+            makePendingUpdates(currIndex, treeLeftLimit, treeRightLimit);
         }
         //Within range
-        if (ql <= sl && qr >= sr) {
+        if (queryLeftLimit <= treeLeftLimit && queryRightLimit >= treeRightLimit) {
             return this.val[currIndex];
         }
         //Outside range
-        if (qr < sl || ql > sr) {
+        if (queryRightLimit < treeLeftLimit || queryLeftLimit > treeRightLimit) {
             return dummyNode();
         }
         //Overlapping range
-        int mid = (sl + sr) / 2;
-        return operation(queryUtil(ql, qr, sl, mid, left(currIndex)), queryUtil(ql, qr, mid + 1, sr, right(currIndex)));
+        int mid = (treeLeftLimit + treeRightLimit) / 2;
+        return operation(queryUtil(queryLeftLimit, queryRightLimit, treeLeftLimit, mid, left(currIndex)), queryUtil(queryLeftLimit, queryRightLimit, mid + 1, treeRightLimit, right(currIndex)));
     }
 
     abstract int dummyNode();
 
-    abstract void makePendingUpdates(int segmentTreeNode, int left, int right);
+    abstract void makePendingUpdates(int segmentTreeNode, int leftLimit, int rightLimit);
 
     /**
      * t=O(log n)
-     *
-     * @param index  index to update
-     * @param newVal value to update.
      */
     public void update(int index, int newVal) {
         assert index >= 0 && index < original.length - 1;
@@ -109,45 +94,45 @@ public abstract class SegmentTreeBase {
         updateUtil(0, this.original.length - 1, index, 0, increment);
     }
 
-    private void updateUtil(int sl, int sr, int index, int ci, int increment) {
+    private void updateUtil(int treeLeftLimit, int treeRightLimit, int index, int currIndex, int increment) {
         //Outside range
-        if (index < sl || index > sr) {
+        if (index < treeLeftLimit || index > treeRightLimit) {
             return;
         }
-        if (sl == sr) {
-            this.val[ci] += increment;
+        if (treeLeftLimit == treeRightLimit) {
+            this.val[currIndex] += increment;
             return;
         }
 
-        int mid = (sl + sr) / 2;
-        updateUtil(sl, mid, index, left(ci), increment);
-        updateUtil(mid + 1, sr, index, right(ci), increment);
-        val[ci] = operation(val[left(ci)], val[right(ci)]);
+        int mid = (treeLeftLimit + treeRightLimit) / 2;
+        updateUtil(treeLeftLimit, mid, index, left(currIndex), increment);
+        updateUtil(mid + 1, treeRightLimit, index, right(currIndex), increment);
+        val[currIndex] = operation(val[left(currIndex)], val[right(currIndex)]);
     }
 
-    public void updateRange(int left, int right, int increment) {
-        assert left >= 0 && right >= 0 && left < original.length && right < original.length && left < right;
+    public void updateRange(int leftLimit, int rightLimit, int increment) {
+        assert leftLimit >= 0 && rightLimit >= 0 && leftLimit < original.length && rightLimit < original.length && leftLimit < rightLimit;
         assert lazy : "Update range is only available for lazy trees";
 
-        updateRangeUtil(0, this.original.length - 1, left, right, 0, increment);
+        updateRangeUtil(0, this.original.length - 1, leftLimit, rightLimit, 0, increment);
     }
 
-    private void updateRangeUtil(int sl, int sr, int ql, int qr, int ci, int increment) {
-        makePendingUpdates(ci, sl, sr);
+    private void updateRangeUtil(int treeLeftLimit, int treeRightLimit, int queryLeftLimit, int queryRightLimit, int currIndex, int increment) {
+        makePendingUpdates(currIndex, treeLeftLimit, treeRightLimit);
         //Outside the range
-        if (qr < sl || ql > sr) {
+        if (queryRightLimit < treeLeftLimit || queryLeftLimit > treeRightLimit) {
             return;
         }
         // Inside the range.
-        if (sl >= ql && sr <= qr) {
-            lazyUpdate(ci, sl, sr, increment);
+        if (treeLeftLimit >= queryLeftLimit && treeRightLimit <= queryRightLimit) {
+            lazyUpdate(currIndex, treeLeftLimit, treeRightLimit, increment);
             return;
         }
-        int mid = sl + sr >> 1;
-        updateRangeUtil(sl, mid, ql, qr, left(ci), increment);
-        updateRangeUtil(mid + 1, sr, ql, qr, right(ci), increment);
-        val[ci] = operation(val[left(ci)], val[right(ci)]);
+        int mid = treeLeftLimit + treeRightLimit >> 1;
+        updateRangeUtil(treeLeftLimit, mid, queryLeftLimit, queryRightLimit, left(currIndex), increment);
+        updateRangeUtil(mid + 1, treeRightLimit, queryLeftLimit, queryRightLimit, right(currIndex), increment);
+        val[currIndex] = operation(val[left(currIndex)], val[right(currIndex)]);
     }
 
-    abstract void lazyUpdate(int segmentTreeNode, int left, int right, int diff);
+    abstract void lazyUpdate(int segmentTreeNode, int leftLimit, int rightLimit, int diff);
 }

@@ -21,25 +21,19 @@ public class DiffArray {
 
     /**
      * t=O(1)
-     *
-     * @param l         lower index
-     * @param r         upper index
-     * @param increment increment to add
      */
-    public void update(int l, int r, int increment) {
-        assert l >= 0 && l < n && r >= 0 && r < n && l < r : "Invalid value of l and r";
+    public void update(int lowerIndex, int upperIndex, int increment) {
+        assert lowerIndex >= 0 && lowerIndex < n && upperIndex >= 0 && upperIndex < n && lowerIndex < upperIndex : "Invalid value of lower index and upper index";
 
-        values[l] += increment;
-        if (r == n - 1) {
+        values[lowerIndex] += increment;
+        if (upperIndex == n - 1) {
             return;
         }
-        values[r + 1] -= increment;
+        values[upperIndex + 1] -= increment;
     }
 
     /**
      * t=O(n)
-     *
-     * @return new array
      */
     public int[] get() {
         int[] arr = new int[n];

@@ -31,8 +31,6 @@ public class FenwickTree2D {
     /**
      * t=O(log n)*(log m)
      *
-     * @param x x-coordinate
-     * @param y y-coordinate
      * @return sum from (0, 0) to (x, y)
      */
     public int getSum(int x, int y) {
@@ -47,10 +45,6 @@ public class FenwickTree2D {
 
     /**
      * t=O(log n)*(log m)
-     *
-     * @param x         x-coordinate
-     * @param y         y-coordinate
-     * @param increment value to add.
      */
     public void update(int x, int y, int increment) {
         for (int i = x; i < values.length; i += i & -i) {

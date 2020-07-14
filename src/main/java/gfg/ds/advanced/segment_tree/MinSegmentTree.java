@@ -27,13 +27,13 @@ public class MinSegmentTree extends SegmentTreeBase {
     }
 
     @Override
-    void makePendingUpdates(int segmentTreeNode, int left, int right) {
+    void makePendingUpdates(int segmentTreeNode, int leftLimit, int rightLimit) {
         if (lazy[segmentTreeNode] == 0) {
             return;
         }
         val[segmentTreeNode] += lazy[segmentTreeNode];
         // Not a leaf node.
-        if (left != right) {
+        if (leftLimit != rightLimit) {
             lazy[left(segmentTreeNode)] += lazy[segmentTreeNode];
             lazy[right(segmentTreeNode)] += lazy[segmentTreeNode];
         }
@@ -41,10 +41,10 @@ public class MinSegmentTree extends SegmentTreeBase {
     }
 
     @Override
-    void lazyUpdate(int segmentTreeNode, int left, int right, int diff) {
+    void lazyUpdate(int segmentTreeNode, int leftLimit, int rightLimit, int diff) {
         val[segmentTreeNode] += diff;
         // Not a leaf node
-        if (left != right) {
+        if (leftLimit != rightLimit) {
             lazy[left(segmentTreeNode)] += diff;
             lazy[right(segmentTreeNode)] += diff;
         }

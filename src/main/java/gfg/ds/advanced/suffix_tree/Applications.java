@@ -11,9 +11,6 @@ public class Applications {
      * LCP array is an array of size n. A value lcp[i] indicates length of the longest common prefix of the suffixes
      * indexed by suffix[i] and suffix[i+1]
      * Below is Kasai's algorithm to construct suffix array.
-     *
-     * @param input input word
-     * @return lcp array
      */
     public static int[] buildLCPArray(String input) {
         int n = input.length();

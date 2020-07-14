@@ -1,8 +1,6 @@
 package gfg.ds.advanced;
 
-import gfg.ds.advanced.fenwick_tree.Applications;
-import gfg.ds.advanced.fenwick_tree.FenwickTree;
-import gfg.ds.advanced.fenwick_tree.FenwickTree2D;
+import gfg.ds.advanced.fenwick_tree.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +67,7 @@ class TestFenwickTree {
     @Test
     void testRangeUpdatePointQuery() {
         int arr[] = {10, 5, 20, 40};
-        Applications.RangeUpdatePointQuery query = new Applications.RangeUpdatePointQuery(arr);
+        RangeUpdatePointQuery query = new RangeUpdatePointQuery(arr);
         query.rangeUpdate(0, 3, 10);
         Assertions.assertArrayEquals(query.getArray(), new int[]{20, 15, 30, 50});
     }
@@ -77,7 +75,7 @@ class TestFenwickTree {
     @Test
     void testRangeUpdateRangeQuery() {
         // 0 0 0 0 0
-        Applications.RangeUpdateRangeQuery query = new Applications.RangeUpdateRangeQuery(5);
+        RangeUpdateRangeQuery query = new RangeUpdateRangeQuery(5);
         // 5 5 5 5 5
         query.rangeUpdate(0, 4, 5);
         // 5 5 15 15 15

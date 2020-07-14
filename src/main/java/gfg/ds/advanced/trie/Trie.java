@@ -20,8 +20,6 @@ public class Trie {
     /**
      * t=O(M); M is the key length
      * s=O(ALPHABET_SIZE*M*n); n is the no of keys in the trie.
-     *
-     * @param key key to insert
      */
     public void insert(String key) {
         key = key.toLowerCase();
@@ -35,9 +33,6 @@ public class Trie {
     /**
      * t=O(M); M is the key length.
      * In BST this will take O(M*log n) where n is the number of keys.
-     *
-     * @param key key to search
-     * @return true if key is found.
      */
     public boolean search(String key) {
         key = key.toLowerCase();
@@ -53,9 +48,6 @@ public class Trie {
 
     /**
      * Check whether the searched prefix is prefix of any data stored in trie.
-     *
-     * @param prefix prefix to search
-     * @return true if it is prefix of any stored key.
      */
     public boolean prefixSearch(String prefix) {
         prefix = prefix.toLowerCase();
@@ -71,8 +63,6 @@ public class Trie {
 
     /**
      * t=O(M); M is the key length
-     *
-     * @param key key to delete
      */
     public void delete(String key) {
         key = key.toLowerCase();
@@ -121,10 +111,6 @@ public class Trie {
 
         public void updateChild(int index, TrieNode child) {
             children[index] = child;
-        }
-
-        public void deleteChild(int index) {
-            children[index] = null;
         }
 
         public boolean isEmpty() {
