@@ -14,8 +14,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param bst binary search tree
      */
     public static void correctBSTIfTwoNodesAreSwapped(BinarySearchTree bst) {
         assert bst != null && !bst.isEmpty();
@@ -66,9 +64,6 @@ public class Applications {
      * t=O(m+n)
      * s=O(h1+h2)
      * =O(n) ;skewed trees
-     *
-     * @param first  first BST
-     * @param second second BST
      */
     public static List<Integer> mergedInorder(BinarySearchTree first, BinarySearchTree second) {
         ArrayDeque<BinaryTree.BinaryTreeNode> firstStack = new ArrayDeque<>();
@@ -119,10 +114,6 @@ public class Applications {
     /**
      * t=O(n)
      * s=O(h)
-     *
-     * @param bst binary search tree
-     * @param sum target sum
-     * @return a pair of numbers whose addition is equal to the given sum
      */
     public static Pair<BinaryTree.BinaryTreeNode, BinaryTree.BinaryTreeNode> findPairWithGivenSum(BinarySearchTree bst, int sum) {
         assert bst != null && !bst.isEmpty();
@@ -170,8 +161,6 @@ public class Applications {
      * t=O(n*log n)
      * s=O(n)
      * It will respect the structure of the original tree
-     *
-     * @param bt input binary tree
      */
     public static void convertBinaryTreeToBST(BinaryTree bt) {
         assert bt != null && !bt.isEmpty();

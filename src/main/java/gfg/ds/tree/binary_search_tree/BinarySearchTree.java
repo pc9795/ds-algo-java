@@ -16,9 +16,6 @@ public class BinarySearchTree extends BinaryTree {
      * t=O(h)
      * =O(n); skewed tree
      * =O(log n); complete tree
-     *
-     * @param key value to search
-     * @return true if value found in the tree.
      */
     public boolean search(int key) {
         for (BinaryTreeNode curr = root; curr != null; ) {
@@ -42,9 +39,6 @@ public class BinarySearchTree extends BinaryTree {
      * =O(n); skewed tree
      * =O(log n); complete tree
      * For recursive implementation check `AVLTree.insert`
-     *
-     * @param data data to insert
-     * @return calling instance
      */
     public BinarySearchTree insert(int data) {
         if (isEmpty()) {
@@ -83,8 +77,6 @@ public class BinarySearchTree extends BinaryTree {
      * =O(n); skewed tree
      * =O(log n); complete tree
      * For recursive implementation check `AVLTree.insert`
-     *
-     * @param key data to be deleted.
      */
     public BinarySearchTree delete(int key) {
         assert !isEmpty() : "Empty tree";
@@ -146,8 +138,6 @@ public class BinarySearchTree extends BinaryTree {
      * t=O(h)
      * =O(n); left skewed tree
      * =O(log n); complete tree
-     *
-     * @return minimum value
      */
     public int getMin() {
         assert isEmpty() : "Empty tree";
@@ -163,8 +153,6 @@ public class BinarySearchTree extends BinaryTree {
      * t=O(h)
      * =O(n); skewed tree
      * =O(log n); complete tree
-     *
-     * @param key key for whose predecessor and successor whe have to find.
      */
     public Pair<BinaryTreeNode, BinaryTreeNode> findPreSuc(int key) {
         BinaryTreeNode pred = null, succ = null, curr = this.root;
@@ -194,10 +182,6 @@ public class BinarySearchTree extends BinaryTree {
      * t=O(h)
      * =O(n); skewed tree
      * =O(log n); complete tree
-     *
-     * @param n1 first value
-     * @param n2 second value
-     * @return lca
      */
     public int lca(int n1, int n2) {
         // If elements are not found
@@ -221,9 +205,6 @@ public class BinarySearchTree extends BinaryTree {
 
     /**
      * t=O(h)
-     *
-     * @param number number whose ceil is to be found.
-     * @return ceil of the input number
      */
     public int ceil(int number) {
         BinaryTreeNode curr = this.root;
@@ -252,9 +233,6 @@ public class BinarySearchTree extends BinaryTree {
      * 2   5
      * /\
      * 1  3
-     *
-     * @param bt binary tree
-     * @return ture if given binary tree is a BST
      */
     public static boolean isBST(BinaryTree bt) {
         assert bt != null;
@@ -264,10 +242,6 @@ public class BinarySearchTree extends BinaryTree {
 
     /**
      * Using in-order to check whether it is BST or not.
-     *
-     * @param root curr node
-     * @param prev prev node in order;
-     * @return whether the curr node represent the root of a BST or not.
      */
     private static boolean isBSTUtil(BinaryTreeNode root, DoublePointer<BinaryTreeNode> prev) {
         if (root == null) {
@@ -295,8 +269,6 @@ public class BinarySearchTree extends BinaryTree {
     /**
      * t=O(n)
      * In order traversal using Stack
-     *
-     * @param tree input BST
      */
     public static int kthSmallest(BinarySearchTree tree, int k) {
         ArrayDeque<BinaryTreeNode> stack = new ArrayDeque<>();

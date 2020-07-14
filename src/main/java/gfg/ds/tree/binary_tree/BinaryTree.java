@@ -26,10 +26,6 @@ public class BinaryTree {
      * Position string is a binary string of '0s' and '1s'. 0 means left and 1 means right. So if input is '01' it means
      * that data is inserted at `root.left.right`.
      * NOTE: You can't add the data to root using this method. It is done at the time of tree initialization.
-     *
-     * @param pos  string representing the position where data is going to be inserted
-     * @param data data to insert
-     * @return calling instance
      */
     public BinaryTree insertAtPos(String pos, int data) {
         assert !isEmpty() : "Tree is empty";
@@ -64,9 +60,6 @@ public class BinaryTree {
      * Position string is a binary string of '0s' and '1s'. 0 means left and 1 means right. So if input is '01' it means
      * we need data of `root.left.right`.
      * NOTE: You can't get the data to root using this method.
-     *
-     * @param pos string representing the position where data is going to be inserted
-     * @return data at position
      */
     public int getAtPos(String pos) {
         assert !isEmpty() : "Tree is empty";
@@ -92,9 +85,6 @@ public class BinaryTree {
     /**
      * t=O(n)
      * it will traverse the whole tree.
-     *
-     * @param bt binary tree
-     * @return height of the tree.
      */
     private static int height(BinaryTree bt) {
         return heightUtil(bt.root, 0);
@@ -111,8 +101,6 @@ public class BinaryTree {
      * t=O(n^2); for skewed tree.
      * s=O(w); w is maximum width of tree
      * =O(n); for perfect binary tree;
-     *
-     * @param bt binary tree
      */
     public static List<List<Integer>> levelOrderTraversal(BinaryTree bt) {
         assert !bt.isEmpty() : "Tree is empty";
@@ -129,9 +117,6 @@ public class BinaryTree {
 
     /**
      * t=O(n)
-     *
-     * @param root  root node
-     * @param level level to be printed
      */
     private static void printLevel(BinaryTreeNode root, int level, List<Integer> elements) {
         if (root == null) {
@@ -147,8 +132,6 @@ public class BinaryTree {
 
     /**
      * t=O(n)
-     *
-     * @param bt binary tree
      */
     public static List<Integer> levelOrderTraversalUsingQueue(BinaryTree bt) {
         assert !bt.isEmpty() : "Tree is empty";
@@ -185,9 +168,6 @@ public class BinaryTree {
      * t=O(n)
      * s=O(h); h is the height of the tree; due to Recursion stack
      * =O(n); for skewed tree
-     *
-     * @param tree binary tree
-     * @return pre-order traversal; root, left, right
      */
     public static List<Integer> preOrderTraversal(BinaryTree tree) {
         assert tree != null;
@@ -212,9 +192,6 @@ public class BinaryTree {
      * t=O(n)
      * s=O(h); h is the height of the tree; due to Recursion stack
      * =O(n); for skewed tree
-     *
-     * @param tree binary tree
-     * @return post-order traversal; left, right, root
      */
     public static List<Integer> postOrderTraversal(BinaryTree tree) {
         assert tree != null;
@@ -236,9 +213,6 @@ public class BinaryTree {
      * t=O(n)
      * s=O(h); h is the height of the tree; due to Recursion stack
      * =O(n); for skewed tree
-     *
-     * @param tree binary tree
-     * @return in-order traversal; left, root, right
      */
     public static List<Integer> inOrderTraversal(BinaryTree tree) {
         assert tree != null;
@@ -261,8 +235,6 @@ public class BinaryTree {
 
     /**
      * t=O(n)
-     *
-     * @param tree binary tree
      */
     public static List<Integer> inOrderTraversalWoRecursion(BinaryTree tree) {
         assert tree != null : "Null instance is give";
@@ -286,9 +258,6 @@ public class BinaryTree {
     /**
      * t=O(n)
      * each node in worst case could be visited two times only.
-     *
-     * @param tree binary tree
-     * @return moris traversal of the tree
      */
     public static List<Integer> morisTraversal(BinaryTree tree) {
         assert tree != null : "Null instance given";
@@ -321,8 +290,6 @@ public class BinaryTree {
 
     /**
      * t=O(n)
-     *
-     * @return list from tree.
      */
     public DoublyLinkedList toList() {
         BinaryTreeNode head = toListUtil(this.root);
@@ -371,9 +338,6 @@ public class BinaryTree {
 
     /**
      * t=O(n)
-     *
-     * @param tree binary tree
-     * @return diameter of the binary tree
      */
     public static int diameter(BinaryTree tree) {
         assert tree != null;
@@ -399,9 +363,6 @@ public class BinaryTree {
     /**
      * t=O(n+m)
      * s=O(n+m)
-     *
-     * @param subTree sub tree to check
-     * @return whether the given tree is a subtree
      */
     public boolean isSubTree(BinaryTree subTree) {
         assert subTree != null : "Null instance given";
@@ -442,9 +403,6 @@ public class BinaryTree {
 
     /**
      * In order successor if subtree is present of a node.
-     *
-     * @param node node for which in-order successor has to be found
-     * @return in-order successor
      */
     public static BinaryTreeNode inOrderSucc(BinaryTreeNode node) {
         assert node != null && node.right != null;
@@ -458,9 +416,6 @@ public class BinaryTree {
 
     /**
      * In order predecessor if subtree is present of a node.
-     *
-     * @param node node for which in-order predecessor has to be found
-     * @return in-order predecessor
      */
     public static BinaryTreeNode inOrderPred(BinaryTreeNode node) {
         assert node != null && node.left != null;

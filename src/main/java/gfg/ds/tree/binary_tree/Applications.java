@@ -12,10 +12,6 @@ public class Applications {
     /**
      * t=O(n^2); because of linear search, we can optimize this by keeping a map but it will cost us extra space.
      * s=O(n); recursion stack
-     *
-     * @param preOrder pre-order traversal of a tree.
-     * @param inOrder  in-order traversal of a tree.
-     * @return tree from traversals.
      */
     public static BinaryTree createFromPreAndInorder2(int[] preOrder, int[] inOrder) {
         assert preOrder.length == inOrder.length;
@@ -46,10 +42,6 @@ public class Applications {
      * t=O(n)
      * First node in the pre-order traversal is always the root node and the first node in the inorder traversal is the
      * leftmost node in the tree.
-     *
-     * @param preOrder pre-order traversal
-     * @param inOrder  in-order traversal
-     * @return tree from given traversals.F
      */
     public static BinaryTree createFromPreAndInorder(int[] preOrder, int[] inOrder) {
         assert preOrder.length == inOrder.length;
@@ -94,9 +86,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param bt tree
-     * @return maximum width of the tree
      */
     public static int getMaxWidth(BinaryTree bt) {
         assert bt != null;
@@ -133,10 +122,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param curr       current node
-     * @param targetNode node to search
-     * @return whether the curr node is ancestor or not.
      */
     private static boolean getAncestors(BinaryTree.BinaryTreeNode curr, BinaryTree.BinaryTreeNode targetNode, List<Integer> ancestors) {
         if (curr == null) {
