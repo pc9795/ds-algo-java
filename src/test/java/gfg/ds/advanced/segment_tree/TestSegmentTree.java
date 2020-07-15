@@ -1,8 +1,5 @@
-package gfg.ds.advanced;
+package gfg.ds.advanced.segment_tree;
 
-import gfg.ds.advanced.segment_tree.PersistentSegmentTree;
-import gfg.ds.advanced.segment_tree.MinSegmentTree;
-import gfg.ds.advanced.segment_tree.SumSegmentTree;
 import org.junit.jupiter.api.Test;
 
 /**

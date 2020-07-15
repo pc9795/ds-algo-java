@@ -1,6 +1,5 @@
-package gfg.ds.advanced;
+package gfg.ds.advanced.fenwick_tree;
 
-import gfg.ds.advanced.fenwick_tree.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

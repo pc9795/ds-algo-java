@@ -1,6 +1,5 @@
-package gfg.ds.advanced;
+package gfg.ds.advanced.suffix_tree;
 
-import gfg.ds.advanced.suffix_tree.SuffixTree;
 import org.junit.jupiter.api.Test;
 
 /**
