@@ -1,27 +1,63 @@
 package gfg.ds.array;
 
-import java.util.ArrayList;
+import utils.Pair;
+
+import java.util.*;
 
 /**
  * Created By: Prashant Chaubey
  * Created On: 04-10-2018 02:09
  **/
 public class Applications {
-    public static void findLeaders(int arr[]) {
+    /**
+     * t=O(n)
+     */
+    public static List<Integer> getLeaders(int arr[]) {
         if (arr.length == 0) {
             System.out.println("Leaders:{}");
-            return;
+            return new ArrayList<>();
         }
-        ArrayList<Integer> leaders = new ArrayList<>();
+
+        List<Integer> leaders = new ArrayList<>();
         leaders.add(arr[arr.length - 1]);
-        int highFromEnd = arr[arr.length - 1];
+
+        int lastLeader = arr[arr.length - 1];
         for (int i = arr.length - 2; i >= 0; i--) {
-            if (arr[i] > highFromEnd) {
+            if (arr[i] > lastLeader) {
                 leaders.add(arr[i]);
-                highFromEnd = arr[i];
+                lastLeader = arr[i];
             }
         }
-        System.out.println("Leaders:" + leaders);
+
+        Collections.reverse(leaders);
+
+        return leaders;
+    }
+
+    /**
+     * t=O(log n)
+     */
+    public static Optional<Pair<Integer, Integer>> findPairWithSum(int[] arr, int sum) {
+        if (arr == null || arr.length == 0) {
+            return Optional.empty();
+        }
+
+        Arrays.sort(arr);
+
+        for (int left = 0, right = arr.length - 1; left < right; ) {
+            int currSum = arr[left] + arr[right];
+
+            if (currSum == sum) {
+                return Optional.of(new Pair<>(arr[left], arr[right]));
+            }
+            if (currSum > sum) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+
+        return Optional.empty();
     }
 
     public static int findValueWhichOccurredOddNumberOfTimes(int[] arr) {
@@ -37,8 +73,6 @@ public class Applications {
 
     /**
      * Also known as Kadane's Algorithm
-     *
-     * @param arr
      */
     public static void maxSumContiguousSubarray(int arr[]) {
         if (arr.length == 0) {

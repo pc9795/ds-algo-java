@@ -1,5 +1,7 @@
 package gfg.ds.array;
 
+import java.util.Arrays;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 15-09-2018 18:37
@@ -8,14 +10,6 @@ public class Array {
 
     public int[] values;
     public int size;
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public boolean isFull() {
-        return size == values.length;
-    }
 
     public Array() {
         values = new int[10];
@@ -30,6 +24,17 @@ public class Array {
         this.size = values.length;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == values.length;
+    }
+
+    /**
+     * t=O(n)
+     */
     public boolean search(int data) {
         for (int i = 0; i < size; i++) {
             if (values[i] == data) {
@@ -39,6 +44,9 @@ public class Array {
         return false;
     }
 
+    /**
+     * t=O(1)
+     */
     public Array insert(int data) {
         if (isFull()) {
             throw new RuntimeException("Array is full");
@@ -47,15 +55,20 @@ public class Array {
         return this;
     }
 
+    /**
+     * t=O(n)
+     */
     public void delete(int index) {
         if (isEmpty()) {
             throw new RuntimeException("Array is empty");
         }
         System.arraycopy(values, index + 1, values, index, size - 1 - index);
         size--;
-
     }
 
+    /**
+     * t=O(n)
+     */
     public Array reverse() {
         for (int i = 0; i < size / 2; i++) {
             int temp = values[i];
@@ -65,9 +78,18 @@ public class Array {
         return this;
     }
 
-    private void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(values[i] + "=>");
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Array array = (Array) o;
+
+        return Arrays.equals(values, array.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
     }
 }

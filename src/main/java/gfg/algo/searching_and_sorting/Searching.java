@@ -9,32 +9,23 @@ import java.util.Arrays;
 public class Searching {
 
     /**
-     * T=O(n)
-     *
-     * @param arr
-     * @param data
-     * @return
+     * t=O(n)
      */
     public static int linearSearch(int arr[], int data) {
         if (arr == null || arr.length == 0) {
-            System.out.println("Array is empty!");
+            return -1;
         }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == data) {
+        for (int arrVal : arr) {
+            if (arrVal == data) {
                 return data;
             }
         }
-        System.out.println("Element not found!");
         return -1;
     }
 
     /**
-     * T(n)=T(n/2)+C
-     * T=O(log n)
-     *
-     * @param arr
-     * @param data
-     * @return
+     * t(n)=t(n/2)+c
+     * t=O(log n)
      */
     public static int binarySearch(int arr[], int data) {
         Arrays.sort(arr);
@@ -51,7 +42,6 @@ public class Searching {
                 high = middle - 1;
             }
         }
-        System.out.println("Element not found!");
         return -1;
     }
 }

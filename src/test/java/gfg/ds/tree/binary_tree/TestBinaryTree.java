@@ -43,19 +43,19 @@ class TestBinaryTree {
 
     @Test
     void testClone() {
-        BinaryTreeWithRandomNode bt = new BinaryTreeWithRandomNode().insertAtRoot(1);
-        bt.root.left = new BinaryTreeWithRandomNode.BinaryTreeNode(2);
-        bt.root.right = new BinaryTreeWithRandomNode.BinaryTreeNode(3);
-        bt.root.left.left = new BinaryTreeWithRandomNode.BinaryTreeNode(4);
-        bt.root.left.right = new BinaryTreeWithRandomNode.BinaryTreeNode(5);
+        RandomPointerBinaryTree bt = new RandomPointerBinaryTree().insertAtRoot(1);
+        bt.root.left = new RandomPointerBinaryTree.RandomPointerBinaryTreeNode(2);
+        bt.root.right = new RandomPointerBinaryTree.RandomPointerBinaryTreeNode(3);
+        bt.root.left.left = new RandomPointerBinaryTree.RandomPointerBinaryTreeNode(4);
+        bt.root.left.right = new RandomPointerBinaryTree.RandomPointerBinaryTreeNode(5);
         bt.root.random = bt.root.left.right;
         bt.root.left.random = bt.root.right;
-        List<Integer> original = BinaryTreeWithRandomNode.inOrderTraversal(bt);
+        List<Integer> original = RandomPointerBinaryTree.inOrderTraversal(bt);
 
-        List<Integer> ans = BinaryTreeWithRandomNode.inOrderTraversal(bt.copyUsingMap());
+        List<Integer> ans = RandomPointerBinaryTree.inOrderTraversal(bt.copyUsingMap());
         assert ans.equals(original);
 
-        ans = BinaryTreeWithRandomNode.inOrderTraversal(bt.copy());
+        ans = RandomPointerBinaryTree.inOrderTraversal(bt.copy());
         assert ans.equals(original);
     }
 

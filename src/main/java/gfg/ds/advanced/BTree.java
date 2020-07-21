@@ -1,4 +1,4 @@
-package gfg.ds.tree;
+package gfg.ds.advanced;
 
 import java.util.ArrayList;
 import java.util.Arrays;

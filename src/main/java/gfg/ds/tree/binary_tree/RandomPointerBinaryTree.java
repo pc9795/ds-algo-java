@@ -9,30 +9,30 @@ import java.util.List;
  * Created By: Prashant Chaubey
  * Created On: 09-02-2019 17:41
  **/
-public class BinaryTreeWithRandomNode {
-    public BinaryTreeNode root;
+public class RandomPointerBinaryTree {
+    public RandomPointerBinaryTreeNode root;
 
-    public BinaryTreeWithRandomNode insertAtRoot(BinaryTreeNode node) {
+    public RandomPointerBinaryTree insertAtRoot(RandomPointerBinaryTreeNode node) {
         this.root = node;
         return this;
     }
 
-    public BinaryTreeWithRandomNode insertAtRoot(int data) {
-        this.root = new BinaryTreeNode(data);
+    public RandomPointerBinaryTree insertAtRoot(int data) {
+        this.root = new RandomPointerBinaryTreeNode(data);
         return this;
     }
 
-    public BinaryTreeWithRandomNode copyUsingMap() {
+    public RandomPointerBinaryTree copyUsingMap() {
         assert this.root != null : "Tree is emtpy";
 
-        HashMap<BinaryTreeNode, BinaryTreeNode> map = new HashMap<>();
-        ArrayDeque<BinaryTreeNode> queue = new ArrayDeque<>();
+        HashMap<RandomPointerBinaryTreeNode, RandomPointerBinaryTreeNode> map = new HashMap<>();
+        ArrayDeque<RandomPointerBinaryTreeNode> queue = new ArrayDeque<>();
         queue.add(this.root);
         // Caching all nodes using level order traversal.
         while (!queue.isEmpty()) {
-            BinaryTreeNode node = queue.poll();
+            RandomPointerBinaryTreeNode node = queue.poll();
             assert node != null;
-            map.put(node, new BinaryTreeNode(node.data));
+            map.put(node, new RandomPointerBinaryTreeNode(node.data));
             if (node.left != null) {
                 queue.add(node.left);
             }
@@ -45,7 +45,7 @@ public class BinaryTreeWithRandomNode {
 
         //Fixing the links.
         while (!queue.isEmpty()) {
-            BinaryTreeNode node = queue.poll();
+            RandomPointerBinaryTreeNode node = queue.poll();
             assert node != null;
             if (node.left != null) {
                 map.get(node).left = map.get(node.left);
@@ -59,23 +59,23 @@ public class BinaryTreeWithRandomNode {
                 map.get(node).random = map.get(node.random);
             }
         }
-        return new BinaryTreeWithRandomNode().insertAtRoot(map.get(this.root));
+        return new RandomPointerBinaryTree().insertAtRoot(map.get(this.root));
     }
 
 
-    public BinaryTreeWithRandomNode copy() {
-        BinaryTreeNode cloneRoot = buildCloneNodes(root);
+    public RandomPointerBinaryTree copy() {
+        RandomPointerBinaryTreeNode cloneRoot = buildCloneNodes(root);
         fixRandomLinks(root, cloneRoot);
         restoreTree(root, cloneRoot);
-        return new BinaryTreeWithRandomNode().insertAtRoot(cloneRoot);
+        return new RandomPointerBinaryTree().insertAtRoot(cloneRoot);
     }
 
-    private BinaryTreeNode buildCloneNodes(BinaryTreeNode root) {
+    private RandomPointerBinaryTreeNode buildCloneNodes(RandomPointerBinaryTreeNode root) {
         if (root == null) {
             return null;
         }
-        BinaryTreeNode left = root.left;
-        root.left = new BinaryTreeNode(root.data);
+        RandomPointerBinaryTreeNode left = root.left;
+        root.left = new RandomPointerBinaryTreeNode(root.data);
         root.left.left = left;
         if (left != null) {
             left.left = buildCloneNodes(left);
@@ -84,7 +84,7 @@ public class BinaryTreeWithRandomNode {
         return root.left;
     }
 
-    private void fixRandomLinks(BinaryTreeNode originalRoot, BinaryTreeNode cloneRoot) {
+    private void fixRandomLinks(RandomPointerBinaryTreeNode originalRoot, RandomPointerBinaryTreeNode cloneRoot) {
         if (originalRoot == null) {
             return;
         }
@@ -99,7 +99,7 @@ public class BinaryTreeWithRandomNode {
         }
     }
 
-    private void restoreTree(BinaryTreeNode originalRoot, BinaryTreeNode cloneRoot) {
+    private void restoreTree(RandomPointerBinaryTreeNode originalRoot, RandomPointerBinaryTreeNode cloneRoot) {
         if (originalRoot == null) {
             return;
         }
@@ -111,14 +111,14 @@ public class BinaryTreeWithRandomNode {
         restoreTree(originalRoot.right, cloneRoot.right);
     }
 
-    public static List<Integer> inOrderTraversal(BinaryTreeWithRandomNode tree) {
+    public static List<Integer> inOrderTraversal(RandomPointerBinaryTree tree) {
         assert tree != null : "Null instance given";
         List<Integer> traversal = new ArrayList<>();
         inOrderTraversalUtil(tree.root, traversal);
         return traversal;
     }
 
-    private static void inOrderTraversalUtil(BinaryTreeNode root, List<Integer> traversal) {
+    private static void inOrderTraversalUtil(RandomPointerBinaryTreeNode root, List<Integer> traversal) {
         if (root == null) {
             return;
         }
@@ -131,13 +131,13 @@ public class BinaryTreeWithRandomNode {
      * Created By: Prashant Chaubey
      * Created On: 09-02-2019 17:43
      **/
-    public static class BinaryTreeNode {
+    public static class RandomPointerBinaryTreeNode {
         public int data;
-        public BinaryTreeNode left;
-        public BinaryTreeNode right;
-        public BinaryTreeNode random;
+        public RandomPointerBinaryTreeNode left;
+        public RandomPointerBinaryTreeNode right;
+        public RandomPointerBinaryTreeNode random;
 
-        public BinaryTreeNode(int data) {
+        public RandomPointerBinaryTreeNode(int data) {
             this.data = data;
         }
 

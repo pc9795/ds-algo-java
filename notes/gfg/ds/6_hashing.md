@@ -1,5 +1,5 @@
-Hashing is an improvement over Direct Access Table. The idea is to use hash function that converts a given key to a 
-smaller number and uses the small number as index in a table called hash table.
+The idea is to use hash function that converts a given key to a smaller number and uses the small number as index in a 
+table called hash table.
 
 **Properties of a good hash function**
 * Efficiently computable
@@ -9,13 +9,16 @@ smaller number and uses the small number as index in a table called hash table.
 
 The situation where a newly inserted key maps to an already occupied slot in the hash table is called collision.
 
+### Collision handling
+
 **Chaining**
+
 Each cell of hash table point to a linked list of records that have same hash function value.
 * Advantages
     1. Hash table never fills up
     2. Simple to implement
     3. Less sensitive to the hash function or load factors
-    4. It is mostly used when it is unknown how many and how frequently keys may be inserted/deleted.
+    4. It is mostly used when it is **unknown** how many and how frequently keys may be inserted/deleted.
 * Disadvantages
     1. Cache performance of chaining is not good as keys are stored using linked list
     2. Wastage of space (some parts of hash table are never used)
@@ -23,6 +26,7 @@ Each cell of hash table point to a linked list of records that have same hash fu
     4. Uses extra space for links.
 
 **Performance**
+
 ```cmd
 Assumption that each key is equally likely to be hashed to any slot of table.
 
@@ -36,6 +40,7 @@ expected time to search/insert/delete =O(1+a)
 ```
 
 **Open Addressing**
+
 * Insert(k) - keep probing until an empty slot is found. Once an empty slot is found, insert k
 * Search(k) - keep probing until slot's key doesn't become equal to k or an empty slot is reached
 * Delete(k) - If we simply delete a key, then search may fail. So slots of deleted keys are marked specially as "deleted".
@@ -47,8 +52,8 @@ expected time to search/insert/delete =O(1+a)
 ```cmd
 S is the table size
 
-if slot hash(x)%S is full, then we try (hash(x)+1)%S
-if (hash(x)+1)%S is also full, then we try (hash(x)+2)%S
+if slot hash(x) % S is full, then we try (hash(x) + 1) % S
+if (hash(x) + 1) % S is also full, then we try (hash(x) + 2) % S
 ...
 ```
 
@@ -58,8 +63,8 @@ if (hash(x)+1)%S is also full, then we try (hash(x)+2)%S
 ```cmd
 S is the table size
 
-if slot hash(x)%S is full, then we try (hash(x)+1*1)%S
-if ((hash(x)+1*1)%S is also full, then we try (hash(x)+2*2)%S
+if slot hash(x) % S is full, then we try (hash(x) + 1 * 1) % S
+if ((hash(x) + 1 * 1) % S is also full, then we try (hash(x) + 2 * 2) % S
 ...
 ```
 
@@ -67,8 +72,8 @@ if ((hash(x)+1*1)%S is also full, then we try (hash(x)+2*2)%S
 ```cmd
 S is the table size
 
-if slot hash(x)%S is full, then we try (hash(x)+1*hash2(x))%S
-if (hash(x)+1*hash2(x))%S is also full, then we try (hash(x)+2*hash2(x))%S
+if slot hash(x) % S is full, then we try (hash(x) + 1 * hash2(x)) % S
+if (hash(x) + 1 * hash2(x)) % S is also full, then we try (hash(x) + 2 * hash2(x)) % S
 ...
 ```
 
@@ -99,5 +104,4 @@ n = number of keys to be inserted in hash table
 load factor, a = n/m (< 1)
 
 expected time to search/insert/delete < 1/(1 - a)
-
 ```
