@@ -1,8 +1,8 @@
 package gfg.ds.hashing;
 
 import gfg.ds.tree.binary_tree.BinaryTree;
-import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
+import utils.Pair;
 
 import java.util.*;
 

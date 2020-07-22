@@ -1,6 +1,5 @@
 package gfg.ds.graph.adj_list;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.Pair;
 
 import java.util.ArrayDeque;
@@ -211,7 +210,7 @@ public class Graph extends GraphBase {
 
     @Override
     public List<Pair<Integer, Integer>> getEulerPath() {
-        throw new NotImplementedException();
+        throw new RuntimeException("Not implemented");
     }
 
     /**

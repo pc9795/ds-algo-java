@@ -1,7 +1,5 @@
 package utils;
 
-import javafx.util.Pair;
-
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,8 +37,10 @@ public class Utils {
         return Math.abs(area / 2.0);
     }
 
-    // Returns value of Binomial Coefficient C(n, k)
-    // todo: There is one more optimized version have to check it.
+    /**
+     * Returns value of Binomial Coefficient C(n, k)
+     * todo: There is one more optimized version have to check it.
+     */
     static long binomialCoeff(int n, int k) {
         long dp[][] = new long[n + 1][k + 1];
         int i, j;
@@ -72,8 +72,10 @@ public class Utils {
         return numerator / denominator;
     }
 
-    // T=O(logn)
-    //f(n) be the (n + 1)th fibonacci number. Here we are considering 1 as first fibonacci number
+    /**
+     * t=O(logn)
+     * f(n) be the (n + 1)th fibonacci number. Here we are considering 1 as first fibonacci number
+     */
     static long fibonacci(long n) {
         if (n == -1) {
             return 0;
@@ -108,12 +110,7 @@ public class Utils {
     }
 
     /**
-     * t=2^n
-     *
-     * @param arr
-     * @param n
-     * @param value
-     * @return
+     * t=O(2^n)
      */
     private static boolean isInSubsetSum(int[] arr, int n, int value) {
         for (int i = 0; i < 1 << n; i++) {
@@ -202,8 +199,6 @@ public class Utils {
 
     /**
      * In infix expression the compiler have to rescan because of precedence rules.
-     *
-     * @param infixExp infix expression
      */
     public static String infixToPostFix(String infixExp) {
         ArrayDeque<Character> stack = new ArrayDeque<>();
@@ -251,11 +246,7 @@ public class Utils {
     }
 
     /**
-     * T=O(N*2^(N))
-     *
-     * @param arr
-     * @param n
-     * @return
+     * t=O(N*2^(N))
      */
     public static Map<Integer, Integer> findSubsetSums(int arr[], int n) {
         Map<Integer, Integer> subsetSums = new HashMap<>();
@@ -275,12 +266,7 @@ public class Utils {
     }
 
     /**
-     * T=O(log n)
-     *
-     * @param base
-     * @param exp
-     * @param MOD
-     * @return
+     * t=O(log n)
      */
     public static long fastExp(int base, int exp, final int MOD) {
         long res = 1;
@@ -295,10 +281,7 @@ public class Utils {
     }
 
     /**
-     * T=O(1)
-     *
-     * @param c character to encode
-     * @return encoded character
+     * t=O(1)
      */
     public static int encode(int c) {
         if (Character.isLowerCase(c)) {
@@ -316,15 +299,13 @@ public class Utils {
      * =N(logN)
      * <p>
      * CAN DO - only use odd numbers in the array, which would allow us to reduce our space usage by half.
-     *
-     * @param n no till which prime numbers to find.
      */
     public static boolean[] sieve(int n) {
         boolean[] isPrime = new boolean[n + 1];
 
         for (int i = 2; i <= n; i++)
             isPrime[i] = true;
-        /**
+        /*
          * If you've crossed out the multiples of all the numbers less than or equal to sqrt(N), all multiples of numbers
          * greater than sqrt(N) are already crossed out. This is because any number which is less than or equal to N and
          * is multiple of a number greater than sqrt(N), will have a factor that is less than or equal to sqrt(N) and
@@ -343,10 +324,7 @@ public class Utils {
 
 
     /**
-     * T=O(N*lonN)
-     *
-     * @param n
-     * @return
+     * t=O(N*lonN)
      */
     public static int[] findDivisorSum(int n) {
         int divisorSum[] = new int[n + 1];
@@ -366,12 +344,6 @@ public class Utils {
      * If searched value is greater than the last element will return the array length.
      * If searched value is smaller than the first element then return 0.
      * Return the first position where the arr[i] -lt value is false (-ge)
-     *
-     * @param arr
-     * @param low
-     * @param high
-     * @param value
-     * @return
      */
     public static int lowerBound(int arr[], int low, int high, int value) {
         if (low > high) {
@@ -394,15 +366,13 @@ public class Utils {
     }
 
     /**
-     * T=O(N^2)
-     *
-     * @param mat
+     * t=O(N^2)
      */
     public static void prettyPrint2DMatrix(int[][] mat) {
-        for (int i = 0; i < mat.length; i++) {
+        for (int[] row : mat) {
             System.out.print("{");
             for (int j = 0; j < mat[0].length; j++) {
-                System.out.print(mat[i][j] + ",");
+                System.out.print(row[j] + ",");
             }
             System.out.print("},");
             System.out.println();
@@ -425,15 +395,9 @@ public class Utils {
     }
 
     /**
-     * T=O(1)
-     *
-     * @param x
-     * @param y
-     * @param rows
-     * @param cols
-     * @return
+     * t=O(1)
      */
-    public static boolean isSafe(int x, int y, int rows, int cols) {
-        return !(x < 0 || y < 0 || x >= rows || y >= cols);
+    public static boolean isNotSafe(int x, int y, int rows, int cols) {
+        return x < 0 || y < 0 || x >= rows || y >= cols;
     }
 }

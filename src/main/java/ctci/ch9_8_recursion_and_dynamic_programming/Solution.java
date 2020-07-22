@@ -1,7 +1,7 @@
 package ctci.ch9_8_recursion_and_dynamic_programming;
 
 
-import javafx.util.Pair;
+import utils.Pair;
 import utils.Utils;
 
 import java.util.*;
@@ -29,7 +29,7 @@ public class Solution {
 
     private static List<Pair<Integer, Integer>> robotInGridUtil(boolean[][] mat, int x, int y,
                                                                 HashSet<Pair<Integer, Integer>> set) {
-        if (!Utils.isSafe(x, y, mat.length, mat[0].length)) {
+        if (Utils.isNotSafe(x, y, mat.length, mat[0].length)) {
             return null;
         }
         if (!mat[x][y]) {

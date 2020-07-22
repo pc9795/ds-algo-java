@@ -1,7 +1,7 @@
 package gfg.ds.hashing;
 
 import gfg.ds.tree.binary_tree.BinaryTree;
-import javafx.util.Pair;
+import utils.Pair;
 
 import java.util.*;
 
@@ -13,8 +13,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param tree input tree
      */
     public static Map<Integer, List<Integer>> getVerticalOrder(BinaryTree tree) {
         assert tree != null;
@@ -38,10 +36,6 @@ public class Applications {
 
     /**
      * t=O(bigger array length)
-     *
-     * @param subArrToCheck array to check whether it is sub array of original or not
-     * @param original      input array
-     * @return true if the probed array is sub array of given array.
      */
     public static boolean isArraySubsetOfAnother(int[] original, int[] subArrToCheck) {
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -60,10 +54,6 @@ public class Applications {
 
     /**
      * Handle duplicates also.
-     *
-     * @param first  first list
-     * @param second second list
-     * @return union of the list
      */
     public static List<Integer> union(List<Integer> first, List<Integer> second) {
         List<Integer> result = new LinkedList<>();
@@ -85,10 +75,6 @@ public class Applications {
 
     /**
      * Handle duplicates also.
-     *
-     * @param first  first list
-     * @param second second list
-     * @return intersection of the list
      */
     public static List<Integer> intersection(List<Integer> first, List<Integer> second) {
         List<Integer> result = new LinkedList<>();
@@ -105,10 +91,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param arr input array
-     * @param sum target sum
-     * @return pair of numbers with sum equal to target sum
      */
     public static Pair<Integer, Integer> findPairWithGivenSum(int arr[], int sum) {
         HashSet<Integer> set = new HashSet<>();
@@ -126,10 +108,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param arr input array
-     * @param k   tolerable distance for duplicates
-     * @return true if there is duplicate within k.
      */
     public static boolean isDuplicateElementWithinKDistance(int arr[], int k) {
         HashSet<Integer> set = new HashSet<>();
@@ -147,9 +125,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param fromTo itinerary map
-     * @return source of itinerary map
      */
     public static List findItineraryFromGivenListOfTickets(Map<String, String> fromTo) {
         Set<String> tos = new HashSet<>(fromTo.values());
@@ -183,10 +158,6 @@ public class Applications {
 
     /**
      * Can memo this function if use multiple times.
-     *
-     * @param managerToEmployee map with manager and list of employee
-     * @param employee          employee for which to calculate reportees.
-     * @return count of reportees for a given employee.
      */
     private static int numberOfEmployeesUnderUtil(Map<Character, List<Character>> managerToEmployee, Character employee) {
         if (managerToEmployee.get(employee) == null) {

@@ -1,6 +1,6 @@
 package gfg.ds.linked_list;
 
-import javafx.util.Pair;
+import utils.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,6 @@ public class Applications {
     /**
      * t=O(n)
      * todo geeks of geeks article
-     *
-     * @param list      input list
-     * @param chunkSize size in which to reverse the list.
      */
     public static void reverseInChunksIter(SinglyLinkedList list, int chunkSize) {
         assert list != null && list.getHead() != null;
@@ -49,9 +46,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param list      input list
-     * @param chunkSize size in which to reverse the list.
      */
     public static void reverseInChunks(SinglyLinkedList list, int chunkSize) {
         assert list != null;
@@ -81,10 +75,6 @@ public class Applications {
 
     /**
      * t=O(n1 + n2)
-     *
-     * @param list1 first list
-     * @param list2 second list
-     * @return sum list
      */
     public static List addTwoNumbersRepresentedByLists(List<Integer> list1, List<Integer> list2) {
         List<Integer> result = new ArrayList<>();
@@ -110,9 +100,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     *
-     * @param list input list
-     * @param k    times to rotate
      */
     public static void rotateCounterClockWise(SinglyLinkedList list, int k) {
         assert list != null && list.getHead() != null;
@@ -140,9 +127,6 @@ public class Applications {
     /**
      * In case of odd no of elements the first list will contain the extra value
      * NOTE: it is mutating the input list (NOT PURE)
-     *
-     * @param list list to be split
-     * @return pair of lists after split.
      */
     public static Pair<CircularLinkedList, CircularLinkedList> split(CircularLinkedList list) {
         assert list != null && list.last != null : "Input list can't be empty or null";

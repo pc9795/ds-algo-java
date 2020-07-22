@@ -1,7 +1,7 @@
 package gfg.algo.divide_and_conquer;
 
+import utils.Pair;
 import utils.Utils;
-import javafx.util.Pair;
 
 import java.util.*;
 
@@ -11,12 +11,7 @@ import java.util.*;
  **/
 public class ClosestPairOfPoints {
     /**
-     * T=O(1)
-     *
-     * @param points
-     * @param l
-     * @param r
-     * @return
+     * t=O(1)
      */
     private static double closestPairOfPointsBruteForce(Pair<Double, Double>[] points, int l, int r) {
         Double min = Double.MAX_VALUE;
@@ -29,17 +24,11 @@ public class ClosestPairOfPoints {
     }
 
     /**
-     * T=O(1)
+     * t=O(1)
      * Their would be constant no of points in the strip
-     *
-     * @param pointsInStrip
-     * @param stripLength
-     * @return
      */
     private static double getMinInStrip(List<Pair<Double, Double>> pointsInStrip, double stripLength) {
-        pointsInStrip.sort((o1, o2) -> {
-                    return (int) (o1.getValue() - o2.getValue());
-                }
+        pointsInStrip.sort((o1, o2) -> (int) (o1.getValue() - o2.getValue())
         );
         double min = stripLength;
         for (int i = 0; i < pointsInStrip.size(); i++) {
@@ -52,12 +41,7 @@ public class ClosestPairOfPoints {
     }
 
     /**
-     * T=O(NlogN)
-     *
-     * @param points
-     * @param l
-     * @param r
-     * @return
+     * t=O(n*log n)
      */
     private static double closestPairOfPointsUtil(Pair<Double, Double>[] points, int l, int r) {
         if (r - l <= 3) {

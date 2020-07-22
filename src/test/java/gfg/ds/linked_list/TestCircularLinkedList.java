@@ -1,9 +1,9 @@
 package gfg.ds.linked_list;
 
-import javafx.util.Pair;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import utils.Pair;
 
 import java.util.stream.Stream;
 

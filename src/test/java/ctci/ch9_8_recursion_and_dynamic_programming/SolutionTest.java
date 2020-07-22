@@ -1,7 +1,7 @@
 package ctci.ch9_8_recursion_and_dynamic_programming;
 
-import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
+import utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;

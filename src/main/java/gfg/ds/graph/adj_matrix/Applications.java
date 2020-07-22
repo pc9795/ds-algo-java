@@ -142,7 +142,7 @@ public class Applications {
         // Traverse all neighbours.
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = col - 1; j <= col + 1; j++) {
-                if (!Utils.isSafe(i, j, matrix.length, matrix[0].length)) {
+                if (Utils.isNotSafe(i, j, matrix.length, matrix[0].length)) {
                     continue;
                 }
                 if (visited[i][j]) {
