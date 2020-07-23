@@ -81,9 +81,7 @@ class DeckOfCardsFor325 extends DeckOfCards {
 
     @Override
     int getWinningCardIndex(Card[] playerCards) {
-        if (playerCards.length != NO_OF_PLAYERS) {
-            throw new RuntimeException("Invalid no of players");
-        }
+        assert playerCards.length == NO_OF_PLAYERS : "Invalid no of players";
         return -1;
     }
 

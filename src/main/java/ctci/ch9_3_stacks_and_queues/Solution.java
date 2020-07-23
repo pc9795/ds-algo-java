@@ -36,9 +36,8 @@ public class Solution {
         }
 
         public int pop() {
-            if (isEmpty()) {
-                throw new RuntimeException("Empty stack");
-            }
+            assert !isEmpty() : "Empty stack";
+
             int poppedItem = stacks.get(currStack).pop();
             if (stacks.get(currStack).isEmpty()) {
                 stacks.remove(currStack);
@@ -47,11 +46,10 @@ public class Solution {
             return poppedItem;
         }
 
-//        We can also shift the stacks to maintain the threshold.
+        //        We can also shift the stacks to maintain the threshold.
         public int popAt(int index) {
-            if (index >= stacks.size() || index < 0) {
-                throw new RuntimeException("Invalid index");
-            }
+            assert index < stacks.size() && index >= 0 : "Invalid index";
+
             int poppedItem = stacks.get(index).pop();
             if (stacks.get(index).isEmpty()) {
                 stacks.remove(index);
@@ -61,9 +59,7 @@ public class Solution {
         }
 
         public int peek() {
-            if (isEmpty()) {
-                throw new RuntimeException("Empty stack");
-            }
+            assert !isEmpty() : "Empty stack";
             assert !stacks.get(currStack).isEmpty();
 
             return stacks.get(currStack).peek();
@@ -84,16 +80,14 @@ public class Solution {
         }
 
         public int peek() {
-            if (isEmpty()) {
-                throw new RuntimeException("Empty Stack");
-            }
+            assert !isEmpty() : "Empty stack";
+
             return main.peek();
         }
 
         public int pop() {
-            if (isEmpty()) {
-                throw new RuntimeException("Empty Stack");
-            }
+            assert !isEmpty() : "Empty stack";
+
             return main.pop();
         }
 
@@ -172,27 +166,24 @@ public class Solution {
         }
 
         public Animal dequeueAny() {
-            if (isEmpty()) {
-                throw new RuntimeException("Stack empty");
-            }
+            assert !isEmpty() : "Empty stack";
+
             Animal poppedItem = data.get(0);
             data.remove(0);
             return poppedItem;
         }
 
         Animal dequeueAnimal(Class<? extends Animal> clazz) {
-            if (isEmpty()) {
-                throw new RuntimeException("Stack empty");
-            }
+            assert !isEmpty() : "Empty stack";
+
             int i = 0;
             for (; i < data.size(); i++) {
                 if (data.get(i).getClass() == clazz) {
                     break;
                 }
             }
-            if (i == data.size()) {
-                throw new RuntimeException("Particular animal: " + clazz + " not found");
-            }
+            assert i != data.size() : "Particular animal: " + clazz + " not found";
+
             Animal poppedItem = data.get(i);
             data.remove(i);
             return poppedItem;
@@ -233,10 +224,9 @@ public class Solution {
         }
 
         public Animal dequeueAny() {
-            if (isEmpty(Dog.class) && isEmpty(Cat.class)) {
-                throw new RuntimeException("Stack empty");
-            }
-            Animal poppedAnimal = null;
+            assert !isEmpty(Dog.class) || !isEmpty(Cat.class) : "Empty stack";
+
+            Animal poppedAnimal;
             if (dogsList.get(0).order < catList.get(0).order) {
                 poppedAnimal = dogsList.get(0);
                 dogsList.remove(0);
@@ -248,18 +238,16 @@ public class Solution {
         }
 
         public Animal dequeueCat() {
-            if (isEmpty(Cat.class)) {
-                throw new RuntimeException("Stack empty");
-            }
+            assert !isEmpty(Cat.class) : "Empty stack";
+
             Animal poppedItem = catList.get(0);
             catList.remove(0);
             return poppedItem;
         }
 
         public Animal dequeueDog() {
-            if (isEmpty(Dog.class)) {
-                throw new RuntimeException("Stack empty");
-            }
+            assert !isEmpty(Dog.class) : "Empty stack";
+
             Animal poppedItem = dogsList.get(0);
             dogsList.remove(0);
             return poppedItem;

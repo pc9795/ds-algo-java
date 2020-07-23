@@ -12,9 +12,9 @@ class CallCenter {
     void dispatchCall(Call call) {
         while (!respondents.isEmpty()) {
             Employee respondent = respondents.peek();
-            if (respondent == null) {
-                throw new RuntimeException("No respondent available");
-            }
+
+            assert respondent != null : "No respondent available";
+
             if (respondent.isAvailable) {
                 respondents.poll();
                 respondent.isAvailable = false;
@@ -45,9 +45,8 @@ abstract class Employee {
     abstract boolean handle(Call call);
 
     void escalate(Call call) {
-        if (manager == null) {
-            throw new RuntimeException("Can't escalate the call");
-        }
+        assert manager != null : "Can't escalate the call";
+
         manager.assignCall(call);
     }
 }

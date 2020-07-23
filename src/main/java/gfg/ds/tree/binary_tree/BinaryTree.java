@@ -34,6 +34,7 @@ public class BinaryTree {
         //Stop at the parent of the intended location
         for (int i = 0; i < len - 1; i++) {
             char ch = pos.charAt(i);
+
             if (ch == '0') {
                 curr = curr.left;
             } else if (ch == '1') {
@@ -41,9 +42,8 @@ public class BinaryTree {
             } else {
                 throw new RuntimeException(String.format("Unexpected character:%s found at position:%s", ch, i + 1));
             }
-            if (curr == null) {
-                throw new RuntimeException(String.format("Tree is evaluating null at position:%s", i + 1));
-            }
+
+            assert curr != null : String.format("Tree is evaluating null at position:%s", i + 1);
         }
         //We reached to the parent of the node.
         if (pos.charAt(len - 1) == '0') {
@@ -67,6 +67,7 @@ public class BinaryTree {
 
         for (int i = 0; i < pos.length(); i++) {
             char ch = pos.charAt(i);
+
             if (ch == '0') {
                 curr = curr.left;
             } else if (ch == '1') {
@@ -74,9 +75,8 @@ public class BinaryTree {
             } else {
                 throw new RuntimeException(String.format("Unexpected character:%s found at position:%s", ch, i + 1));
             }
-            if (curr == null) {
-                throw new RuntimeException(String.format("Tree is evaluating null at position:%s", i + 1));
-            }
+
+            assert curr!=null:String.format("Tree is evaluating null at position:%s", i + 1);
         }
         return curr.data;
     }

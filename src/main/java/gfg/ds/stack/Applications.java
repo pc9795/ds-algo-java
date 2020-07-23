@@ -27,18 +27,15 @@ public class Applications {
         ArrayDeque<Double> stack = new ArrayDeque<>();
         for (int i = 0; i < postfixExp.length(); i++) {
             char curr = postfixExp.charAt(i);
+
             if (Character.isDigit(curr)) {
                 stack.push(Double.parseDouble("" + curr));
                 continue;
             }
-            try {
-                double second = stack.pop();
-                double first = stack.pop();
-                stack.push(evaluateExpr(first, second, curr));
 
-            } catch (NoSuchElementException e) {
-                throw new RuntimeException("Invalid expression", e);
-            }
+            double second = stack.pop();
+            double first = stack.pop();
+            stack.push(evaluateExpr(first, second, curr));
         }
         return stack.pop();
     }

@@ -107,9 +107,8 @@ public class BTree {
      * This method will split the node into two and increase the count of values in parent by 1.
      */
     private BNode split(BNode node) {
-        if (!node.isFull()) {
-            throw new RuntimeException("Can't split an non-full node");
-        }
+        assert node.isFull() : "Can't split an non-full node";
+
         int mid = node.values[degree - 1];
         /* <degree-1><1><degree-1> The first k-1 will stay with the node; The middle value will go to the parent;
          * The last half will go the sibling/split-half
@@ -169,12 +168,12 @@ public class BTree {
      * todo time complexity
      */
     public BTree delete(int data) {
-        if (isEmpty()) {
-            throw new RuntimeException("Tree is empty");
-        }
+        assert !isEmpty() : "Empty tree";
+
         if (!deleteUtil(root, data)) {
             throw new RuntimeException("Data not found");
         }
+
         if (root.count == 0) {
             if (root.leaf) {
                 root = null;
@@ -182,6 +181,7 @@ public class BTree {
                 root = root.children[0];
             }
         }
+
         return this;
     }
 

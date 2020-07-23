@@ -48,9 +48,8 @@ public class Array {
      * t=O(1)
      */
     public Array insert(int data) {
-        if (isFull()) {
-            throw new RuntimeException("Array is full");
-        }
+        assert !isFull() : "Array is full";
+
         values[size++] = data;
         return this;
     }
@@ -59,9 +58,8 @@ public class Array {
      * t=O(n)
      */
     public void delete(int index) {
-        if (isEmpty()) {
-            throw new RuntimeException("Array is empty");
-        }
+        assert !isEmpty() : "Array is empty";
+
         System.arraycopy(values, index + 1, values, index, size - 1 - index);
         size--;
     }

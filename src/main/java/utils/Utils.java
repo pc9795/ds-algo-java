@@ -143,9 +143,8 @@ public class Utils {
     }
 
     private static String getDayNameFromDayNo(int no) {
-        if (no < 0 || no > 6) {
-            throw new RuntimeException("Invalid input");
-        }
+        assert no >= 0 && no <= 6 : "Invalid input";
+
         String[] day = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
         return day[no];
     }

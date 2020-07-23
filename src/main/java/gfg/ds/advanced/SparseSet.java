@@ -29,9 +29,7 @@ public class SparseSet {
      * t=O(1)
      */
     public SparseSet add(int data) {
-        if (!canBeInserted(data)) {
-            throw new RuntimeException("Can't insert");
-        }
+        assert canBeInserted(data) : "Can't insert";
 
         if (search(data)) {
             return this;
@@ -55,9 +53,7 @@ public class SparseSet {
      * t=O(1)
      */
     public SparseSet delete(int data) {
-        if (!search(data)) {
-            throw new RuntimeException("Not found");
-        }
+        assert search(data) : "Not found";
 
         int index = sparse[data];
         dense[index] = dense[size - 1];

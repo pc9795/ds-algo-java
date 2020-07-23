@@ -19,9 +19,7 @@ public class IntervalTree {
      * t=O(log n)
      */
     public IntervalTree insert(Pair<Integer, Integer> interval) {
-        if (isInvalid(interval)) {
-            throw new RuntimeException(String.format("Interval not valid:%s", interval));
-        }
+        assert !isInvalid(interval) : String.format("Interval not valid:%s", interval);
 
         IntervalTreeNode newNode = new IntervalTreeNode(interval, interval.value);
 
@@ -33,9 +31,8 @@ public class IntervalTree {
         IntervalTreeNode prev = null;
         IntervalTreeNode curr = root;
         for (; curr != null; ) {
-            if (curr.interval.equals(interval)) {
-                throw new RuntimeException(String.format("Duplicate data: %s", interval));
-            }
+            assert !curr.interval.equals(interval) : String.format("Duplicate data: %s", interval);
+
             curr.maxInTree = Math.max(curr.maxInTree, newNode.maxInTree);
             prev = curr;
             curr = interval.key < curr.interval.key ? curr.left : curr.right;

@@ -155,9 +155,8 @@ public class AVLTree extends BinarySearchTree {
      * deleted node.
      */
     private BinaryTreeNode deleteUtil(BinaryTreeNode node, int data) {
-        if (node == null) {
-            throw new RuntimeException(String.format("Node with data:%s is not found", data));
-        }
+        assert node != null : "String.format(\"Node with data:%s is not found\", data)";
+
         if (data < node.data) {
             node.left = deleteUtil(node.left, data);
         } else if (data > node.data) {

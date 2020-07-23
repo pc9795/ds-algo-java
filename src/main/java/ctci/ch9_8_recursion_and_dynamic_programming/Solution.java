@@ -63,9 +63,8 @@ public class Solution {
         for (int i = 0; i < arr.length; i++) {
             set.add(arr[i]);
         }
-        if (set.size() != arr.length) {
-            throw new RuntimeException("Values are not distinct");
-        }
+        assert set.size() == arr.length : "Values are not distinct";
+
         return magicIndexUtil(arr, 0, arr.length - 1);
     }
 

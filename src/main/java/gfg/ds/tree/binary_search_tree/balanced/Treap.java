@@ -77,9 +77,8 @@ public class Treap {
     }
 
     private TreapNode deleteUtil(TreapNode root, int data) {
-        if (root == null) {
-            throw new RuntimeException("Element not found");
-        }
+        assert root != null : "Element not found";
+
         if (data < root.data) {
             root.left = deleteUtil(root.left, data);
         } else if (data > root.data) {

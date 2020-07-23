@@ -96,10 +96,8 @@ public class KDTree {
      */
     public KDTree delete(KDNode node) {
         assert node.degree == degree;
+        assert !isEmpty() : "Empty tree";
 
-        if (isEmpty()) {
-            throw new RuntimeException("Element not found");
-        }
         KDNode curr = root;
         KDNode prev = null;
         int depth = 0;

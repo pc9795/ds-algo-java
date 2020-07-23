@@ -26,9 +26,8 @@ public class Solution {
         SinglyLinkedList.Node curr = list.getHead();
         while (curr != null) {
             if (set.contains(curr.data)) {
-                if (prev == null) {
-                    throw new RuntimeException("prev can't be null");
-                }
+                assert prev != null : "prev can't be null";
+
                 prev.next = curr.next;
                 list.setSize(list.getSize() - 1);
             } else {
