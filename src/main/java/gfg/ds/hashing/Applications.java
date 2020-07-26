@@ -172,4 +172,30 @@ public class Applications {
         }
         return count;
     }
+
+    /**
+     * Can also used Trie instead of Map.
+     */
+    public static List<String> getAnagramsTogether(List<String> words) {
+        Map<String, List<Integer>> wordToAnagramIndexMap = new HashMap<>();
+        for (int i = 0; i < words.size(); i++) {
+            String word = words.get(i);
+            char[] wordArr = word.toCharArray();
+            Arrays.sort(wordArr);
+            String sortedWord = new String(wordArr);
+
+            List<Integer> anagrams = wordToAnagramIndexMap.getOrDefault(sortedWord, new ArrayList<>());
+            anagrams.add(i);
+            wordToAnagramIndexMap.put(sortedWord, anagrams);
+        }
+
+        List<String> anagramsTogether = new ArrayList<>();
+        for (String word : wordToAnagramIndexMap.keySet()) {
+            for (int anagramIndex : wordToAnagramIndexMap.get(word)) {
+                anagramsTogether.add(words.get(anagramIndex));
+            }
+        }
+
+        return anagramsTogether;
+    }
 }

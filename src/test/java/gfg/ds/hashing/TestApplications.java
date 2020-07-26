@@ -10,7 +10,7 @@ import java.util.*;
  * Created By: Prashant Chaubey
  * Created On: 04-02-2020 15:54
  **/
-class TestHashing {
+class TestApplications {
     @Test
     void testGetVerticalOrder() {
         BinaryTree bt = new BinaryTree().insertAtRoot(1).insertAtPos("0", 2).insertAtPos("1", 3).
@@ -97,6 +97,40 @@ class TestHashing {
         assert Applications.numberOfEmployeesUnder(employeeManagerPair, 'D') == 0;
         assert Applications.numberOfEmployeesUnder(employeeManagerPair, 'E') == 1;
         assert Applications.numberOfEmployeesUnder(employeeManagerPair, 'F') == 5;
+    }
+
+    @Test
+    void testGetAnagramsTogether() {
+        List<String> words = Arrays.asList("cat", "dog", "tac", "god", "act", "gdo");
+
+        List<String> anagramsTogether = Applications.getAnagramsTogether(words);
+
+        assert anagramsTogether.size() == 6;
+        assert isAnagram(anagramsTogether.get(0), "cat");
+        assert isAnagram(anagramsTogether.get(1), "cat");
+        assert isAnagram(anagramsTogether.get(2), "cat");
+        assert isAnagram(anagramsTogether.get(3), "dog");
+        assert isAnagram(anagramsTogether.get(4), "dog");
+        assert isAnagram(anagramsTogether.get(5), "dog");
+
+    }
+
+    private boolean isAnagram(String word, String possibleAnagram) {
+        Map<Character, Integer> wordCount = new HashMap<>();
+        for (char ch : word.toCharArray()) {
+            wordCount.put(ch, wordCount.getOrDefault(ch, 0) + 1);
+        }
+        for (char ch : possibleAnagram.toCharArray()) {
+            if (!wordCount.containsKey(ch)) {
+                return false;
+            }
+            wordCount.put(ch, wordCount.get(ch) - 1);
+            if (wordCount.get(ch) == 0) {
+                wordCount.remove(ch);
+            }
+        }
+
+        return wordCount.isEmpty();
     }
 
 }
