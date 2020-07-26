@@ -399,4 +399,24 @@ public class Utils {
     public static boolean isNotSafe(int x, int y, int rows, int cols) {
         return x < 0 || y < 0 || x >= rows || y >= cols;
     }
+
+    public static boolean isNonDecreasing(int[] arr) {
+        assert arr != null;
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i + 1] < arr[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * t=O(1)
+     * `end` is inclusive
+     */
+    public static double getMedian(int sortedArr[], int start, int end) {
+        int size = end - start + 1;
+        return (size % 2 == 0) ? (sortedArr[start + (size / 2)] + sortedArr[start + (size / 2) - 1]) / 2.0 : sortedArr[start + (size / 2)];
+    }
 }

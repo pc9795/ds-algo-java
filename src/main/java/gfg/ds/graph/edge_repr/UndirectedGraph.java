@@ -18,7 +18,6 @@ public class UndirectedGraph {
     public UndirectedGraph(int vertices) {
         this.vertices = vertices;
         this.edges = new ArrayList<>();
-        //noinspection unchecked
         this.values = new ArrayList[vertices];
         for (int i = 0; i < vertices; i++) {
             values[i] = new ArrayList<>();
@@ -41,8 +40,6 @@ public class UndirectedGraph {
     /**
      * t=O(E*Log V)
      * Assumes that there are no self loops
-     *
-     * @return true if cyclic
      */
     public boolean isCyclic() {
         UnionFind uf = new UnionFind(this.vertices);
@@ -57,8 +54,6 @@ public class UndirectedGraph {
 
     /**
      * todo time complexity
-     *
-     * @return true if connected
      */
     private boolean isConnected() {
         boolean[] visited = new boolean[this.vertices];
@@ -73,8 +68,6 @@ public class UndirectedGraph {
 
     /**
      * todo time complexity
-     *
-     * @return true if eulerian circuit exists
      */
     public boolean isEulerianCircuitExists() {
         if (!isConnected()) {

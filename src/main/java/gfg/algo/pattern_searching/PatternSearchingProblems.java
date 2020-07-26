@@ -1,15 +1,14 @@
 package gfg.algo.pattern_searching;
 
+import java.util.Arrays;
+
 /**
  * Created By: Prashant Chaubey
  * Created On: 14-11-2018 00:47
  **/
 public class PatternSearchingProblems {
     /**
-     * T=O(n)
-     *
-     * @param text
-     * @param pattern
+     * t=O(n)
      */
     public static void anagramSubstringSearch(String text, String pattern) {
         int[] windowCharFreq = new int[26];
@@ -18,31 +17,15 @@ public class PatternSearchingProblems {
             windowCharFreq[pattern.charAt(i) - 'A']++;
             patternCharFreq[pattern.charAt(i) - 'A']++;
         }
-        if (compareArray(windowCharFreq, patternCharFreq)) {
+        if (Arrays.equals(windowCharFreq, patternCharFreq)) {
             System.out.println("Pattern found at: 0");
         }
         for (int i = pattern.length(); i < text.length(); i++) {
             windowCharFreq[text.charAt(i) - 'A']++;
             windowCharFreq[text.charAt(i - pattern.length()) - 'A']--;
-            if (compareArray(windowCharFreq, patternCharFreq)) {
+            if (Arrays.equals(windowCharFreq, patternCharFreq)) {
                 System.out.println("Pattern found at:" + (i - pattern.length() + 1));
             }
         }
-    }
-
-    /**
-     * T=O(1)
-     *
-     * @param first
-     * @param second
-     * @return
-     */
-    private static boolean compareArray(int[] first, int[] second) {
-        for (int i = 0; i < first.length; i++) {
-            if (first[i] != second[i]) {
-                return false;
-            }
-        }
-        return true;
     }
 }

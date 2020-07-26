@@ -13,15 +13,24 @@ public abstract class GraphBase {
     public List<GraphNode>[] values;
 
     GraphBase(int vertices) {
-        //noinspection unchecked
         values = new ArrayList[vertices];
         for (int i = 0; i < values.length; i++) {
             values[i] = new ArrayList<>();
         }
     }
 
+    public List<GraphNode> getNeighbours(int vertex) {
+        assert vertex < values.length;
+
+        return values[vertex];
+    }
+
     public int vertices() {
         return values.length;
+    }
+
+    public boolean isEmpty() {
+        return values.length == 0;
     }
 
     public abstract GraphBase addEdge(int src, int dest);
@@ -75,12 +84,8 @@ public abstract class GraphBase {
 
     /**
      * t=O(V+E)
-     *
-     * @param source  source vertex
-     * @param visited boolean array to track visited vertices
-     * @return count of the vertices reachable by source vertex using DFS
      */
-    int dfsCountUtil(int source, boolean[] visited) {
+    int countUtil(int source, boolean[] visited) {
         if (visited[source]) {
             return 0;
         }
@@ -88,15 +93,13 @@ public abstract class GraphBase {
         int count = 1;
         List<GraphNode> neighbours = this.values[source];
         for (GraphNode neighbour : neighbours) {
-            count += dfsCountUtil(neighbour.vertex, visited);
+            count += countUtil(neighbour.vertex, visited);
         }
         return count;
     }
 
     /**
      * t=O(V+E)
-     *
-     * @return bfs traversal
      */
     public List<Integer> bfs() {
         int vertices = vertices();
@@ -112,7 +115,6 @@ public abstract class GraphBase {
         return traversal;
     }
 
-    @SuppressWarnings("ConstantConditions")
     private List<Integer> bfsUtil(int vertex, boolean[] visited) {
         List<Integer> traversal = new ArrayList<>();
         ArrayDeque<Integer> queue = new ArrayDeque<>();
@@ -133,9 +135,7 @@ public abstract class GraphBase {
     }
 
     /**
-     * T=O(V+E)
-     *
-     * @return transpose of the graph
+     * t=O(V+E)
      */
     Graph transpose() {
         int vertices = this.vertices();
@@ -152,8 +152,6 @@ public abstract class GraphBase {
     /**
      * t=O(V+E); same as DFS
      * Will not work in the case of multiple edges.
-     *
-     * @param graph graph whose bridges are to be found
      */
     public static List<Edge> getBridges(GraphBase graph) {
         assert graph != null;
@@ -205,9 +203,6 @@ public abstract class GraphBase {
 
     /**
      * todo time complexity
-     *
-     * @param graph input graph
-     * @return articulation points
      */
     public static Set<Integer> getArticulationPoints(GraphBase graph) {
         assert graph != null;

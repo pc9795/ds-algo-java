@@ -41,9 +41,6 @@ public class UndirectedGraph extends GraphBase {
 
     /**
      * t=O(V+E)
-     * dfs is used in finding whether the graph is connected or not.
-     *
-     * @return true if graph is eulerian
      */
     @Override
     public boolean isEulerian() {
@@ -64,8 +61,6 @@ public class UndirectedGraph extends GraphBase {
     /**
      * todo time complexity
      * Fluery's Algorithm
-     *
-     * @return the euler path
      */
     public List<Pair<Integer, Integer>> getEulerPath() {
         assert isEulerian() : "Graph is not Eulerian";
@@ -105,10 +100,10 @@ public class UndirectedGraph extends GraphBase {
             return true;
         }
         boolean[] visited = new boolean[vertices()];
-        int countWithEdge = dfsCountUtil(source, visited);
+        int countWithEdge = countUtil(source, visited);
         removeEdge(source, dest);
         Arrays.fill(visited, false);
-        int countWithoutEdge = dfsCountUtil(source, visited);
+        int countWithoutEdge = countUtil(source, visited);
         addEdge(source, dest);
         // If count is decreased then this edge is a bridge.
         return countWithEdge == countWithoutEdge;
@@ -116,8 +111,6 @@ public class UndirectedGraph extends GraphBase {
 
     /**
      * t=O(V+E)
-     *
-     * @return true if graph is strongly connected.
      */
     @Override
     public boolean isStronglyConnected() {
@@ -136,8 +129,6 @@ public class UndirectedGraph extends GraphBase {
     /**
      * t=O(V+E)
      * There should not be parallel edges
-     *
-     * @return true if cyclic
      */
     public boolean isCyclic() {
         boolean visited[] = new boolean[vertices()];

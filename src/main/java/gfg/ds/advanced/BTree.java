@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * Created By: Prashant Chaubey
  * Created On: 26-06-2020 00:09
- * While reading the code just remember the constraint that except root all other nodes will have a minimum of `degree-1`
- * nodes and a maximum of `2*degree-1` nodes.
+ * Except root all other nodes will have a minimum of `degree-1` nodes and a maximum of `2*degree-1` nodes.
  **/
 public class BTree {
     public BNode root;
