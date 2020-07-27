@@ -1,6 +1,6 @@
 package gfg.ds.heap;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Created By: Prashant Chaubey
@@ -9,14 +9,9 @@ import java.util.PriorityQueue;
 public class Applications {
 
     /**
-     * T=O(k+(n-k)*log k)
+     * t=O(k+(n-k)*log k)
      * We can also create a max heap and call extract max k times. O(k*log n)
-     *
-     * @param arr input array
-     * @param k   no of largest elements needed
-     * @return k largest elements
      */
-    @SuppressWarnings("ConstantConditions")
     public static int[] kLargestElements(int arr[], int k) {
         assert arr.length != 0 && k <= arr.length;
 
@@ -46,11 +41,7 @@ public class Applications {
     /**
      * t=O(k+(n-k)*log k)
      * We can also use a BST but it need extra pointers for left, right and also for maintaining min/max for O(1) getMin()
-     *
-     * @param arr nearly sorted input array
-     * @param k   maximum distance of an element from its actual position from a sorted array
      */
-    @SuppressWarnings("ConstantConditions")
     public static void sortNearlySortedArray(int arr[], int k) {
         assert k >= 1 && k < arr.length;
 
@@ -71,4 +62,85 @@ public class Applications {
             arr[i] = heap.poll();
         }
     }
+
+    public static Map<String, Integer> kMostFrequentWords(List<String> words, int k) {
+        class FrequencyInfo {
+            private String word;
+            private int frequency;
+
+            private FrequencyInfo(String word, int frequency) {
+                this.word = word;
+                this.frequency = frequency;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                FrequencyInfo frequencyInfo = (FrequencyInfo) o;
+
+                if (frequency != frequencyInfo.frequency) return false;
+                return word != null ? word.equals(frequencyInfo.word) : frequencyInfo.word == null;
+            }
+
+            @Override
+            public int hashCode() {
+                int result = word != null ? word.hashCode() : 0;
+                result = 31 * result + frequency;
+                return result;
+            }
+
+            @Override
+            public String toString() {
+                return "FrequencyInfo{" +
+                        "word='" + word + '\'' +
+                        ", frequency=" + frequency +
+                        '}';
+            }
+        }
+
+        PriorityQueue<FrequencyInfo> minHeap = new PriorityQueue<>(Comparator.comparingInt(o -> o.frequency));
+        Set<String> inHeap = new HashSet<>();
+        Map<String, FrequencyInfo> dictionary = new HashMap<>(); // We can also use Trie
+
+        for (String word : words) {
+            FrequencyInfo frequencyInfo = dictionary.getOrDefault(word, new FrequencyInfo(word, 0));
+
+            if (inHeap.contains(word)) {
+                assert dictionary.containsKey(word);
+                // If we have used our own implementation of heap we could just edit the frequency of the node
+                // corresponding to the word in heap by storing its index in the frequency info object and then calling
+                // heapify. Currently we are removing the node and then adding it that increases the time complexity
+                // from O(log n) to O(n). Keep in mind if using in future.
+                minHeap.remove(frequencyInfo);
+                frequencyInfo.frequency++;
+                minHeap.add(frequencyInfo);
+            } else if (inHeap.size() < k) {
+                frequencyInfo.frequency++;
+                minHeap.add(frequencyInfo);
+                inHeap.add(word);
+            } else {
+                frequencyInfo.frequency++;
+                FrequencyInfo minimum = minHeap.peek();
+                assert minimum != null;
+
+                if (minimum.frequency < frequencyInfo.frequency) {
+                    minHeap.poll();
+                    inHeap.remove(minimum.word);
+                    minHeap.add(frequencyInfo);
+                    inHeap.add(word);
+                }
+            }
+            dictionary.put(word, frequencyInfo);
+        }
+
+        Map<String, Integer> kFrequentWords = new HashMap<>();
+        for (FrequencyInfo frequencyInfo : minHeap) {
+            kFrequentWords.put(frequencyInfo.word, frequencyInfo.frequency);
+        }
+
+        return kFrequentWords;
+    }
+
 }
