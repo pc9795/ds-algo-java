@@ -2,11 +2,11 @@ package gfg.ds.queue.adt;
 
 public interface Queue {
 
-    Queue enqueue(int data);
+  Queue enqueue(int data);
 
-    int dequeue();
+  int dequeue();
 
-    int front();
+  int front();
 
-    int rear();
+  int rear();
 }

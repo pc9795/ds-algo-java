@@ -6,9 +6,8 @@ import utils.Pair;
 import java.util.*;
 
 /**
- * Created By: Prashant Chaubey
- * Created On: 12-01-2019 18:53
- **/
+ * @noinspection WeakerAccess
+ */
 public abstract class GraphBase {
     public List<GraphNode>[] values;
 

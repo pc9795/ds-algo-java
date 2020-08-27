@@ -4,29 +4,26 @@ import java.util.ArrayDeque;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * Created By: Prashant Chaubey
- * Created On: 07-02-2020 22:50
- **/
+/** @noinspection WeakerAccess */
 public class Applications {
-    public static String longestPrefixMatching(Set<String> dictionary, String input) {
-        Trie trie = new Trie();
-        input = input.toLowerCase();
-        for (String word : dictionary) {
-            trie.insert(word);
-        }
-        ArrayDeque<Trie.TrieNode> stack = new ArrayDeque<>();
-        Trie.TrieNode curr = trie.root;
-        for (char ch : input.toCharArray()) {
-            curr = curr.getChild(trie.toIndex(ch));
-            if (curr == null) {
-                break;
-            }
-            stack.push(curr);
-        }
-        while (!stack.isEmpty() && !Objects.requireNonNull(stack.peek()).isEndOfWord) {
-            stack.pop();
-        }
-        return input.substring(0, stack.size());
+  public static String longestPrefixMatching(Set<String> dictionary, String input) {
+    Trie trie = new Trie();
+    input = input.toLowerCase();
+    for (String word : dictionary) {
+      trie.insert(word);
     }
+    ArrayDeque<Trie.TrieNode> stack = new ArrayDeque<>();
+    Trie.TrieNode curr = trie.root;
+    for (char ch : input.toCharArray()) {
+      curr = curr.getChild(trie.toIndex(ch));
+      if (curr == null) {
+        break;
+      }
+      stack.push(curr);
+    }
+    while (!stack.isEmpty() && !Objects.requireNonNull(stack.peek()).isEndOfWord) {
+      stack.pop();
+    }
+    return input.substring(0, stack.size());
+  }
 }

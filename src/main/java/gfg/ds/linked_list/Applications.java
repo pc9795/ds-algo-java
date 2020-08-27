@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created By: Prashant Chaubey
- * Created On: 13-10-2018 23:33
- **/
+ * @noinspection WeakerAccess
+ */
 public class Applications {
 
     /**
@@ -16,7 +15,7 @@ public class Applications {
      * todo geeks of geeks article
      */
     public static void reverseInChunksIter(SinglyLinkedList list, int chunkSize) {
-        assert list != null && list.getHead() != null;
+        assert list.getHead() != null;
 
         SinglyLinkedList.Node curr = list.getHead();
         SinglyLinkedList.Node end = null;
@@ -48,7 +47,6 @@ public class Applications {
      * t=O(n)
      */
     public static void reverseInChunks(SinglyLinkedList list, int chunkSize) {
-        assert list != null;
         list.setHead(reverseInChunksUtil(list.getHead(), chunkSize));
     }
 
@@ -102,7 +100,7 @@ public class Applications {
      * t=O(n)
      */
     public static void rotateCounterClockWise(SinglyLinkedList list, int k) {
-        assert list != null && list.getHead() != null;
+        assert list.getHead() != null;
         assert k <= list.size();
 
         if (k == list.size()) {
@@ -129,7 +127,7 @@ public class Applications {
      * NOTE: it is mutating the input list (NOT PURE)
      */
     public static Pair<CircularLinkedList, CircularLinkedList> split(CircularLinkedList list) {
-        assert list != null && list.last != null : "Input list can't be empty or null";
+    assert list.last != null : "Input list can't be empt";
         //For size 1;
         if (list.size() == 1) {
             return new Pair<>(list, new CircularLinkedList());

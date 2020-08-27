@@ -35,7 +35,7 @@ public class KnightTour {
             for (int i = 0; i < moves; i++) {
                 int nextX = x + row[i];
                 int nextY = y + col[i];
-                if (Utils.isSafe(board, nextX, nextY) && board[nextX][nextY] == -1) {
+                if (Utils.isSafe(nextX, nextY, board) && board[nextX][nextY] == -1) {
                     board[nextX][nextY] = nextMove;
                     if (knightTourUtil(nextX, nextY, boardSize, board, nextMove + 1)) {
                         return true;

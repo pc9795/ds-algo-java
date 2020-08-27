@@ -6,16 +6,14 @@ import utils.Pair;
 import java.util.*;
 
 /**
- * Created By: Prashant Chaubey
- * Created On: 24-09-2018 02:05
- **/
+ * @noinspection WeakerAccess
+ */
 public class Applications {
 
     /**
      * t=O(n)
      */
     public static Map<Integer, List<Integer>> getVerticalOrder(BinaryTree tree) {
-        assert tree != null;
         // Tree map so that we will have values sorted according to axises.
         Map<Integer, List<Integer>> map = new TreeMap<>();
         getVerticalOrderUtil(tree.root, 0, map);
@@ -135,7 +133,7 @@ public class Applications {
                 break;
             }
         }
-        assert !src.equals("");
+    assert !src.equals("");
 
         List<String> itinerary = new ArrayList<>();
         while (src != null) {

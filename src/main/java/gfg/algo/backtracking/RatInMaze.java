@@ -23,7 +23,7 @@ public class RatInMaze {
         if (x == mat.length - 1 && y == mat[0].length - 1) {
             return true;
         }
-        if (Utils.isSafe(mat, x + 1, y) && mat[x + 1][y] != 0) {
+        if (Utils.isSafe(x + 1, y, mat) && mat[x + 1][y] != 0) {
             path.push((x + 1) + "," + y);
             if (ratInMazeUtil(mat, path, x + 1, y)) {
                 return true;
@@ -31,7 +31,7 @@ public class RatInMaze {
                 path.pop();
             }
         }
-        if (Utils.isSafe(mat, x, y + 1) && mat[x][y + 1] != 0) {
+        if (Utils.isSafe(x, y + 1, mat) && mat[x][y + 1] != 0) {
             path.push((x) + "," + (y + 1));
             if (ratInMazeUtil(mat, path, x, y + 1)) {
                 return true;

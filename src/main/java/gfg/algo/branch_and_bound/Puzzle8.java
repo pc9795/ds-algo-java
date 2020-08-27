@@ -2,6 +2,7 @@ package gfg.algo.branch_and_bound;
 
 import utils.Utils;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -42,14 +43,9 @@ public class Puzzle8 {
     }
 
     public static void puzzle8(int[][] initial, int[][] result, int x, int y) {
-        PriorityQueue<PuzzleNode> heap = new PriorityQueue<>(new Comparator<PuzzleNode>() {
-            @Override
-            public int compare(PuzzleNode o1, PuzzleNode o2) {
-                return o1.cost - o2.cost;
-            }
-        });
+        PriorityQueue<PuzzleNode> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.cost));
         if (check(initial, result)) {
-            Utils.prettyPrint2DMatrix(initial);
+            System.out.println(Arrays.deepToString(initial));
         }
         int row[] = {0, 1, -1, 0};
         int col[] = {-1, 0, 0, 1};
@@ -64,7 +60,7 @@ public class Puzzle8 {
             PuzzleNode curr = heap.poll();
             assert curr != null;
             for (int i = 0; i < row.length; i++) {
-                if (Utils.isSafe(curr.value, curr.x + row[i], curr.y + col[i])) {
+                if (Utils.isSafe(curr.x + row[i], curr.y + col[i], curr.value)) {
                     PuzzleNode child = new PuzzleNode();
                     child.value = Utils.deepCopy(curr.value);
                     child.x = curr.x + row[i];
@@ -76,10 +72,10 @@ public class Puzzle8 {
                     if (check(child.value, result)) {
                         PuzzleNode iter;
                         for (iter = child; iter.parent != null; iter = iter.parent) {
-                            Utils.prettyPrint2DMatrix(iter.value);
+                            System.out.println(Arrays.deepToString(iter.value));
                             System.out.println("||");
                         }
-                        Utils.prettyPrint2DMatrix(iter.value);
+                        System.out.println(Arrays.deepToString(iter.value));
                         return;
                     }
                     child.cost = calculateCost(child.value, result);

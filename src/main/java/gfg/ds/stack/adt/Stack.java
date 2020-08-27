@@ -1,16 +1,12 @@
 package gfg.ds.stack.adt;
 
-/**
- * Created By: Prashant Chaubey
- * Created On: 27-01-2019 15:09
- **/
 public interface Stack {
 
-    void push(int data);
+  void push(int data);
 
-    int pop();
+  int pop();
 
-    boolean isEmpty();
+  boolean isEmpty();
 
-    int peek();
+  int peek();
 }

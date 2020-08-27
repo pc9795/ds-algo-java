@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created By: Prashant Chaubey
- * Created On: 15-10-2018 22:40
- **/
+ * @noinspection WeakerAccess
+ */
 public class UndirectedGraph {
     public List<GraphBase.Edge> edges;
     private ArrayList<Integer>[] values;
@@ -25,7 +24,7 @@ public class UndirectedGraph {
     }
 
     public UndirectedGraph addEdge(int src, int dest, int weight) {
-        assert dest >= 0 && dest < vertices && src >= 0 && src < vertices;
+    assert dest >= 0 && dest < vertices && src >= 0 && src < vertices;
         int index = edges.size();
         this.values[src].add(index);
         this.values[dest].add(index);
