@@ -1,7 +1,7 @@
 package gfg.ds.tree.binary_search_tree;
 
 import gfg.ds.tree.binary_tree.BinaryTree;
-import utils.DoublePointer;
+import utils.Pointer;
 import utils.Pair;
 
 import java.util.ArrayDeque;
@@ -205,11 +205,11 @@ public class BinarySearchTree extends BinaryTree {
    * 3
    */
   public static boolean isBST(BinaryTree bt) {
-    return isBSTUtil(bt.root, new DoublePointer<>());
+    return isBSTUtil(bt.root, new Pointer<>());
   }
 
   /** Using in-order to check whether it is BST or not. */
-  private static boolean isBSTUtil(BinaryTreeNode root, DoublePointer<BinaryTreeNode> prev) {
+  private static boolean isBSTUtil(BinaryTreeNode root, Pointer<BinaryTreeNode> prev) {
     if (root == null) {
       return true;
     }

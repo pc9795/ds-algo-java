@@ -2,7 +2,7 @@ package ctci.ch9_4_tree_and_graphs;
 
 import gfg.ds.tree.binary_search_tree.BinarySearchTree;
 import gfg.ds.tree.binary_tree.BinaryTree;
-import utils.DoublePointer;
+import utils.Pointer;
 
 import java.util.*;
 
@@ -75,13 +75,13 @@ public class Solution {
 
     //T=O(N)
     public static boolean checkBalanced(BinaryTree bt) {
-        DoublePointer<Boolean> ans = new DoublePointer<>();
+        Pointer<Boolean> ans = new Pointer<>();
         ans.data = true;
         checkBalancedUtil(bt.root, ans);
         return ans.data;
     }
 
-    static int checkBalancedUtil(BinaryTree.BinaryTreeNode root, DoublePointer<Boolean> ans) {
+    static int checkBalancedUtil(BinaryTree.BinaryTreeNode root, Pointer<Boolean> ans) {
         if (root == null) {
             return 0;
         }

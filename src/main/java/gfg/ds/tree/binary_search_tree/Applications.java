@@ -1,7 +1,7 @@
 package gfg.ds.tree.binary_search_tree;
 
 import gfg.ds.tree.binary_tree.BinaryTree;
-import utils.DoublePointer;
+import utils.Pointer;
 import utils.Pair;
 
 import java.util.*;
@@ -13,14 +13,14 @@ public class Applications {
   public static void correctBSTIfTwoNodesAreSwapped(BinarySearchTree bst) {
     assert !bst.isEmpty();
 
-    DoublePointer<BinaryTree.BinaryTreeNode> first = new DoublePointer<>();
+    Pointer<BinaryTree.BinaryTreeNode> first = new Pointer<>();
     // for the case where the two in correct nodes are adjacent to each other; in that case their is
     // no last we will
     // use middle;
-    DoublePointer<BinaryTree.BinaryTreeNode> middle = new DoublePointer<>();
-    DoublePointer<BinaryTree.BinaryTreeNode> last = new DoublePointer<>();
+    Pointer<BinaryTree.BinaryTreeNode> middle = new Pointer<>();
+    Pointer<BinaryTree.BinaryTreeNode> last = new Pointer<>();
     // Take care of in-order
-    DoublePointer<BinaryTree.BinaryTreeNode> prev = new DoublePointer<>();
+    Pointer<BinaryTree.BinaryTreeNode> prev = new Pointer<>();
     correctBSTIfTwoNodesAreSwappedUtil(bst.root, prev, first, middle, last);
 
     // the nodes are adjacent.
@@ -37,10 +37,10 @@ public class Applications {
 
   private static void correctBSTIfTwoNodesAreSwappedUtil(
       BinaryTree.BinaryTreeNode root,
-      DoublePointer<BinaryTree.BinaryTreeNode> prev,
-      DoublePointer<BinaryTree.BinaryTreeNode> first,
-      DoublePointer<BinaryTree.BinaryTreeNode> middle,
-      DoublePointer<BinaryTree.BinaryTreeNode> last) {
+      Pointer<BinaryTree.BinaryTreeNode> prev,
+      Pointer<BinaryTree.BinaryTreeNode> first,
+      Pointer<BinaryTree.BinaryTreeNode> middle,
+      Pointer<BinaryTree.BinaryTreeNode> last) {
     if (root == null) {
       return;
     }
@@ -156,11 +156,11 @@ public class Applications {
     List<Integer> list = BinaryTree.inOrderTraversal(bt);
     // n*log n element
     Collections.sort(list);
-    convertBinaryTreeToBSTUtil(bt.root, list, new DoublePointer<>(0));
+    convertBinaryTreeToBSTUtil(bt.root, list, new Pointer<>(0));
   }
 
   private static void convertBinaryTreeToBSTUtil(
-      BinaryTree.BinaryTreeNode root, List<Integer> inOrder, DoublePointer<Integer> index) {
+      BinaryTree.BinaryTreeNode root, List<Integer> inOrder, Pointer<Integer> index) {
     if (root == null) {
       return;
     }

@@ -3,3 +3,4 @@
 3. Not a height-balanced tree.
 4. Cartesian tree of a sequence of distinct numbers is always unique.
 
+![Cartesian Tree](cartesian_tree.jpeg)

@@ -3,7 +3,7 @@ package gfg.ds.linked_list;
 import gfg.ds.linked_list.adt.LinkedList;
 import gfg.ds.tree.binary_search_tree.BinarySearchTree;
 import gfg.ds.tree.binary_tree.BinaryTree;
-import utils.DoublePointer;
+import utils.Pointer;
 
 import java.util.Objects;
 
@@ -168,11 +168,11 @@ public class DoublyLinkedList implements LinkedList {
 
     int n = dll.size();
     return BinarySearchTree.fromBinaryTree(
-        new BinaryTree().insertAtRoot(convertUtil(new DoublePointer<>(dll.head), n)));
+        new BinaryTree().insertAtRoot(convertUtil(new Pointer<>(dll.head), n)));
   }
 
   /** t=O(n) create BST from leaves. */
-  private static BinaryTree.BinaryTreeNode convertUtil(DoublePointer<DNode> headPtr, int n) {
+  private static BinaryTree.BinaryTreeNode convertUtil(Pointer<DNode> headPtr, int n) {
     if (n == 0) {
       return null;
     }

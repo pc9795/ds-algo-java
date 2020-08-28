@@ -1,7 +1,7 @@
 package gfg.ds.tree.binary_tree;
 
 import gfg.ds.linked_list.DoublyLinkedList;
-import utils.DoublePointer;
+import utils.Pointer;
 
 import java.util.*;
 
@@ -307,17 +307,17 @@ public class BinaryTree {
 
   /** t=O(n) */
   public static int diameter(BinaryTree tree) {
-    DoublePointer<Integer> height = new DoublePointer<>(0);
+    Pointer<Integer> height = new Pointer<>(0);
     return diameterUtil(tree.root, height);
   }
 
-  private static int diameterUtil(BinaryTreeNode root, DoublePointer<Integer> height) {
+  private static int diameterUtil(BinaryTreeNode root, Pointer<Integer> height) {
     if (root == null) {
       return 0;
     }
     height.data += 1;
-    DoublePointer<Integer> leftHeight = new DoublePointer<>(0);
-    DoublePointer<Integer> rightHeight = new DoublePointer<>(0);
+    Pointer<Integer> leftHeight = new Pointer<>(0);
+    Pointer<Integer> rightHeight = new Pointer<>(0);
     int left = diameterUtil(root.left, leftHeight);
     int right = diameterUtil(root.right, rightHeight);
     // Update height from children

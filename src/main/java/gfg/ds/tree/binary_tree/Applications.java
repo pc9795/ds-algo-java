@@ -1,6 +1,6 @@
 package gfg.ds.tree.binary_tree;
 
-import utils.DoublePointer;
+import utils.Pointer;
 
 import java.util.*;
 
@@ -15,11 +15,11 @@ public class Applications {
     return new BinaryTree()
         .insertAtRoot(
             createFromPreAndInorder2Util(
-                preOrder, inOrder, 0, inOrder.length - 1, new DoublePointer<>(0)));
+                preOrder, inOrder, 0, inOrder.length - 1, new Pointer<>(0)));
   }
 
   private static BinaryTree.BinaryTreeNode createFromPreAndInorder2Util(
-      int[] preOrder, int[] inOrder, int inStart, int inEnd, DoublePointer<Integer> preIndex) {
+      int[] preOrder, int[] inOrder, int inStart, int inEnd, Pointer<Integer> preIndex) {
     if (inStart > inEnd) {
       return null;
     }

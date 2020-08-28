@@ -13,7 +13,7 @@ public class Trie {
     this.root = new TrieNode(ALPHABET_SIZE);
   }
 
-  int toIndex(char ch) {
+  public int toIndex(char ch) {
     return ch - 'a';
   }
 
@@ -83,8 +83,8 @@ public class Trie {
     private TrieNode[] children;
     public boolean isEndOfWord;
 
-    public TrieNode(final int ALPHABET_SIZE) {
-      children = new TrieNode[ALPHABET_SIZE];
+    public TrieNode(int alphabetSize) {
+      children = new TrieNode[alphabetSize];
     }
 
     public TrieNode getChild(int index) {

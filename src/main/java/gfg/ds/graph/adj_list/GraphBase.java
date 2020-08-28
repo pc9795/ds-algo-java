@@ -1,6 +1,6 @@
 package gfg.ds.graph.adj_list;
 
-import utils.DoublePointer;
+import utils.Pointer;
 import utils.Pair;
 
 import java.util.*;
@@ -163,7 +163,7 @@ public abstract class GraphBase {
         int[] low = new int[vertices];
         boolean[] visited = new boolean[vertices];
         int[] discoveryTime = new int[vertices];
-        DoublePointer<Integer> currentTime = new DoublePointer<>();
+        Pointer<Integer> currentTime = new Pointer<>();
         currentTime.data = 0;
         List<Edge> bridges = new ArrayList<>();
         for (int i = 0; i < vertices; i++) {
@@ -176,7 +176,7 @@ public abstract class GraphBase {
     }
 
     private static List<Edge> getBridgesUtil(int[] parent, int[] low, boolean[] visited, int[] discoveryTime,
-                                             DoublePointer<Integer> currentTime, int source, GraphBase graph) {
+                                             Pointer<Integer> currentTime, int source, GraphBase graph) {
         visited[source] = true;
         low[source] = discoveryTime[source] = currentTime.data++;
         List<Edge> bridges = new ArrayList<>();
@@ -215,7 +215,7 @@ public abstract class GraphBase {
         boolean[] visited = new boolean[vertices];
         boolean[] ap = new boolean[vertices];
         int[] discoveryTime = new int[vertices];
-        DoublePointer<Integer> currentTime = new DoublePointer<>();
+        Pointer<Integer> currentTime = new Pointer<>();
         currentTime.data = 0;
         for (int i = 0; i < vertices; i++) {
             if (visited[i]) {
@@ -233,7 +233,7 @@ public abstract class GraphBase {
     }
 
     private static void getArticulationPointsUtil(int[] parent, int[] low, boolean[] visited, int[] discoveryTime,
-                                                  DoublePointer<Integer> currentTime, boolean[] ap, int source, GraphBase graph) {
+                                                  Pointer<Integer> currentTime, boolean[] ap, int source, GraphBase graph) {
         visited[source] = true;
         low[source] = discoveryTime[source] = currentTime.data++;
         int children = 0;
