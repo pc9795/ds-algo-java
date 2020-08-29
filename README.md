@@ -1,51 +1,34 @@
-**This Repo contains implementation of Data structures and Algorithms in Java**
+## Data structures
 
-I sometimes use Python also so you can find it here and there. The major content is what I learned in Geeks for Geeks but
-I have also added notes form my study of CCDSAP.
+Implemented data structures in this repository:
+* [Fenwick Tree](src/main/java/gfg/ds/advanced/fenwick_tree)
+* [Segment Tree](src/main/java/gfg/ds/advanced/segment_tree)
+* [Suffix Tree](src/main/java/gfg/ds/advanced/suffix_tree)
+* [Trie](src/main/java/gfg/ds/advanced/trie/Trie.java)
+* [Ternary Search Tree](src/main/java/gfg/ds/advanced/trie/TernarySearchTree.java) 
+* [B-tree](src/main/java/gfg/ds/advanced/BTree.java)
+* [Cartesian Tree](src/main/java/gfg/ds/advanced/CartesianTree.java)
+* [Difference Array](src/main/java/gfg/ds/advanced/DiffArray.java)
+* [Interval Tree](src/main/java/gfg/ds/advanced/IntervalTree.java)
+* [KD Tree](src/main/java/gfg/ds/advanced/KDTree.java)
+* [Sparse Set](src/main/java/gfg/ds/advanced/SparseSet.java)
+* [Graph](src/main/java/gfg/ds/graph)
+* [Binary Heap](src/main/java/gfg/ds/heap/BinaryMinHeap.java)
+* [Binomial Heap](src/main/java/gfg/ds/heap/BinomialHeap.java) 
+* [Singly Linked List](src/main/java/gfg/ds/linked_list/SinglyLinkedList.java)
+* [Doubly Linked List](src/main/java/gfg/ds/linked_list/DoublyLinkedList.java)
+* [Circular Linked List](src/main/java/gfg/ds/linked_list/CircularLinkedList.java)
+* [Queue](src/main/java/gfg/ds/queue)
+* [Stack](src/main/java/gfg/ds/stack)
+* [Binary Tree](src/main/java/gfg/ds/tree/binary_tree/BinaryTree.java)
+* [Binary Search Tree](src/main/java/gfg/ds/tree/binary_search_tree/BinarySearchTree.java)
+* [AVL Tree](src/main/java/gfg/ds/tree/binary_search_tree/balanced/AVLTree.java)
+* [Red Black Tree](src/main/java/gfg/ds/tree/binary_search_tree/balanced/RedBlackTree.java)
+* [Splay Tree](src/main/java/gfg/ds/tree/binary_search_tree/balanced/SplayTree.java)
+* [Treap](src/main/java/gfg/ds/tree/binary_search_tree/balanced/Treap.java)
+* [Union Find](src/main/java/gfg/ds/union_find/UnionFind.java)
 
-I followed a style where in most of the places I used assertions in place of exceptions.
+Most of the data-structures have existing **test-cases** to explore various functionality and **time/space complexity** 
+mentioned in the method comments.
 
-## Data Structures
-
-**Common**
-
-Name|Type|Insertion|Deletion|Search|
----|---|---|---|---|
-Array|Linear|O(n)|O(n)|<table><thead></thead><tbody><tr><td>O(n)</td><td>Sequential</td></tr><tr><td>O(log n)</td><td>Binary</td></tr></tbody></table>|
-Singly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At Beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Circular Singly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Doubly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(n)</td><td>At end</td></tr></tbody></table>|O(n)|
-Circular Doubly Linked List|Linear|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|<table><thead></thead><tbody><tr><td>O(1)</td><td>At beginning</td></tr><tr><td>O(n)</td><td>In middle</td></tr><tr><td>O(1)</td><td>At end</td></tr></tbody></table>|O(n)|
-Binary Tree|Tree|-|O(n)|O(n)|
-Binary Search Tree|Tree|O(h)|O(h)|O(h)|
-Balanced Binary Search Tree|Tree|O(log n)|O(log n)|O(log n)|
-Map|Map|O(1)|O(1)|O(1)|
-
-**Insertion/Deletion**
-
-Name|Type|Insertion|Deletion|
----|---|---|---|
-Stack|Linear|O(1)|O(1)|
-Queue|Linear|O(1)|O(1)|
-
-**Heaps**
-
-Name|Type|Insertion|Get Min|Extract Min|Decrease Key|Union|
----|---|---|---|---|---|---|
-Binary Heap|Tree|O(log n)|O(1)|O(log n)|O(log n)|-|
-Binomial Heap|Tree|O(1)|O(log n)|O(log n)|O(log n)|O(log n)|
-Fibonacci Heap|Tree|O(1)|O(1)|O(log n)|O(log n)|O(1)|
-
-**Graph**
-
-Name|Type|Adding Vertex|Adding Edge|Querying Edge|Space|
----|---|---|---|---|---|
-Adjacency Matrix|Graph|O(V^2)|O(1)|O(1)|O(V^2)|
-Adjacency List|Graph|-|O(1)|-|O(V+E)|
-
-**Tables to add**
-* Union Find
-* Segment Tree
-* Suffix Tree
-* Trie
-* Difference Array
+If you want to contribute read [CONTRIBUTING.md](CONTRIBUTING.md)
