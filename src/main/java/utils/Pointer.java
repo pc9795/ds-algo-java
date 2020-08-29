@@ -11,6 +11,5 @@ public class Pointer<T> {
         this.data = data;
     }
 
-    public Pointer() {
-    }
+    public Pointer(){}
 }

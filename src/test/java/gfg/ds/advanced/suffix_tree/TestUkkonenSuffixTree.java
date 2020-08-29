@@ -2,10 +2,14 @@ package gfg.ds.advanced.suffix_tree;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 class TestUkkonenSuffixTree {
   @Test
   void testConstruction() {
-    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd$");
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
 
     // Check child nodes and suffix links
     UkkonenSuffixTree.UkkonenSuffixTreeNode rootChild1 = suffixTree.getRoot().getChildren()[0];
@@ -97,5 +101,86 @@ class TestUkkonenSuffixTree {
     assert suffixTree.getRoot().getChildren()[3].getSuffixIndex() == 9;
     assert suffixTree.getRoot().getChildren()[23].getSuffixIndex() == 5;
     assert suffixTree.getRoot().getChildren()[26].getSuffixIndex() == 10;
+  }
+
+  @Test
+  void testToSuffixArray() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+    Integer[] expected = new Integer[] {0, 6, 3, 1, 7, 4, 2, 8, 9, 5};
+
+    Integer[] result = suffixTree.toSuffixArray();
+
+    assert Arrays.equals(expected, result);
+  }
+
+  @Test
+  void testContainsChildNotAvailable() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert !suffixTree.contains("abce");
+  }
+
+  @Test
+  void testContainsFullyContainedInANode() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert suffixTree.contains("abc");
+  }
+
+  @Test
+  void testContainsPartiallyContainedInANode() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert suffixTree.contains("abcabx");
+  }
+
+  @Test
+  void testContainsNotMatchedForANode() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert !suffixTree.contains("abcaby");
+  }
+
+  @Test
+  void testGetAllOccurrencesNotFound() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert suffixTree.getAllOccurrences("abcaby").size() == 0;
+  }
+
+  @Test
+  void testGetAllOccurrences() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    List<Integer> indices = suffixTree.getAllOccurrences("ab");
+
+    assert new HashSet<>(indices).equals(new HashSet<>(Arrays.asList(0, 3, 6)));
+  }
+
+  @Test
+  void testGetLongestRepeatedSubStringNoRepetition() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abc");
+
+    assert suffixTree.getLongestRepeatedSubString().equals("");
+  }
+
+  @Test
+  void testGetLongestRepeatedSubStringEmpty() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("");
+
+    assert suffixTree.getLongestRepeatedSubString().equals("");
+  }
+
+  @Test
+  void testGetLongestRepeatedSubString() {
+    UkkonenSuffixTree suffixTree = new UkkonenSuffixTree("abcabxabcd");
+
+    assert suffixTree.getLongestRepeatedSubString().equals("abc");
+  }
+
+  @Test
+  void testGetLongestPalindromicSubString() {
+    UkkonenSuffixTree suffixTree = UkkonenSuffixTree.generalizedSuffixTree("cabbaabb", "bbaabbac");
+    assert suffixTree.getLongestPalindromicSubString().equals("bbaabb");
   }
 }
