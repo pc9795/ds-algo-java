@@ -4,59 +4,51 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created By: Prashant Chaubey
- * Created On: 15-09-2019 19:10
- **/
-
 class Person {
-    String name;
+  String name;
 
-    String decideSelection(Set<String> selectionNames) {
-        return null;
-    }
+  String decideSelection(Set<String> selectionNames) {
+    return null;
+  }
 }
 
 class JukeBox {
-    Map<String, Button> nameToButtons = new HashMap<>();
+  Map<String, Button> nameToButtons = new HashMap<>();
 
-    Set<String> getSelectionNames() {
-        return nameToButtons.keySet();
+  Set<String> getSelectionNames() {
+    return nameToButtons.keySet();
+  }
+
+  void playSelection(String selectionName) {
+    if (!nameToButtons.containsKey(selectionName)) {
+      throw new RuntimeException("Selection doesn't exist");
     }
-
-    void playSelection(String selectionName) {
-        if (!nameToButtons.containsKey(selectionName)) {
-            throw new RuntimeException("Selection doesn't exist");
-        }
-        nameToButtons.get(selectionName).play();
-    }
-
+    nameToButtons.get(selectionName).play();
+  }
 }
 
 class Button {
-    String name;
-    Album album;
+  String name;
+  Album album;
 
-    void play() {
-        album.play();
-    }
+  void play() {
+    album.play();
+  }
 }
 
 class Album {
-    Record[] records;
+  Record[] records;
 
-    void play() {
-        for (Record record : records) {
-            record.play();
-        }
+  void play() {
+    for (Record record : records) {
+      record.play();
     }
+  }
 }
 
 class Record {
-    String artist;
-    String song;
+  String artist;
+  String song;
 
-    void play() {
-
-    }
+  void play() {}
 }
