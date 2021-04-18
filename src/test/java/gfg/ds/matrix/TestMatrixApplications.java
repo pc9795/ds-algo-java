@@ -11,7 +11,7 @@ class TestMatrixApplications {
 
   @Test
   void testSearchInColumnAndRowWiseSortedMatrix() {
-    int mat[][] =
+    int[][] mat =
         new int[][] {{10, 20, 30, 40}, {15, 25, 35, 45}, {27, 29, 37, 48}, {32, 33, 39, 50}};
 
     Optional<Pair<Integer, Integer>> actual =
@@ -29,7 +29,7 @@ class TestMatrixApplications {
 
   @Test
   void testPrintInSpiralForm() {
-    int mat[][] =
+    int[][] mat =
         new int[][] {
           {1, 2, 3, 4},
           {5, 6, 7, 8},
@@ -76,7 +76,7 @@ class TestMatrixApplications {
 
   @Test
   void testGetUniqueRowIndices() {
-    boolean mat[][] =
+    boolean[][] mat =
         new boolean[][] {
           {false, true, false, false, true},
           {true, false, true, true, false},
@@ -89,7 +89,7 @@ class TestMatrixApplications {
 
   @Test
   void testGetMaxSizeSquareSubMatrixPositionWitAllOnes() {
-    int mat[][] = {
+    int[][] mat = {
       {0, 1, 1, 0, 1},
       {1, 1, 0, 1, 0},
       {0, 1, 1, 1, 0},
@@ -107,8 +107,8 @@ class TestMatrixApplications {
 
   @Test
   void testTransposeInplace() {
-    int mat[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    int expected[] = {1, 4, 7, 10, 2, 5, 8, 11, 3, 6, 9, 12};
+    int[] mat = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    int[] expected = {1, 4, 7, 10, 2, 5, 8, 11, 3, 6, 9, 12};
 
     MatrixApplications.transposeInplace(mat, 4, 3);
 
@@ -117,7 +117,7 @@ class TestMatrixApplications {
 
   @Test
   void testCommonElementInRowWiseSortedMatrix() {
-    int mat[][] = {
+    int[][] mat = {
       {10, 10, 10},
       {1, 1, 1},
       {1, 1, 1},
@@ -142,7 +142,7 @@ class TestMatrixApplications {
 
   @Test
   void testCommonElementInRowWiseSortedMatrixWithHashing() {
-    int mat[][] = {
+    int[][] mat = {
       {10, 10, 10},
       {1, 1, 1},
       {1, 1, 1},
@@ -168,7 +168,7 @@ class TestMatrixApplications {
 
   @Test
   void testGetIslandCount() {
-    char mat[][] = {
+    char[][] mat = {
       {'O', 'O', 'O'},
       {'X', 'X', 'O'},
       {'X', 'X', 'O'},
@@ -199,9 +199,9 @@ class TestMatrixApplications {
 
   @Test
   void testMatrixMultiplication1X1() {
-    int mat1[][] = new int[][] {{1}};
-    int mat2[][] = new int[][] {{2}};
-    int expected[][] = new int[][] {{2}};
+    int[][] mat1 = new int[][] {{1}};
+    int[][] mat2 = new int[][] {{2}};
+    int[][] expected = new int[][] {{2}};
 
     int[][] result = MatrixApplications.matrixMultiplication(mat1, mat2);
     assert Arrays.deepEquals(result, expected);
@@ -209,9 +209,9 @@ class TestMatrixApplications {
 
   @Test
   void testMatrixMultiplication2X2() {
-    int mat1[][] = new int[][] {{1, 2}, {3, 4}};
-    int mat2[][] = new int[][] {{5, 6}, {7, 8}};
-    int expected[][] = new int[][] {{19, 22}, {43, 50}};
+    int[][] mat1 = new int[][] {{1, 2}, {3, 4}};
+    int[][] mat2 = new int[][] {{5, 6}, {7, 8}};
+    int[][] expected = new int[][] {{19, 22}, {43, 50}};
 
     int[][] result = MatrixApplications.matrixMultiplication(mat1, mat2);
     assert Arrays.deepEquals(result, expected);
@@ -219,9 +219,9 @@ class TestMatrixApplications {
 
   @Test
   void testMatrixMultiplication3X3() {
-    int mat1[][] = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    int mat2[][] = new int[][] {{10, 11, 12}, {13, 14, 15}, {16, 17, 18}};
-    int expected[][] = new int[][] {{84, 90, 96}, {201, 216, 231}, {318, 342, 366}};
+    int[][] mat1 = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int[][] mat2 = new int[][] {{10, 11, 12}, {13, 14, 15}, {16, 17, 18}};
+    int[][] expected = new int[][] {{84, 90, 96}, {201, 216, 231}, {318, 342, 366}};
 
     int[][] result = MatrixApplications.matrixMultiplication(mat1, mat2);
     assert Arrays.deepEquals(result, expected);
@@ -229,7 +229,7 @@ class TestMatrixApplications {
 
   @Test
   void testGetMaxSumRectangle() {
-    int mat[][] =
+    int[][] mat =
         new int[][] {{1, 2, -1, -4, -20}, {-8, -3, 4, 2, 1}, {3, 8, 10, 1, 3}, {-4, -1, 1, 7, -6}};
 
     MatrixApplications.MaxSumRectangle result = MatrixApplications.getMaxSumRectangle(mat);

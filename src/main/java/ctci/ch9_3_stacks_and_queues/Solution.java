@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Solution {
 
-  static class SetOfStacks {
+  public static class SetOfStacks {
     int currStack;
     List<ArrayDeque<Integer>> stacks;
     int threshold;

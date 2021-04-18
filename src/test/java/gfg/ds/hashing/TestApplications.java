@@ -31,8 +31,8 @@ class TestApplications {
 
   @Test
   void testIsArraySubsetOfAnother() {
-    int arr1[] = {11, 1, 1, 13, 21, 3, 7};
-    int arr2[] = {11, 3, 7, 1, 1};
+    int[] arr1 = {11, 1, 1, 13, 21, 3, 7};
+    int[] arr2 = {11, 3, 7, 1, 1};
     assert Applications.isArraySubsetOfAnother(arr1, arr2);
 
     arr1 = new int[] {10, 5, 2, 23, 19};
@@ -56,7 +56,7 @@ class TestApplications {
 
   @Test
   void testFindPairWithGivenSum() {
-    int arr[] = {1, 4, 45, 6, 10, 8};
+    int[] arr = {1, 4, 45, 6, 10, 8};
     int n = 16;
     Pair<Integer, Integer> ans = Applications.findPairWithGivenSum(arr, n);
     assert ans != null;
@@ -66,7 +66,7 @@ class TestApplications {
 
   @Test
   void testIsDuplicateElementWithinKDistance() {
-    int arr[] = {1, 2, 3, 4, 1, 2, 3, 4};
+    int[] arr = {1, 2, 3, 4, 1, 2, 3, 4};
     assert !Applications.isDuplicateElementWithinKDistance(arr, 3);
 
     arr = new int[] {1, 2, 3, 1, 4, 5};

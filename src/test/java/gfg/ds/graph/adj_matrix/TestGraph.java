@@ -13,7 +13,7 @@ class TestGraph {
   @Test
   void testSnakeAndLadderProblem() {
     int n = 30;
-    int moves[] = new int[n];
+    int[] moves = new int[n];
     Arrays.fill(moves, -1);
     // ladders
     moves[2] = 21;

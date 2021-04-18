@@ -1,5 +1,4 @@
 def solution():
-
     pass
 
 
@@ -19,7 +18,7 @@ input_fn = None
 
 if __name__ == '__main__':
     f = open("D:\\Dev\\Projects\\learning\\ccdsap\\input.txt")
-    input_fn = input
+    # input_fn = input
     input_fn = f.readline
     solution()
     f.close()

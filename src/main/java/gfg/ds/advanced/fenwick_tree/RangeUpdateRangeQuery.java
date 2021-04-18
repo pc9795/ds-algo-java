@@ -1,9 +1,8 @@
 package gfg.ds.advanced.fenwick_tree;
 
-/** @noinspection WeakerAccess */
 public class RangeUpdateRangeQuery {
-  private FenwickTree primary;
-  private FenwickTree secondary;
+  private final FenwickTree primary;
+  private final FenwickTree secondary;
 
   public RangeUpdateRangeQuery(int n) {
     // This implementation requires that all values start with 0.

@@ -2,11 +2,10 @@ package gfg.ds.advanced.fenwick_tree;
 
 import gfg.ds.advanced.DiffArray;
 
-/** @noinspection WeakerAccess */
 public class RangeUpdatePointQuery {
-  private FenwickTree bit;
+  private final FenwickTree bit;
 
-  public RangeUpdatePointQuery(int arr[]) {
+  public RangeUpdatePointQuery(int[] arr) {
     DiffArray diffArray = new DiffArray(arr, arr.length);
     bit = new FenwickTree(diffArray.values, arr.length);
   }

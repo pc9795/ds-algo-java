@@ -7,7 +7,7 @@ class TestFenwickTree {
 
   @Test
   void testFenwickTreeOperations() {
-    int arr[] = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
+    int[] arr = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
     FenwickTree bit = new FenwickTree(arr, arr.length);
     // 2+1+1+3
     assert bit.query(4) == 7;
@@ -22,7 +22,7 @@ class TestFenwickTree {
 
   @Test
   void testScale() {
-    int arr[] = {2, 4, 6, 8, 10};
+    int[] arr = {2, 4, 6, 8, 10};
     FenwickTree bit = new FenwickTree(arr, arr.length);
 
     assert bit.rq(2, 4) == 18;
@@ -33,7 +33,7 @@ class TestFenwickTree {
 
   @Test
   void testFindIndexWithFreqSum() {
-    int arr[] = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
+    int[] arr = {2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9};
     FenwickTree bit = new FenwickTree(arr, arr.length);
     assert bit.findIndexWithFreqSum(12) == 6;
   }
@@ -59,7 +59,7 @@ class TestFenwickTree {
 
   @Test
   void testRangeUpdatePointQuery() {
-    int arr[] = {10, 5, 20, 40};
+    int[] arr = {10, 5, 20, 40};
     RangeUpdatePointQuery query = new RangeUpdatePointQuery(arr);
     query.rangeUpdate(0, 3, 10);
     Assertions.assertArrayEquals(query.getArray(), new int[] {20, 15, 30, 50});

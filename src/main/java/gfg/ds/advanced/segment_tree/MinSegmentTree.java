@@ -1,8 +1,7 @@
 package gfg.ds.advanced.segment_tree;
 
-/** @noinspection WeakerAccess */
 public class MinSegmentTree extends SegmentTreeBase {
-  private int lazy[];
+  private int[] lazy;
 
   public MinSegmentTree(int[] arr, boolean copyOriginal) {
     super(arr, copyOriginal);

@@ -7,8 +7,8 @@ import java.io.IOException;
 /** No need of nextLine after integer as in Scanner */
 public class FastReader {
   private final int BUFFER_SIZE = 1 << 16;
-  private DataInputStream din;
-  private byte[] buffer;
+  private final DataInputStream din;
+  private final byte[] buffer;
   private int bufferPointer, bytesRead;
 
   public FastReader() {
@@ -93,7 +93,6 @@ public class FastReader {
   }
 
   public void close() throws IOException {
-    if (din == null) return;
     din.close();
   }
 }

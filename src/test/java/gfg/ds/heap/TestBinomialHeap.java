@@ -43,7 +43,7 @@ class TestBinomialHeap {
     Field f = heap1.getClass().getDeclaredField("values");
     f.setAccessible(true);
     //noinspection unchecked
-    List<BinomialHeap.BinomialTreeNode> values = (List) f.get(heap1);
+    List<BinomialHeap.BinomialTreeNode> values = (List<BinomialHeap.BinomialTreeNode>) f.get(heap1);
     values.addAll(Arrays.asList(bt1, bt2, bt3));
 
     /*
@@ -92,8 +92,7 @@ class TestBinomialHeap {
                             .merge(new BinomialHeap.BinomialTreeNode(55)))));
 
     BinomialHeap heap2 = new BinomialHeap();
-    //noinspection unchecked
-    values = (List) f.get(heap2);
+    values = (List<BinomialHeap.BinomialTreeNode>) f.get(heap2);
     values.addAll(Arrays.asList(bt4, bt5, bt6));
 
     Method m = heap2.getClass().getDeclaredMethod("union", BinomialHeap.class);
@@ -112,8 +111,7 @@ class TestBinomialHeap {
      *                               55
      */
     assert heap1.size() == 3;
-    //noinspection unchecked
-    values = (List) f.get(heap1);
+    values = (List<BinomialHeap.BinomialTreeNode>) f.get(heap1);
     assert values.get(0).data == 12;
     assert values.get(1).data == 3;
     assert values.get(2).data == 6;

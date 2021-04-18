@@ -1,6 +1,5 @@
 package gfg.ds.advanced.fenwick_tree;
 
-/** @noinspection WeakerAccess */
 public class FenwickTree2D {
   public int[][] values;
 
@@ -11,7 +10,7 @@ public class FenwickTree2D {
 
   private void build(int[][] mat) {
     int n = mat.length;
-    int aux[][] = new int[n + 1][n + 1];
+    int[][] aux = new int[n + 1][n + 1];
     // 90 degree clock-wise rotation We are considering left bottom as origin of matrix.
     for (int j = 1; j <= n; j++) {
       for (int i = 1; i <= n; i++) {

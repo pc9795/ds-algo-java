@@ -8,15 +8,13 @@ import java.util.List;
 
 /**
  * Persisitency means retaining the changes
- *
- * @noinspection WeakerAccess
  */
 public class PersistentSegmentTree {
   private BinaryTree.BinaryTreeNode root;
   public List<BinaryTree.BinaryTreeNode> versions;
-  private int[] original;
+  private final int[] original;
 
-  public PersistentSegmentTree(int arr[]) {
+  public PersistentSegmentTree(int[] arr) {
     original = Arrays.copyOf(arr, arr.length);
     this.root = build(0, arr.length - 1);
     versions = new ArrayList<>();

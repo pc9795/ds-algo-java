@@ -20,7 +20,7 @@ public class Utils {
     return new Pair<>(xpsSmall, xpsBig);
   }
 
-  public static double areaOfPolygon(double x[], double y[]) {
+  public static double areaOfPolygon(double[] x, double[] y) {
     assert x.length == y.length;
     double area = 0.0;
 
@@ -38,7 +38,7 @@ public class Utils {
    * check it.
    */
   public static long binomialCoeff(int n, int k) {
-    long dp[][] = new long[n + 1][k + 1];
+    long[][] dp = new long[n + 1][k + 1];
     int i, j;
 
     // Calculate  value of Binomial Coefficient in bottom up manner
@@ -200,14 +200,14 @@ public class Utils {
       } else {
         // no need to check for '(' because it's precedence will be always low and any character
         // would sit on it.
-        for (; !stack.isEmpty() && getPrecedence(curr) < getPrecedence(stack.peek()); ) {
+        while (!stack.isEmpty() && getPrecedence(curr) < getPrecedence(stack.peek())) {
           postfix.append(stack.pop());
         }
         stack.push(curr);
       }
     }
 
-    for (; !stack.isEmpty(); ) {
+    while (!stack.isEmpty()) {
       assert !stack.peek().equals('(') : "Invalid expression, unbalanced parenthesis found";
       postfix.append(stack.pop());
     }
@@ -215,9 +215,9 @@ public class Utils {
     return postfix.toString();
   }
 
-  public static int[][] findSubArraySums(int arr[]) {
+  public static int[][] findSubArraySums(int[] arr) {
     int n = arr.length;
-    int sum[][] = new int[n][n];
+    int[][] sum = new int[n][n];
     for (int i = 0; i < n; i++) {
       sum[i][i] = arr[i];
     }
@@ -232,7 +232,7 @@ public class Utils {
   }
 
   /** t=O(n*2^n) */
-  public static Map<Integer, Integer> findSubsetSums(int arr[], int n) {
+  public static Map<Integer, Integer> findSubsetSums(int[] arr, int n) {
     Map<Integer, Integer> subsetSums = new HashMap<>();
     for (int i = 0; i < 1 << n; i++) {
       int sum = 0;
@@ -314,7 +314,7 @@ public class Utils {
 
   /** t=O(n*log n) */
   public static int[] findDivisorSum(int n) {
-    int divisorSum[] = new int[n + 1];
+    int[] divisorSum = new int[n + 1];
     for (int i = 1; i <= n; i++) {
       for (int j = i; j <= n; j += i) {
         divisorSum[j] += i;
@@ -333,7 +333,7 @@ public class Utils {
    * smaller than the first element then return 0. Return the first position where the arr[i] -lt
    * value is false (-ge)
    */
-  public static int lowerBound(int arr[], int low, int high, int value) {
+  public static int lowerBound(int[] arr, int low, int high, int value) {
     if (low > high) {
       return low;
     }
@@ -387,7 +387,7 @@ public class Utils {
   }
 
   /** t=O(1) `end` is inclusive */
-  public static double getMedian(int sortedArr[], int start, int end) {
+  public static double getMedian(int[] sortedArr, int start, int end) {
     int size = end - start + 1;
 
     return (size % 2 == 0)

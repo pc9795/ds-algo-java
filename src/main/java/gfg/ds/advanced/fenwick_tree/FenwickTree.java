@@ -2,14 +2,12 @@ package gfg.ds.advanced.fenwick_tree;
 
 /**
  * NOTE: Index are 1-based
- *
- * @noinspection WeakerAccess
  */
 public class FenwickTree {
   public int[] values;
   public int n;
 
-  public FenwickTree(int arr[], int n) {
+  public FenwickTree(int[] arr, int n) {
     // Oth index is a dummy index.
     this.n = n;
     this.values = new int[n + 1];
@@ -17,7 +15,7 @@ public class FenwickTree {
   }
 
   /** t=n*log(n) */
-  private void build(int arr[]) {
+  private void build(int[] arr) {
     for (int i = 0; i < n; i++) {
       update(i + 1, arr[i]);
     }

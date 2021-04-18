@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 class TestSegmentTree {
   @Test
   void testPersistentSegmentTree() {
-    int arr[] = {1, 2, 3, 4};
+    int[] arr = {1, 2, 3, 4};
     PersistentSegmentTree st = new PersistentSegmentTree(arr);
     assert st.query(0, 1) == 3;
 
@@ -21,7 +21,7 @@ class TestSegmentTree {
 
   @Test
   void testSumSegmentTree() {
-    int arr[] = {1, 3, 5, 7, 9, 11};
+    int[] arr = {1, 3, 5, 7, 9, 11};
     SumSegmentTree st = new SumSegmentTree(arr, false);
     assert st.query(1, 3) == 15;
     st.update(1, 10);
@@ -30,7 +30,7 @@ class TestSegmentTree {
 
   @Test
   void testSumSegmentTreeUpdateRange() {
-    int arr[] = {1, 3, 5, 7, 9, 11};
+    int[] arr = {1, 3, 5, 7, 9, 11};
     SumSegmentTree st = new SumSegmentTree(arr, false, true);
     assert st.query(1, 3) == 15;
     st.updateRange(1, 5, 10);
@@ -39,7 +39,7 @@ class TestSegmentTree {
 
   @Test
   void testMinSegmentTree() {
-    int arr[] = {1, 3, 2, 7, 9, 11};
+    int[] arr = {1, 3, 2, 7, 9, 11};
     MinSegmentTree st = new MinSegmentTree(arr, false);
     assert st.query(1, 3) == 2;
     st.update(2, 5);
@@ -48,7 +48,7 @@ class TestSegmentTree {
 
   @Test
   void testMinSegmentTreeUpdateRange() {
-    int arr[] = {1, 3, 2, 7, 9, 11};
+    int[] arr = {1, 3, 2, 7, 9, 11};
     MinSegmentTree st = new MinSegmentTree(arr, false, true);
     assert st.query(1, 3) == 2;
     st.updateRange(2, 3, 5);

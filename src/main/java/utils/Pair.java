@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Objects;
+
 public class Pair<K, V> {
   public K key;
   public V value;
@@ -36,8 +38,8 @@ public class Pair<K, V> {
     if (this == o) return true;
     if (o instanceof Pair) {
       Pair pair = (Pair) o;
-      if (key != null ? !key.equals(pair.key) : pair.key != null) return false;
-      return value != null ? value.equals(pair.value) : pair.value == null;
+      if (!Objects.equals(key, pair.key)) return false;
+      return Objects.equals(value, pair.value);
     }
     return false;
   }

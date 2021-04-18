@@ -17,8 +17,6 @@ public class Solution {
     SinglyLinkedList.Node curr = list.getHead();
     while (curr != null) {
       if (set.contains(curr.data)) {
-        assert prev != null : "prev can't be null";
-
         prev.next = curr.next;
         list.setSize(list.getSize() - 1);
       } else {
@@ -123,9 +121,9 @@ public class Solution {
   public static SinglyLinkedList sumListsInForwardOrder(
       SinglyLinkedList list1, SinglyLinkedList list2) {
     if (list1.size() > list2.getSize()) {
-      list2 = padListWithZeroes(list2, list1.size() - list2.size());
+      padListWithZeroes(list2, list1.size() - list2.size());
     } else if (list1.size() < list2.getSize()) {
-      list1 = padListWithZeroes(list1, list2.size() - list1.size());
+      padListWithZeroes(list1, list2.size() - list1.size());
     }
     PartialSum sum = sumListsInForwardOrderHelper(list1.getHead(), list2.getHead());
     if (sum.carry == 1) {
@@ -155,11 +153,10 @@ public class Solution {
     return sum;
   }
 
-  private static SinglyLinkedList padListWithZeroes(SinglyLinkedList list, int count) {
+  private static void padListWithZeroes(SinglyLinkedList list, int count) {
     while (count-- > 0) {
       list.insertAtFront(0);
     }
-    return list;
   }
 
   public static boolean isPalindrome(SinglyLinkedList list) {
@@ -188,9 +185,9 @@ public class Solution {
       return false;
     }
     if (list1.size() > list2.size()) {
-      list1 = moveForwardHead(list1, list1.size() - list2.size());
+      moveForwardHead(list1, list1.size() - list2.size());
     } else if (list1.size() < list2.size()) {
-      list2 = moveForwardHead(list2, list2.size() - list1.size());
+      moveForwardHead(list2, list2.size() - list1.size());
     }
     SinglyLinkedList.Node i = list1.getHead();
     SinglyLinkedList.Node j = list2.getHead();
@@ -205,11 +202,10 @@ public class Solution {
     return false;
   }
 
-  private static SinglyLinkedList moveForwardHead(SinglyLinkedList list, int num) {
+  private static void moveForwardHead(SinglyLinkedList list, int num) {
     while (num-- > 0) {
       list.setHead(list.getHead().next);
     }
-    return list;
   }
 
   public static SinglyLinkedList.Node getLoopPoint(SinglyLinkedList list) {

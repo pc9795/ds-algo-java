@@ -2,17 +2,16 @@ package gfg.ds.advanced.segment_tree;
 
 import java.util.Arrays;
 
-/** @noinspection WeakerAccess */
 public abstract class SegmentTreeBase {
-  int val[];
-  private int original[];
+  int[] val;
+  private final int[] original;
   private boolean lazy;
 
   /**
    * n leaves and n-1 internal nodes = (2*n)-1 The total no of nodes will be (2*2^(ceil(log n)))-1 ;
    * we convert n to nearest power of 2 so that a full binary tree can be constructed.
    */
-  SegmentTreeBase(int arr[], boolean copyOriginal) {
+  SegmentTreeBase(int[] arr, boolean copyOriginal) {
     int size = (int) (2 * Math.pow(2, Math.ceil(Math.log(arr.length) / Math.log(2))) - 1);
     val = new int[size];
     if (copyOriginal) {
@@ -24,7 +23,7 @@ public abstract class SegmentTreeBase {
     build(0, 0, arr.length - 1);
   }
 
-  SegmentTreeBase(int arr[], boolean copyOriginal, boolean lazy) {
+  SegmentTreeBase(int[] arr, boolean copyOriginal, boolean lazy) {
     this(arr, copyOriginal);
     this.lazy = lazy;
   }

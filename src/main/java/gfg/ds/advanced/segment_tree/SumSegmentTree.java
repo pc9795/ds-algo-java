@@ -1,14 +1,13 @@
 package gfg.ds.advanced.segment_tree;
 
-/** @noinspection WeakerAccess */
 public class SumSegmentTree extends SegmentTreeBase {
-  private int lazy[];
+  private int[] lazy;
 
-  public SumSegmentTree(int arr[], boolean copyOriginal) {
+  public SumSegmentTree(int[] arr, boolean copyOriginal) {
     super(arr, copyOriginal);
   }
 
-  public SumSegmentTree(int arr[], boolean copyOriginal, boolean lazy) {
+  public SumSegmentTree(int[] arr, boolean copyOriginal, boolean lazy) {
     super(arr, copyOriginal, lazy);
     this.lazy = new int[val.length];
   }

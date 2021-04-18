@@ -3,7 +3,7 @@ package utils;
 public class BitUtils {
 
   public static boolean getBit(long num, int i) {
-    return ((num & (1 << i)) != 0);
+    return ((num & (1L << i)) != 0);
   }
 
   public static int setBit(int num, int i) {

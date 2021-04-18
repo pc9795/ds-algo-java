@@ -11,7 +11,7 @@ class TestArrayApplications {
 
   @Test
   void testGetLeaders() {
-    int arr[] = {16, 17, 4, 3, 5, 2};
+    int[] arr = {16, 17, 4, 3, 5, 2};
 
     List<Integer> expected = Arrays.asList(17, 5, 2);
     List<Integer> actual = ArrayApplications.getLeaders(arr);
@@ -21,9 +21,9 @@ class TestArrayApplications {
 
   @Test
   void testFindPairWithSum() {
-    int arr[] = {0, -1, 2, -3, 1};
+    int[] arr = {0, -1, 2, -3, 1};
 
-    Optional maybePair = ArrayApplications.findPairWithSum(arr, -2);
+    Optional<Pair<Integer, Integer>> maybePair = ArrayApplications.findPairWithSum(arr, -2);
 
     assert maybePair.isPresent();
     assert maybePair.get().equals(new Pair<>(-3, 1));
@@ -31,11 +31,11 @@ class TestArrayApplications {
 
   @Test
   void testFindPairWithSumNotFound() {
-    int arr[] = {1, -2, 1, 0, 5};
+    int[] arr = {1, -2, 1, 0, 5};
 
-    Optional maybePair = ArrayApplications.findPairWithSum(arr, 0);
+    Optional<Pair<Integer, Integer>> maybePair = ArrayApplications.findPairWithSum(arr, 0);
 
-    assert !maybePair.isPresent();
+    assert maybePair.isEmpty();
   }
 
   @Test
@@ -142,8 +142,8 @@ class TestArrayApplications {
 
   @Test
   void testSortByFrequency() {
-    int arr[] = new int[] {2, 5, 2, 8, 5, 6, 8, 8};
-    int expected[] = new int[] {8, 8, 8, 2, 2, 5, 5, 6};
+    int[] arr = new int[] {2, 5, 2, 8, 5, 6, 8, 8};
+    int[] expected = new int[] {8, 8, 8, 2, 2, 5, 5, 6};
 
     boolean result = Arrays.equals(expected, ArrayApplications.sortByFrequency(arr));
 
