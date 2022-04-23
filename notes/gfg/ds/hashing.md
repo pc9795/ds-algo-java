@@ -77,22 +77,21 @@ if (hash(x) + 1 * hash2(x)) % S is also full, then we try (hash(x) + 2 * hash2(x
 ...
 ```
 
-Technique|Advantages|Disadvantages
----|---|---
-Linear Probing|1. best cache performance; 2. easy to compute|1. clustering
-Quadratic Probing|-|-
-Double Hashing|1. no clustering|1. poor cache performance; 2. computation time
+| Technique         | Advantages                                    | Disadvantages                                  |
+|-------------------|-----------------------------------------------|------------------------------------------------|
+| Linear Probing    | 1. best cache performance; 2. easy to compute | 1. clustering                                  |
+| Quadratic Probing | -                                             | -                                              |
+| Double Hashing    | 1. no clustering                              | 1. poor cache performance; 2. computation time |
 
-
-Separate Chaining|Open Addressing
----|---
-Chaining is Simpler to implement.|Open Addressing requires more computation.
-In chaining, Hash table never fills up, we can always add more elements to chain.|In open addressing, table may become full.
-Chaining is Less sensitive to the hash function or load factors.|Open addressing requires extra care for to avoid clustering and load factor.
-Chaining is mostly used when it is unknown how many and how frequently keys may be inserted or deleted.|Open addressing is used when the frequency and number of keys is known. [Because we have to store everything in the same table].
-Cache performance of chaining is not good as keys are stored using linked list.|Open addressing provides better cache performance as everything is stored in the same table.
-Wastage of Space (Some Parts of hash table in chaining are never used).|In Open addressing, a slot can be used even if an input doesn’t map to it.
-Chaining uses extra space for links|No links in Open addressing
+| Separate Chaining                                                                                       | Open Addressing                                                                                                                  |
+|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Chaining is Simpler to implement.                                                                       | Open Addressing requires more computation.                                                                                       |
+| In chaining, Hash table never fills up, we can always add more elements to chain.                       | In open addressing, table may become full.                                                                                       |
+| Chaining is Less sensitive to the hash function or load factors.                                        | Open addressing requires extra care for to avoid clustering and load factor.                                                     |
+| Chaining is mostly used when it is unknown how many and how frequently keys may be inserted or deleted. | Open addressing is used when the frequency and number of keys is known. [Because we have to store everything in the same table]. |
+| Cache performance of chaining is not good as keys are stored using linked list.                         | Open addressing provides better cache performance as everything is stored in the same table.                                     |
+| Wastage of Space (Some Parts of hash table in chaining are never used).                                 | In Open addressing, a slot can be used even if an input doesn’t map to it.                                                       |
+| Chaining uses extra space for links                                                                     | No links in Open addressing                                                                                                      |
 
 **Performance**
 ```cmd

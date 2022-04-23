@@ -47,10 +47,10 @@ Fenwick tree can be used for Range updates and Point query like Difference Array
 can store Difference array in Fenwick tree. Use `update` to update prefix sum array and `query` to get the actual element
 by computing the prefix sum.
 
-Name|Range update|Point query
----|---|---|
-Difference Array|O(1)|O(n)
-Fenwick Tree|O(log n)|O(log n)
+| Name             | Range update | Point query |
+|------------------|--------------|-------------|
+| Difference Array | O(1)         | O(n)        |
+| Fenwick Tree     | O(log n)     | O(log n)    |
 
 **Range Update and Range Query**
 ```cmd
