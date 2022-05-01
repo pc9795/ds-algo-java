@@ -1,12 +1,13 @@
-**Asymptotic Analysis**
+## Asymptotic Analysis
 * We calculate, how much the time (or space) taken by an algorithm increases with input size.
+* In the average case analysis, we must know (or predict) the mathematical distribution of all possible inputs.
 
-**Disadvantages**
+#### Disadvantages
 1. We can't judge which one is better as we ignore constants in Asymptotic analysis.
 2. It might be possible that those large inputs are never given to your software and an algorithm which is asymptotically
  slower, always performs better for your particular situation
 
-**Notations**
+#### Notations
 * theta notation
     * drop lower order terms and ignore leading constants.
     * theta(g(n))={f(n):there exists positive constants c1,c2 and n0 such that 0<=c1*g(n)<=f(n)<=c2*g(n) for all n>=n0}
@@ -21,7 +22,7 @@
     * same as sigma notation but loose bound
     * o<=c*g(n)<f(n) limit(n->infinite) f(n)/g(n) = infinite
     
-**Analysis of loops**
+#### Analysis of loops
 * O(1) = Doesn't contain loop, recursion and call to any other non-constant time function.  A loop or recursion that runs
  a constant number of times is also considered as O(1).
 * O(n) = loop variables is incremented/decremented by a constant amount.
@@ -29,11 +30,11 @@
 * O(log n) = loop variables is divided/multiplied by a constant amount.
 * O(log log n) = loop variables is reduced/increased exponentially by a constant amount.
 
-**Solving recurrences**
- 1. Substitution method - we make a guess for the solution and then we use mathematical induction to prove to the guess 
+#### Solving recurrences
+ 1. Substitution method - we make a guess for the solution, and then we use mathematical induction to prove to the guess 
  is correct or incorrect.
  
- ```cmd
+ ```
 T(n)=2T(n/2)+n
 let T(n)=O(nlogn)
 proof:
@@ -50,7 +51,7 @@ sum the work done at all levels. The pattern is typically a arithmetic or geomet
 
 3. Master method 
 
-```cmd
+```
 T(n) = aT(n/b) + f(n) where a>=1 and b>1
 f(n)=theta(n^c)
 a.) c<logb(a) T(n)=theta(n^(logb(a))) <-last level dominates
@@ -71,11 +72,25 @@ at last level
 
 If f(n) = theta(n^c(logn)) k>=0 and c=logb(a)
 then T(n)=theta(n^c(logn)^(k+1))
-
 ```
 
-**Amortized Analysis** -> Used for algorithms where an occasional operation is very slow, but most of the other operations
+## Amortized Analysis
+Used for algorithms where an occasional operation is very slow, but most of the other operations
 are faster. We analyze a sequence of operations and guarantee a worst case average time which is lower than the worst 
 case time of a particular expensive operation.
 
-**Space complexity** -> auxiliary space + space used by input
+## Space complexity
+auxiliary space + space used by input
+
+## Pseudo-polynomial Algorithms
+A pseudo-polynomial algorithm is an algorithm whose worst-case time complexity is polynomial in the numeric value of 
+input (not number of inputs). For example, consider the problem of counting frequencies of all elements in an array of 
+positive numbers. A pseudo-polynomial time solution for this is to first find the maximum value, then iterate from 1 to 
+maximum value and for each value, find its frequency in array. This solution requires time according to maximum value in 
+input array, therefore pseudo-polynomial. 
+
+## Stirling's formula
+```
+θ(log n!) = θ(n log n)
+log n! = n*log n - n = O(n*log(n)) 
+```
