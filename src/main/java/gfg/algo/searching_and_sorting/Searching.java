@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Searching {
 
-  /** t=O(n) */
-  public static int linearSearch(int arr[], int data) {
+  // t=n
+  public static int linearSearch(int[] arr, int data) {
     if (arr == null || arr.length == 0) {
       return -1;
     }
@@ -17,13 +17,14 @@ public class Searching {
     return -1;
   }
 
-  /** t(n)=t(n/2)+c t=O(log n) */
-  public static int binarySearch(int arr[], int data) {
+  // t(n)=t(n/2)+c
+  // t=log n
+  public static int binarySearch(int[] arr, int data) {
     Arrays.sort(arr);
     int low = 0;
     int high = arr.length - 1;
     int middle;
-    for (; low < high; ) {
+    while (low < high) {
       middle = (low + high) / 2;
       if (arr[middle] == data) {
         return data;

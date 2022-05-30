@@ -1,7 +1,9 @@
 package gfg.algo.searching_and_sorting;
 
+import utils.Pair;
+
 public class SortingProblems {
-  public static void minimumLengthUnsortedSubarray(int arr[]) {
+  public static Pair<Integer, Integer> minimumLengthUnsortedSubarray(int[] arr) {
     int start = 0;
     int end = arr.length - 1;
     int i = 0;
@@ -12,8 +14,7 @@ public class SortingProblems {
       }
     }
     if (i == arr.length - 1) {
-      System.out.println("Array is sorted!");
-      return;
+      return new Pair<>(-1, -1);
     }
     for (i = arr.length - 1; i > 0; i--) {
       if (arr[i - 1] > arr[i]) {
@@ -43,6 +44,6 @@ public class SortingProblems {
         break;
       }
     }
-    System.out.println("Start:" + start + ", End:" + end);
+    return new Pair<>(start, end);
   }
 }

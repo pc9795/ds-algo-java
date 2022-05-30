@@ -3,14 +3,13 @@ package gfg.algo.searching_and_sorting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class Sorting {
 
-  /**
-   * t=O(n^2) s=O(1) not stable in place Only O(n) swaps good when memory write is costly. Selects a
-   * minimum at each iteration and then fills it starting from 0,1,...
-   */
-  public static void selectionSort(int arr[]) {
+  // t=n^2
+  // not stable + in-place
+  public static void selectionSort(int[] arr) {
     if (arr == null) {
       return;
     }
@@ -27,11 +26,10 @@ public class Sorting {
     }
   }
 
-  /**
-   * t=O(n^2) (worst case) =O(n) (best case) s=O(1) stable in place The current largest value will
-   * be bubbled to the end at each iteration.
-   */
-  public static void bubbleSort(int arr[]) {
+  // t=n^2 (best-case=n)
+  // stable + in-place
+
+  public static void bubbleSort(int[] arr) {
     if (arr == null) {
       return;
     }
@@ -52,11 +50,9 @@ public class Sorting {
     }
   }
 
-  /**
-   * t=O(n^2) (worst case) reverse sorted =O(n) (best case) sorted s=O(1) stable in place online
-   * powerful when elements are small or array is almost sorted.
-   */
-  public static void insertionSort(int arr[]) {
+  // t=n^2 (best-case=n)
+  // stable + in-place + online
+  public static void insertionSort(int[] arr) {
     if (arr == null) {
       return;
     }
@@ -70,17 +66,16 @@ public class Sorting {
     }
   }
 
-  /** t=O(n^2) (worst case) largest/smallest element is chosen as pivot, O(nlogn) not stable */
-  public static void quickSort(int arr[]) {
+  // t=nlogn
+  // not stable + in-place
+  public static void quickSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
     quickSortUtil(0, arr.length - 1, arr);
   }
 
-  /** value at partition is at its position. */
-  private static void quickSortUtil(int low, int high, int arr[]) {
+  private static void quickSortUtil(int low, int high, int[] arr) {
     if (low > high) {
       return;
     }
@@ -89,7 +84,7 @@ public class Sorting {
     quickSortUtil(partition + 1, high, arr);
   }
 
-  private static int partition(int low, int high, int arr[]) {
+  private static int partition(int low, int high, int[] arr) {
     if (low == high) {
       return low;
     }
@@ -108,33 +103,31 @@ public class Sorting {
     return i;
   }
 
-  /** t=O(n+k) k is the range of input s=O(n+k) stable */
-  public static void countSort(int arr[], int maxValueOfInput) {
+  // t=n+k ;k is the range of input
+  // s=n+k
+  // stable + not in-place
+  public static void countSort(int[] arr, int maxValueOfInput) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
-    int count[] = new int[maxValueOfInput + 1];
-    for (int i = 0; i < arr.length; i++) {
-      count[arr[i]]++;
+    int[] count = new int[maxValueOfInput + 1];
+    for (int j : arr) {
+      count[j]++;
     }
     for (int i = 1; i < count.length; i++) {
       count[i] += count[i - 1];
     }
-    int output[] = new int[arr.length];
+    int[] output = new int[arr.length];
     // to maintain stability.
     for (int i = arr.length - 1; i >= 0; i--) {
       output[count[arr[i]] - 1] = arr[i];
       count[arr[i]]--;
     }
-    for (int i = 0; i < arr.length; i++) {
-      arr[i] = output[i];
-    }
+    System.arraycopy(output, 0, arr, 0, arr.length);
   }
 
-  public static void radixSort(int arr[]) {
+  public static void radixSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
     int max = Arrays.stream(arr).reduce(Integer.MIN_VALUE, Math::max);
@@ -144,12 +137,11 @@ public class Sorting {
     }
   }
 
-  public static void countSortByDigit(int arr[], int base, int place) {
-    int output[] = new int[arr.length];
-    int count[] = new int[base];
-    for (int i = 0; i < arr.length; i++) {
-      //            make the digit to be extracted last digit.
-      int value = (arr[i] / (int) Math.pow(base, place)) % 10;
+  public static void countSortByDigit(int[] arr, int base, int place) {
+    int[] output = new int[arr.length];
+    int[] count = new int[base];
+    for (int j : arr) {
+      int value = (j / (int) Math.pow(base, place)) % 10;
       count[value]++;
     }
 
@@ -157,27 +149,25 @@ public class Sorting {
       count[i] += count[i - 1];
     }
 
-    //        To maintain stability.
+    // to maintain stability.
     for (int i = arr.length - 1; i >= 0; i--) {
       int value = (arr[i] / (int) Math.pow(base, place)) % 10;
       output[count[value] - 1] = arr[i];
       count[value]--;
     }
 
-    for (int i = 0; i < arr.length; i++) {
-      arr[i] = output[i];
-    }
+    System.arraycopy(output, 0, arr, 0, arr.length);
   }
 
-  /** t=O(n^2) With large gap more inversion counts will be removed; */
-  public static void combSort(int arr[]) {
+  // t=n^2
+  // variation of bubble sort which tries to remove more inversions in a single swap
+  public static void combSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
     int gap = arr.length;
     boolean swapped = true;
-    for (; gap != 1 || swapped; ) {
+    while (gap != 1 || swapped) {
       gap = (gap * 10) / 13;
       if (gap < 1) {
         gap = 1;
@@ -194,49 +184,50 @@ public class Sorting {
     }
   }
 
-  /** t=O(n+range) We work on range therefore no problem with negative numbers. */
-  public static void pigeonHoleSort(int arr[]) {
+  // t=n+range
+  // we work on range therefore no problem with negative numbers.
+  public static void pigeonHoleSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
     int min = Integer.MAX_VALUE;
     int max = Integer.MIN_VALUE;
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] < min) {
-        min = arr[i];
+    for (int j : arr) {
+      if (j < min) {
+        min = j;
       }
-      if (arr[i] > max) {
-        max = arr[i];
+      if (j > max) {
+        max = j;
       }
     }
     int range = max - min + 1;
     int[] pigeonHoles = new int[range];
-    for (int i = 0; i < arr.length; i++) {
-      pigeonHoles[arr[i] - min]++;
+    for (int j : arr) {
+      pigeonHoles[j - min]++;
     }
     for (int i = 0, index = 0; i < pigeonHoles.length; i++) {
-      for (; pigeonHoles[i]-- > 0; ) {
+      while (pigeonHoles[i]-- > 0) {
         arr[index++] = i + min;
       }
     }
   }
 
-  public static void bucketSort(double arr[]) {
+  // t=n
+  // assumes that items are uniformly distributed
+  public static void bucketSort(double[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
-    ArrayList<Double>[] bucket = new ArrayList[arr.length];
+    List<Double>[] bucket = new ArrayList[arr.length];
     for (int i = 0; i < bucket.length; i++) {
       bucket[i] = new ArrayList<>();
     }
-    for (int i = 0; i < arr.length; i++) {
-      bucket[(int) (arr.length * arr[i])].add(arr[i]);
+    for (double v : arr) {
+      bucket[(int) (arr.length * v)].add(v);
     }
-    for (int i = 0; i < bucket.length; i++) {
-      //            T=O(n) if items are uniformly distributed.
-      Collections.sort(bucket[i]);
+    // t=n on average if items are uniformly distributed
+    for (List<Double> doubles : bucket) {
+      Collections.sort(doubles);
     }
     for (int i = 0, index = 0; i < bucket.length; i++) {
       for (int j = 0; j < bucket[i].size(); j++) {
@@ -245,9 +236,10 @@ public class Sorting {
     }
   }
 
-  public static void shellSort(int arr[]) {
+  // t=n^2
+  // variation of insertion sort
+  public static void shellSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
     for (int gap = arr.length / 2; gap > 0; gap /= 2) {
@@ -262,16 +254,14 @@ public class Sorting {
     }
   }
 
-  /**
-   * t=O(n^2) It minimizes the number of memory writes to sort(Each value is either written zero
-   * times, if it's already in its correct position, or written one time to its correct position)
-   */
-  public static void cycleSort(int arr[]) {
+  // t=n^2
+  // optimizes the number of memory writes
+  // in-place + unsatble
+  public static void cycleSort(int[] arr) {
     if (arr == null || arr.length == 0) {
-      System.out.println("Array is empty!");
       return;
     }
-    //        we run till n-2 because till here last element must be in it's position.
+    // we run till n-2 because till here last element must be in its position.
     for (int cycleStart = 0; cycleStart < arr.length - 1; cycleStart++) {
       int item = arr[cycleStart];
       int pos = cycleStart;
