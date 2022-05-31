@@ -1,16 +1,24 @@
 package gfg.algo.greedy_algorithms;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActivitySelection {
 
   /** We assume finish time is sorted */
-  public static void activitySelection(int[] startTime, int[] finishTime) {
+  public static List<Integer> activitySelection(int[] startTime, int[] finishTime) {
+    if (startTime.length == 0) {
+      return List.of();
+    }
     int i = 0;
-    System.out.println("Activity no:" + i);
+    List<Integer> activities = new ArrayList<>();
+    activities.add(0);
     for (int j = 1; j < finishTime.length; j++) {
       if (startTime[j] >= finishTime[i]) {
-        System.out.println("Activity no:" + j);
+        activities.add(j);
         i = j;
       }
     }
+    return activities;
   }
 }

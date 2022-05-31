@@ -9,23 +9,19 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class MST {
-  /** t=O(E log E) or (E log V) */
+  // t=E*logE or E*logV (value of E can be at most V^2)
   public static UndirectedGraph kruskalMinimumSpanningTree(UndirectedGraph graph) {
-    assert graph != null;
+    if (graph.edges.size() < graph.vertices) {
+      throw new RuntimeException("Graph is not connected");
+    }
 
     UndirectedGraph mst = new UndirectedGraph(graph.vertices);
-    graph.edges.sort(
-        new Comparator<GraphBase.Edge>() {
-          @Override
-          public int compare(GraphBase.Edge o1, GraphBase.Edge o2) {
-            return o1.weight - o2.weight;
-          }
-        });
+    graph.edges.sort(Comparator.comparingInt(o -> o.weight));
 
     int vertices = graph.vertices;
     UnionFind uf = new UnionFind(vertices);
 
-    for (int i = 0, j = 0; i < vertices - 1 && j < graph.edges.size(); j++) {
+    for (int i = 0, j = 0; i < vertices - 1; j++) {
       GraphBase.Edge edge = graph.edges.get(j);
       if (uf.find(edge.src) != uf.find(edge.dest)) {
         uf.union(edge.src, edge.dest);
@@ -38,13 +34,9 @@ public class MST {
     return mst;
   }
 
-  /**
-   * t=O(V^2) for adjacency matrix =O(ElogV) for adjacency list =(E+V) * logV = traversing * remove
-   * we get MST for a connected gfg.graph only, so in a connected gfg.graph V=O(E) therefore O(E+V)
-   * -> O(E) In case of densely connected gfg.graph E->V^2.
-   */
+  // t=V^2 for adjacency matrix
+  // t=(E+V)*logV for adjacency list. traversing * heap poll
   public static GraphBase primMinimumSpanningTree(GraphBase graph) {
-    assert graph != null;
     GraphBase mst = new gfg.ds.graph.adj_list.Graph(graph.vertices());
     PriorityQueue<PrimNode> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.key));
     PrimNode[] nodes = new PrimNode[graph.vertices()];
@@ -58,7 +50,6 @@ public class MST {
     nodes[0].key = 0;
     while (!heap.isEmpty()) {
       PrimNode node = heap.poll();
-      assert node != null;
       if (node.parent != -1) {
         mst.addEdge(node.parent, node.vertex, node.key);
       }
@@ -69,12 +60,7 @@ public class MST {
           PrimNode neighbourNode = nodes[neighbour.vertex];
           if (neighbourNode.key > neighbour.weight) {
             neighbourNode.parent = node.vertex;
-            //                        In java implementation remove will search the position of the
-            // node which will take O(n) time
-            //                        If we implement our own gfg.heap with a map to get the
-            // position in O(1) time then it will take
-            //                        O(log n) time.
-            heap.remove(neighbourNode);
+            heap.remove(neighbourNode); // inefficient in Java
             nodes[neighbour.vertex].key = neighbour.weight;
             heap.add(nodes[neighbour.vertex]);
           }

@@ -24,19 +24,11 @@ public class HuffmanCoding {
     }
   }
 
+  // t=nlogn
   public static void huffmanCoding(Data[] arr) {
-    PriorityQueue<Data> heap =
-        new PriorityQueue<>(
-            new Comparator<Data>() {
-              @Override
-              public int compare(Data o1, Data o2) {
-                return o1.freq - o2.freq;
-              }
-            });
-    // O(n)
+    PriorityQueue<Data> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.freq));
     heap.addAll(Arrays.asList(arr));
 
-    // O(n*logn )
     while (heap.size() != 1) {
       Data first = heap.poll();
       Data second = heap.poll();
@@ -45,7 +37,6 @@ public class HuffmanCoding {
       combined.right = second;
       heap.add(combined);
     }
-    // O(n)
     printHuffmanCodes(heap.peek(), "");
   }
 
@@ -61,15 +52,9 @@ public class HuffmanCoding {
     }
   }
 
+  // t=n
   public static void huffmanCoding2(Data[] arr) {
-    Arrays.sort(
-        arr,
-        new Comparator<Data>() {
-          @Override
-          public int compare(Data o1, Data o2) {
-            return o1.freq - o2.freq;
-          }
-        });
+    Arrays.sort(arr, Comparator.comparingInt(o -> o.freq));
     ArrayDeque<Data> first = new ArrayDeque<>(Arrays.asList(arr));
     ArrayDeque<Data> second = new ArrayDeque<>();
     while (!(first.isEmpty() && second.size() == 1)) {
@@ -84,12 +69,11 @@ public class HuffmanCoding {
   }
 
   private static Data findMin(ArrayDeque<Data> first, ArrayDeque<Data> second) {
+    if(first.isEmpty()&&second.isEmpty()){
+      throw new RuntimeException("Both can't be empty");
+    }
     if (first.isEmpty()) {
-      if (second.isEmpty()) {
-        throw new RuntimeException("Both can't be empty");
-      } else {
-        return second.poll();
-      }
+      return second.poll();
     }
     if (second.isEmpty()) {
       return first.poll();

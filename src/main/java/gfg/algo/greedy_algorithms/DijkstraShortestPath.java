@@ -7,42 +7,25 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class DijkstraShortestPath {
-  /**
-   * t=O(V^2) for adjacency matrix =O(ElogV) for adjacency list (E+V) * logV = traversing * remove
-   */
+  // t=V^2 for adjacency matrix
+  // t=(E+V)*logV for adjacency list. traversing * heap poll
   public static int[] dijkstraShortestPath(GraphBase graph) {
-    assert graph != null;
-    int dist[] = new int[graph.vertices()];
-    PriorityQueue<MST.PrimNode> heap =
-        new PriorityQueue<>(
-            new Comparator<MST.PrimNode>() {
-              @Override
-              public int compare(MST.PrimNode o1, MST.PrimNode o2) {
-                return o1.key - o2.key;
-              }
-            });
+    int[] dist = new int[graph.vertices()];
+    PriorityQueue<MST.PrimNode> heap = new PriorityQueue<>(Comparator.comparingInt(o -> o.key));
     MST.PrimNode[] nodes = new MST.PrimNode[graph.vertices()];
     boolean[] inHeap = new boolean[graph.vertices()];
     Arrays.fill(inHeap, true);
     for (int i = 0; i < nodes.length; i++) {
-      nodes[i] = new MST.PrimNode(i, Integer.MAX_VALUE);
+      nodes[i] = new MST.PrimNode(i, i == 0 ? 0 : Integer.MAX_VALUE);
       nodes[i].parent = -1;
       heap.add(nodes[i]);
     }
-    // because first node is at the top that's why we are getting it as first (`heap.poll()`). This
-    // changing of key
-    // will have no effect.
-    // key represent the cost
-    nodes[0].key = 0;
     while (!heap.isEmpty()) {
       MST.PrimNode node = heap.poll();
-      assert node != null;
       inHeap[node.vertex] = false;
       dist[node.vertex] = node.key;
-      for (int i = 0; i < graph.values[node.vertex].size(); i++) {
-        // todo make getting of neighbors clean
-        GraphBase.GraphNode neighbour = graph.values[node.vertex].get(i);
-        // already processed
+      for (int i = 0; i < graph.neighboursSize(node.vertex); i++) {
+        GraphBase.GraphNode neighbour = graph.getNeighbour(node.vertex, i);
         if (!inHeap[neighbour.vertex]) {
           continue;
         }
@@ -50,7 +33,7 @@ public class DijkstraShortestPath {
         if (neighbourNode.key <= node.key + neighbour.weight) {
           continue;
         }
-        heap.remove(neighbourNode);
+        heap.remove(neighbourNode); // inefficient in java
         nodes[neighbour.vertex].key = node.key + neighbour.weight;
         heap.add(nodes[neighbour.vertex]);
       }
