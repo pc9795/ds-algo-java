@@ -2,8 +2,8 @@ package gfg.algo.pattern_searching;
 
 public class KMP {
 
-  public static void kmpSubstringSearch(String text, String pattern) {
-    int lps[] = buildPrefixArray(pattern);
+  public static void search(String text, String pattern) {
+    int[] lps = buildPrefixArray(pattern);
     for (int i = 0, j = 0; i < text.length(); ) {
       if (text.charAt(i) != pattern.charAt(j)) {
         if (j == 0) {
@@ -27,7 +27,7 @@ public class KMP {
       System.out.println("Pattern is empty");
       return new int[0];
     }
-    int lps[] = new int[text.length()];
+    int[] lps = new int[text.length()];
     lps[0] = 0;
     for (int i = 1, j = 0; i < text.length(); ) {
       if (text.charAt(j) == text.charAt(i)) {

@@ -1,30 +1,19 @@
 package gfg.ds.advanced.suffix_tree;
 
-/** @noinspection WeakerAccess */
 public class Applications {
-  /**
-   * Longest common prefix. We can search a pattern in m + log n using LCP array LCP array is an
-   * array of size n. A value lcp[i] indicates length of the longest common prefix of the suffixes
-   * indexed by suffix[i] and suffix[i+1] Below is Kasai's algorithm to construct suffix array.
-   */
   public static int[] buildLCPArray(String input) {
     int n = input.length();
-    int suffixArr[] = SuffixArray.buildSuffixArray2(input);
-    // Inverse suffix array. To know the position of a particular suffix in suffix array.
-    int suffixArrInv[] = new int[n];
+    int[] suffixArr = SuffixArray.buildSuffixArrayEfficient(input);
+    int[] suffixArrInv = new int[n];
     for (int i = 0; i < n; i++) {
       suffixArrInv[suffixArr[i]] = i;
     }
 
-    int lcp[] = new int[n];
+    int[] lcp = new int[n];
     int k = 0;
     for (int i = 0; i < n; i++) {
       int suffixArrPos = suffixArrInv[i];
-      // LCP for last position is not defined.
-      if (suffixArrPos == n - 1) {
-        continue;
-      }
-      // Next suffix stored in suffix array.
+      if (suffixArrPos == n - 1) continue;
       int j = suffixArr[suffixArrPos + 1];
       while ((i + k < n) && (j + k < n) && (input.charAt(i + k) == input.charAt(j + k))) {
         k++;

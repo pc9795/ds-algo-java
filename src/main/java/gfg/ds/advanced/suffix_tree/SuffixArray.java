@@ -1,58 +1,52 @@
 package gfg.ds.advanced.suffix_tree;
 
-import java.util.Arrays;
+import utils.Pair;
 
-/**
- * todo check how can we get rid of two SuffixNode implementation
- *
- * @noinspection WeakerAccess
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 public class SuffixArray {
-  public int values[];
+  public int[] values;
   public String input;
 
   public SuffixArray(String input) {
     this.input = input;
-    values = new int[input.length()];
+    this.values = new int[input.length()];
     buildSuffixArray(input);
   }
 
-  /** T=(n^2)*(log n) ; sort*string comparison during sort(O(n)) */
+  // t=(n^2)logn - sorting with string comparison
   private void buildSuffixArray(String input) {
-    SuffixNode[] arr = new SuffixNode[input.length()];
+    List<Pair<Integer, String>> suffixes = new ArrayList<>();
     for (int i = 0; i < input.length(); i++) {
-      arr[i] = new SuffixNode(i, input.substring(i));
+      suffixes.add(Pair.of(i, input.substring(i)));
     }
-    Arrays.sort(arr);
+    suffixes.sort(Comparator.comparing(o -> o.value));
     for (int i = 0; i < input.length(); i++) {
-      values[i] = arr[i].index;
+      values[i] = suffixes.get(i).key;
     }
   }
 
-  /** t=O(n*log n*log n); if n*log n sorting algo is used =O(n*log n); if radix sort is used. */
-  public static int[] buildSuffixArray2(String input) {
+  // t=n*logn*logn; if radix sort is used we can get rid of one logn
+  public static int[] buildSuffixArrayEfficient(String input) {
     int n = input.length();
-    SuffixNode2[] suffixes = new SuffixNode2[n];
-    // Creating suffixes and assigning ranks
+    SuffixNode[] suffixes = new SuffixNode[n];
     for (int i = 0; i < n; i++) {
-      // We have taken ! as it is first printable character and comes before 0-9, a-z, and A-Z.
-      suffixes[i] = new SuffixNode2(i, input.charAt(i) - '!');
+      suffixes[i] = new SuffixNode(i, input.charAt(i) - 'a');
     }
-    // We have already calculated rank of all possible suffixes so we can use that information for
-    // next rank.
     for (int i = 0; i < n; i++) {
       suffixes[i].nextRank = i + 1 < n ? suffixes[i + 1].rank : -1;
     }
-
     Arrays.sort(suffixes);
 
-    int ind[] = new int[n]; // Description below
+    int[] ind = new int[n];
     for (int length = 4; length < 2 * n; length <<= 1) {
       int increment = 0;
       int previousRank = suffixes[0].rank;
       suffixes[0].rank = increment;
       ind[suffixes[0].index] = 0;
-      // Calculating rank
       for (int i = 1; i < n; i++) {
         if (suffixes[i].rank == previousRank && suffixes[i].nextRank == suffixes[i - 1].nextRank) {
           previousRank = suffixes[i].rank;
@@ -63,28 +57,21 @@ public class SuffixArray {
         }
         ind[suffixes[i].index] = i;
       }
-      // Calculating next rank
       for (int i = 0; i < n; i++) {
         int nextSuffixStart = suffixes[i].index + (length / 2);
-        // Previously we used first calculation of ranks to calculate next ranks but we knew that
-        // the next suffix
-        // is just below the current one. That's why we just used i+1(second for loop). Now it is
-        // not sure so
-        // actually we have to store position of a suffix inside the sorted array so that we can use
-        // its rank
         suffixes[i].nextRank = nextSuffixStart < n ? suffixes[ind[nextSuffixStart]].rank : -1;
       }
       Arrays.sort(suffixes);
     }
 
-    int suffixArr[] = new int[n];
+    int[] suffixArr = new int[n];
     for (int i = 0; i < n; i++) {
       suffixArr[i] = suffixes[i].index;
     }
     return suffixArr;
   }
 
-  /** t=O(m*log n); m is pattern length */
+  // t=mlogn - m is pattern length
   public int search(String pattern) {
     int l = 0;
     int r = values.length - 1;
@@ -103,40 +90,24 @@ public class SuffixArray {
     return -1;
   }
 
-  /** Created By: Prashant Chaubey Created On: 09-02-2020 11:29 */
-  public static class SuffixNode2 implements Comparable<SuffixNode2> {
+  public static class SuffixNode implements Comparable<SuffixNode> {
     public int index;
     public int rank;
     public int nextRank;
 
-    public SuffixNode2(int index, int rank) {
+    public SuffixNode(int index, int rank) {
       this.index = index;
       this.rank = rank;
     }
 
     @Override
-    public int compareTo(SuffixNode2 o) {
+    public int compareTo(SuffixNode o) {
       return (rank == o.rank) ? nextRank - o.nextRank : rank - o.rank;
     }
 
     @Override
     public String toString() {
-      return "SuffixNode2{" + "index=" + index + ", rank=" + rank + ", nextRank=" + nextRank + '}';
-    }
-  }
-
-  public static class SuffixNode implements Comparable<SuffixNode> {
-    public int index;
-    private String suffix;
-
-    public SuffixNode(int index, String suffix) {
-      this.index = index;
-      this.suffix = suffix;
-    }
-
-    @Override
-    public int compareTo(SuffixNode o) {
-      return this.suffix.compareTo(o.suffix);
+      return "SuffixNode{" + "index=" + index + ", rank=" + rank + ", nextRank=" + nextRank + '}';
     }
   }
 }

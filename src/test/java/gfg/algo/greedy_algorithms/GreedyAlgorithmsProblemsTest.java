@@ -1,4 +1,4 @@
-package gfg.gfg.greedy_algorithms;
+package gfg.algo.greedy_algorithms;
 
 import gfg.algo.greedy_algorithms.GreedyAlgorithmsProblems;
 import gfg.algo.greedy_algorithms.GreedyAlgorithmsProblems.Job;

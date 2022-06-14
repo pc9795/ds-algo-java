@@ -13,7 +13,7 @@ class TestSuffixArray {
   @Test
   void testBuildSuffixArray2() {
     Assertions.assertArrayEquals(
-        SuffixArray.buildSuffixArray2("banana"), new int[] {5, 3, 1, 0, 4, 2});
+        SuffixArray.buildSuffixArrayEfficient("banana"), new int[] {5, 3, 1, 0, 4, 2});
   }
 
   @Test
