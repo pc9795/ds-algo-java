@@ -2,7 +2,7 @@ package gfg.algo.bit_algorithms;
 
 public class GetSingle {
 
-  public static int getSingle(int arr[]) {
+  public static int getSingle(int[] arr) {
     int ones = 0;
     int twos = 0;
     int commonBits = 0;

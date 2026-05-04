@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SubsetSum {
-  public static void subsetSum(int arr[], int sum) {
+  public static void subsetSum(int[] arr, int sum) {
     Arrays.sort(arr);
     subsetSumUtil(arr, 0, new HashSet<>(), 0, sum);
   }

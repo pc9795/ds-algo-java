@@ -8,10 +8,10 @@ import java.util.*;
 public class ClosestPairOfPoints {
   /** t=O(1) */
   private static double closestPairOfPointsBruteForce(Pair<Double, Double>[] points, int l, int r) {
-    Double min = Double.MAX_VALUE;
+    double min = Double.MAX_VALUE;
     for (int i = l; i <= r; i++) {
       for (int j = i + 1; j <= r; j++) {
-        min = Math.min(min, Utils.eucledianDistance(points[i], points[j]));
+        min = Math.min(min, Utils.euclideanDistance(points[i], points[j]));
       }
     }
     return min;
@@ -28,7 +28,7 @@ public class ClosestPairOfPoints {
               && Math.abs(pointsInStrip.get(j).getValue() - pointsInStrip.get(i).getValue())
                   < stripLength;
           j++) {
-        min = Math.min(min, Utils.eucledianDistance(pointsInStrip.get(i), pointsInStrip.get(j)));
+        min = Math.min(min, Utils.euclideanDistance(pointsInStrip.get(i), pointsInStrip.get(j)));
       }
     }
     return min;
@@ -40,7 +40,7 @@ public class ClosestPairOfPoints {
       return closestPairOfPointsBruteForce(points, l, r);
     }
     int mid = (l + r) >> 1;
-    Double min = Double.MAX_VALUE;
+    double min = Double.MAX_VALUE;
     min = Math.min(closestPairOfPointsUtil(points, l, mid), min);
     min = Math.min(closestPairOfPointsUtil(points, mid + 1, r), min);
     List<Pair<Double, Double>> strip = new ArrayList<>();

@@ -105,7 +105,7 @@ class TestBinaryTree {
      */
     int[] inOrder = {4, 2, 5, 1, 6, 3};
     int[] preOrder = {1, 2, 4, 5, 3, 6};
-    BinaryTree bt = Applications.createFromPreAndInorder2(preOrder, inOrder);
+    BinaryTree bt = Applications.createFromPreAndInorderV2(preOrder, inOrder);
     List<List<Integer>> traversal = BinaryTree.levelOrderTraversal(bt);
     List<List<Integer>> expected = new ArrayList<>();
     expected.add(Collections.singletonList(1));

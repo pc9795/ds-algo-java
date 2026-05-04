@@ -186,7 +186,7 @@ public class RedBlackTree extends BinarySearchTree {
     }
     // Node with two children.
     // Finding in-order predecessor for the node. We can also use in-order successor
-    BinaryTreeNode inOrderSucc = BinaryTree.inOrderPred(curr);
+    BinaryTreeNode inOrderSucc = BinaryTree.inOrderPredecessor(curr);
     delete(inOrderSucc.data);
     inOrderSucc.left = curr.left;
     inOrderSucc.right = curr.right;

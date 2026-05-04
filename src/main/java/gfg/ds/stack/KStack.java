@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 /** @noinspection WeakerAccess */
 public class KStack {
-  private int[] arr, top, next;
+  private final int[] arr;
+  private final int[] top;
+  private final int[] next;
   private int free;
 
   public KStack(int noOfStacks, int size) {

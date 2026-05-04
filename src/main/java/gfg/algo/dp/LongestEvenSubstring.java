@@ -3,11 +3,11 @@ package gfg.algo.dp;
 public class LongestEvenSubstring {
   /** t=O(n^2) s=O(n^2) */
   public static int longestEvenSubstringSumOfFirstAndSecondHalfSame(String str) {
-    if (str == null || str.length() == 0) {
+    if (str == null || str.isEmpty()) {
       System.out.println("Array is empty!");
       return -1;
     }
-    int dp[][] = new int[str.length()][str.length()];
+    int[][] dp = new int[str.length()][str.length()];
     for (int i = 0; i < str.length(); i++) {
       //            considering numeric string.
       dp[i][i] = str.charAt(i) - '0';
@@ -27,7 +27,7 @@ public class LongestEvenSubstring {
   }
 
   /** t=O(n^2) s=O(n) */
-  public static int longestEvenSubstringSumOfFirstAndSecondHalfSame2(String str) {
+  public static int longestEvenSubstringSumOfFirstAndSecondHalfSameV2(String str) {
     int sum[] = new int[str.length() + 1];
     sum[0] = 0;
 
@@ -52,7 +52,7 @@ public class LongestEvenSubstring {
   }
 
   /** t=O(n^2) s=O(1) */
-  public static int longestEvenSubstringSumOfFirstAndSecondHalfSame3(String str) {
+  public static int longestEvenSubstringSumOfFirstAndSecondHalfSameV3(String str) {
     int ans = 0;
     // Consider all possible midpoints one by one
     for (int i = 0; i <= str.length() - 2; i++) {

@@ -131,9 +131,9 @@ public class ArrayApplications {
   }
 
   public static class MaxSumSubarray {
-    private int startIndex;
-    private int endIndex;
-    private int sum;
+    private final int startIndex;
+    private final int endIndex;
+    private final int sum;
 
     public MaxSumSubarray(int startIndex, int endIndex, int sum) {
       this.startIndex = startIndex;
@@ -287,7 +287,7 @@ public class ArrayApplications {
 
   /** `end1` and `end2` are inclusive */
   private static double getMedianUtil(
-      int sortedArr1[], int start1, int end1, int sortedArr2[], int start2, int end2) {
+          int[] sortedArr1, int start1, int end1, int[] sortedArr2, int start2, int end2) {
     int size1 = end1 - start1 + 1;
     int size2 = end2 - start2 + 1;
     assert size1 == size2;
@@ -364,7 +364,7 @@ public class ArrayApplications {
     return arr;
   }
 
-  private static void reverse(int arr[], int start, int size) {
+  private static void reverse(int[] arr, int start, int size) {
     assert start + size <= arr.length;
 
     for (int i = start; i < start + (size / 2); i++) {
@@ -375,7 +375,7 @@ public class ArrayApplications {
   }
 
   /** t=O(n) */
-  public static int[] rotateByBlockSwap(int arr[], int rotateBy) {
+  public static int[] rotateByBlockSwap(int[] arr, int rotateBy) {
     assert arr.length >= rotateBy;
 
     rotateByBlockSwapUtil(arr, 0, rotateBy, arr.length);
@@ -383,7 +383,7 @@ public class ArrayApplications {
     return arr;
   }
 
-  private static void rotateByBlockSwapUtil(int arr[], int start, int rotateBy, int size) {
+  private static void rotateByBlockSwapUtil(int[] arr, int start, int rotateBy, int size) {
     if (size == 0 || rotateBy == size) {
       return;
     }
@@ -412,7 +412,7 @@ public class ArrayApplications {
   }
 
   /** t=O(n) */
-  public static int getMaxSumWithNoTwoElementsAdjacent(int arr[]) {
+  public static int getMaxSumWithNoTwoElementsAdjacent(int[] arr) {
     int adjMax = 0;
     int adjNextMax = 0;
 
@@ -425,7 +425,7 @@ public class ArrayApplications {
     return adjMax;
   }
 
-  public static int[] sortByFrequency(int arr[]) {
+  public static int[] sortByFrequency(int[] arr) {
     Map<Integer, Pair<Integer, Integer>> valToIndexAndCountPair = new HashMap<>();
     for (int i = 0; i < arr.length; i++) {
       Pair<Integer, Integer> indexAndCountPair =
@@ -475,7 +475,7 @@ public class ArrayApplications {
   }
 
   private static int getInversionCountAtBoundary(int[] arr, int start, int mid, int end) {
-    int temp[] = new int[end - start + 1];
+    int[] temp = new int[end - start + 1];
     int inversions = 0;
 
     int i = start;

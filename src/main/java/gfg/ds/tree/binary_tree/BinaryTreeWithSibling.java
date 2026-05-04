@@ -50,7 +50,7 @@ public class BinaryTreeWithSibling {
     if (root.left != null) {
       root.left.rightSibling = root.right;
     }
-    // Right sibling will be set before hand because of pre order traversal
+    // Right sibling will be set beforehand because of preorder traversal
     if (root.right != null && root.rightSibling != null) {
       root.right.rightSibling = root.rightSibling.left;
     }

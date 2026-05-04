@@ -19,9 +19,9 @@ public class UkkonenSuffixTree {
 
   private static final int ALPHABET_SIZE = 26;
 
-  private String combinedInput;
-  private List<String> inputs;
-  private UkkonenSuffixTreeNode root;
+  private final String combinedInput;
+  private final List<String> inputs;
+  private final UkkonenSuffixTreeNode root;
 
   public UkkonenSuffixTree(String input) {
     this.combinedInput = input + TERMINAL_CHAR_INV_MAP.get(0);
@@ -239,7 +239,7 @@ public class UkkonenSuffixTree {
   /** t=O(M+Z); M is pattern length, Z is number of occurrences */
   public List<Integer> getAllOccurrences(String pattern) {
     Optional<UkkonenSuffixTreeNode> maybeNode = getNodeWherePatternEnds(root, pattern, 0);
-    if (!maybeNode.isPresent()) {
+    if (maybeNode.isEmpty()) {
       return Collections.emptyList();
     }
 
@@ -397,10 +397,10 @@ public class UkkonenSuffixTree {
   }
 
   public static class UkkonenSuffixTreeNode {
-    private UkkonenSuffixTreeNode[] children;
+    private final UkkonenSuffixTreeNode[] children;
     private UkkonenSuffixTreeNode suffixLink;
     private int start;
-    private Pointer<Integer> end; // So that many leaf nodes can share a common value
+    private final Pointer<Integer> end; // So that many leaf nodes can share a common value
     private int suffixIndex = -1;
 
     UkkonenSuffixTreeNode(

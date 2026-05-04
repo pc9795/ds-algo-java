@@ -1,6 +1,5 @@
 package gfg.algo.greedy_algorithms;
 
-import gfg.algo.greedy_algorithms.GreedyAlgorithmsProblems;
 import gfg.algo.greedy_algorithms.GreedyAlgorithmsProblems.Job;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -52,15 +51,15 @@ public class GreedyAlgorithmsProblemsTest {
   }
 
   @Test
-  public void minimumNumberOfPlatforms2Test() {
+  public void minimumNumberOfPlatformsV2Test() {
     List<Integer> arrivals = new ArrayList<>(List.of(540, 580, 590, 660, 900, 1080));
     List<Integer> departures = new ArrayList<>(List.of(550, 720, 680, 690, 1440, 1600));
-    Assertions.assertThat(GreedyAlgorithmsProblems.minimumNumberOfPlatforms2(arrivals, departures))
+    Assertions.assertThat(GreedyAlgorithmsProblems.minimumNumberOfPlatformsV2(arrivals, departures))
         .isEqualTo(3);
 
     arrivals = new ArrayList<>(List.of(540, 580));
     departures = new ArrayList<>(List.of(550, 720));
-    Assertions.assertThat(GreedyAlgorithmsProblems.minimumNumberOfPlatforms2(arrivals, departures))
+    Assertions.assertThat(GreedyAlgorithmsProblems.minimumNumberOfPlatformsV2(arrivals, departures))
         .isEqualTo(1);
   }
 }

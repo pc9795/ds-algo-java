@@ -5,7 +5,7 @@ import gfg.ds.advanced.trie.Trie;
 /** @noinspection WeakerAccess */
 public class SuffixTree {
   // Ideally it should be a compressed trie.
-  private Trie trie;
+  private final Trie trie;
 
   public SuffixTree(String input) {
     trie = new Trie();

@@ -14,7 +14,7 @@ public class BinaryMinHeap implements MinHeap {
     values = new int[size];
   }
 
-  private BinaryMinHeap(int arr[], int size) {
+  private BinaryMinHeap(int[] arr, int size) {
     values = Arrays.copyOf(arr, size);
     this.size = size;
   }
@@ -66,12 +66,12 @@ public class BinaryMinHeap implements MinHeap {
     }
     int returnedValue = values[0];
     values[0] = values[--size];
-    precolateDown(0);
+    percolateDown(0);
     return returnedValue;
   }
 
   /** t=O(log n); heap is complete binary tree */
-  private void precolateDown(int index) {
+  private void percolateDown(int index) {
     int left = left(index);
     int right = right(index);
     int minIndex = index;
@@ -85,12 +85,12 @@ public class BinaryMinHeap implements MinHeap {
       int temp = values[minIndex];
       values[minIndex] = values[index];
       values[index] = temp;
-      precolateDown(minIndex);
+      percolateDown(minIndex);
     }
   }
 
   /** t=O(log n) */
-  private void precolateUp(int index) {
+  private void percolateUp(int index) {
     int parentIndex = parent(index);
     if (parentIndex < 0) {
       return;
@@ -99,7 +99,7 @@ public class BinaryMinHeap implements MinHeap {
       int temp = values[index];
       values[index] = values[parentIndex];
       values[parentIndex] = temp;
-      precolateUp(parentIndex);
+      percolateUp(parentIndex);
     }
   }
 
@@ -113,7 +113,7 @@ public class BinaryMinHeap implements MinHeap {
     assert values[index] > newVal : "New value should be less than original value";
 
     values[index] = newVal;
-    precolateUp(index);
+    percolateUp(index);
   }
 
   /** t=O(log n) */
@@ -122,7 +122,7 @@ public class BinaryMinHeap implements MinHeap {
     assert !isFull() : "Heap is full";
 
     values[size++] = data;
-    precolateUp(size - 1);
+    percolateUp(size - 1);
     return this;
   }
 
@@ -142,18 +142,18 @@ public class BinaryMinHeap implements MinHeap {
     }
     BinaryMinHeap heap = new BinaryMinHeap(arr, size);
     for (int i = arr.length / 2; i >= 0; i--) {
-      // If we use `precloateUp` then in the case of bigger parent we have to move it further
+      // If we use `percolateUp` then in the case of bigger parent we have to move it further
       // downward as it can
-      // go till the last level(we don't know). However,if we use `precolateDown`, we are sure that
+      // go till the last level(we don't know). However,if we use `percolateDown`, we are sure that
       // bigger element
       // are moving down continuously.
-      heap.precolateDown(i);
+      heap.percolateDown(i);
     }
     return heap;
   }
 
   /** t=O(n*log n) not stable. in place */
-  public static void heapSort(int arr[]) {
+  public static void heapSort(int[] arr) {
     BinaryMinHeap heap = heapify(arr, arr.length);
     for (int i = arr.length - 1; i >= 0; i--) {
       arr[i] = heap.extractMin();

@@ -31,7 +31,7 @@ public class QueueUsingStacks implements Queue {
   public int dequeue() {
     assert !isEmpty() : "Queue is empty";
     if (costlyEnqueue) {
-      return efficientDeqeue();
+      return efficientDequeue();
     } else {
       return costlyDequeue();
     }
@@ -60,7 +60,7 @@ public class QueueUsingStacks implements Queue {
     return queryStack.pop();
   }
 
-  private int efficientDeqeue() {
+  private int efficientDequeue() {
     return queryStack.pop();
   }
 

@@ -4,7 +4,7 @@ import gfg.ds.stack.adt.Stack;
 
 /** @noinspection WeakerAccess */
 public class StackUsingArray implements Stack {
-  private int[] values;
+  private final int[] values;
   private int top;
 
   public StackUsingArray(int size) {

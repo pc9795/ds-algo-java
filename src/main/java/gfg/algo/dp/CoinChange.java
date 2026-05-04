@@ -2,7 +2,7 @@ package gfg.algo.dp;
 
 public class CoinChange {
   public static void coinChange(int n, int[] coins) {
-    int dp[][] = new int[n + 1][coins.length];
+    int[][] dp = new int[n + 1][coins.length];
     for (int i = 0; i < dp[0].length; i++) {
       dp[0][i] = 1;
     }
@@ -17,7 +17,7 @@ public class CoinChange {
   }
 
   public static void coinChangeOptimized(int n, int[] coins) {
-    int dp[] = new int[n + 1];
+    int[] dp = new int[n + 1];
     dp[0] = 1;
     for (int i = 0; i < coins.length; i++) {
       for (int j = coins[i]; j <= n; j++) {

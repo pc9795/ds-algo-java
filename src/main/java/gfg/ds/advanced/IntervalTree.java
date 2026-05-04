@@ -79,7 +79,7 @@ public class IntervalTree {
   }
 
   public static class IntervalTreeNode {
-    private Pair<Integer, Integer> interval;
+    private final Pair<Integer, Integer> interval;
     private int maxInTree;
     private IntervalTreeNode left;
     private IntervalTreeNode right;

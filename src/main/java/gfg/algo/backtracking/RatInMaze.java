@@ -5,7 +5,7 @@ import utils.Utils;
 import java.util.ArrayDeque;
 
 public class RatInMaze {
-  public static void ratInMaze(int mat[][]) {
+  public static void ratInMaze(int[][] mat) {
     ArrayDeque<String> stack = new ArrayDeque<>();
     stack.push("0,0");
     if (ratInMazeUtil(mat, stack, 0, 0)) {
@@ -15,7 +15,7 @@ public class RatInMaze {
     }
   }
 
-  private static boolean ratInMazeUtil(int mat[][], ArrayDeque<String> path, int x, int y) {
+  private static boolean ratInMazeUtil(int[][] mat, ArrayDeque<String> path, int x, int y) {
     if (x == mat.length - 1 && y == mat[0].length - 1) {
       return true;
     }

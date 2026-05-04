@@ -10,15 +10,15 @@ public class Applications {
    * t=O(n^2); because of linear search, we can optimize this by keeping a map but it will cost us
    * extra space. s=O(n); recursion stack
    */
-  public static BinaryTree createFromPreAndInorder2(int[] preOrder, int[] inOrder) {
+  public static BinaryTree createFromPreAndInorderV2(int[] preOrder, int[] inOrder) {
     assert preOrder.length == inOrder.length;
     return new BinaryTree()
         .insertAtRoot(
-            createFromPreAndInorder2Util(
+            createFromPreAndInorderV2Util(
                 preOrder, inOrder, 0, inOrder.length - 1, new Pointer<>(0)));
   }
 
-  private static BinaryTree.BinaryTreeNode createFromPreAndInorder2Util(
+  private static BinaryTree.BinaryTreeNode createFromPreAndInorderV2Util(
       int[] preOrder, int[] inOrder, int inStart, int inEnd, Pointer<Integer> preIndex) {
     if (inStart > inEnd) {
       return null;
@@ -34,8 +34,8 @@ public class Applications {
         break;
       }
     }
-    root.left = createFromPreAndInorder2Util(preOrder, inOrder, inStart, i - 1, preIndex);
-    root.right = createFromPreAndInorder2Util(preOrder, inOrder, i + 1, inEnd, preIndex);
+    root.left = createFromPreAndInorderV2Util(preOrder, inOrder, inStart, i - 1, preIndex);
+    root.right = createFromPreAndInorderV2Util(preOrder, inOrder, i + 1, inEnd, preIndex);
     return root;
   }
 

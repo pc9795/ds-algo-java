@@ -29,7 +29,7 @@ public class Knapsack {
     return profitBound;
   }
 
-  public static int knapsack(Item item[], double knapsackWeight) {
+  public static int knapsack(Item[] item, double knapsackWeight) {
     Arrays.sort(
         item,
         new Comparator<Item>() {
@@ -84,7 +84,7 @@ public class Knapsack {
     }
   }
 
-  static class Item {
+  public static class Item {
     double weight;
     int value;
 

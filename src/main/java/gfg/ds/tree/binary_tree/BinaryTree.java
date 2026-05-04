@@ -213,7 +213,7 @@ public class BinaryTree {
   }
 
   /** t=O(n) */
-  public static List<Integer> inOrderTraversalWoRecursion(BinaryTree tree) {
+  public static List<Integer> inOrderTraversalWithoutRecursion(BinaryTree tree) {
     ArrayDeque<BinaryTreeNode> stack = new ArrayDeque<>();
     BinaryTreeNode root = tree.root;
     List<Integer> traversal = new ArrayList<>();
@@ -362,7 +362,7 @@ public class BinaryTree {
   }
 
   /** In order successor if subtree is present of a node. */
-  public static BinaryTreeNode inOrderSucc(BinaryTreeNode node) {
+  public static BinaryTreeNode inOrderSuccessor(BinaryTreeNode node) {
     assert node.right != null;
 
     BinaryTreeNode inOrderSucc = node.right;
@@ -373,7 +373,7 @@ public class BinaryTree {
   }
 
   /** In order predecessor if subtree is present of a node. */
-  public static BinaryTreeNode inOrderPred(BinaryTreeNode node) {
+  public static BinaryTreeNode inOrderPredecessor(BinaryTreeNode node) {
     assert node.left != null;
 
     BinaryTreeNode inOrderPred = node.left;

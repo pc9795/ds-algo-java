@@ -62,7 +62,7 @@ public class GreedyAlgorithmsProblems {
 
   // t=nlogn
   // s=1
-  public static int minimumNumberOfPlatforms2(List<Integer> arrivals, List<Integer> departures) {
+  public static int minimumNumberOfPlatformsV2(List<Integer> arrivals, List<Integer> departures) {
     int platforms = 0;
     int max = 0;
     arrivals.sort(Comparator.comparingInt(o -> o));

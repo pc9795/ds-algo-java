@@ -1,8 +1,8 @@
 package gfg.ds.union_find;
 
 public class UnionFind {
-  private int parent[];
-  private int rank[];
+  private final int[] parent;
+  private final int[] rank;
 
   public UnionFind(int size) {
     parent = new int[size];

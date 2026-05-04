@@ -4,8 +4,8 @@ import java.util.*;
 
 /** @noinspection WeakerAccess */
 public class LRUCache {
-  private int capacity;
-  private Set<Integer> cache;
+  private final int capacity;
+  private final Set<Integer> cache;
 
   public LRUCache(int capacity) {
     this.capacity = capacity;

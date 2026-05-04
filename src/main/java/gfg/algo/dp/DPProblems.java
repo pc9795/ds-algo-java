@@ -2,9 +2,9 @@ package gfg.algo.dp;
 
 public class DPProblems {
   /** t=O(n^3) s=O(n^2) matrix starts from 1; dimensions are arr[i-1]*arr[i] for ith matrix. */
-  public static int matrixChainOrder(int arr[]) {
+  public static int matrixChainOrder(int[] arr) {
     // 0th row and column will not be used.
-    int dp[][] = new int[arr.length][arr.length];
+    int[][] dp = new int[arr.length][arr.length];
     dp[0][0] = -1;
     for (int i = 1; i < arr.length; i++) {
       dp[0][i] = -1;

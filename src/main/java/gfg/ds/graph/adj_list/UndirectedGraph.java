@@ -53,7 +53,7 @@ public class UndirectedGraph extends GraphBase {
     return (odd == 0) || (odd == 2);
   }
 
-  /** todo time complexity Fluery's Algorithm */
+  /** todo time complexity Flurry's Algorithm */
   public List<Pair<Integer, Integer>> getEulerPath() {
     assert isEulerian() : "Graph is not Eulerian";
     // We can't directly use getBridges because one's the graph's one edge is removed we have to

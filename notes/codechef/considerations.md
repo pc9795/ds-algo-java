@@ -27,18 +27,21 @@ only.
 Bubble sort no of swaps - inversion count
 
 **Probability**
+
 * We can calculate the chances of two or more independent events by multiplying the chances
- 
+
 **WA**
-* wrong answer 1st lines differ - expected: 'abc', found: '' means your answer is wrong; it is nothing to do with new 
-line and all.[codeforces]
+
+* wrong answer 1st lines differ - expected: 'abc', found: '' means your answer is wrong; it is nothing to do with new
+  line and all.[codeforces]
 * trim your input
 * use `long` in place of `int`.
 * ans*=something%mod -> wa ; ans=ans*something%mod -> correct answer
 
 **Manhattan distance**
+
 * `d1(p,q)=sum(pi-qi) 1<=i<=n`
-  
+
 **Degenerate triangle** -> A-----B-----C
 
 * Range of value <=1000 (max 9 bits) => max value of XOR = 1023

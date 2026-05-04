@@ -34,10 +34,9 @@ public class Utils {
   }
 
   /**
-   * Returns value of Binomial Coefficient C(n, k) todo: There is one more optimized version have to
-   * check it.
+   * Returns value of Binomial Coefficient C(n, k)
    */
-  public static long binomialCoeff(int n, int k) {
+  public static long binomialCoefficient(int n, int k) {
     long[][] dp = new long[n + 1][k + 1];
     int i, j;
 
@@ -68,7 +67,7 @@ public class Utils {
   }
 
   /**
-   * t=O(log n) f(n) be the (n + 1)th fibonacci number. Here we are considering 1 as first fibonacci
+   * t=O(log n) f(n) be the (n+1)th fibonacci number. Here we are considering 1 as first fibonacci
    * number
    */
   public static long fibonacci(long n) {
@@ -349,7 +348,7 @@ public class Utils {
   }
 
   /** t=O(1) */
-  public static double eucledianDistance(Pair<Double, Double> a, Pair<Double, Double> b) {
+  public static double euclideanDistance(Pair<Double, Double> a, Pair<Double, Double> b) {
     return Math.sqrt(
         ((b.getKey() - a.getKey()) * (b.getKey() - a.getKey()))
             + ((b.getValue() - a.getValue()) * (b.getValue() - a.getValue())));

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class SequenceProblems {
 
   /** t=O(n^2) */
-  public static int longestIncreasingSubsequence(int arr[]) {
+  public static int longestIncreasingSubsequence(int[] arr) {
     if (arr == null || arr.length == 0) {
       System.out.println("Array is empty!");
       return -1;
@@ -25,10 +25,10 @@ public class SequenceProblems {
 
   /** t=O(mn) */
   public static int longestCommonSubsequence(String str1, String str2) {
-    if (str1 == null || str2 == null || str1.length() == 0 || str2.length() == 0) {
+    if (str1 == null || str2 == null || str1.isEmpty() || str2.isEmpty()) {
       return 0;
     }
-    int dp[][] = new int[str1.length()][str2.length()];
+    int[][] dp = new int[str1.length()][str2.length()];
     dp[0][0] = str1.charAt(0) == str2.charAt(0) ? 1 : 0;
     for (int i = 1; i < str1.length(); i++) {
       dp[i][0] = str1.charAt(i) == str2.charAt(0) ? 1 : dp[i - 1][0];

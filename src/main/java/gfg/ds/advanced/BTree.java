@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class BTree {
   public BNode root;
-  private int degree;
+  private final int degree;
 
   public BTree(int degree) {
     this.degree = degree;

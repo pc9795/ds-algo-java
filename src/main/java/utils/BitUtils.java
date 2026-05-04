@@ -15,7 +15,7 @@ public class BitUtils {
     return num & mask;
   }
 
-  public static int clearBitsMSBthroughI(int num, int i) {
+  public static int clearBitsMSBThroughI(int num, int i) {
     int mask = (1 << i) - 1;
     return num & mask;
   }

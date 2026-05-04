@@ -139,7 +139,7 @@ public class AVLTree extends BinarySearchTree {
         return node.left;
       }
       // Two children
-      BinaryTreeNode inOrderSucc = BinaryTree.inOrderSucc(node);
+      BinaryTreeNode inOrderSucc = BinaryTree.inOrderSuccessor(node);
       node.right = deleteUtil(node.right, inOrderSucc.data);
       // Swapping links instead of data
       inOrderSucc.left = node.left;

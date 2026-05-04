@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class KnightTour {
 
   public static void knightTour(int boardSize) {
-    int mat[][] = new int[boardSize][boardSize];
+    int[][] mat = new int[boardSize][boardSize];
     for (int[] aMat1 : mat) {
       Arrays.fill(aMat1, -1);
     }

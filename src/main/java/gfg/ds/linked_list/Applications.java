@@ -12,7 +12,6 @@ public class Applications {
 
     /**
      * t=O(n)
-     * todo geeks of geeks article
      */
     public static void reverseInChunksIter(SinglyLinkedList list, int chunkSize) {
         assert list.getHead() != null;
@@ -74,7 +73,7 @@ public class Applications {
     /**
      * t=O(n1 + n2)
      */
-    public static List addTwoNumbersRepresentedByLists(List<Integer> list1, List<Integer> list2) {
+    public static List<Integer> addTwoNumbersRepresentedByLists(List<Integer> list1, List<Integer> list2) {
         List<Integer> result = new ArrayList<>();
         int carry = 0;
         int i;

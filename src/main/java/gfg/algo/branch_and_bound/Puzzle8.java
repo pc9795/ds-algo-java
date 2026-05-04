@@ -43,8 +43,8 @@ public class Puzzle8 {
     if (check(initial, result)) {
       System.out.println(Arrays.deepToString(initial));
     }
-    int row[] = {0, 1, -1, 0};
-    int col[] = {-1, 0, 0, 1};
+    int[] row = {0, 1, -1, 0};
+    int[] col = {-1, 0, 0, 1};
     PuzzleNode node = new PuzzleNode();
     node.value = Utils.deepCopy(initial);
     node.cost = calculateCost(node.value, result);

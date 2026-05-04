@@ -3,8 +3,8 @@ package gfg.ds.stack;
 import java.util.ArrayDeque;
 
 public class GetMinStack {
-  private ArrayDeque<Integer> stack = new ArrayDeque<>();
-  private ArrayDeque<Integer> minStack = new ArrayDeque<>();
+  private final ArrayDeque<Integer> stack = new ArrayDeque<>();
+  private final ArrayDeque<Integer> minStack = new ArrayDeque<>();
 
   /**
    * we have to push for equals to only for multiple entries of minimum element.

@@ -23,7 +23,7 @@ public class KMP {
   }
 
   private static int[] buildPrefixArray(String text) {
-    if (text == null || text.length() == 0) {
+    if (text == null || text.isEmpty()) {
       System.out.println("Pattern is empty");
       return new int[0];
     }

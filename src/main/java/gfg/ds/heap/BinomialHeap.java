@@ -173,7 +173,7 @@ public class BinomialHeap implements MinHeap {
     }
 
     public BinomialTreeNode divide() {
-      if (children.size() == 0) {
+      if (children.isEmpty()) {
         return null;
       }
       BinomialTreeNode child = children.removeFirst();

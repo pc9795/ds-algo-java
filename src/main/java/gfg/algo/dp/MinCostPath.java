@@ -2,7 +2,7 @@ package gfg.algo.dp;
 
 public class MinCostPath {
   public static int minCostPath(int[][] costMatrix) {
-    int dp[][] = new int[costMatrix.length][costMatrix[0].length];
+    int[][] dp = new int[costMatrix.length][costMatrix[0].length];
     dp[0][0] = costMatrix[0][0];
     for (int i = 1; i < costMatrix.length; i++) {
       dp[i][0] = costMatrix[i][0] + dp[i - 1][0];

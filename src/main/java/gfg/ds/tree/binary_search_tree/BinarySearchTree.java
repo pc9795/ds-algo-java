@@ -108,7 +108,7 @@ public class BinarySearchTree extends BinaryTree {
     }
     // Node with two children.
     // Finding in-order successor for the node.
-    BinaryTreeNode inOrderSucc = BinaryTree.inOrderSucc(curr);
+    BinaryTreeNode inOrderSucc = BinaryTree.inOrderSuccessor(curr);
     delete(inOrderSucc.data);
     inOrderSucc.left = curr.left;
     inOrderSucc.right = curr.right;
@@ -142,10 +142,10 @@ public class BinarySearchTree extends BinaryTree {
     for (; curr != null; ) {
       if (curr.data == key) {
         if (curr.left != null) {
-          pred = BinaryTree.inOrderPred(curr);
+          pred = BinaryTree.inOrderPredecessor(curr);
         }
         if (curr.right != null) {
-          succ = BinaryTree.inOrderSucc(curr);
+          succ = BinaryTree.inOrderSuccessor(curr);
         }
         break;
       }

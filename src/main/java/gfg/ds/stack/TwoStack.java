@@ -2,7 +2,7 @@ package gfg.ds.stack;
 
 /** @noinspection WeakerAccess */
 public class TwoStack {
-  private int[] values;
+  private final int[] values;
   private int top1;
   private int top2;
 

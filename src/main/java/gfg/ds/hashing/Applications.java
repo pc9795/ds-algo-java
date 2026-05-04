@@ -14,7 +14,7 @@ public class Applications {
      * t=O(n)
      */
     public static Map<Integer, List<Integer>> getVerticalOrder(BinaryTree tree) {
-        // Tree map so that we will have values sorted according to axises.
+        // Tree map so that we will have values sorted according to axes.
         Map<Integer, List<Integer>> map = new TreeMap<>();
         getVerticalOrderUtil(tree.root, 0, map);
         return map;
@@ -90,7 +90,7 @@ public class Applications {
     /**
      * t=O(n)
      */
-    public static Pair<Integer, Integer> findPairWithGivenSum(int arr[], int sum) {
+    public static Pair<Integer, Integer> findPairWithGivenSum(int[] arr, int sum) {
         HashSet<Integer> set = new HashSet<>();
         for (int elem : arr) {
             int diff = sum - elem;
@@ -107,7 +107,7 @@ public class Applications {
     /**
      * t=O(n)
      */
-    public static boolean isDuplicateElementWithinKDistance(int arr[], int k) {
+    public static boolean isDuplicateElementWithinKDistance(int[] arr, int k) {
         HashSet<Integer> set = new HashSet<>();
         for (int i = 0; i < arr.length; i++) {
             if (set.contains(arr[i])) {
@@ -124,7 +124,7 @@ public class Applications {
     /**
      * t=O(n)
      */
-    public static List findItineraryFromGivenListOfTickets(Map<String, String> fromTo) {
+    public static List<String> findItineraryFromGivenListOfTickets(Map<String, String> fromTo) {
         Set<String> tos = new HashSet<>(fromTo.values());
         String src = "";
         for (String key : fromTo.keySet()) {

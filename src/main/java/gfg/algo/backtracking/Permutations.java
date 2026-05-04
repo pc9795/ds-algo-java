@@ -7,7 +7,7 @@ public class Permutations {
 
   /** t=O(n!) */
   private static void printPermutationsUtil(String first, String last) {
-    if (last.length() == 0) {
+    if (last.isEmpty()) {
       System.out.println(first);
       return;
     }

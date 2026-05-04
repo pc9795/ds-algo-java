@@ -59,7 +59,7 @@ public class Applications {
 
   public static Map<String, Integer> kMostFrequentWords(List<String> words, int k) {
     class FrequencyInfo {
-      private String word;
+      private final String word;
       private int frequency;
 
       private FrequencyInfo(String word, int frequency) {
@@ -105,9 +105,9 @@ public class Applications {
         // node
         // corresponding to the word in heap by storing its index in the frequency info object and
         // then calling
-        // heapify. Currently we are removing the node and then adding it that increases the time
+        // heapify. Currently, we are removing the node and then adding it that increases the time
         // complexity
-        // from O(log n) to O(n). Keep in mind if using in future.
+        // from O(log n) to O(n). Keep in mind if using in the future.
         minHeap.remove(frequencyInfo);
         frequencyInfo.frequency++;
         minHeap.add(frequencyInfo);

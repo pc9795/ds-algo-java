@@ -8,7 +8,7 @@ import java.util.List;
 
 /** @noinspection WeakerAccess */
 public class Graph extends GraphBase {
-  private int[] inDegree;
+  private final int[] inDegree;
 
   public Graph(int vertices) {
     super(vertices);
@@ -46,8 +46,8 @@ public class Graph extends GraphBase {
    * @return true if the graph has cycle.
    */
   public boolean isCyclic() {
-    boolean visited[] = new boolean[vertices()];
-    boolean recStack[] = new boolean[vertices()];
+    boolean[] visited = new boolean[vertices()];
+    boolean[] recStack = new boolean[vertices()];
     for (int i = 0; i < vertices(); i++) {
       if (isCyclicUtil(i, visited, recStack)) {
         return true;
@@ -237,10 +237,6 @@ public class Graph extends GraphBase {
     return false;
   }
 
-  /**
-   * todo check that whether checking SCC will work then no need for extra method. The advantage
-   * over SCC here is that we are doing only one DFS.
-   */
   private boolean isAllVerticesReachableFrom(int source) {
     int vertices = vertices();
     boolean[] visited = new boolean[vertices];

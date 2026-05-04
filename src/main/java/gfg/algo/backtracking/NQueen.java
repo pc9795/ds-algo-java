@@ -3,9 +3,9 @@ package gfg.algo.backtracking;
 import java.util.Arrays;
 
 public class NQueen {
-  public static void nqueen(int boardSize) {
-    int chessBoard[][] = new int[boardSize][boardSize];
-    if (nqueenUtil(0, chessBoard)) {
+  public static void nQueen(int boardSize) {
+    int[][] chessBoard = new int[boardSize][boardSize];
+    if (nQueenUtil(0, chessBoard)) {
       for (int[] aChessBoard : chessBoard) {
         System.out.println(Arrays.toString(aChessBoard));
       }
@@ -14,7 +14,7 @@ public class NQueen {
     }
   }
 
-  private static boolean isSafePosition(int chessBoard[][], int col, int row) {
+  private static boolean isSafePosition(int[][] chessBoard, int col, int row) {
     for (int i = 0; i < col; i++) {
       if (chessBoard[row][i] == 1) {
         return false;
@@ -37,14 +37,14 @@ public class NQueen {
     return true;
   }
 
-  private static boolean nqueenUtil(int col, int chessBoard[][]) {
+  private static boolean nQueenUtil(int col, int[][] chessBoard) {
     if (col == chessBoard[0].length) {
       return true;
     }
     for (int row = 0; row < chessBoard.length; row++) {
       if (isSafePosition(chessBoard, col, row)) {
         chessBoard[row][col] = 1;
-        if (nqueenUtil(col + 1, chessBoard)) {
+        if (nQueenUtil(col + 1, chessBoard)) {
           return true;
         } else {
           chessBoard[row][col] = 0;

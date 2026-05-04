@@ -11,7 +11,7 @@ public class MatrixApplications {
 
   /** t=O(n) */
   public static Optional<Pair<Integer, Integer>> searchInColumnAndRowWiseSortedMatrix(
-      int mat[][], int key) {
+          int[][] mat, int key) {
     assert Utils.isMatrixNonEmpty(mat);
 
     int rows = mat.length;
@@ -70,7 +70,7 @@ public class MatrixApplications {
     return traversal;
   }
 
-  public static int[][] makeColumnAndRowOneHavingAtLeastOneOne(int mat[][]) {
+  public static int[][] makeColumnAndRowOneHavingAtLeastOneOne(int[][] mat) {
     assert Utils.isMatrixNonEmpty(mat);
 
     boolean firstRowHasOne = false;
@@ -123,7 +123,7 @@ public class MatrixApplications {
     return mat;
   }
 
-  public static List<Integer> getUniqueRowIndices(boolean mat[][]) {
+  public static List<Integer> getUniqueRowIndices(boolean[][] mat) {
     HashMap<Integer, Integer> decimalValueToRowIndexMap = new LinkedHashMap<>();
 
     for (int i = 0; i < mat.length; i++) {
@@ -177,7 +177,7 @@ public class MatrixApplications {
   /** t = O(rows*cols) s = O(rows*cols) */
   public static void transposeInplace(int[] mat, int rows, int cols) {
     assert mat.length == rows * cols;
-    boolean transposed[] = new boolean[mat.length];
+    boolean[] transposed = new boolean[mat.length];
     transposed[0] = transposed[mat.length - 1] = true; // first and last values are self-cycles
 
     for (int i = 0; i < rows; i++) {
@@ -335,7 +335,7 @@ public class MatrixApplications {
     return subSqSumMat;
   }
 
-  public static int[][] matrixMultiplication(int mat1[][], int mat2[][]) {
+  public static int[][] matrixMultiplication(int[][] mat1, int[][] mat2) {
     assert Utils.isMatrixNonEmpty(mat1) && Utils.isMatrixNonEmpty(mat2);
     assert mat1.length == mat1[0].length;
     assert mat2.length == mat2[0].length;
@@ -389,9 +389,9 @@ public class MatrixApplications {
     return result;
   }
 
-  private static int[][] addZeroPaddedRowAndColumn(int mat[][]) {
+  private static int[][] addZeroPaddedRowAndColumn(int[][] mat) {
     int n = mat.length;
-    int temp[][] = new int[n + 1][n + 1];
+    int[][] temp = new int[n + 1][n + 1];
     for (int i = 0; i < n; i++) {
       System.arraycopy(mat[i], 0, temp[i], 0, n);
     }
@@ -399,9 +399,9 @@ public class MatrixApplications {
     return temp;
   }
 
-  private static int[][] removeZeroPaddedRowAndColumn(int mat[][]) {
+  private static int[][] removeZeroPaddedRowAndColumn(int[][] mat) {
     int n = mat.length;
-    int temp[][] = new int[n - 1][n - 1];
+    int[][] temp = new int[n - 1][n - 1];
     for (int i = 0; i < n - 1; i++) {
       System.arraycopy(mat[i], 0, temp[i], 0, n - 1);
     }
@@ -451,7 +451,7 @@ public class MatrixApplications {
     }
   }
 
-  private static int[][] matrixAddition(int mat1[][], int mat2[][]) {
+  private static int[][] matrixAddition(int[][] mat1, int[][] mat2) {
     int[][] result = new int[mat1.length][mat1[0].length];
     for (int i = 0; i < mat1.length; i++) {
       for (int j = 0; j < mat1[0].length; j++) {
@@ -477,7 +477,7 @@ public class MatrixApplications {
 
     int rows = mat.length;
     int cols = mat[0].length;
-    int sumBetweenCols[];
+    int[] sumBetweenCols;
     int max = Integer.MIN_VALUE;
     Pair<Integer, Integer> topLeftCorner = Pair.of(-1, -1);
     Pair<Integer, Integer> bottonRightCorner = Pair.of(-1, -1);
@@ -502,8 +502,8 @@ public class MatrixApplications {
   }
 
   public static class MaxSumRectangle {
-    private Pair<Integer, Integer> topLeftCorner;
-    private Pair<Integer, Integer> bottomRightCorner;
+    private final Pair<Integer, Integer> topLeftCorner;
+    private final Pair<Integer, Integer> bottomRightCorner;
     private int sum;
 
     public MaxSumRectangle(

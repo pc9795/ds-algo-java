@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 public class Treap {
   private TreapNode root;
-  private Supplier<Integer> prioritySupplier;
+  private final Supplier<Integer> prioritySupplier;
 
   public Treap(Supplier<Integer> prioritySupplier) {
     this.prioritySupplier = prioritySupplier;

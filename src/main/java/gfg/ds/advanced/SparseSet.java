@@ -5,10 +5,10 @@ import java.util.Set;
 
 /** @noinspection WeakerAccess */
 public class SparseSet {
-  private int[] dense;
-  private int[] sparse;
-  private int capacity;
-  private int maxPossibleValue;
+  private final int[] dense;
+  private final int[] sparse;
+  private final int capacity;
+  private final int maxPossibleValue;
   private int size;
 
   public SparseSet(int capacity, int maxPossibleValue) {

@@ -11,7 +11,10 @@ import java.util.Arrays;
  * @noinspection WeakerAccess
  */
 public class KQueue {
-  private int[] arr, front, rear, next;
+  private final int[] arr;
+  private final int[] front;
+  private final int[] rear;
+  private final int[] next;
   private int free;
 
   public KQueue(int queues, int size) {

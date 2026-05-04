@@ -66,7 +66,7 @@ public class CartesianTree {
   }
 
   public static class CartesianTreeNode {
-    private int data;
+    private final int data;
     private CartesianTreeNode left;
     private CartesianTreeNode right;
     private CartesianTreeNode parent;
