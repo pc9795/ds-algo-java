@@ -4,4 +4,4 @@ we go for average case when best and worst case are equal.
 
 2^n < n!
 
-an^2+bn+c <= (a+b+c)n^2  where n>=1
+an^2+bn+c <= (a+b+c)n^2 where n>=1

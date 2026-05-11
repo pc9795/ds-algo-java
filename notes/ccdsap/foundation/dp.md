@@ -27,7 +27,7 @@ for G(n+1)
 
 DP is recursion without repetition.
 
-**MIT Videos**
+# MIT Videos
 
 * Optimization problem with careful brute force(exhaustive search)
 * Topological sort of sub-problems dependency DAG; So the problem must be DAG.
@@ -44,20 +44,20 @@ T=no of sub-problemstime/sub-problem
 
 Parent pointer for tracing back the results.
 
-**DP on strings**
+# DP on strings
 
 * suffixes n
 * prefixes n
 * substrings n^2
 
-**2 kinds of guessing**
+#2 kinds of guessing
+
 1. guessing which sub-problem to use to solve bigger sub problems
 2. add more sub-problems to guess/remember more(in knapsack adding weight as a dimension)
 
-Advanced
---
+# Advanced
 
-**DP over multidimensional arrays**
+## DP over multidimensional arrays
 
 Each state is represented as one dimension. We progress using a order of this dimensions.
 
@@ -72,46 +72,53 @@ for (int i2 = 0; i2<N1; i2++)
 
 ```
 
-**DP over subsets (N<=20)**
+## DP over subsets (N<=20)
 
 State domain = (s,a) s is the subset and a is additional parameters; We progress by adding values to these subsets.
 
 Hamiltonian path -> Same as Euler path but for vertices.
 
-**DP over strings**
+## DP over strings
+
 State domain = (L, R, a) L and R, left and right borders of a given substring. We progress in a non-decreasing length.
 
-**DP over trees**
+## DP over trees
+
 State domain = (v,a) v is a root of subtree; The easiest way to iterate through states in correct order is to launch DFS
 from the root of tree. When DFS exists from a vertex, its result must be finally computed and stored in global memory.
 
-**DP over layers**
-State domain = (k,p) k is number of fully processed layers and p is so-called profile of solution. Profile is the 
+## DP over layers
+
+State domain = (k,p) k is number of fully processed layers and p is so-called profile of solution. Profile is the
 necessary information about solution in layers that are not fully processed yet.
 
+## DP problems
 
-**DP problems**
 1. Optimization (Max, Min etc.)
 2. Combinatoric (No of ways, Sum, Count etc.)
 
-**Optimization**
+### Optimization
+
 * It is often useful to fill the DP results array with neutral values before calculating anything.
 
-**Recovering the solution**
+### Recovering the solution
+
 * DP from final state (Use when low on memory, but complex and time consuming)
 * Back links
 
-**DP optimization**
-1. Merge equivalent states; ex- you are considering a permutation of some problem as a state, but if the order does't matter then it can be
-to combinations which has lower value than permutations.
+## DP optimization
+
+1. Merge equivalent states; ex- you are considering a permutation of some problem as a state, but if the order does't
+   matter then it can be
+   to combinations which has lower value than permutations.
 2. Prune impossible states
-    * Explicit parameter dependence ex- state domain is (A,B) and if B=F(A) we can convert this state domain to only 
-    (A) because whenever we want B we can calculate it using A.
-    *  Implicit parameter dependence; ex- state domain is (A,B) and f(A,B)=0 or there are more other equations. We can 
-    convert this to explict parameter dependence
-    *  Inequalities on parameters; ex- state domain is (i,j) and i<j then we can write for(i=0;i<N;i++) 
-    for(j=i+1;j<N;j++), eliminating impossible states
-    *  No-thinking ways
+    * Explicit parameter dependence ex- state domain is (A,B) and if B=F(A) we can convert this state domain to only
+      (A) because whenever we want B we can calculate it using A.
+    * Implicit parameter dependence; ex- state domain is (A,B) and f(A,B)=0 or there are more other equations. We can
+      convert this to explict parameter dependence
+    * Inequalities on parameters; ex- state domain is (i,j) and i<j then we can write for(i=0;i<N;i++)
+      for(j=i+1;j<N;j++), eliminating impossible states
+    * No-thinking ways
         - Discard possible states and do not process them. ex- if(res[i][j]==0) continue
         - Use recursive search with memoization.
         - Store results in a map. This way impossible states do not eat memory and time at all.

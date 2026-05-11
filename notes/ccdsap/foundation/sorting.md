@@ -8,6 +8,6 @@ If array is in ascending order and we choose pivot as first element.
 
 worst case n^2 in quick sort; partition is resulting in a skewed tree.
 
-If user first sorts the column in the spreadsheet in wrong order(ascending or descending) , realizes the mistake and 
+If user first sorts the column in the spreadsheet in wrong order(ascending or descending) , realizes the mistake and
 then repeats the sort in the opposite direction. If the column sorting algorithm is quick sort, the second sort provides
- a worst case input.
+a worst case input.
