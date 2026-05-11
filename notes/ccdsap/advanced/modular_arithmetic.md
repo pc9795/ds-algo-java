@@ -1,6 +1,7 @@
 n^(exp)%M; we simply use modulus on all the intermediate multiplications and take modulus at the end.
 
 **Lucas' Theorem**
+
 ```cmd
 nCr%M = n0Cr0%M  n1Cr1%M ... nkCrk%M
 nk nk-1 ... n0 is the base M representation of n
@@ -8,12 +9,14 @@ rk rk-1 ... r0 is the base M representation of r
 M should be prime (power of prime)
 
 ```
+
 If AB%M = 1, then A and B are modular multiplicative inverse of each other.
 
-**Chinese Remainder Theorem**
+# Chinese Remainder Theorem
 
 We are given two array num[0...k-1] and rem[0...k-1]. In num[0...k-1], every pair is co-prime. We need to find
 minimum positive number x such that:
+
 ```cmd
 x%num[0]=rem[0]
 x%num[1]=rem[1]
@@ -21,8 +24,6 @@ x%num[1]=rem[1]
 x%num[k-1]=rem[k-1]
 We get such an x using this theorem.
 ```
-
-
 
 `nCr = n-1Cr + n-1Cr-1 ; to calculate nCr%m if m<=5000 and r<=n<=5000`
 

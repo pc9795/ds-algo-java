@@ -1,10 +1,13 @@
-**Microsoft**
+# Microsoft
+
 * Why do you want to work for Microsoft?
 
-**Amazon**
+# Amazon
+
 * Scalability questions
 * Object oriented questions
 
-**Google**
+# Google
+
 * Scalability questions
 

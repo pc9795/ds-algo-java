@@ -10,18 +10,20 @@
 
 2 children -> binary tree
 
-**Properties of binary tree**
+# Properties of binary tree
+
 1. The maximum number of nodes at level 'l' of a binary tree is 2^(l-1);
 2. Maximum number of nodes in a binary tree of height 'h' is (2^h)-1. 1 + 2 + 2^2 + ... 2^(h-1)
 3. In a binary tree with N nodes, minimum possible height is ceil(log2(N+1)) -> from point 2
 4. A binary tree with L leaves has at least ceil(log2L)+1 levels; L <= 2^(l-1); For minimum no of levels we can assume
-that all leaves are at last level and all levels are filled.
-5. In Binary tree where every node has 0 or 2 children, number of leaf nodes is always one more than nodes with two 
-children -> Handshaking leema.
+   that all leaves are at last level and all levels are filled.
+5. In Binary tree where every node has 0 or 2 children, number of leaf nodes is always one more than nodes with two
+   children -> Handshaking leema.
 
-### Handshaking leema
+# Handshaking leema
 
 1. In a k-ary tree where every node has either 0 or k children
+
 ```cmd
 L(Number of leaf node), I(Number of internal nodes)
 >>> L = ((k-1)*I) + 1 
@@ -60,17 +62,17 @@ case 3. Root has one child
 >>> T = L - 1 [proved]
 ```
 
-#
+# Types of Binary Trees
 
-**Types of Binary Trees**
 1. Full Binary Tree - every node has 0 or 2 children
-2. Complete Binary Tree - all levels are completely filled except possibly the last level and the last level has all 
-keys as left as possible.
+2. Complete Binary Tree - all levels are completely filled except possibly the last level and the last level has all
+   keys as left as possible.
 3. Perfect Binary Tree - all internal nodes have two children and all leaves are at the same level.
 4. Balanced Binary Tree - height of the tree is O(log n). ex- Red-black and AVL trees.
 5. Degenerate/Pathological Tree - every internal node has one child.
 
-**Unlabeled Trees**
+## Unlabeled Trees
+
 ```cmd
   o
  / \
@@ -78,7 +80,8 @@ o   o
 
 ```
 
-**Labelled Trees**
+## Labelled Trees
+
 ```cmd
   A
  / \
@@ -86,19 +89,23 @@ B   C
 
 ```
 
-**Unlabelled Trees with n nodes**
- 
+# Unlabelled Trees with n nodes
+
 n = 1 -> 1(no of possible trees)
+
  ```cmd
 o
 ```
+
 n = 2 -> 2(no of possible trees)
+
 ```cmd
   o   o
  /     \
 o       o
 
 ```
+
 ```cmd
 T is no of trees
 >>> T(0) = 1
@@ -114,17 +121,20 @@ permutations of labels to all nodes.
 >>> T`(n) = T(n)*n!   
 ```
 
-**Tree applications**
+# Tree applications
+
 * Store information that naturally forms a hierarchy. For example, the file system on a computer.
 * If we organize keys in form of a tree(with some ordering e.g., BST), we can search for a given key in moderate time
-(quicker than linked list and slower than arrays). Self balancing search trees like AVL and Red-Black trees guarantee an 
-upper bound of O(log n) for search.
+  (quicker than linked list and slower than arrays). Self balancing search trees like AVL and Red-Black trees guarantee
+  an
+  upper bound of O(log n) for search.
 * We can insert/delete keys in moderate time(quicker than Arrays and slower than Unordered Linked Lists). Self-balancing
-search trees like AVL and Red-Black trees guarantee an upper bound of O(log n) for insertion/deletion.
-* Like Linked lists and unlike arrays, pointer implementation of trees don't have an upper limit on number of nodes as 
-nodes are linked using pointers.
+  search trees like AVL and Red-Black trees guarantee an upper bound of O(log n) for insertion/deletion.
+* Like Linked lists and unlike arrays, pointer implementation of trees don't have an upper limit on number of nodes as
+  nodes are linked using pointers.
 
-**Time complexity of Tree traversals**
+# Time complexity of Tree traversals
+
  ```cmd
 k is the number of nodes on one side
 >>> T(n) = T(k) + T(n-k-1)+c -> 
@@ -140,7 +150,8 @@ Case 2: Both right and left subtrees have equal nodes(Best)
 >>> theta(n) (by master algorithm)
 ```
 
-**BFS vs DFS**
+# BFS vs DFS
+
 * In Trees BFS is Level order traversal
 * In Trees DFS is Pre order, Post order and In order traversals
 
@@ -148,19 +159,26 @@ Time complexity of all traversals is O(n) <- each node is visited exactly once.
 
 Level order traversal can also be done by queues.
 
-**Space Complexity**
+## Space Complexity
+
 * BFS = O(width) max for balanced tree -> ceil(n/2) ->O(n)
 * DFS = O(height) max for skewed tree -> O(n)
 
 Extra space required for level order traversal is likely to be more when tree is more balanced and extra space for depth
 first traversal is likely to be more when tree is less balanced.
 
-**Threaded binary tree**
-Binary trees have a lot of wasted space: the leaf nodes each have 2 null pointer. We can use these pointers to help us in 
-inorder traversals. We can have the pointers reference the next node in inorder traversal; called threads. We need to know
+# Threaded binary tree
+
+Binary trees have a lot of wasted space: the leaf nodes each have 2 null pointer. We can use these pointers to help us
+in
+inorder traversals. We can have the pointers reference the next node in inorder traversal; called threads. We need to
+know
 if a pointer is an actual link or a thread, so we keep a boolean for each pointer.
 
-**Construct a Binary tree with two traversal sequences** - We can construct only if one of them is inorder.
+# Construct a Binary tree with two traversal sequences
+
+We can construct only if one of them is inorder.
+
 * inorder and pre-order
 * inorder and post-order
 * inorder and level-order

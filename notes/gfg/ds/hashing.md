@@ -1,19 +1,21 @@
-The idea is to use hash function that converts a given key to a smaller number and uses the small number as index in a 
+The idea is to use hash function that converts a given key to a smaller number and uses the small number as index in a
 table called hash table.
 
-**Properties of a good hash function**
+# Properties of a good hash function
+
 * Efficiently computable
 * Should uniformly distribute the keys.
 
-### Collision
+# Collision
 
 The situation where a newly inserted key maps to an already occupied slot in the hash table is called collision.
 
-### Collision handling
+# Collision handling
 
-**Chaining**
+## Chaining
 
 Each cell of hash table point to a linked list of records that have same hash function value.
+
 * Advantages
     1. Hash table never fills up
     2. Simple to implement
@@ -25,7 +27,7 @@ Each cell of hash table point to a linked list of records that have same hash fu
     3. If the chain becomes long, the search time can become O(n) in worst case.
     4. Uses extra space for links.
 
-**Performance**
+## Performance
 
 ```cmd
 Assumption that each key is equally likely to be hashed to any slot of table.
@@ -39,16 +41,18 @@ expected time to search/insert/delete =O(1+a)
 
 ```
 
-**Open Addressing**
+## Open Addressing
 
 * Insert(k) - keep probing until an empty slot is found. Once an empty slot is found, insert k
 * Search(k) - keep probing until slot's key doesn't become equal to k or an empty slot is reached
-* Delete(k) - If we simply delete a key, then search may fail. So slots of deleted keys are marked specially as "deleted".
- Insert can insert an item in a deleted slot, but the search doesn't stop at a deleted slot.
+* Delete(k) - If we simply delete a key, then search may fail. So slots of deleted keys are marked specially as "
+  deleted".
+  Insert can insert an item in a deleted slot, but the search doesn't stop at a deleted slot.
 
-**Ways to implement Open addressing**
+## Ways to implement Open addressing
 
-**Linear probing**
+### Linear probing
+
 ```cmd
 S is the table size
 
@@ -57,9 +61,13 @@ if (hash(x) + 1) % S is also full, then we try (hash(x) + 2) % S
 ...
 ```
 
-**Clustering** Many consecutive elements form groups and it starts taking time to find a free slot or to search an element.
+### Clustering
 
-**Quadratic probing**
+Many consecutive elements form groups and it starts taking time to find a free slot or to search an
+element.
+
+### Quadratic probing
+
 ```cmd
 S is the table size
 
@@ -68,7 +76,8 @@ if ((hash(x) + 1 * 1) % S is also full, then we try (hash(x) + 2 * 2) % S
 ...
 ```
 
-**Double Hashing**
+### Double Hashing
+
 ```cmd
 S is the table size
 
@@ -93,7 +102,8 @@ if (hash(x) + 1 * hash2(x)) % S is also full, then we try (hash(x) + 2 * hash2(x
 | Wastage of Space (Some Parts of hash table in chaining are never used).                                 | In Open addressing, a slot can be used even if an input doesn’t map to it.                                                       |
 | Chaining uses extra space for links                                                                     | No links in Open addressing                                                                                                      |
 
-**Performance**
+### Performance
+
 ```cmd
 Assumption that each key is equally likely to be hashed to any slot of table.
 

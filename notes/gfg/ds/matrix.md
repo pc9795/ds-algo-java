@@ -1,4 +1,5 @@
-**In place matrix transpose**
+# In place matrix transpose
+
 ```cmd
 ol = old location
 nl = new location

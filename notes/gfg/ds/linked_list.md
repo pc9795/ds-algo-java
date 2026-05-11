@@ -1,23 +1,25 @@
-### Singly Linked List
+# Singly Linked List
 
-**Disadvantages of Arrays:**
+## Disadvantages of Arrays:
+
 1. Size of arrays is fixed. So we must know the upper limit on number of elements in advance. -> Dynamic Size
 2. Inserting an element in the array is expensive. -> Ease of insertion/deletion
 
-**Disadvantages of Linked Lists:**
+## Disadvantages of Linked Lists:
+
 1. Random access is not allowed.
 2. Extra memory space for pointers.
-3. Not cache friendly. Arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon 
-first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other hand 
-aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it 
-takes to access them.
+3. Not cache friendly. Arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon
+   first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other
+   hand
+   aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it
+   takes to access them.
 
 Array memory is allocated from Data section(global array) or Stack section(local array). However memory for linked list
 is allocated from Heap section.
 
-#
+# Explanation of a method of removing floyd cycle detection algorithm
 
-**Explanation of a method of removing floyd cycle detection algorithm**
 ```
 1. Detect Loop using Floyd’s Cycle detection algorithm and get the pointer to a loop node.
 2. Count the number of nodes in loop. Let the count be k.(Can be calculated by starting counting from the loop node)
@@ -47,7 +49,8 @@ Now for case 2. we are placing a pointer in the loop with such a offset that aft
 the loop starting point.
 ```
 
-**Proof of a method of removing loop using floyd cycle detection algorithm**:
+# Proof of a method of removing loop using floyd cycle detection algorithm
+
 ```
 >>> Distance travelled by hare = 2 * Distance travelled by tortoise
 >>> Distance from head + (no of times hare travelled the loop) * cycleLength + distance from start of the loop to the point
@@ -76,23 +79,26 @@ outside loop + inside loop = loop distance. So one pointer at the head and other
 the head meet at the loop starting point.
 ```
 
-Quick sort can be implemented for Linked List only when we can pick a fixed point as pivot. Random Quick sort cannot be 
+Quick sort can be implemented for Linked List only when we can pick a fixed point as pivot. Random Quick sort cannot be
 efficiently implemented for Linked lists by piking random pivot.
 
-### Circular Linked List
+# Circular Linked List
 
-**Advantages**
+## Advantages
+
 * Any node can be starting point.
 * Useful in implementing queue. We don't need `front` and `rear` we only maintain `last`.
 
-### Doubly Linked List
+# Doubly Linked List
 
-**Advantages**
+## Advantages
+
 * Can be traversed in both forward and backward direction.
 * Delete operation is more efficient if pointer to the node to be deleted is given
 * Quick to insert a new node before a given node
 
-**Disadvantages**
+## Disadvantages
+
 * Every node requires extra space for an previous pointer
 * All operations require and extra poiner previous to be maintained.
 

@@ -1,4 +1,5 @@
-**Splitting a n-bit number**
+# Splitting a n-bit number
+
 ```cmd
 11010010 = 210
 1101(2^4) + 0010 = 208 + 2

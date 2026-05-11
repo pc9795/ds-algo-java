@@ -1,4 +1,4 @@
-**Isolating the last bit**
+# Isolating the last bit
 
 ```cmd
 1 is last set bit therefore b is (0...0)

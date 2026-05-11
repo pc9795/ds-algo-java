@@ -6,7 +6,7 @@ public class Searching {
 
   // t=n
   public static int linearSearch(int[] arr, int data) {
-    if (arr == null || arr.length == 0) {
+    if (arr == null) {
       return -1;
     }
     for (int arrVal : arr) {

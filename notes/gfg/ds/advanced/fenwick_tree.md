@@ -1,4 +1,5 @@
-**Binary Indexed Tree**
+# Binary Indexed Tree
+
 * Segment tree in which each segment start from 0.(Stores consecutive sums)
 * Fenwick tree requires less space but the complexity for query and update are same as segment tree.
 
@@ -10,6 +11,7 @@ for x=1101000
 >>> -x = 0010111 + 1 (2's complement)
 >>> 0011000
 ```
+
 ```cmd
                0
   /     /       \           \
@@ -41,10 +43,11 @@ Sum Operation
 The child node x of the node y stores the sum of the elements between y(inclusive) and x(exclusive): arr[y,…,x). 
 ```
 
-**Range Update and Point Query**
+# Range Update and Point Query
 
 Fenwick tree can be used for Range updates and Point query like Difference Array. Instead of storing actual array we
-can store Difference array in Fenwick tree. Use `update` to update prefix sum array and `query` to get the actual element
+can store Difference array in Fenwick tree. Use `update` to update prefix sum array and `query` to get the actual
+element
 by computing the prefix sum.
 
 | Name             | Range update | Point query |
@@ -52,7 +55,8 @@ by computing the prefix sum.
 | Difference Array | O(1)         | O(n)        |
 | Fenwick Tree     | O(log n)     | O(log n)    |
 
-**Range Update and Range Query**
+# Range Update and Range Query
+
 ```cmd
 suppose we have an array
 >>> 0 0 0 0 0 0
@@ -83,7 +87,8 @@ then we can calculate cumulative sum with the help of these. And can calculate r
 https://stackoverflow.com/questions/27875691/need-a-clear-explanation-of-range-updates-and-range-queries-binary-indexed-tree/27877427#27877427 
 ```
 
-**2D Binary Indexed Tree**
+# 2D Binary Indexed Tree
+
 ```cmd
  (1, 1) -> (1, 1)(1, 2)(2, 1)(2, 2)
  (2, 1) -> (2, 1)(2, 2)

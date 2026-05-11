@@ -1,4 +1,5 @@
-**Manhattan distance**
+# Manhattan distance
+
 ```cmd
 =dist(P1,P2)
 =|X1-X2|+|Y1-Y2|
@@ -13,10 +14,12 @@ f3(P)=-X+Y
 f4(P)=-X-Y
 
 ```
-We append a 0 to to the binary representation fo i to obtain the index of the left child and a 1 to obtain the index of 
+
+We append a 0 to to the binary representation fo i to obtain the index of the left child and a 1 to obtain the index of
 the right child.
 
 **Structure Property**
+
 1. A binary gfg.heap is a complete binary tree
     * Each level(except possibly the bottom most level) is completely filled.
     * The bottom most level may be partially filled(from left to right)
@@ -24,8 +27,8 @@ the right child.
 
 **Heap-Order Property** -> For every node X, key(parent(X))<= key(X) except root node, which has no parent(for MinHeap)
 
-**Build Heap Analysis**
---------------------
+## Build Heap Analysis
+
 ```cmd
 sum(height of all nodes)
 [sum i=0-h]{(h-i)2^i} -> height  no of nodes with that height.
@@ -48,22 +51,29 @@ h2^(h+1) - h -h2^(h+1) + 2^(h+1) +2
 O(N)
 ```
 
+# Binomial Tree
 
-**Binomial Tree** -> A binomial tree of height of k is called Bk
+A binomial tree of height of k is called Bk
+
 1. It has 2^k nodes
 2. The number of nodes at depth d = kCd
 
-To check for n number of nodes what will be the binomial forest use the binary representation ex - 31 = 1 1 1 1 1 , it 
+To check for n number of nodes what will be the binomial forest use the binary representation ex - 31 = 1 1 1 1 1 , it
 would be forest of B0, B1, B2, B3 and B4
 
 Bi==B(i-1) + B(i-1)
 
-**Binomial Heap**
+# Binomial Heap
 
-**Structure Property** -> A forest of binomial trees as dictated by the binary representation of n.
+## Structure Property
 
-**Heap-Order Property** -> Each binomial tree is a min-gfg.heap or a max-gfg.heap.
+A forest of binomial trees as dictated by the binary representation of n.
 
+## Heap-Order Property
+
+Each binomial tree is a min-heap or a max-heap.
+
+---
 We add at the last index and replace the root with last index (during extractMin) to maintain the compact array, i.e,
 a complete binary tree.
 

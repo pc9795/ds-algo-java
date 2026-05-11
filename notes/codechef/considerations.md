@@ -26,11 +26,11 @@ only.
 
 Bubble sort no of swaps - inversion count
 
-**Probability**
+# Probability
 
 * We can calculate the chances of two or more independent events by multiplying the chances
 
-**WA**
+# WA
 
 * wrong answer 1st lines differ - expected: 'abc', found: '' means your answer is wrong; it is nothing to do with new
   line and all.[codeforces]
@@ -38,12 +38,13 @@ Bubble sort no of swaps - inversion count
 * use `long` in place of `int`.
 * ans*=something%mod -> wa ; ans=ans*something%mod -> correct answer
 
-**Manhattan distance**
+# Manhattan distance
 
 * `d1(p,q)=sum(pi-qi) 1<=i<=n`
 
-**Degenerate triangle** -> A-----B-----C
+---
 
+* Degenerate triangle -> A-----B-----C
 * Range of value <=1000 (max 9 bits) => max value of XOR = 1023
 * `Integer.toBinaryString(<byte_value> & 0xFF)` -> binary representation of byte value
 * Pairwise distinct -> all are unique.
