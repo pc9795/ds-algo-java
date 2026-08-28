@@ -2,26 +2,21 @@
 
 ## Coding
 
-* Basics - Cracking the coding interview
-    * 150 questions - 5/day - 30 days
-* Basics - Elements of programming interviews
-    * 300 questions - 5/day - 60 days
-* Neetcode150
-    * 150 questions - 5/day - 30 days
-* Striver's SDE sheet
-    * ~120 questions - 5/day - 24 days
-* Medium + Java
-    * 2 questions/day
-
-Initial prep - 5 months
+* Cracking the coding interview
+* Elements of programming interviews
+* [Neetcode150](https://leetcode.com/problem-list/plakya4j/)
+* [Striver's SDE sheet](https://leetcode.com/problem-list/eeudwo2i/)
+* Leet code - 2 medium + 2 easy
+  * 20 minutes
+  * 2 medium for problem-solving
+  * 2 easy for speed and concept coverage
 
 ## Design
 
-* Designing data intensive applications - review
-* System design interview - volume 1 - review
-* System design interview - volume 2 - review
-* Pramp
-    * 1/week
+* Designing data intensive applications
+* System design interview - volume 1
+* System design interview - volume 2
+* [Pramp](https://www.pramp.com/#/)
 
 ## Workflow
 
@@ -32,30 +27,16 @@ Initial prep - 5 months
     * 7 mins
         * Think brute force out loud
             * If you stay silent for >45 seconds, it signals a communication gap
-        * Find bigO for both space and time complexity of brute force
+        * Find big-O for both space and time complexity of brute force
         * Think an optimized version
     * 10 mins
         * Coding
-* If not able to understand the approach in 20 minutes
-    * Look at tags and try another 10 minutes
-    * Look at hints and try another 10 minutes
+* If ABLE to code the solution (all test cases DO PASS), but it took more than 20 mins then record in mistake journal
+* If NOT ABLE to understand the approach in 20 mins or initial approach failed (all test cases NOT PASS)
+    * Look at tags and see if it clicks in 5 mins
+    * Look at hints and see if it clicks in 5 mins
     * Look at solution and code it
     * Record in mistake journal
-        * Problem link
-        * Intuition
-        * Why I got stuck
-            * I had no idea where to even start
-                * Missing foundational pattern knowledge
-                * Go back to basics
-            * I knew the approach, but my code turned into spaghetti
-                * Weak implementation skills
-                * Write pseudo code before
-            * I got the solution, but it took me 60 minutes
-                * Lack of fluency
-                * Practice!
-* Practice
-    * Pramp
-    * Leetcode contests
 
 # Interview scheduled
 

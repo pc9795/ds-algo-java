@@ -1,66 +1,92 @@
-# Learnings
-
-* Size
-    * Int - 2*10^9 and Long - 9*10^18
-* Algorithms
-    * General
-        * Use a map to compare if two strings/numbers can be same after rearranging (set will ignore repetitions)
-        * Permutations - swap (start, i)
-        * Combinations - (mask & 1<<i) != 0
-        * 2^n => 1<<n
-    * Matrix
-        * For in place algorithms we can use the input matrix as a storage cleverly
-    * Graph
-        * Detect cycles via union find
-
 # Algorithms
 
-* Library
+* Linear DS 
     * Searching
-      * ArrayList
-        * Linear - indexOf("val")
-        * Binary - Collections.binarySearch(sortedList, "val");
-      * Sorting
-        * Collections.sort(list);
-* Techniques
-  * Greedy
-  * DP
-  * Backtracking
-  * Divide & Conquer
-  * Bit manipulation
+        * ArrayList
+            * Linear - indexOf("val")
+            * Binary - Collections.binarySearch(sortedList, "val");
+        * Binary search
+          * Rotated sorted arrays
+          * Continuous space
+    * Sorting
+        * ArrayList
+            * Collections.sort(list);
+* Bit manipulation
+* Optimization - find the best
+    * Greedy
+        * Local optimum 
+        * Optimal substructure
+    * Backtracking
+      * Search with pruning and keeping track of the best
+      * Permutations - swap (start, i)
+      * Combinations - (mask & 1<<i) != 0
+    * DP
+        * Overlapping subproblems - recursion tree will have repetition
+        * Optimal substructure
+        * Top-down - recursive function + memoization
+        * Bottom-up - iteration + DP array
+* Divide & Conquer
 * Specific
-  * Two pointers
-  * Quick select - k minimum values with t=n and s=1 
+    * Two pointers
+      * Fixed/variable sliding window
+      * Tortoise hare
+      * Sorted arrays
+    * Quick select - k minimum values with t=n and s=1
 
 
 # Data structures
 
-## Don't need to remember
-
+* Array
+  * Insertion (front/middle/end) - n n 1
+  * Deletion (front/middle/end) - n n 1
+  * Search (by value/by index) - n 1
+* Matrix
+    * For in place algorithms we can use the input matrix as a storage cleverly
 * Linked list
-  * ArrayList - add(val), add(idx, val), remove(idx), remove(val)
-* Stack
-  * ArrayDeque - push(val), pop(), peek()
-* Queue
-  * ArrayDeque - offer(val), poll(), peek()
-* Binary tree
-  * Custom implementation
+    * Insertion (front/middle/end) - 1 n 1
+    * Deletion (front/middle/end) - 1 n 1
+    * Search (by value/by index) - n X
+    * ArrayList - add(val), add(idx, val), remove(idx), remove(val)
+    * Fixed ordering
+      * Stack
+        * ArrayDeque - push(val), pop(), peek()
+        * Monotonic stack
+      * Queue
+        * ArrayDeque - offer(val), poll(), peek()
+        * Monotonic queue - #239
 * Hashing
-  * HashMap
-* Graph
-  * Custom implementation
-
-## Need to remember
-
+    * HashMap
 * BST
-  * TreeMap - floorKey(), ceilingKey(), lowerKey(), higherKey()
-  * TreeSet - for unique BST
+    * Insertion/Deletion/Search - ln ln ln
+    * TreeMap - floorKey(val), ceilingKey(val), lowerKey(val), higherKey(val), firstKey(), lastKey()
+    * TreeSet - for unique BST
+* Graph
+    * Cycle detection
+      * Undirected - Union find
+      * Directed - Topological sort
+    * Shortest path 
+      * Non-negative edge weight
+        * Undirected & Directed - Dijkstra
+    * Topological sort
+* Specific
+  * Union find
+    * O(1) if implemented by rank and path compression
+  * Heap
+    * PriorityQueue - add(val), poll(), peek()
+
+  * Prefix tree
+  * Segment tree
 * Segment tree
-  * Custom implementation
 * Union find
-  * Custom implementation
 * Heap
-  * PriorityQueue - add(val), poll(), peek()
+    * PriorityQueue - add(val), poll(), peek()
+
+# Catchall
+
+* Int - 2*10^9 and Long - 9*10^18
+* 2^n => 1<<n
+* Character
+  * isLetterOrDigit, toLowerCase
 
 # Explanations where editorial was not straightforward
 
